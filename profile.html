@@ -1,0 +1,3782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizlet</title>
+     <style>
+        /* Cosmic Design System */
+        :root {
+            --cosmic-primary: linear-gradient(90deg, #00d8ff, #008cff);
+            --cosmic-primary-reverse: linear-gradient(90deg, #008cff, #00d8ff);
+            --cosmic-light: #00d8ff;
+            --cosmic-dark: #008cff;
+            --cosmic-black: #0a0a12;
+            --cosmic-dark-bg: #12121a;
+            --cosmic-card: #1a1a24;
+            --cosmic-text: #f0f4ff;
+            --cosmic-text-dim: #b0b8cc;
+            --cosmic-success: #4cffb0;
+            --cosmic-error: #ff4c6a;
+            --transition-snap: cubic-bezier(0.8, 0, 0.2, 1);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+        }
+
+        /* Cosmic Animations */
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes cosmicFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes cosmicGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes cosmicFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cosmicRipple {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        @keyframes cosmicSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes cosmicConfetti {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--cosmic-black);
+            color: var(--cosmic-text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cosmic Header */
+        .cosmic-header {
+            background: var(--cosmic-primary);
+            background-size: 200% 200%;
+            animation: cosmicGradient 8s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cosmic-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 75% 25%, rgba(255,255,255,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cosmic-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #e0f7fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: cosmicFadeIn 1s var(--transition-smooth) both;
+        }
+
+        .cosmic-tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: cosmicFadeIn 1s var(--transition-smooth) 0.2s both;
+        }
+
+        /* Subject Cards - 3D Hover Effect */
+        .cosmic-subjects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 2000px;
+        }
+
+        .cosmic-card {
+            background: var(--cosmic-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.6s var(--transition-snap);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            animation: cosmicFadeIn 0.8s var(--transition-smooth) both;
+        }
+
+        .cosmic-card:nth-child(1) { animation-delay: 0.1s; }
+        .cosmic-card:nth-child(2) { animation-delay: 0.2s; }
+
+        .cosmic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cosmic-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--transition-snap);
+        }
+
+        .cosmic-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+            box-shadow: 0 20px 50px rgba(0, 140, 255, 0.3);
+        }
+
+        .cosmic-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cosmic-card-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .cosmic-card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--cosmic-primary);
+            transition: all 0.6s var(--transition-snap);
+        }
+
+        .cosmic-card:hover .cosmic-card-title::after {
+            width: 100px;
+        }
+
+        .cosmic-card-desc {
+            color: var(--cosmic-text-dim);
+            transition: color 0.4s var(--transition-smooth);
+        }
+
+        .cosmic-card:hover .cosmic-card-desc {
+            color: var(--cosmic-text);
+        }
+
+        /* Modal - Floating Glass Effect */
+        .cosmic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s var(--transition-smooth);
+        }
+
+        .cosmic-modal.show {
+            display: flex;
+            animation: cosmicFadeIn 0.6s var(--transition-smooth) forwards;
+        }
+
+        .cosmic-modal-content {
+            background: rgba(26, 26, 36, 0.8);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.6s var(--transition-smooth);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+        }
+
+        .cosmic-modal.show .cosmic-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .cosmic-modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cosmic-modal-subtitle {
+            color: var(--cosmic-text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .cosmic-close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 216, 255, 0.1);
+            color: var(--cosmic-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .cosmic-close-btn:hover {
+            background: rgba(0, 216, 255, 0.2);
+            transform: rotate(90deg);
+            color: var(--cosmic-light);
+        }
+
+        /* Quiz Options - Ripple Effect */
+        .cosmic-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cosmic-option {
+            background: rgba(0, 216, 255, 0.05);
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            color: var(--cosmic-text);
+        }
+
+        .cosmic-option:hover {
+            background: rgba(0, 216, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 216, 255, 0.1);
+            border-color: rgba(0, 216, 255, 0.4);
+        }
+
+        .cosmic-option:active {
+            transform: translateY(-2px);
+        }
+
+        .cosmic-option::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+
+        .cosmic-option:focus:not(:active)::after {
+            animation: cosmicRipple 0.6s var(--transition-smooth);
+        }
+
+        .cosmic-full-option {
+            grid-column: 1 / -1;
+            background: var(--cosmic-primary);
+            color: white;
+            font-weight: 600;
+            padding: 1.8rem;
+            animation: cosmicPulse 3s infinite;
+        }
+
+        .cosmic-full-option:hover {
+            animation: none;
+            background: var(--cosmic-primary-reverse);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 140, 255, 0.3);
+        }
+
+        /* Quiz Screen - Immersive Experience */
+        .cosmic-quiz-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cosmic-dark-bg);
+            z-index: 1001;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.6s var(--transition-smooth);
+        }
+
+        .cosmic-quiz-screen.show {
+            display: block;
+            animation: cosmicFadeIn 0.6s var(--transition-smooth) forwards;
+        }
+
+        .cosmic-quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--cosmic-card);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+        }
+
+        .cosmic-quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cosmic-timer {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: cosmicPulse 2s infinite;
+        }
+
+        .cosmic-question-container {
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: cosmicFadeIn 0.8s var(--transition-smooth);
+        }
+
+        .cosmic-question {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            color: var(--cosmic-text);
+            background: rgba(0, 216, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--cosmic-light);
+        }
+
+        .cosmic-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cosmic-option-item {
+            padding: 1.3rem 1.5rem;
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+            background: rgba(0, 216, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+            animation: cosmicFadeIn 0.6s var(--transition-smooth) both;
+        }
+
+        .cosmic-option-item:nth-child(1) { animation-delay: 0.1s; }
+        .cosmic-option-item:nth-child(2) { animation-delay: 0.2s; }
+        .cosmic-option-item:nth-child(3) { animation-delay: 0.3s; }
+        .cosmic-option-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .cosmic-option-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--cosmic-light);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.4s var(--transition-smooth);
+        }
+
+        .cosmic-option-item:hover {
+            background: rgba(0, 216, 255, 0.1);
+            border-color: rgba(0, 216, 255, 0.3);
+            transform: translateX(10px);
+        }
+
+        .cosmic-option-item.selected {
+            background: rgba(0, 216, 255, 0.15);
+            border-color: var(--cosmic-light);
+            transform: translateX(10px);
+        }
+
+        .cosmic-option-item.selected::before {
+            transform: scaleY(1);
+        }
+
+        .cosmic-option-item.correct {
+            background: rgba(76, 255, 176, 0.1);
+            border-color: var(--cosmic-success);
+        }
+
+        .cosmic-option-item.correct::before {
+            background: var(--cosmic-success);
+        }
+
+        .cosmic-option-item.incorrect {
+            background: rgba(255, 76, 106, 0.1);
+            border-color: var(--cosmic-error);
+        }
+
+        .cosmic-option-item.incorrect::before {
+            background: var(--cosmic-error);
+        }
+
+        .cosmic-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(0, 216, 255, 0.1);
+        }
+
+        .cosmic-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.4s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            font-size: 1rem;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cosmic-btn-primary {
+            background: var(--cosmic-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 140, 255, 0.3);
+        }
+
+        .cosmic-btn-primary:hover {
+            background: var(--cosmic-primary-reverse);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 140, 255, 0.4);
+        }
+
+        .cosmic-btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .cosmic-btn-secondary {
+            background: rgba(0, 216, 255, 0.1);
+            color: var(--cosmic-light);
+            border: 1px solid rgba(0, 216, 255, 0.3);
+        }
+
+        .cosmic-btn-secondary:hover {
+            background: rgba(0, 216, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 216, 255, 0.2);
+        }
+
+        .cosmic-btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        .cosmic-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Results Screen - Celebration Effect */
+        .cosmic-results-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cosmic-dark-bg);
+            z-index: 1002;
+            overflow-y: auto;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s var(--transition-smooth);
+        }
+
+        .cosmic-results-screen.show {
+            display: block;
+            animation: cosmicFadeIn 0.6s var(--transition-smooth) forwards;
+        }
+
+        .cosmic-results-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--cosmic-card);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: cosmicFloat 6s ease-in-out infinite;
+        }
+
+        .cosmic-results-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 216, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cosmic-results-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cosmic-score {
+            font-size: 3rem;
+            margin: 1.5rem 0;
+            font-weight: 800;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .cosmic-score::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--cosmic-primary);
+            border-radius: 2px;
+        }
+
+        .cosmic-review {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .cosmic-review-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--cosmic-text);
+            border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+            padding-bottom: 0.8rem;
+        }
+
+        .cosmic-answer-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 216, 255, 0.05);
+            animation: cosmicFadeIn 0.6s var(--transition-smooth) both;
+        }
+
+        .cosmic-answer-item:nth-child(1) { animation-delay: 0.2s; }
+        .cosmic-answer-item:nth-child(2) { animation-delay: 0.3s; }
+        .cosmic-answer-item:nth-child(3) { animation-delay: 0.4s; }
+        .cosmic-answer-item:nth-child(4) { animation-delay: 0.5s; }
+
+        .cosmic-answer-item p {
+            margin-bottom: 0.5rem;
+            color: var(--cosmic-text);
+        }
+
+        .cosmic-answer-item p strong {
+            color: var(--cosmic-text);
+            font-weight: 600;
+        }
+
+        .cosmic-correct {
+            color: var(--cosmic-success);
+        }
+
+        .cosmic-incorrect {
+            color: var(--cosmic-error);
+        }
+
+        /* Confetti Effect */
+        .cosmic-confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--cosmic-light);
+            opacity: 0;
+            animation: cosmicConfetti 4s linear forwards;
+            z-index: 1;
+        }
+
+        /* Loading Spinner */
+        .cosmic-spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 216, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--cosmic-light);
+            animation: cosmicSpin 1s linear infinite;
+            z-index: 1003;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cosmic-title {
+                font-size: 2.5rem;
+            }
+            
+            .cosmic-tagline {
+                font-size: 1.2rem;
+            }
+            
+            .cosmic-card {
+                padding: 2rem;
+            }
+            
+            .cosmic-modal-content {
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+            
+            .cosmic-options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cosmic-question-container {
+                padding: 2rem 1rem;
+            }
+            
+            .cosmic-question {
+                font-size: 1.3rem;
+                padding: 1.2rem;
+            }
+            
+            .cosmic-results-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cosmic-title {
+                font-size: 2rem;
+            }
+            
+            .cosmic-header {
+                padding: 3rem 1rem;
+            }
+            
+            .cosmic-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cosmic-btn {
+                width: 100%;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 216, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--cosmic-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cosmic-primary-reverse);
+        }
+        :root {
+            --primary-gradient: linear-gradient(90deg, #00d8ff, #008cff);
+            --primary-gradient-reverse: linear-gradient(90deg, #008cff, #00d8ff);
+            --primary-light: #00d8ff;
+            --primary-dark: #008cff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --cosmic-text: rgba(255, 255, 255, 0.9);
+            --cosmic-glow: 0 0 10px rgba(0, 216, 255, 0.7);
+            
+            /* Enhanced timing functions */
+            --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --ease-power4: cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--cosmic-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 140, 255, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(0, 216, 255, 0.15) 0%, transparent 25%);
+        }
+        
+        .cosmic-title {
+            font-size: 7rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--cosmic-glow);
+            position: relative;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            animation: 
+                cosmicFloat 8s var(--ease-bounce) infinite alternate,
+                cosmicPulse 4s ease-in-out infinite alternate,
+                fadeIn 1.5s var(--ease-power4) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .cosmic-title::before,
+        .cosmic-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50vw;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: right;
+            z-index: -1;
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+        
+        .cosmic-title::before {
+            left: 0;
+            animation: cosmicLineExpand 1.5s var(--ease-power4) 0.5s forwards;
+        }
+        
+        .cosmic-title::after {
+            right: 0;
+            animation: cosmicLineExpand 1.5s var(--ease-power4) 0.7s forwards;
+        }
+        
+        .cosmic-tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cosmic-text);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: 
+                fadeIn 1s var(--ease-power4) 0.8s forwards,
+                subtleGlow 4s ease-in-out infinite alternate;
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .cosmic-tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 30%;
+            height: 2px;
+            background: var(--primary-gradient);
+            animation: cosmicLineExpand 1s var(--ease-power4) 1.2s forwards;
+        }
+        
+        /* Cosmic Animations */
+        @keyframes cosmicFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes cosmicPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px rgba(0, 216, 255, 0.7),
+                    0 0 20px rgba(0, 140, 255, 0.4);
+            }
+            50% {
+                text-shadow: 
+                    0 0 20px rgba(0, 216, 255, 0.9),
+                    0 0 40px rgba(0, 140, 255, 0.6);
+            }
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                text-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 12px rgba(0, 216, 255, 0.5);
+            }
+        }
+        
+        @keyframes cosmicLineExpand {
+            to {
+                transform: scaleX(1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Cosmic particles background */
+        .cosmic-particle {
+            position: absolute;
+            background: var(--primary-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            animation: cosmicDrift linear infinite;
+        }
+        
+        @keyframes cosmicDrift {
+            to {
+                transform: translate(var(--tx), var(--ty));
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .cosmic-title {
+                font-size: 4rem;
+                padding: 0 1rem;
+            }
+            
+            .cosmic-tagline {
+                font-size: 1rem;
+                letter-spacing: 0.1em;
+            }
+        }
+        .cosmic-quiz-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cosmic-btn-danger {
+    background: rgba(255, 76, 106, 0.1);
+    color: var(--cosmic-error);
+    border: 1px solid rgba(255, 76, 106, 0.3);
+    padding: 0.8rem 1.5rem;
+}
+
+.cosmic-btn-danger:hover {
+    background: rgba(255, 76, 106, 0.2);
+    color: var(--cosmic-error);
+}
+
+.cosmic-icon {
+    margin-right: 0.5rem;
+}
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="cosmic-spinner" id="cosmic-spinner"></div>
+    
+    <!-- Header -->
+   
+        <h1 class="cosmic-title" style="font-size: 7rem;">Quizlet</h1>
+        <p class="cosmic-tagline">Test your expertise with our immersive quiz platform</p>
+    
+    
+    <!-- Main Content -->
+    <main class="cosmic-subjects">
+        <div class="cosmic-card" onclick="openSubjectModal('forest')">
+            <h2 class="cosmic-card-title">Forest Management</h2>
+            <p class="cosmic-card-desc">
+                Master the principles of sustainable forestry, timber harvesting techniques, and conservation strategies through our comprehensive quizzes.
+            </p>
+        </div>
+        
+        <div class="cosmic-card" onclick="openSubjectModal('wildlife')">
+            <h2 class="cosmic-card-title">Wildlife Ecology</h2>
+            <p class="cosmic-card-desc">
+                Explore wildlife habitats, population dynamics, and conservation biology with our interactive learning experience.
+            </p>
+        </div>
+    </main>
+    
+    <!-- Forest Management Quiz Modal -->
+    <div id="forest-modal" class="cosmic-modal">
+        <div class="cosmic-modal-content">
+            <span class="cosmic-close-btn" onclick="closeModal('forest-modal')">&times;</span>
+            <h2 class="cosmic-modal-title">Forest Management Quizzes</h2>
+            <p class="cosmic-modal-subtitle">Select a weekly quiz or take the full course challenge:</p>
+            
+            <div class="cosmic-options-grid">
+                <div class="cosmic-option" onclick="startQuiz('forest', 1)">Week 1: Introduction to Forests</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 2)">Week 2: Forest Ecology</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 3)">Week 3: Soils and Weathering</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 4)">Week 4: Forest Measurements</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 5)">Week 5: Remote Sensing</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 6)">Week 6: Fire Management</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 7)">Week 7: Forest Regeneration</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 8)">Week 8: Silvicultural Systems</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 9)">Week 9: Timber Harvesting</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 10)">Week 10: Seed Technology</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 11)">Week 11: Conservation Strategies</div>
+                <div class="cosmic-option" onclick="startQuiz('forest', 12)">Week 12: Comprehensive Review</div>
+                <div class="cosmic-option cosmic-full-option" onclick="startQuiz('forest', 'full')">Full Course Challenge (All 12 Weeks)</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Wildlife Ecology Quiz Modal -->
+    <div id="wildlife-modal" class="cosmic-modal">
+        <div class="cosmic-modal-content">
+            <span class="cosmic-close-btn" onclick="closeModal('wildlife-modal')">&times;</span>
+            <h2 class="cosmic-modal-title">Wildlife Ecology Quizzes</h2>
+            <p class="cosmic-modal-subtitle">Select a weekly quiz or take the full course challenge:</p>
+            
+            <div class="cosmic-options-grid">
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 1)">Week 1: Introduction to Wildlife</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 2)">Week 2: Animal Behavior</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 3)">Week 3: Habitat Ecology</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 4)">Week 4: Population Dynamics</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 5)">Week 5: Conservation Biology</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 6)">Week 6: Wildlife Management</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 7)">Week 7: Endangered Species</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 8)">Week 8: Human-Wildlife Conflict</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 9)">Week 9: Wildlife Laws</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 10)">Week 10: Field Techniques</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 11)">Week 11: Ecosystem Services</div>
+                <div class="cosmic-option" onclick="startQuiz('wildlife', 12)">Week 12: Comprehensive Review</div>
+                <div class="cosmic-option cosmic-full-option" onclick="startQuiz('wildlife', 'full')">Full Course Challenge (All 12 Weeks)</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="cosmic-quiz-screen">
+        <div class="cosmic-quiz-header">
+            <div class="cosmic-quiz-title">Forest Management - Week 1</div>
+            <div class="cosmic-timer">Time remaining: 15:00</div>
+            <button class="cosmic-btn cosmic-btn-danger" onclick="abortQuiz()">
+            <i class="cosmic-icon">✕</i> Abort Quiz
+        </button>
+        </div>
+        
+        <div class="cosmic-question-container">
+            <div class="cosmic-question">1. Tropical moist forests do not include:</div>
+            <div class="cosmic-options">
+                <div class="cosmic-option-item" onclick="selectOption(this)">a. broadleaved forests</div>
+                <div class="cosmic-option-item" onclick="selectOption(this)">b. wet evergreen forests</div>
+                <div class="cosmic-option-item" onclick="selectOption(this)">c. semi-evergreen forests</div>
+                <div class="cosmic-option-item" onclick="selectOption(this)">d. moist deciduous forests</div>
+            </div>
+            
+            <div class="cosmic-navigation">
+                <button class="cosmic-btn cosmic-btn-secondary" onclick="prevQuestion()">Previous</button>
+                <button class="cosmic-btn cosmic-btn-primary" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Screen -->
+    <div id="results-screen" class="cosmic-results-screen">
+        <div class="cosmic-results-container">
+            <h2 class="cosmic-results-title">Quiz Results</h2>
+            <div class="cosmic-score">You scored 8/10 (80%)</div>
+            
+            <div class="cosmic-review">
+                <h3 class="cosmic-review-title">Review your answers:</h3>
+                
+                <div class="cosmic-answer-item cosmic-correct">
+                    <p><strong>Question 1:</strong> Tropical moist forests do not include</p>
+                    <p>Your answer: a. broadleaved forests (Correct)</p>
+                    <p>Explanation: Broadleaved forests are not a category of tropical moist forests.</p>
+                </div>
+                
+                <div class="cosmic-answer-item cosmic-incorrect">
+                    <p><strong>Question 2:</strong> Which of these is not a use value?</p>
+                    <p>Your answer: b. indirect value (Incorrect)</p>
+                    <p>Correct answer: d. existence value</p>
+                    <p>Explanation: Existence value is a non-use value, not a use value.</p>
+                </div>
+            </div>
+            
+            <button class="cosmic-btn cosmic-btn-primary" onclick="closeResults()">Return to Home</button>
+        </div>
+    </div>
+    
+    <script>
+        // Sample quiz data (you would replace this with your actual data)
+        const forestQuizzes = {
+  "week1": {
+    "title": "Week 1: Introduction to Forests",
+    "questions": [
+      {
+        "question": "Tropical moist forests do not include",
+        "options": [
+          "a. broadleaved forests",
+          "b. wet evergreen forests",
+          "c. semi-evergreen forests",
+          "d. moist deciduous forests"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which of these is not a use value?",
+        "options": [
+          "a. direct value",
+          "b. indirect value",
+          "c. option value",
+          "d. existence value"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "The value derived from the knowledge of use of resources by others in the current generation is called",
+        "options": [
+          "a. altruistic value",
+          "b. bequest value",
+          "c. existence value",
+          "d. option value"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Montane sub-tropical forests do not include",
+        "options": [
+          "a. broadleaved forests",
+          "b. pine forests",
+          "c. semi-evergreen forests",
+          "d. dry evergreen forests"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "“Plant community, predominantly comprised of trees and other woody vegetation, usually with a closed canopy” is",
+        "options": [
+          "a. silvicultural definition of forests",
+          "b. FAO definition of forests",
+          "c. legal definition of forests",
+          "d. ecological definition of forests"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Which of these is not a consumptive value?",
+        "options": [
+          "a. timber",
+          "b. firewood",
+          "c. non-timber forest products",
+          "d. education"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "The term 'forest' originates from",
+        "options": [
+          "a. Latin foris meaning outside",
+          "b. Greek foris meaning outside",
+          "c. Latin foris meaning trees",
+          "d. Greek foris meaning trees"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "The value of leaving use and non-use values for offspring’s or future generations is called",
+        "options": [
+          "a. altruistic value",
+          "b. bequest value",
+          "c. existence value",
+          "d. option value"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these is not a forest type found in India?",
+        "options": [
+          "a. Mediterranean dry",
+          "b. Tropical dry",
+          "c. Montane temperate",
+          "d. Alpine"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "According to the Supreme Court, the term forest land includes",
+        "options": [
+          "a. some area recorded as forest in the Government record according to ownership",
+          "b. any area recorded as forest in the Government record according to ownership",
+          "c. some area recorded as forest in the Government record irrespective of ownership",
+          "d. any area recorded as forest in the Government record irrespective of ownership"
+        ],
+        "correctAnswer": 3
+      }
+    ]
+  },
+  "week2": {
+    "title": "Week 2: Forest Ecology",
+    "questions": [
+      {
+        "question": "In the context of plant nutrition, boron is",
+        "options": [
+          "a. macronutrient",
+          "b. micronutrient",
+          "c. primary nutrient",
+          "d. secondary nutrient"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "The art and science of cultivating forest crops is called",
+        "options": [
+          "a. foresticulture",
+          "b. monoculture",
+          "c. silviculture",
+          "d. silvics"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "The climax near Tindri village is being controlled by disturbance by cattle. This is an example of",
+        "options": [
+          "a. climatic climax",
+          "b. edaphic climax",
+          "c. disclimax",
+          "d. catastrophic climax"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is not a characteristic of pioneer species",
+        "options": [
+          "a. ability to grow on bare rocks",
+          "b. ability to tolerate extreme temperatures",
+          "c. large size",
+          "d. short life span"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these depicts correctly the lithosere primary succession?",
+        "options": [
+          "a. Rock → Crustose lichen → Foliose lichen → Moss → Herbaceous stage → Shrub → Woodland → Climax",
+          "b. Rock → Foliose lichen → Crustose lichen → Moss → Herbaceous stage → Shrub → Woodland → Climax",
+          "c. Moss → Crustose lichen → Foliose lichen → Rock → Herbaceous stage → Shrub → Woodland → Climax",
+          "d. Rock → Crustose lichen → Foliose lichen → Shrub → Herbaceous stage → Moss → Woodland → Climax"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "The study of life history / general features of forest crops with respect to environmental factors is called",
+        "options": [
+          "a. foresticulture",
+          "b. monoculture",
+          "c. silviculture",
+          "d. silvics"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Net primary productivity is given by",
+        "options": [
+          "a. APAR + LUE",
+          "b. APAR X LUE",
+          "c. APAR - LUE",
+          "d. APAR ÷ LUE"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "A climax caused by wildfires is an example of",
+        "options": [
+          "a. climatic climax",
+          "b. edaphic climax",
+          "c. disclimax",
+          "d. catastrophic climax"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Practical application of scientific, technical and economic principles of forestry comes under which branch of forestry?",
+        "options": [
+          "a. forest management",
+          "b. forest economics",
+          "c. forest mensuration",
+          "d. forest protection"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which of these is abiotic factor?",
+        "options": [
+          "a. vines",
+          "b. trees",
+          "c. reptiles",
+          "d. water"
+        ],
+        "correctAnswer": 3
+      }
+    ]
+  },
+  "week3": {
+    "title": "Week 3: Soils and Weathering",
+    "questions": [
+      {
+        "question": "Regur is a term for",
+        "options": [
+          "a. black cotton soil",
+          "b. alluvial soil",
+          "c. saline soil",
+          "d. red and yellow soil"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Carbonation is an example of",
+        "options": [
+          "a. chemical weathering",
+          "b. physical weathering",
+          "c. biological weathering",
+          "d. none of the above"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Bangar is a type of",
+        "options": [
+          "a. black cotton soil",
+          "b. alluvial soil",
+          "c. saline soil",
+          "d. red and yellow soil"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Cryofracturing is an example of",
+        "options": [
+          "a. chemical weathering",
+          "b. physical weathering",
+          "c. biological weathering",
+          "d. none of the above"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "In soil profile, C refers to",
+        "options": [
+          "a. organic surface layer",
+          "b. topsoil layer",
+          "c. subsoil layer",
+          "d. substratum layer"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Vertical arrangement of soil horizons is called",
+        "options": [
+          "a. soil texture",
+          "b. soil structure",
+          "c. soil profile",
+          "d. soil science"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Thermal stresses lead to",
+        "options": [
+          "a. chemical weathering",
+          "b. physical weathering",
+          "c. biological weathering",
+          "d. none of the above"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Khadar is a type of",
+        "options": [
+          "a. black cotton soil",
+          "b. alluvial soil",
+          "c. saline soil",
+          "d. red and yellow soil"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Hydrolysis is an example of",
+        "options": [
+          "a. chemical weathering",
+          "b. physical weathering",
+          "c. biological weathering",
+          "d. none of the above"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which of these has the highest organic matter content?",
+        "options": [
+          "a. peaty soil",
+          "b. alluvial soil",
+          "c. saline soil",
+          "d. red and yellow soil"
+        ],
+        "correctAnswer": 0
+      }
+    ]
+  },
+  "week4": {
+    "title": "Week 4: Forest Measurements",
+    "questions": [
+      {
+        "question": "Measurement of height based on similar triangles comes under:",
+        "options": [
+          "a. similar measurement",
+          "b. dissimilar measurement",
+          "c. direct measurement",
+          "d. indirect measurement"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "For normal form factor, the reference for the base of the cylinder is",
+        "options": [
+          "a. base of the tree",
+          "b. breast height",
+          "c. 10% of tree height",
+          "d. 20% of tree height"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "In a triangle, the angle between base and hypotenuse, θ = 60° and the hypotenuse c = 2 cm. Find the length of the base b.",
+        "options": ["a. 0.33", "b. 0.5", "c. 0.75", "d. 1"],
+        "correctAnswer": 3
+      },
+      {
+        "question": "3 trees are located in a sample plot of 15 m × 15 m. Their dbh are as under: dbh = 25 cm, 30 cm, 35 cm. Find the stand basal area in sq m per Ha.",
+        "options": ["a. 9.6", "b. 14.6", "c. 21.6", "d. 27.6"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Consider a stand of eucalyptus trees that are on average 30 cm in diameter and spaced on a regular 3 m grid. Find the spacing factor.",
+        "options": ["a. 5", "b. 10", "c. 15", "d. data insufficient"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "For a tree with dbh = 45.6 cm, height = 27 m and total stem volume of 1.78 cum, the artificial form factor for the tree is:",
+        "options": ["a. 0.1", "b. 0.2", "c. 0.3", "d. 0.4"],
+        "correctAnswer": 3
+      },
+      {
+        "question": "For absolute form factor, the reference for the base of the cylinder is",
+        "options": [
+          "a. base of the tree",
+          "b. breast height",
+          "c. 10% of tree height",
+          "d. 20% of tree height"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Diameter over bark (dob), diameter under bark (dub) and bark thickness (tb) are related as:",
+        "options": [
+          "a. dob = dub + tb",
+          "b. dob = dub - tb",
+          "c. dob = dub + 2 × tb",
+          "d. dob = dub - 2 × tb"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Choose the correct statement:",
+        "options": [
+          "a. For a non-circular cross-section, girth tape over-estimates the sectional area.",
+          "b. For a non-circular cross-section, girth tape under-estimates the sectional area.",
+          "c. For a non-circular cross-section, girth tape correctly estimates the sectional area.",
+          "d. None of these is a correct statement."
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "A tree has dbh of 25 cm. Find its basal area in sq m.",
+        "options": ["a. .049", "b. .096", "c. .149", "d. .195"],
+        "correctAnswer": 0
+      }
+    ]
+  },
+  "week5": {
+    "title": "Week 5: Remote Sensing and Surveying",
+    "questions": [
+      {
+        "question": "The frequency of flyovers is an indicator of",
+        "options": [
+          "a. spatial resolution",
+          "b. temporal resolution",
+          "c. spectral resolution",
+          "d. radiometric resolution"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "___ is how close the measured values are to the correct value.",
+        "options": ["a. Accuracy", "b. Precision", "c. Bias", "d. Variance"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "“This sampling employs a simple rule of selecting every kth unit starting with a number chosen at random from 1 to k as the random start.” We're talking about",
+        "options": [
+          "a. Simple random sampling",
+          "b. Systematic sampling",
+          "c. Stratified sampling",
+          "d. Multistage sampling"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "A list of sampling units is called a",
+        "options": ["a. frame", "b. window", "c. sample", "d. population"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which of these is correct?",
+        "options": [
+          "a. Plane surveying takes into account the true shape of the Earth and is used for smaller areas (< 250 sq km)",
+          "b. Plane surveying takes into account the true shape of the Earth and is used for larger areas (> 250 sq km)",
+          "c. Geodetic surveying takes into account the true shape of the Earth and is used for smaller areas (< 250 sq km)",
+          "d. Geodetic surveying takes into account the true shape of the Earth and is used for larger areas (> 250 sq km)"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "A sampling procedure such that each possible combination of sampling units out of the population has the same chance of being selected is referred to as",
+        "options": [
+          "a. Simple random sampling",
+          "b. Systematic sampling",
+          "c. Stratified sampling",
+          "d. Multistage sampling"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Bathymetric LiDAR uses",
+        "options": [
+          "a. far infrared light",
+          "b. near infrared light",
+          "c. orange light",
+          "d. green light"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "IMU stands for",
+        "options": [
+          "a. Imperial metering unit",
+          "b. Inertial metering unit",
+          "c. Imperial measurement unit",
+          "d. Inertial measurement unit"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "___ is how close the measured values are to each other.",
+        "options": ["a. Accuracy", "b. Precision", "c. Bias", "d. Variance"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "The time of flight for LiDAR is 0.00001 sec. Find the distance of the object from the instrument.",
+        "options": ["a. 500 m", "b. 1000 m", "c. 1500 m", "d. 2000 m"],
+        "correctAnswer": 2
+      }
+    ]
+  },
+  "week6": {
+    "title": "Week 6: Wildlife Protection and Fire Management",
+    "questions": [
+      {
+        "question": "A scientist uses a trap to capture a monkey. In the context of Wildlife Protection Act 1972,",
+        "options": [
+          "a. the trap is a weapon and capturing is hunting.",
+          "b. the trap is not a weapon and capturing is hunting.",
+          "c. the trap is a weapon and capturing is not hunting.",
+          "d. the trap is not a weapon and capturing is not hunting."
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "In the formula I = PXAXT, P refers to",
+        "options": [
+          "a. professional pressure",
+          "b. pollution pressure",
+          "c. population pressure",
+          "d. none of the above"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is a deterministic factor?",
+        "options": [
+          "a. environmental variation",
+          "b. forest fire",
+          "c. death rate",
+          "d. diseases"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is a stochastic factor?",
+        "options": [
+          "a. birth rate",
+          "b. death rate",
+          "c. population structure",
+          "d. forest fire"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "In the formula I = PXAXT, T refers to",
+        "options": [
+          "a. transference",
+          "b. time",
+          "c. technology",
+          "d. none of the above"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these forms the fire triangle?",
+        "options": [
+          "a. fire, air, heat",
+          "b. fire, oxygen, wood",
+          "c. fuel, air, wood",
+          "d. fuel, oxygen, heat"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "A veterinarian uses an immobilising gun to capture a deer. In the context of Wildlife Protection Act 1972,",
+        "options": [
+          "a. the immobilising gun is a weapon and capturing is hunting.",
+          "b. the immobilising gun is not a weapon and capturing is hunting.",
+          "c. the immobilising gun is a weapon and capturing is not hunting.",
+          "d. the immobilising gun is not a weapon and capturing is not hunting."
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Invasive climbers increase the probability of which of these fire types?",
+        "options": [
+          "a. ground fire",
+          "b. surface fire",
+          "c. ladder fire",
+          "d. firestorm"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "The acronym HIPPO does not include",
+        "options": [
+          "a. habitat loss",
+          "b. habitat enhancement",
+          "c. over-harvesting",
+          "d. human over-population"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "The acronym HIPPO does not include",
+        "options": [
+          "a. habitat loss",
+          "b. invasive species",
+          "c. pollination",
+          "d. pollution"
+        ],
+        "correctAnswer": 2
+      }
+    ]
+  },
+  "week7": {
+    "title": "Week 7: Forest Regeneration",
+    "questions": [
+      {
+        "question": "A site was clear-cut. Which of these methods of regeneration cannot be used in a short time-frame?",
+        "options": [
+          "a. natural regeneration",
+          "b. artificial regeneration by direct sowing",
+          "c. artificial regeneration by planting seedlings",
+          "d. artificial regeneration by transplanting trees"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Average age at which a tree is considered mature for felling is called as",
+        "options": [
+          "a. crop age",
+          "b. felling age",
+          "c. rotation age",
+          "d. maturity age"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is not a feature of natural regeneration",
+        "options": [
+          "a. low cost",
+          "b. less requirement of heavy machinery and labour",
+          "c. preservation of genetic variability",
+          "d. good control over genetic improvement"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Ring weeding is primarily a feature of",
+        "options": [
+          "a. natural regeneration",
+          "b. assisted natural regeneration",
+          "c. artificial regeneration by direct sowing",
+          "d. artificial regeneration by planting seedlings"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "The movement of seeds away from their place of seed production into a new area is called",
+        "options": [
+          "a. translocation",
+          "b. migration",
+          "c. dispersal",
+          "d. drifting"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is not a feature of natural regeneration",
+        "options": [
+          "a. seed consumption by insects and seed feeders",
+          "b. little control over spacing and stand density",
+          "c. long time needed to regenerate forest",
+          "d. high requirement of heavy machinery and labour"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Which of these is the correct sequence of a silvicultural system?",
+        "options": [
+          "a. Stand tending -> Regeneration -> Harvesting",
+          "b. Harvesting -> Stand tending -> Regeneration",
+          "c. Harvesting -> Regeneration -> Stand tending",
+          "d. Regeneration -> Harvesting -> Stand tending"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Which of these is not advantage of clear felling system",
+        "options": [
+          "a. Simple system, easy and efficient operations",
+          "b. Allows for establishment of a more uniform crop",
+          "c. Increases soil erosion and landslides in hilly areas",
+          "d. Mimics natural processes of fire and large-scale insect attacks"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Tending is done during",
+        "options": [
+          "a. early stage of life",
+          "b. middle stage of life",
+          "c. late stage of life",
+          "d. any stage of life"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Taungya regeneration is",
+        "options": [
+          "a. natural regeneration",
+          "b. artificial regeneration with villagers",
+          "c. artificial regeneration with nomadic tribes",
+          "d. artificial regeneration with hunters and gatherers"
+        ],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "week8": {
+    "title": "Week 8: Silvicultural Systems",
+    "questions": [
+      {
+        "question": "Trees not putting increment are removed during",
+        "options": [
+          "a. preparatory felling",
+          "b. seeding felling",
+          "c. secondary felling",
+          "d. final felling"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "For a crop with rotation age of 120 years, PB-III would have crop age",
+        "options": [
+          "a. 0-30 years",
+          "b. 30-60 years",
+          "c. 60-90 years",
+          "d. 90-120 years"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Close to nature forestry is a feature of",
+        "options": [
+          "a. clear felling system",
+          "b. selection system",
+          "c. uniform shelterwood system",
+          "d. group shelterwood system"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Shelterwood system results in",
+        "options": [
+          "a. even aged stand with natural aesthetics",
+          "b. even aged stand with artificial aesthetics",
+          "c. uneven aged stand with natural aesthetics",
+          "d. uneven aged stand with artificial aesthetics"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Inverse-J shaped number-diameter curves are seen in",
+        "options": [
+          "a. clear felling system",
+          "b. selection system",
+          "c. uniform shelterwood system",
+          "d. group shelterwood system"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Clear felling system is not used for",
+        "options": [
+          "a. light demanding species",
+          "b. shade bearer species",
+          "c. plain areas",
+          "d. plateau areas"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these is the correct sequence for shelterwood system?",
+        "options": [
+          "a. Preparatory felling ->Secondary felling -> Seedling felling -> Final felling",
+          "b. Preparatory felling -> Seedling felling -> Secondary felling -> Final felling",
+          "c. Preparatory felling ->Secondary felling -> Seeding felling -> Final felling",
+          "d. Preparatory felling -> Seeding felling -> Secondary felling -> Final felling"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Felling made with the object of opening the canopy to remove shelter and allow more light for the regenerated crop is",
+        "options": [
+          "a. preparatory felling",
+          "b. seeding felling",
+          "c. secondary felling",
+          "d. final felling"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "In group shelterwood system, the regeneration area is increased",
+        "options": [
+          "a. centrifugally around gaps",
+          "b. centripetally around gaps",
+          "c. parallel to gaps",
+          "d. perpendicular to gaps"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Catchment areas are best suited for",
+        "options": [
+          "a. clear felling system",
+          "b. selection system",
+          "c. uniform shelterwood system",
+          "d. group shelterwood system"
+        ],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "week9": {
+    "title": "Week 9: Timber Harvesting",
+    "questions": [
+      {
+        "question": "Moving of logs from forest to landing area is known as",
+        "options": [
+          "a. marking",
+          "b. bucking",
+          "c. skidding",
+          "d. delimbing"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Research plots are shown in __ marking colour",
+        "options": ["a. yellow", "b. blue", "c. red", "d. white"],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these gives the greatest accuracy in constructing face cuts",
+        "options": [
+          "a. conventional face",
+          "b. humboldt face",
+          "c. open face",
+          "d. all of these"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Careful selection of trees for harvesting based on a forest management prescription is known as",
+        "options": [
+          "a. surveying",
+          "b. cruising",
+          "c. marking",
+          "d. logging"
+        ],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Surveying timberlands to locate and estimate the volumes and grades of standing timber meeting requirements is known as",
+        "options": [
+          "a. surveying",
+          "b. cruising",
+          "c. marking",
+          "d. logging"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Trees on boundary are shown in __ marking colour",
+        "options": ["a. yellow", "b. blue", "c. red", "d. white"],
+        "correctAnswer": 2
+      },
+      {
+        "question": "Cutting of timber into logs is known as",
+        "options": [
+          "a. marking",
+          "b. bucking",
+          "c. skidding",
+          "d. delimbing"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these gives the greatest saving of lumber",
+        "options": [
+          "a. conventional face",
+          "b. humboldt face",
+          "c. open face",
+          "d. all of these"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Trees to be retained are shown in __ marking colour",
+        "options": ["a. yellow", "b. blue", "c. red", "d. white"],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Net growth in initial volume is given by",
+        "options": [
+          "a. V2-V1",
+          "b. V2-V1+H-I",
+          "c. V2-V1+H-I+M",
+          "d. V2-V1+H-I-M"
+        ],
+        "correctAnswer": 1
+      }
+    ]
+  },
+  "week10": {
+    "title": "Week 10: Seed Technology and Plantation",
+    "questions": [
+      {
+        "question": "Shell cracking of seeds is used for which species",
+        "options": ["a. amla", "b. mango", "c. ber", "d. teak"],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Wet and dry treatment of seeds is used for which species",
+        "options": ["a. amla", "b. mango", "c. ber", "d. teak"],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Agave is used for",
+        "options": [
+          "a. barbed wire fencing",
+          "b. live fencing",
+          "c. chain link fencing",
+          "d. stone wall fencing"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these is not a laboratory method to determine best days for seed collection?",
+        "options": [
+          "a. maximum dry weight",
+          "b. colour of fruits",
+          "c. moisture content of fruits",
+          "d. chemical analysis of fat and nitrogen content"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these characterises a refractory site",
+        "options": [
+          "a. soil depth < 10 cm",
+          "b. soil depth 10-30 cm",
+          "c. soil depth > 30 cm",
+          "d. none of these"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Which of these is a good storage condition",
+        "options": [
+          "a. high moisture, high temperature",
+          "b. high moisture, low temperature",
+          "c. low moisture, high temperature",
+          "d. low moisture, low temperature"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Which of these prevents water logging",
+        "options": [
+          "a. sunken bed",
+          "b. raised bed",
+          "c. flat bed",
+          "d. all of these"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Choice of spacing is dependent upon",
+        "options": [
+          "a. objective of plantation",
+          "b. site-species matching",
+          "c. growth rate",
+          "d. all of these"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Which of these conserves moisture",
+        "options": [
+          "a. sunken bed",
+          "b. raised bed",
+          "c. flat bed",
+          "d. all of these"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "Number of seeds in sample that germinate upto the peak germination period expressed as % is a definition of",
+        "options": [
+          "a. germination number",
+          "b. germination percentage",
+          "c. germination energy",
+          "d. germination power"
+        ],
+        "correctAnswer": 2
+      }
+    ]
+  },
+   "week11": {
+    "title": "Week 11: Conservation Strategies",
+    "questions": [
+      {
+        "question": "The tiger has a home range of several square kilometres, regulates the ecosystem through controlling herbivore populations and trophic cascades, and people come to tiger reserves to watch tigers. Thus, the tiger can be called as",
+        "options": [
+          "a. umbrella species",
+          "b. keystone species",
+          "c. flagship species",
+          "d. all of the above"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Zoo is an example of",
+        "options": [
+          "a. in-situ conservation",
+          "b. ex-situ conservation",
+          "c. in-situ preservation",
+          "d. ex-situ preservation"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Sustainable harvest of resources falls under the category of:",
+        "options": [
+          "a. conservation",
+          "b. preservation",
+          "c. environmentalism",
+          "d. none of the above"
+        ],
+        "correctAnswer": 0
+      },
+      {
+        "question": "We prefer those areas for the creation of a conservation reserve where the level of threat is",
+        "options": [
+          "a. very high",
+          "b. medium",
+          "c. very low",
+          "d. non-existent"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Captive breeding is an example of",
+        "options": [
+          "a. in-situ conservation",
+          "b. ex-situ conservation",
+          "c. in-situ preservation",
+          "d. ex-situ preservation"
+        ],
+        "correctAnswer": 1
+      },
+      {
+        "question": "Which of these is not a forest classification as per the 1894 Forest Policy:",
+        "options": [
+          "a. protection forest",
+          "b. production forest",
+          "c. minor forest",
+          "d. major forest"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "In 1931, Van Panchayats were constituted in areas that are now in",
+        "options": [
+          "a. Tamil Nadu",
+          "b. Madhya Pradesh",
+          "c. West Bengal",
+          "d. Uttarakhand"
+        ],
+        "correctAnswer": 3
+      },
+      {
+        "question": "Planting along canal banks is a part of",
+        "options": [
+          "a. farm forestry",
+          "b. community forestry",
+          "c. extension forestry",
+          "d. agroforestry"
+        ],
+        "correctAnswer": 2
+      }
+    ]
+  },
+
+  "week12": {
+    "title":"week 2:  Forests Ecology",
+    "questions":[
+  {
+    "question": "A tree has dbh of 35 cm. Find its basal area in sq m.",
+    "options": [
+      "0.049",
+      "0.096",
+      "0.149",
+      "0.195"
+    ],
+    "correctAnswer": "0.096"
+  },
+  {
+    "question": "In a triangle, the angle between base and hypotenuse, \u03b8 = 60\u00b0 and the hypotenuse c = 4 cm. Find the length of the base b.",
+    "options": [
+      "0.66",
+      "1",
+      "1.5",
+      "2"
+    ],
+    "correctAnswer": "2"
+  },
+  {
+    "question": "\u201cAllowing some places and some creatures to exist without significant human interference\u201d is a definition of",
+    "options": [
+      "conservation",
+      "preservation",
+      "environmentalism",
+      "all of these"
+    ],
+    "correctAnswer": "preservation"
+  },
+  {
+    "question": "In India, the breast height is considered to be",
+    "options": [
+      "1.37 m",
+      "1.47 m",
+      "1.57 m",
+      "2.47 m"
+    ],
+    "correctAnswer": "1.37 m"
+  },
+  {
+    "question": "The term laterite soil is derived from Latin later which means",
+    "options": [
+      "red",
+      "brick",
+      "fertile",
+      "infertile"
+    ],
+    "correctAnswer": "brick"
+  },
+  {
+    "question": "Which of these is not a non-use value?",
+    "options": [
+      "direct value",
+      "existence value",
+      "altruistic value",
+      "bequest value"
+    ],
+    "correctAnswer": "direct value"
+  },
+  {
+    "question": "\u201cScience of relationships between organisms and their environments\u201d is the definition of:",
+    "options": [
+      "conservation",
+      "preservation",
+      "environmentalism",
+      "ecology"
+    ],
+    "correctAnswer": "ecology"
+  },
+  {
+    "question": "Self ploughing character is seen in",
+    "options": [
+      "black cotton soil",
+      "alluvial soil",
+      "saline soil",
+      "red and yellow soil"
+    ],
+    "correctAnswer": "black cotton soil"
+  },
+  {
+    "question": "Mechanical action of ocean waves is an example of",
+    "options": [
+      "chemical weathering",
+      "physical weathering",
+      "biological weathering",
+      "none of the above"
+    ],
+    "correctAnswer": "physical weathering"
+  },
+  {
+    "question": "Lithosere is an example of",
+    "options": [
+      "hydrosere",
+      "xerosere",
+      "psammosere",
+      "halosere"
+    ],
+    "correctAnswer": "xerosere"
+  }
+]
+}
+        };
+
+    const wildlifeQuizzes =   {
+  "week1": {
+    "title": "Week 1: Fundamentals of Ecology",
+    "questions": [
+      {
+        "question": "Which of these is not a step in natural selection?",
+        "options": [
+          "a. variation",
+          "b. underpopulation",
+          "c. struggle for existence",
+          "d. survival of the fittest"
+        ],
+        "answer": 1,
+        "explanation": "Underpopulation is not part of natural selection. The key steps are variation, inheritance, selection (through struggle for existence), and differential survival."
+      },
+      {
+        "question": "Which of these is not a characteristic of fitness?",
+        "options": [
+          "a. Fitness is environment-specific.",
+          "b. Fitness is species-specific.",
+          "c. Higher reproductive rate means higher fitness.",
+          "d. Fitness should be measured across several generations."
+        ],
+        "answer": 3,
+        "explanation": "Fitness is measured by reproductive success within a generation, not necessarily across multiple generations."
+      },
+      {
+        "question": "Ecology is the scientific study of ___ that determine the distribution and abundance of organisms.",
+        "options": [
+          "a. statics",
+          "b. interactions",
+          "c. dynamics",
+          "d. habitat"
+        ],
+        "answer": 1,
+        "explanation": "Ecology fundamentally studies interactions between organisms and their environment."
+      },
+      {
+        "question": "In the Greek word root of Ecology, Oikos refers to",
+        "options": [
+          "a. household",
+          "b. preservation",
+          "c. environment",
+          "d. study"
+        ],
+        "answer": 0,
+        "explanation": "Oikos means 'house' or 'household', representing the environment where organisms live."
+      },
+      {
+        "question": "\"Enquiry into plants\" is a book written by",
+        "options": [
+          "a. Theophrastus",
+          "b. Linnaeus",
+          "c. Malthus",
+          "d. Humboldt"
+        ],
+        "answer": 0,
+        "explanation": "Theophrastus (371-287 BC) is considered the father of botany and wrote this foundational work."
+      },
+      {
+        "question": "In the Greek word root of Ecology, logos refers to",
+        "options": [
+          "a. household",
+          "b. preservation",
+          "c. environment",
+          "d. study"
+        ],
+        "answer": 3,
+        "explanation": "Logos means 'study of', combining with oikos to mean 'study of the household (environment)'."
+      },
+      {
+        "question": "Which of these is not a kind of selection",
+        "options": [
+          "a. directional",
+          "b. stochastic",
+          "c. disruptive",
+          "d. stabilising"
+        ],
+        "answer": 1,
+        "explanation": "Stochastic refers to random processes, not a type of selection."
+      },
+      {
+        "question": "Who amongst these is considered the father of Biogeography?",
+        "options": [
+          "a. Theophrastus",
+          "b. Linnaeus",
+          "c. Malthus",
+          "d. Humboldt"
+        ],
+        "answer": 3,
+        "explanation": "Alexander von Humboldt (1769-1859) established biogeography as a scientific discipline."
+      },
+      {
+        "question": "Ecology is the scientific study of interactions among organisms and their ___.",
+        "options": [
+          "a. habitat",
+          "b. niche",
+          "c. environment",
+          "d. population"
+        ],
+        "answer": 2,
+        "explanation": "This is the most comprehensive definition including both biotic and abiotic factors."
+      },
+      {
+        "question": "Which of these is not a characteristic of fitness?",
+        "options": [
+          "a. Fitness is environment-specific.",
+          "b. Fitness is species-specific.",
+          "c. Fitness works on traits such as size and speed.",
+          "d. Fitness should be measured across several generations."
+        ],
+        "answer": 3,
+        "explanation": "Fitness is measured within a generation based on reproductive success."
+      }
+    ]
+  },
+  "week2": {
+    "title": "Week 2: Ecological Hierarchy and Biodiversity",
+    "questions": [
+      {
+        "question": "Hierarchy emerges almost inevitably through evolutionary processes because hierarchical structures are ___",
+        "options": [
+          "a. perfect",
+          "b. imperfect",
+          "c. stable",
+          "d. unstable"
+        ],
+        "answer": 2,
+        "explanation": "Hierarchical organization provides stability in biological systems."
+      },
+      {
+        "question": "The mitochondrion is a/an",
+        "options": [
+          "a. Sub-cellular organelle",
+          "b. Cell",
+          "c. Tissue",
+          "d. Organ"
+        ],
+        "answer": 0,
+        "explanation": "Mitochondria are organelles found within eukaryotic cells."
+      },
+      {
+        "question": "The hierarchical system was given by",
+        "options": [
+          "a. Simon",
+          "b. Watson",
+          "c. Hutchinson",
+          "d. Humboldt"
+        ],
+        "answer": 0,
+        "explanation": "Herbert Simon proposed the concept of hierarchy in complex systems."
+      },
+      {
+        "question": "There is more biodiversity in areas with",
+        "options": [
+          "a. less competition, less predation",
+          "b. less competition, more predation",
+          "c. more competition, more predation",
+          "d. more competition, less predation"
+        ],
+        "answer": 1,
+        "explanation": "Intermediate levels of predation reduce competitive exclusion, allowing more species to coexist."
+      },
+      {
+        "question": "\"Groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups\" is a definition of",
+        "options": [
+          "a. cells",
+          "b. species",
+          "c. ecosystems",
+          "d. biomes"
+        ],
+        "answer": 1,
+        "explanation": "This is Ernst Mayr's biological species concept."
+      },
+      {
+        "question": "\"The diversity that exists within an ecosystem\" is",
+        "options": [
+          "a. alpha (α) biodiversity",
+          "b. beta (β) biodiversity",
+          "c. gamma (γ) biodiversity",
+          "d. delta (δ) biodiversity"
+        ],
+        "answer": 0,
+        "explanation": "Alpha diversity measures local diversity within a habitat."
+      },
+      {
+        "question": "\"The diversity that exists among different geographies\" is",
+        "options": [
+          "a. alpha (α) biodiversity",
+          "b. beta (β) biodiversity",
+          "c. gamma (γ) biodiversity",
+          "d. delta (δ) biodiversity"
+        ],
+        "answer": 2,
+        "explanation": "Gamma diversity measures regional diversity across landscapes."
+      },
+      {
+        "question": "The emergent principle can be stated as",
+        "options": [
+          "a. Whole = sum of parts",
+          "b. Whole < sum of parts",
+          "c. Whole > sum of parts",
+          "d. None of these"
+        ],
+        "answer": 2,
+        "explanation": "Emergent properties arise from interactions that make the whole greater than the sum of parts."
+      },
+      {
+        "question": "The laboratory approach to Ecology uses",
+        "options": [
+          "a. equations",
+          "b. models",
+          "c. observations",
+          "d. experiments"
+        ],
+        "answer": 3,
+        "explanation": "Laboratory ecology relies on controlled experiments to test hypotheses."
+      },
+      {
+        "question": "For more biodiversity, the level of disturbance should be",
+        "options": [
+          "a. less",
+          "b. intermediate",
+          "c. more",
+          "d. none of these"
+        ],
+        "answer": 1,
+        "explanation": "Intermediate Disturbance Hypothesis suggests moderate disturbance maximizes diversity."
+      }
+    ]
+  },
+  "week3": {
+    "title": "Week 3: Species Interactions",
+    "questions": [
+      {
+        "question": "Egrets with buffaloes are an example of",
+        "options": [
+          "a. colony",
+          "b. commensalism",
+          "c. protocooperation",
+          "d. allelopathy"
+        ],
+        "answer": 1,
+        "explanation": "Egrets benefit (food from disturbed insects) while buffaloes are unaffected - classic commensalism."
+      },
+      {
+        "question": "A monkey removing ticks from another monkey is called",
+        "options": [
+          "a. tick hunting",
+          "b. auto grooming",
+          "c. allo grooming",
+          "d. foraging"
+        ],
+        "answer": 2,
+        "explanation": "Allogrooming refers to social grooming between individuals."
+      },
+      {
+        "question": "Birds on giraffe are an example of",
+        "options": [
+          "a. colony",
+          "b. commensalism",
+          "c. protocooperation",
+          "d. allelopathy"
+        ],
+        "answer": 1,
+        "explanation": "Oxpeckers get food (ticks) while giraffes get pest control - mutualistic relationship."
+      },
+      {
+        "question": "Harmonious interactions occur where",
+        "options": [
+          "a. at least one participant is benefited",
+          "b. at least one participant is unharmed",
+          "c. both participants are benefitted",
+          "d. both participants are unharmed"
+        ],
+        "answer": 2,
+        "explanation": "Harmonious interactions benefit both species (mutualism/symbiosis)."
+      },
+      {
+        "question": "The interaction between exotic shrubs through seed predators is an example of",
+        "options": [
+          "a. infraspecific competition",
+          "b. apparent competition",
+          "c. disguised competition",
+          "d. harmonious competition"
+        ],
+        "answer": 1,
+        "explanation": "Apparent competition occurs when two species share a common predator."
+      },
+      {
+        "question": "Trampling of grass by animals is an example of",
+        "options": [
+          "a. mutualism",
+          "b. amensalism",
+          "c. commensalism",
+          "d. protocooperation"
+        ],
+        "answer": 1,
+        "explanation": "Amensalism - one organism is harmed while the other is unaffected."
+      },
+      {
+        "question": "The scientific study of animal behavior is called",
+        "options": [
+          "a. behaviourism",
+          "b. ecology",
+          "c. ethology",
+          "d. prey-predator dynamics"
+        ],
+        "answer": 2,
+        "explanation": "Ethology is the biological study of animal behavior."
+      },
+      {
+        "question": "An inventory of animal behaviors is called",
+        "options": [
+          "a. ecogram",
+          "b. ethogram",
+          "c. behaviourogram",
+          "d. animalogram"
+        ],
+        "answer": 1,
+        "explanation": "An ethogram catalogs all behaviors of a species."
+      },
+      {
+        "question": "Hamilton's rule can be stated as",
+        "options": [
+          "a. rB < C",
+          "b. rB > C",
+          "c. rB = C",
+          "d. rB + C = 0"
+        ],
+        "answer": 1,
+        "explanation": "Hamilton's rule (rB > C) explains kin selection where r=relatedness, B=benefit, C=cost."
+      },
+      {
+        "question": "A bird removing ticks from another bird is called",
+        "options": [
+          "a. tick hunting",
+          "b. auto grooming",
+          "c. allo grooming",
+          "d. foraging"
+        ],
+        "answer": 2,
+        "explanation": "Allogrooming refers to social grooming between individuals."
+      }
+    ]
+  },
+  "week4": {
+    "title": "Week 4: Ecological Pyramids and Productivity",
+    "questions": [
+      {
+        "question": "Vegetarianism supporting larger populations can be explained by",
+        "options": [
+          "a. 10% rule",
+          "b. 1% rule",
+          "c. trophic cascade",
+          "d. biodiversity"
+        ],
+        "answer": 0,
+        "explanation": "The 10% rule of energy transfer explains why eating lower on the food chain supports more people."
+      },
+      {
+        "question": "Trees → Birds → Parasites → Hyperparasites represents",
+        "options": [
+          "a. upright pyramid of numbers",
+          "b. inverted pyramid of numbers",
+          "c. spindle pyramid of numbers",
+          "d. dumb-bell pyramid of numbers"
+        ],
+        "answer": 1,
+        "explanation": "Parasite chains often show inverted pyramids as one host supports many parasites."
+      },
+      {
+        "question": "Net primary productivity is given by",
+        "options": [
+          "a. APAR × LUE",
+          "b. APAR + LUE",
+          "c. APAR - LUE",
+          "d. APAR / LUE"
+        ],
+        "answer": 0,
+        "explanation": "NPP = Absorbed Photosynthetically Active Radiation × Light Use Efficiency."
+      },
+      {
+        "question": "At the compensation point,",
+        "options": [
+          "a. photosynthesis = respiration",
+          "b. photosynthesis < respiration",
+          "c. photosynthesis > respiration",
+          "d. photosynthesis = 0"
+        ],
+        "answer": 0,
+        "explanation": "Compensation point is where photosynthetic gain equals respiratory loss."
+      },
+      {
+        "question": "In Grass → Grasshopper → Frog → Snake → Hawk, available energy",
+        "options": [
+          "a. decreases up the chain",
+          "b. increases up the chain",
+          "c. remains same",
+          "d. is zero everywhere"
+        ],
+        "answer": 0,
+        "explanation": "Energy decreases by ~90% at each trophic level due to the 10% rule."
+      },
+      {
+        "question": "In Grass → Grasshopper → Frog → Snake → Hawk,",
+        "options": [
+          "a. more hawks than grasshoppers",
+          "b. more grasshoppers than hawks",
+          "c. equal numbers",
+          "d. none of these"
+        ],
+        "answer": 1,
+        "explanation": "Energy constraints mean fewer top predators can be supported."
+      },
+      {
+        "question": "Tree → Frugivorous birds → Hawk represents",
+        "options": [
+          "a. upright pyramid of numbers",
+          "b. inverted pyramid of numbers",
+          "c. spindle pyramid",
+          "d. dumb-bell pyramid"
+        ],
+        "answer": 1,
+        "explanation": "One large tree can support many birds, creating an inverted pyramid."
+      },
+      {
+        "question": "In the food chain, the hawk is",
+        "options": [
+          "a. producer",
+          "b. consumer and carnivore",
+          "c. consumer and herbivore",
+          "d. decomposer"
+        ],
+        "answer": 1,
+        "explanation": "Hawks are tertiary consumers and carnivores."
+      },
+      {
+        "question": "Glacial lakes are typically",
+        "options": [
+          "a. eutrophic",
+          "b. hypereutrophic",
+          "c. oligotrophic",
+          "d. mesotrophic"
+        ],
+        "answer": 2,
+        "explanation": "Oligotrophic lakes are nutrient-poor, characteristic of glacial origins."
+      },
+      {
+        "question": "In the food chain, the frog is",
+        "options": [
+          "a. producer",
+          "b. consumer and carnivore",
+          "c. consumer and herbivore",
+          "d. decomposer"
+        ],
+        "answer": 1,
+        "explanation": "Frogs are secondary consumers (carnivores eating grasshoppers)."
+      }
+    ]
+  },
+  "week5": {
+    "title": "Week 5: Population Ecology",
+    "questions": [
+      {
+        "question": "Juvenile mortality rate is deaths per",
+        "options": [
+          "a. 100 births",
+          "b. 1000 births",
+          "c. 100 live births",
+          "d. 1000 live births"
+        ],
+        "answer": 3,
+        "explanation": "Standard demographic measure per 1000 live births."
+      },
+      {
+        "question": "Pan traps are used for sampling",
+        "options": [
+          "a. bees",
+          "b. butterflies",
+          "c. non-pollinator insects",
+          "d. pollinator insects"
+        ],
+        "answer": 3,
+        "explanation": "Colored pan traps are effective for pollinator surveys."
+      },
+      {
+        "question": "Selecting every kth unit is called",
+        "options": [
+          "a. Simple random sampling",
+          "b. Systematic sampling",
+          "c. Stratified sampling",
+          "d. Multistage sampling"
+        ],
+        "answer": 1,
+        "explanation": "Systematic sampling uses fixed intervals after random start."
+      },
+      {
+        "question": "Which is not a measure of absolute population density?",
+        "options": [
+          "a. total count",
+          "b. pelt count",
+          "c. capture-recapture",
+          "d. removal method"
+        ],
+        "answer": 1,
+        "explanation": "Pelt counts estimate relative abundance, not absolute density."
+      },
+      {
+        "question": "The logistic growth curve is",
+        "options": [
+          "a. I shaped",
+          "b. J shaped",
+          "c. S shaped",
+          "d. O shaped"
+        ],
+        "answer": 2,
+        "explanation": "Sigmoidal (S-shaped) curve shows exponential then limited growth."
+      },
+      {
+        "question": "Equal chance selection is called",
+        "options": [
+          "a. Simple random sampling",
+          "b. Systematic sampling",
+          "c. Stratified sampling",
+          "d. Multistage sampling"
+        ],
+        "answer": 0,
+        "explanation": "Simple random sampling gives equal selection probability."
+      },
+      {
+        "question": "Replacement level fertility is greater than",
+        "options": [
+          "a. 1",
+          "b. 2",
+          "c. 3",
+          "d. 4"
+        ],
+        "answer": 1,
+        "explanation": "Approximately 2.1 children per woman accounts for mortality."
+      },
+      {
+        "question": "Cover board surveys sample",
+        "options": [
+          "a. herpetofauna",
+          "b. fishes",
+          "c. large mammals",
+          "d. carnivores"
+        ],
+        "answer": 0,
+        "explanation": "Reptiles and amphibians shelter under cover boards."
+      },
+      {
+        "question": "Which is true about longevity?",
+        "options": [
+          "a. Physiological > Ecological",
+          "b. Physiological = Ecological",
+          "c. Physiological < Ecological",
+          "d. a or b"
+        ],
+        "answer": 0,
+        "explanation": "Physiological longevity (max possible) exceeds ecological longevity (actual in wild)."
+      },
+      {
+        "question": "Closeness to correct value is",
+        "options": [
+          "a. Accuracy",
+          "b. Precision",
+          "c. Bias",
+          "d. Variance"
+        ],
+        "answer": 0,
+        "explanation": "Accuracy measures proximity to true value."
+      }
+    ]
+  },
+  "week6": {
+    "title": "Week 6: Community Ecology",
+    "questions": [
+      {
+        "question": "Importance value is calculated as",
+        "options": [
+          "a. Relative density + Relative frequency + Relative dominance",
+          "b. Relative density × Relative frequency × Relative dominance",
+          "c. Relative density + (Relative frequency × Relative dominance)",
+          "d. (Relative density × Relative frequency) + Relative dominance"
+        ],
+        "answer": 0,
+        "explanation": "Sum of relative density, frequency and dominance (0-300 scale)."
+      },
+      {
+        "question": "A species found frequently in one community but occasionally in others is called",
+        "options": [
+          "a. accidental",
+          "b. indifferent",
+          "c. selective",
+          "d. exclusive"
+        ],
+        "answer": 2,
+        "explanation": "Selective species show preference but not exclusivity."
+      },
+      {
+        "question": "Specialist species have ___ compared to generalists.",
+        "options": [
+          "a. narrower niches",
+          "b. broader niches",
+          "c. same-size niches",
+          "d. none"
+        ],
+        "answer": 0,
+        "explanation": "Specialists have narrow ecological niches."
+      },
+      {
+        "question": "A climax caused by wildfires is called",
+        "options": [
+          "a. climatic climax",
+          "b. edaphic climax",
+          "c. disclimax",
+          "d. catastrophic climax"
+        ],
+        "answer": 2,
+        "explanation": "Disclimax is maintained by recurring disturbances like fire."
+      },
+      {
+        "question": "Lithosere is an example of",
+        "options": [
+          "a. hydrosere",
+          "b. xerosere",
+          "c. psammosere",
+          "d. halosere"
+        ],
+        "answer": 1,
+        "explanation": "Lithosere is succession on bare rock (xeric conditions)."
+      },
+      {
+        "question": "Which is correct about niches?",
+        "options": [
+          "a. Fundamental > Realised",
+          "b. Fundamental = Realised",
+          "c. Fundamental < Realised",
+          "d. a or b"
+        ],
+        "answer": 0,
+        "explanation": "Realized niche is smaller due to biotic constraints."
+      },
+      {
+        "question": "Importance value ranges from",
+        "options": [
+          "a. 0-10",
+          "b. 0-50",
+          "c. 0-100",
+          "d. 0-300"
+        ],
+        "answer": 3,
+        "explanation": "Sum of three relative measures (each 0-100)."
+      },
+      {
+        "question": "Cattle disturbance maintaining climax is",
+        "options": [
+          "a. climatic climax",
+          "b. edaphic climax",
+          "c. disclimax",
+          "d. catastrophic climax"
+        ],
+        "answer": 2,
+        "explanation": "Disclimax persists due to anthropogenic disturbance."
+      },
+      {
+        "question": "Which is not characteristic of pioneer species?",
+        "options": [
+          "a. grow on bare rocks",
+          "b. tolerate extremes",
+          "c. large size",
+          "d. short life span"
+        ],
+        "answer": 2,
+        "explanation": "Pioneers are typically small with high dispersal."
+      },
+      {
+        "question": "Correct lithosere sequence is",
+        "options": [
+          "a. Rock → Crustose lichen → Foliose lichen → Moss → Herb → Shrub → Woodland → Climax",
+          "b. Rock → Foliose lichen → Crustose lichen → Moss → Herb → Shrub → Woodland → Climax",
+          "c. Moss → Crustose lichen → Foliose lichen → Rock → Herb → Shrub → Woodland → Climax",
+          "d. Rock → Crustose lichen → Foliose lichen → Shrub → Herb → Moss → Woodland → Climax"
+        ],
+        "answer": 0,
+        "explanation": "Classic primary succession sequence on bare rock."
+      }
+    ]
+  },
+  "week7": {
+    "title": "Week 7: Ecological Principles",
+    "questions": [
+      {
+        "question": "\"Geographical distribution controlled by the factor with narrowest tolerance range\" describes",
+        "options": [
+          "a. Liebig's law of minimum",
+          "b. Liebig's law of maximum",
+          "c. Shelford's law of tolerance",
+          "d. Shelford's law of intolerance"
+        ],
+        "answer": 2,
+        "explanation": "Shelford's Law of Tolerance states distribution is limited by the factor with narrowest range."
+      },
+      {
+        "question": "Transplantation experiments determine",
+        "options": [
+          "a. potential range",
+          "b. effective range",
+          "c. actual range",
+          "d. economic range"
+        ],
+        "answer": 0,
+        "explanation": "They test where species could potentially survive beyond current distribution."
+      },
+      {
+        "question": "Good climate is a",
+        "options": [
+          "a. chemical factor",
+          "b. demographic factor",
+          "c. push factor",
+          "d. pull factor"
+        ],
+        "answer": 3,
+        "explanation": "Pull factors attract organisms to an area."
+      },
+      {
+        "question": "\"Process rate limited by the scarcest relative factor\" describes",
+        "options": [
+          "a. Liebig's law of minimum",
+          "b. Liebig's law of maximum",
+          "c. Shelford's law of tolerance",
+          "d. Shelford's law of intolerance"
+        ],
+        "answer": 0,
+        "explanation": "Liebig's Law of the Minimum states growth is limited by the scarcest resource."
+      },
+      {
+        "question": "Vegetables dying under teak suggests concern about",
+        "options": [
+          "a. autophagy",
+          "b. allelopathy",
+          "c. autopathy",
+          "d. allelophagy"
+        ],
+        "answer": 1,
+        "explanation": "Allelopathy - chemical inhibition of one plant by another."
+      },
+      {
+        "question": "\"Quick movement across unsuitable terrain\" describes",
+        "options": [
+          "a. diffusion",
+          "b. secular dispersal",
+          "c. jump dispersal",
+          "d. drifting"
+        ],
+        "answer": 2,
+        "explanation": "Jump dispersal is rapid movement across barriers."
+      },
+      {
+        "question": "Movement to new habitat for reproduction is called",
+        "options": [
+          "a. translocation",
+          "b. migration",
+          "c. dispersal",
+          "d. drifting"
+        ],
+        "answer": 2,
+        "explanation": "Dispersal is movement from birthplace to breeding site."
+      },
+      {
+        "question": "Lions moving across Gir demonstrates",
+        "options": [
+          "a. diffusion",
+          "b. secular dispersal",
+          "c. jump dispersal",
+          "d. drifting"
+        ],
+        "answer": 0,
+        "explanation": "Diffusion is gradual spread through suitable habitat."
+      },
+      {
+        "question": "Which is not a physical habitat factor?",
+        "options": [
+          "a. soil",
+          "b. moisture",
+          "c. predators",
+          "d. temperature"
+        ],
+        "answer": 2,
+        "explanation": "Predators are biotic factors."
+      },
+      {
+        "question": "Food scarcity is a",
+        "options": [
+          "a. chemical factor",
+          "b. demographic factor",
+          "c. push factor",
+          "d. pull factor"
+        ],
+        "answer": 2,
+        "explanation": "Push factors drive organisms from an area."
+      }
+    ]
+  },
+  "week8": {
+    "title": "Week 8: Conservation Ecology",
+    "questions": [
+      {
+        "question": "\"Factors permitting survival and reproduction\" defines",
+        "options": [
+          "a. habitat",
+          "b. ecosystem",
+          "c. biome",
+          "d. biosphere"
+        ],
+        "answer": 0,
+        "explanation": "Habitat provides necessary survival conditions."
+      },
+      {
+        "question": "Leopold didn't consider this a habitat management tool:",
+        "options": [
+          "a. fire",
+          "b. gun",
+          "c. cattle",
+          "d. sickle"
+        ],
+        "answer": 1,
+        "explanation": "Aldo Leopold's tools were axe, cow, fire, and plow."
+      },
+      {
+        "question": "A zoo exemplifies",
+        "options": [
+          "a. in-situ conservation",
+          "b. ex-situ conservation",
+          "c. in-situ preservation",
+          "d. ex-situ preservation"
+        ],
+        "answer": 1,
+        "explanation": "Ex-situ conservation maintains species outside natural habitats."
+      },
+      {
+        "question": "HIPPO doesn't include",
+        "options": [
+          "a. habitat loss",
+          "b. invasive species",
+          "c. pollination",
+          "d. pollution"
+        ],
+        "answer": 2,
+        "explanation": "HIPPO: Habitat loss, Invasive species, Pollution, Population, Overharvesting."
+      },
+      {
+        "question": "Ideal conservation reserve areas have",
+        "options": [
+          "a. very high threat",
+          "b. medium threat",
+          "c. very low threat",
+          "d. no threat"
+        ],
+        "answer": 2,
+        "explanation": "Low-threat areas offer better long-term conservation potential."
+      },
+      {
+        "question": "Which is a deterministic factor?",
+        "options": [
+          "a. environmental variation",
+          "b. forest fire",
+          "c. death rate",
+          "d. diseases"
+        ],
+        "answer": 2,
+        "explanation": "Deterministic factors have predictable impacts (age-specific mortality)."
+      },
+      {
+        "question": "Captive breeding is",
+        "options": [
+          "a. in-situ conservation",
+          "b. ex-situ conservation",
+          "c. in-situ preservation",
+          "d. ex-situ preservation"
+        ],
+        "answer": 1,
+        "explanation": "Ex-situ conservation strategy for endangered species."
+      },
+      {
+        "question": "Which is a stochastic factor?",
+        "options": [
+          "a. birth rate",
+          "b. death rate",
+          "c. population structure",
+          "d. environmental fluctuation"
+        ],
+        "answer": 3,
+        "explanation": "Stochastic factors are unpredictable (weather events)."
+      },
+      {
+        "question": "Correct habitat fragmentation sequence is",
+        "options": [
+          "a. Original → Dissection → Perforation → Fragmentation → Attrition",
+          "b. Original → Dissection → Attrition → Fragmentation → Perforation",
+          "c. Original → Dissection → Perforation → Attrition → Fragmentation",
+          "d. Original → Dissection → Fragmentation → Perforation → Attrition"
+        ],
+        "answer": 0,
+        "explanation": "Standard sequence of habitat fragmentation processes."
+      },
+      {
+        "question": "HIPPO doesn't include",
+        "options": [
+          "a. habitat loss",
+          "b. habitat enhancement",
+          "c. invasive species",
+          "d. human overpopulation"
+        ],
+        "answer": 1,
+        "explanation": "Enhancement is positive, HIPPO lists threats."
+      }
+    ]
+  },
+  "week9": {
+    "title": "Week 9: Population Dynamics",
+    "questions": [
+      {
+        "question": "Malthusian model states",
+        "options": [
+          "a. Population grows geometrically, food arithmetically",
+          "b. Both grow geometrically",
+          "c. Both grow arithmetically",
+          "d. Population grows arithmetically, food geometrically"
+        ],
+        "answer": 0,
+        "explanation": "Malthus's principle of population growth outstripping resources."
+      },
+      {
+        "question": "Which is not a sustainability pillar?",
+        "options": [
+          "a. environmental",
+          "b. economic",
+          "c. trans-boundary",
+          "d. social"
+        ],
+        "answer": 2,
+        "explanation": "Three pillars: environmental, economic, social."
+      },
+      {
+        "question": "Human impact equation is",
+        "options": [
+          "a. I = P × A × T",
+          "b. I = P + A + T",
+          "c. I = P + A - T",
+          "d. I = P - (A + T)"
+        ],
+        "answer": 0,
+        "explanation": "IPAT: Impact = Population × Affluence × Technology."
+      },
+      {
+        "question": "Malthus's positive check is",
+        "options": [
+          "a. late marriage",
+          "b. war",
+          "c. celibacy",
+          "d. moral restraint"
+        ],
+        "answer": 1,
+        "explanation": "Positive checks increase mortality (famine, war)."
+      },
+      {
+        "question": "Which is a sustainability pillar?",
+        "options": [
+          "a. social",
+          "b. industrial",
+          "c. agricultural",
+          "d. trans-boundary"
+        ],
+        "answer": 0,
+        "explanation": "Social sustainability is a core pillar."
+      },
+      {
+        "question": "___ identifies relevant impacts to assess.",
+        "options": [
+          "a. screening",
+          "b. scoping",
+          "c. reporting",
+          "d. review"
+        ],
+        "answer": 1,
+        "explanation": "Scoping determines assessment boundaries and focus."
+      },
+      {
+        "question": "___ determines need for impact assessment.",
+        "options": [
+          "a. screening",
+          "b. scoping",
+          "c. reporting",
+          "d. review"
+        ],
+        "answer": 0,
+        "explanation": "Screening decides if assessment is required."
+      },
+      {
+        "question": "Demographic transition moves from",
+        "options": [
+          "a. high birth, low death → low birth, low death",
+          "b. low birth, high death → low birth, low death",
+          "c. high birth, high death → low birth, low death",
+          "d. high birth, high death → low birth, high death"
+        ],
+        "answer": 2,
+        "explanation": "Classic transition from high to low vital rates."
+      },
+      {
+        "question": "\"An Essay on the Principle of Population\" was written by",
+        "options": [
+          "a. Darwin",
+          "b. Malthus",
+          "c. Spencer",
+          "d. Owens"
+        ],
+        "answer": 1,
+        "explanation": "Thomas Malthus's 1798 seminal work."
+      },
+      {
+        "question": "Malthus's preventive check is",
+        "options": [
+          "a. foresight",
+          "b. vice",
+          "c. misery",
+          "d. flood"
+        ],
+        "answer": 0,
+        "explanation": "Preventive checks reduce birth rates (moral restraint)."
+      }
+    ]
+  },
+  "week10": {
+    "title": "Week 10: Climate Change Ecology",
+    "questions": [
+      {
+        "question": "\"Adaptation that increases vulnerability\" defines",
+        "options": ["a. adaptation", "b. mitigation", "c. maladaptation", "d. malmitigation"],
+        "answer": 2,
+        "explanation": "Maladaptation worsens climate vulnerability."
+      },
+      {
+        "question": "Macrodebris size is",
+        "options": ["a. > 20 mm", "b. 5 - 20 mm", "c. < 5 mm", "d. < 1 mm"],
+        "answer": 0,
+        "explanation": "Macrodebris are plastic fragments larger than 20 mm."
+      },
+      {
+        "question": "Which of these is not a climatic forcing for Earth?",
+        "options": ["a. changes in plate tectonics", "b. changes in Earth's orbit", "c. changes in Sun's orbit", "d. changes in Sun's strength"],
+        "answer": 2,
+        "explanation": "Changes in Sun's orbit is not a recognized climatic forcing."
+      },
+      {
+        "question": "Definition of the ability to adjust to climate change",
+        "options": ["a. adaptive response", "b. adaptive capacity", "c. mitigative response", "d. mitigative capacity"],
+        "answer": 1,
+        "explanation": "Adaptive capacity is the ability to adjust to climate impacts."
+      },
+      {
+        "question": "Which of these is not a climatic forcing for Earth?",
+        "options": ["a. changes in plate tectonics", "b. changes in Earth's orbit", "c. changes in Moon's orbit", "d. changes in Sun's strength"],
+        "answer": 2,
+        "explanation": "Moon's orbit is not a major climatic forcing."
+      },
+      {
+        "question": "Which is not a principle of ecological restoration?",
+        "options": ["a. ecological integrity", "b. long-term sustainability", "c. benefits and engages scientists", "d. informed by past and future"],
+        "answer": 2,
+        "explanation": "Restoration principles emphasize public engagement, not only scientists."
+      },
+      {
+        "question": "Mesodebris size is",
+        "options": ["a. > 20 mm", "b. 5 - 20 mm", "c. < 5 mm", "d. < 1 mm"],
+        "answer": 1,
+        "explanation": "Mesodebris are 5 - 20 mm in size."
+      },
+      {
+        "question": "LED bulb replacement to reduce CO2 emissions is an example of",
+        "options": ["a. adaptation", "b. mitigation", "c. deceleration", "d. maladaptation"],
+        "answer": 1,
+        "explanation": "Mitigation reduces emissions to combat climate change."
+      },
+      {
+        "question": "Which is not a principle of ecological restoration?",
+        "options": ["a. ecological integrity", "b. short-term sustainability", "c. benefits and engages society", "d. informed by past and future"],
+        "answer": 1,
+        "explanation": "Restoration focuses on long-term sustainability."
+      },
+      {
+        "question": "Artificial water holes for animals is an example of",
+        "options": ["a. adaptation", "b. mitigation", "c. deceleration", "d. maladaptation"],
+        "answer": 0,
+        "explanation": "Adaptation involves managing impacts of climate change."
+      }
+    ]
+  },
+  "week11": {
+    "title": "Week 11: Restoration and Sustainable Use",
+    "questions": [
+      {
+        "question": "Ludwig's ratchet predicts",
+        "options": ["a. decreasing harvesting rate", "b. constant harvesting rate", "c. increasing harvesting rate", "d. fluctuating harvesting rate"],
+        "answer": 2,
+        "explanation": "It predicts an increasing exploitation over time."
+      },
+      {
+        "question": "Which of these is correct?",
+        "options": ["a. R + G = M + F", "b. R + M = G + F", "c. R + F = M + G", "d. R + G + M + F = 0"],
+        "answer": 0,
+        "explanation": "This is a basic population balance equation."
+      },
+      {
+        "question": "Forest to mine then restored with original species is an example of",
+        "options": ["a. recovery", "b. restoration", "c. enhancement", "d. replacement"],
+        "answer": 1,
+        "explanation": "Restoration aims to return to the original ecosystem."
+      },
+      {
+        "question": "Forest to mine then converted to lake is an example of",
+        "options": ["a. recovery", "b. restoration", "c. enhancement", "d. replacement"],
+        "answer": 3,
+        "explanation": "Replacement involves creating a new ecosystem."
+      },
+      {
+        "question": "Root zone treatment plant is an example of",
+        "options": ["a. phytoremediation", "b. biological control", "c. biomagnification", "d. bioaccumulation"],
+        "answer": 0,
+        "explanation": "Plants remove pollutants from water in this method."
+      },
+      {
+        "question": "A pest population is controlled when",
+        "options": ["a. it is not increasing", "b. it is decreasing", "c. it is not causing any economic damage", "d. it is not causing excessive economic damage"],
+        "answer": 3,
+        "explanation": "Controlled pest levels do not cause excessive damage."
+      },
+      {
+        "question": "Not an impact of toxic chemicals",
+        "options": ["a. lethal effects", "b. sub-lethal effects", "c. reduction of existing stressors", "d. reduced fecundity"],
+        "answer": 2,
+        "explanation": "Toxic chemicals do not reduce stress; they add to it."
+      },
+      {
+        "question": "Maximum sustainable yield is near",
+        "options": ["a. beginning of the curve", "b. mid-point of the curve", "c. end of the curve", "d. none of these"],
+        "answer": 1,
+        "explanation": "It lies near the midpoint of the sigmoidal growth curve."
+      },
+      {
+        "question": "Fishery collapse due to El Nino is explained by",
+        "options": ["a. match hypothesis", "b. mismatch hypothesis", "c. match-mismatch hypothesis", "d. none of these"],
+        "answer": 2,
+        "explanation": "Mismatch between timing of food supply and fish needs."
+      },
+      {
+        "question": "A pest population is uncontrolled when",
+        "options": ["a. it is increasing", "b. it is not decreasing", "c. it is causing some economic damage", "d. it is causing excessive economic damage"],
+        "answer": 3,
+        "explanation": "Uncontrolled pests cause significant economic harm."
+      }
+    ]
+  },
+  "week12": {
+    "title": "Week 12: Population Ecology and Adaptation",
+    "questions": [
+      {
+        "question": "At the compensation point,",
+        "options": ["a. photosynthesis = respiration", "b. photosynthesis < respiration", "c. photosynthesis > respiration", "d. photosynthesis = 0"],
+        "answer": 0,
+        "explanation": "At this point, plant energy gain and loss are balanced."
+      },
+      {
+        "question": "Birds on giraffe are an example of",
+        "options": ["a. colony", "b. commensalism", "c. protocooperation", "d. allelopathy"],
+        "answer": 2,
+        "explanation": "Both species benefit, making it protocooperation."
+      },
+      {
+        "question": "Artificial water holes for animals is an example of",
+        "options": ["a. adaptation", "b. mitigation", "c. deceleration", "d. maladaptation"],
+        "answer": 0,
+        "explanation": "It helps species cope with climate-related drought."
+      },
+      {
+        "question": "Which of these is a stochastic factor?",
+        "options": ["a. birth rate", "b. death rate", "c. population structure", "d. environmental fluctuation"],
+        "answer": 3,
+        "explanation": "Stochastic factors are random, like environmental changes."
+      },
+      {
+        "question": "The mitochondrion is a/an",
+        "options": ["a. Sub-cellular organelle", "b. Cell", "c. Tissue", "d. Organ"],
+        "answer": 0,
+        "explanation": "Mitochondria are energy-producing organelles."
+      },
+      {
+        "question": "Which of these is correct?",
+        "options": ["a. Fundamental niche > Realised niche", "b. Fundamental niche = Realised niche", "c. Fundamental niche < Realised niche", "d. a or b"],
+        "answer": 0,
+        "explanation": "Realized niche is often smaller due to competition."
+      },
+      {
+        "question": "Movement into a new habitat for survival is called",
+        "options": ["a. translocation", "b. migration", "c. dispersal", "d. drifting"],
+        "answer": 2,
+        "explanation": "Dispersal involves moving to new areas to reproduce."
+      },
+      {
+        "question": "\"An Essay on the Principle of Population\" was written by",
+        "options": ["a. Darwin", "b. Malthus", "c. Spencer", "d. Owens"],
+        "answer": 1,
+        "explanation": "Thomas Malthus authored the foundational essay."
+      },
+      {
+        "question": "Not a step in natural selection",
+        "options": ["a. variation", "b. underpopulation", "c. struggle for existence", "d. survival of the fittest"],
+        "answer": 1,
+        "explanation": "Natural selection relies on overpopulation, not underpopulation."
+      },
+      {
+        "question": "Logistic growth equation shape is",
+        "options": ["a. I shaped", "b. J shaped", "c. S shaped", "d. O shaped"],
+        "answer": 2,
+        "explanation": "Logistic growth shows S-shaped population growth."
+      }
+    ]
+  }
+};   
+        let currentQuiz = [];
+let currentSubject = "";
+let currentWeek = "";
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let timer;
+let timeLeft;
+
+function openSubjectModal(subject) {
+    document.getElementById(`${subject}-modal`).classList.add('show');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+}
+
+function startQuiz(subject, week) {
+    // Show loading spinner
+    document.getElementById('cosmic-spinner').style.display = 'block';
+    
+    setTimeout(() => {
+        closeModal(`${subject}-modal`);
+        
+        // Load quiz data
+        currentSubject = subject;
+        currentWeek = week;
+        
+        if (week === 'full') {
+            currentQuiz = [];
+            const quizData = subject === 'forest' ? forestQuizzes : wildlifeQuizzes;
+            for (let i = 1; i <= 12; i++) {
+                if (quizData[`week${i}`]) {
+                    currentQuiz = currentQuiz.concat(quizData[`week${i}`].questions);
+                }
+            }
+            timeLeft = 90 * 60; // 1.5 hours
+        } else {
+            const quizData = subject === 'forest' ? forestQuizzes : wildlifeQuizzes;
+            currentQuiz = quizData[`week${week}`]?.questions || [];
+            timeLeft = 15 * 60; // 15 minutes
+        }
+        
+        // Reset quiz state
+        currentQuestionIndex = 0;
+        userAnswers = Array(currentQuiz.length).fill(null);
+        
+        // Initialize quiz screen
+        document.getElementById('quiz-screen').classList.add('show');
+        const quizTitle = subject === 'forest' ? 'Forest Management' : 'Wildlife Ecology';
+        const weekTitle = week === 'full' ? 'Full Course Challenge' : `Week ${week}`;
+        document.querySelector('.cosmic-quiz-title').textContent = `${quizTitle} - ${weekTitle}`;
+        
+        // Start timer
+        startTimer();
+        
+        // Load first question
+        loadQuestion();
+        
+        // Hide spinner
+        document.getElementById('cosmic-spinner').style.display = 'none';
+    }, 500);
+}
+
+function startTimer() {
+    clearInterval(timer);
+    updateTimerDisplay();
+    
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            finishQuiz();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.querySelector('.cosmic-timer').textContent = 
+        `Time remaining: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function loadQuestion() {
+    if (currentQuestionIndex >= currentQuiz.length) {
+        finishQuiz();
+        return;
+    }
+    
+    const questionContainer = document.querySelector('.cosmic-question-container');
+    const question = currentQuiz[currentQuestionIndex];
+    
+    // Update question number and text
+    questionContainer.querySelector('.cosmic-question').textContent = 
+        `${currentQuestionIndex + 1}. ${question.question}`;
+    
+    // Update options
+    const optionsContainer = questionContainer.querySelector('.cosmic-options');
+    optionsContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'cosmic-option-item';
+        if (userAnswers[currentQuestionIndex] === index) {
+            optionElement.classList.add('selected');
+        }
+        optionElement.textContent = `${String.fromCharCode(97 + index)}. ${option}`;
+        optionElement.onclick = () => selectOption(optionElement, index);
+        optionsContainer.appendChild(optionElement);
+    });
+    
+    // Update navigation buttons
+    const prevBtn = questionContainer.querySelector('.cosmic-btn-secondary');
+    const nextBtn = questionContainer.querySelector('.cosmic-btn-primary');
+    
+    prevBtn.disabled = currentQuestionIndex === 0;
+    nextBtn.textContent = currentQuestionIndex === currentQuiz.length - 1 ? 'Finish' : 'Next';
+}
+
+function selectOption(optionElement, optionIndex) {
+    // Remove selected class from all options
+    const options = document.querySelectorAll('.cosmic-option-item');
+    options.forEach(opt => opt.classList.remove('selected'));
+    
+    // Add selected class to clicked option
+    optionElement.classList.add('selected');
+    
+    // Save user's answer
+    userAnswers[currentQuestionIndex] = optionIndex;
+}
+
+function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+    }
+}
+
+function nextQuestion() {
+    if (userAnswers[currentQuestionIndex] === null) {
+        alert('Please select an answer before proceeding.');
+        return;
+    }
+    
+    if (currentQuestionIndex < currentQuiz.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    } else {
+        finishQuiz();
+    }
+}
+function abortQuiz() {
+    if (confirm("Are you sure you want to abort this quiz? Your progress will be lost.")) {
+        clearInterval(timer);
+        document.getElementById('quiz-screen').classList.remove('show');
+        document.getElementById('results-screen').classList.remove('show');
+        
+        // Exit fullscreen if in fullscreen mode
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+        
+        // Show the main screen again
+        document.querySelector('.cosmic-header').style.display = 'block';
+        document.querySelector('.cosmic-subjects').style.display = 'grid';
+    }
+}
+function finishQuiz() {
+    clearInterval(timer);
+    
+    // Calculate score
+    let correctAnswers = 0;
+    currentQuiz.forEach((question, index) => {
+        if (userAnswers[index] === question.answer) {
+            correctAnswers++;
+        }
+    });
+    
+    const scorePercentage = Math.round((correctAnswers / currentQuiz.length) * 100);
+    
+    // Display results
+    document.getElementById('quiz-screen').classList.remove('show');
+    
+    const resultsContainer = document.getElementById('results-screen');
+    resultsContainer.querySelector('.cosmic-score').textContent = 
+        `You scored ${correctAnswers}/${currentQuiz.length} (${scorePercentage}%)`;
+    
+    // Generate review
+    const reviewContainer = resultsContainer.querySelector('.cosmic-review');
+    reviewContainer.innerHTML = '<h3 class="cosmic-review-title">Review your answers:</h3>';
+    
+    currentQuiz.forEach((question, index) => {
+        const answerItem = document.createElement('div');
+        const isCorrect = userAnswers[index] === question.answer;
+        
+        answerItem.className = `cosmic-answer-item ${isCorrect ? 'cosmic-correct' : 'cosmic-incorrect'}`;
+        
+        const userAnswer = userAnswers[index] !== null ? 
+            `${String.fromCharCode(97 + userAnswers[index])}. ${question.options[userAnswers[index]]}` : 
+            'No answer selected';
+            
+        const correctAnswer = `${String.fromCharCode(97 + question.answer)}. ${question.options[question.answer]}`;
+        
+        answerItem.innerHTML = `
+            <p><strong>Question ${index + 1}:</strong> ${question.question}</p>
+            <p>Your answer: ${userAnswer} ${isCorrect ? '(Correct)' : '(Incorrect)'}</p>
+            ${!isCorrect ? `<p>Correct answer: ${correctAnswer}</p>` : ''}
+            <p>Explanation: ${question.explanation}</p>
+        `;
+        
+        reviewContainer.appendChild(answerItem);
+    });
+    
+    // Add confetti if score is good
+    if (scorePercentage >= 80) {
+        addConfetti();
+    }
+    
+    resultsContainer.classList.add('show');
+}
+
+function addConfetti() {
+    const colors = ['#00d8ff', '#008cff', '#4cffb0', '#ff4c6a', '#ffffff'];
+    const container = document.querySelector('.cosmic-results-container');
+    
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'cosmic-confetti';
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.top = `-10px`;
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+        container.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+}
+
+function closeResults() {
+    document.getElementById('results-screen').classList.remove('show');
+}
+
+// Close modals when clicking outside
+document.querySelectorAll('.cosmic-modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('show');
+        }
+    });
+});
+    </script>
+</body>
+</html>
