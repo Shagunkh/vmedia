@@ -511,7 +511,7 @@
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.2;
+ 
   margin-bottom: 1.5rem;
   background: linear-gradient(to right, #fff, #c2e9fb);
   -webkit-background-clip: text;
@@ -752,7 +752,7 @@
 
 @keyframes roomieFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(0px); }
 }
 
 .furniture, .decor {
@@ -881,7 +881,7 @@
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(0);
   }
   to {
     opacity: 1;
@@ -907,11 +907,12 @@
   
   .hero-buttons {
     justify-content: center;
+    margin-left: -1rem;
   }
   
   .hero-title::after {
     left: 50%;
-    transform: translateX(-50%) scaleX(0);
+   
     animation: underlineGrow 0.8s ease-out 1.2s forwards, gradientSlide 3s ease infinite;
   }
   
@@ -929,6 +930,92 @@
   text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
   margin: 0;
 }
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-text-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Remove all underlines and decorative lines */
+  .hero-title::after,
+  .hero-subtitle::after,
+  .title-word-4::after {
+    display: none !important;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-content {
+      padding: 1rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .hero-title {
+      margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+      margin-bottom: 2rem;
+    }
+  }
 </style>
 <br><br><br>
 <!-- Hero Section with Particles -->
@@ -947,7 +1034,7 @@
   <!-- Main content with animated entrance -->
   <div class="container hero-content">
     <div class="hero-text-wrapper">
-      <h1 class="hero-title crisp-title">
+      <h1 class=" crisp-title">
         <span class="title-word title-word-1 crisp-title">Find</span>
         <span class="title-word title-word-2 crisp-title">Your</span>
         <span class="title-word title-word-3 crisp-title">Perfect</span>
@@ -955,7 +1042,7 @@
       </h1>
       <BR><BR><BR>
       <p class="hero-subtitle">
-        <span class="subtitle-letters">Connect with like-minded students and create lasting memories</span>
+        <span >Connect with like-minded students and create lasting memories</span>
       </p>
       
       <div class="hero-buttons">
