@@ -105,7 +105,10 @@ router.post('/upload', isLoggedIn, (req, res) => {
       }
 
       user.profilePhoto = req.file.path;
-      await user.save();
+if (user.gender && typeof user.gender === 'string') {
+  user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1).toLowerCase();
+}
+await user.save();
       console.log('Profile updated successfully');
 
       res.json({ 
