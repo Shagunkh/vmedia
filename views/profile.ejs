@@ -1345,60 +1345,73 @@
 
     <!-- Center Content -->
     <div class="col-md-9">
-      <div class="timetable-section p-4 mb-4">
-        <h4 class="text-center mb-4" style="color: var(--neon-primary);">Upload Timetable</h4>
-        <div class="text-center">
-          <button class="cyber-btn" data-bs-toggle="modal" data-bs-target="#timetableManualModal">
-            Enter Timetable Manually
-          </button>
-        </div>
+      <!-- In your profile template (profile.ejs) -->
+<div class="timetable-section p-4 mb-4">
+  <h4 class="text-center mb-4" style="color: var(--neon-primary);">Your Timetable</h4>
+  
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs mb-4" id="timetableTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="view-tab" data-bs-toggle="tab" data-bs-target="#view-timetable" type="button" role="tab">
+        View Timetable
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload-timetable" type="button" role="tab">
+        Upload Screenshot
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual-timetable" type="button" role="tab">
+        Enter Manually
+      </button>
+    </li>
+  </ul>
 
-        <!-- Timetable View -->
-        <div class="mt-4 timetable-container">
-          <% if (user.timetableManual && Object.keys(user.timetableManual).length > 0) { 
-            const theorySlots = ["08:00-8:50", "09:00-9:50", "10:00-10:50", "11:00-11:50", "12:00-12:50", "14:00-14:50", "15:00-15:50", "16:00-16:50", "17:00-17:50", "18:00-18:50", "19:00-19:50"];
-            const labSlots = ["08:51-9:40", "09:51-10:40", "10:51-11:30", "11:40-12:30", "12:40-1:20", "14:51-3:40", "15:51-4:40", "16:51-5:30", "17:41-6:30", "18:31-7:20"];
-          %>
-            <table class="table saved-timetable mt-3">
-              <thead>
-                <tr>
-                  <th rowspan="2">Day</th>
-                  <th colspan="11">Theory</th>
-                  <th rowspan="2" class="lunch">Lunch</th>
-                  <th colspan="10">Lab</th>
-                </tr>
-                <tr>
-                  <% theorySlots.forEach(time => { %>
-                    <th><%= time %></th>
-                  <% }) %>
-                  <% labSlots.forEach(time => { %>
-                    <th><%= time %></th>
-                  <% }) %>
-                </tr>
-              </thead>
-              <tbody>
-                <% Object.keys(user.timetableManual).forEach(day => { 
-                     const theory = user.timetableManual[day]?.theory || [];
-                     const lab = user.timetableManual[day]?.lab || [];
-                %>
-                  <tr>
-                    <td><%= day %></td>
-                    <% theorySlots.forEach((_, i) => { %>
-                      <td><%= theory[i] || '' %></td>
-                    <% }) %>
-                    <td class="lunch">Lunch</td>
-                    <% labSlots.forEach((_, i) => { %>
-                      <td><%= lab[i] || '' %></td>
-                    <% }) %>
-                  </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          <% } else { %>
-            <p class="text-center text-muted mt-4">Your timetable will appear here in calendar view (Mon–Sat)</p>
-          <% } %>
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <!-- View Timetable Tab -->
+    <div class="tab-pane fade show active" id="view-timetable" role="tabpanel">
+      <% if (hasTimetableScreenshot) { %>
+        <div class="text-center">
+          <img src="<%= user.timetableScreenshot %>" class="img-fluid rounded" alt="Timetable Screenshot">
+          <button class="btn btn-danger mt-3" id="deleteScreenshotBtn">Delete Screenshot</button>
         </div>
+      <% } else if (hasManualTimetable) { %>
+        <!-- Show manual timetable table here (your existing code) -->
+        <div class="mt-4 timetable-container">
+          <table class="table saved-timetable mt-3">
+            <!-- Your existing timetable table code -->
+          </table>
+        </div>
+      <% } else { %>
+        <p class="text-center text-muted">No timetable available. Upload a screenshot or enter manually.</p>
+      <% } %>
+    </div>
+
+    <!-- Upload Screenshot Tab -->
+    <div class="tab-pane fade" id="upload-timetable" role="tabpanel">
+    <form id="timetableUploadForm" enctype="multipart/form-data" method="POST" action="/profile/upload-timetable">
+        <div class="mb-3">
+          <label for="timetableScreenshot" class="form-label">Upload Timetable Screenshot</label>
+          <input type="file" class="form-control" id="timetableScreenshot" name="screenshot" accept="image/*" required>
+          <small class="text-muted">Upload a clear screenshot of your timetable (JPG, PNG)</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+
+    <!-- Manual Entry Tab -->
+    <div class="tab-pane fade" id="manual-timetable" role="tabpanel">
+      <!-- Your existing manual timetable entry form -->
+      <div class="text-center">
+        <button class="cyber-btn" data-bs-toggle="modal" data-bs-target="#timetableManualModal">
+          Enter Timetable Manually
+        </button>
       </div>
+    </div>
+  </div>
+</div>
     </div>
 
     <!-- Right Sidebar - Posts -->
@@ -2077,4 +2090,63 @@ animateLike.innerHTML = `
   }
 `;
 document.head.appendChild(animateLike);
+ // Change this in your frontend JavaScript:
+// Update the form submission handler
+const timetableUploadForm = document.getElementById('timetableUploadForm');
+if (timetableUploadForm) {
+  timetableUploadForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    try {
+      const response = await fetch('/profile/upload-timetable', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Reload the page or update the UI
+        location.reload();
+      } else {
+        alert(result.error || 'Failed to upload timetable');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('An error occurred while uploading');
+    }
+  });
+}
+
+  // Delete timetable screenshot
+  const deleteScreenshotBtn = document.getElementById('deleteScreenshotBtn');
+  if (deleteScreenshotBtn) {
+    deleteScreenshotBtn.addEventListener('click', async function() {
+      if (!confirm('Are you sure you want to delete your timetable screenshot?')) {
+        return;
+      }
+      
+      try {
+        const response = await fetch('/profile/delete-timetable-screenshot', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          location.reload();
+        } else {
+          alert(result.error || 'Failed to delete timetable');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('An error occurred while deleting');
+      }
+    });
+  }
 </script>
