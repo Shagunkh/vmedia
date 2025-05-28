@@ -51,4 +51,24 @@ router.post('/react/:id',isLoggedIn, async (req, res) => {
   res.redirect('/confessions');
 });
 
+// Add this new route for comments
+router.post('/:id/comment', async (req, res) => {
+  const { text } = req.body;
+  
+  if (!text || text.length < 3 || text.length > 200) {
+    return res.redirect('/confessions');
+  }
+
+  try {
+    await Confession.findByIdAndUpdate(
+      req.params.id,
+      { $push: { comments: { text } } },
+      { new: true }
+    );
+  } catch (err) {
+    console.error('Comment error:', err);
+  }
+
+  res.redirect('/confessions');
+});
 module.exports = router;
