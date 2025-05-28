@@ -530,6 +530,37 @@ a[href="/users/signup"] span {
 .signup-link a:hover::after {
   transform: scaleX(1);
 }
+.signup-anchor {
+  display: inline-block;
+  position: relative;
+  z-index: 100;
+  color: var(--primary-accent);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.2rem 0;
+}
+
+.signup-anchor::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--primary-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.signup-anchor:hover {
+  color: var(--secondary-accent);
+}
+
+.signup-anchor:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
 </style>
 <div>
 <div class="row mt-3 alexa">
@@ -558,36 +589,15 @@ a[href="/users/signup"] span {
 
       <button class="btn btn-success">Login</button>
     </form>
-    <div class="text-center mt-4" style="margin-top: 1.5rem !important;">
-      <p class="text-muted" style="color: var(--text-secondary); margin-bottom: 0.5rem;">
-        New User? 
-        <a href="/users/signup" 
-           style="color: var(--primary-accent); 
-                  text-decoration: none;
-                  position: relative;
-                  font-weight: 500;
-                  transition: all 0.3s ease;">
-          <span style="position: relative;">
-            Create Account
-            <span style="position: absolute; 
-                        bottom: -2px; 
-                        left: 0; 
-                        width: 100%; 
-                        height: 1px; 
-                        background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
-                        transform: scaleX(0); 
-                        transform-origin: right;
-                        transition: transform 0.3s ease;"></span>
-          </span>
-        </a>
-      </p>
-    </div>
+    <div class="signup-link">
+  <p>New User? <a href="/users/signup" class="signup-anchor">Create Account</a></p>
+</div>
     <br>
   </div>
   
 </div>
  <div class="signup-link">
-      <p>New User? <a href="/users/register">Create Account</a></p>
+      <p>New User? <a href="/users/signup">Create Account</a></p>
     </div>
     </div>
  
