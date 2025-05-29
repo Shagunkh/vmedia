@@ -15,9 +15,9 @@ const userSchema = new Schema({
     default: {}
   },
   gender: {
-    type: String,
-    enum: ['Male', 'Female', 'Other', 'Prefer not to say']
-  },
+  type: String,
+  enum: ['Male', 'male', 'Female', 'female', 'Other', 'other', 'Prefer not to say']
+},
   collegeYear: {
     type: Number,
     min: 1,
@@ -80,6 +80,8 @@ const userSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room'
   }],
+   timetableManual: Object,
+  timetableScreenshot: String,
   roomsJoined: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room'
