@@ -1,413 +1,251 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post');
-const Notification = require('../models/notification');
-const {isLoggedIn}=require('../middleware/auth');
+const User = require('../models/user');
 const multer = require('multer');
+const path = require('path');
+const Post = require('../models/post');
+const { isLoggedIn } = require('../middleware/auth');
 const { storage, cloudinary } = require("../cloudConfig");
-const upload = multer({ storage });
+const Task = require('../models/task'); // Add this line at the top with other requires
 
-// Create Post
-router.post('/', isLoggedIn, upload.single('image'), async (req, res) => {
-    try {
-        const { caption } = req.body;
-        
-        // Create new post with Cloudinary data if image was uploaded
-        const newPost = new Post({
-            user: req.user._id,
-            caption,
-            ...(req.file && {
-                imageUrl: req.file.path,
-                cloudinaryId: req.file.filename
-            })
-        });
+// Configure multer with error handling
 
-        await newPost.save();
-        
-        res.status(201).json({
-            success: true,
-            post: newPost
-        });
-    } catch (err) {
-        console.error('Error creating post:', err);
-        
-        // If there was an error and an image was uploaded, delete it from Cloudinary
-        if (req.file) {
-            await cloudinary.uploader.destroy(req.file.filename);
-        }
-        
-        res.status(500).json({ 
-            success: false,
-            error: 'Failed to create post'
-        });
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|pdf/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    
+    if (mimetype && extname) {
+      return cb(null, true);
     }
+    cb(new Error('Only image (JPEG, JPG, PNG) and PDF files are allowed'));
+  }
+}).single('screenshot');
+
+// In your profile route (profile.js or user.js)
+router.get('/', isLoggedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+  .populate({
+    path: 'followRequests',
+    select: 'username profilePhoto',
+    options: { lean: true }
+  })
+  .populate({
+    path: 'followers',
+    select: 'username profilePhoto',
+    options: { lean: true }
+  })
+  .populate({
+    path: 'following',
+    select: 'username profilePhoto',
+    options: { lean: true }
+  })
+  .lean();
+    const tasks = await Task.find({ userId: req.user._id })
+      .sort({ dueDate: 1 })
+      .lean();
+    // Initialize empty arrays if they don't exist
+    user.followers = user.followers || [];
+    user.following = user.following || [];
+    user.followRequests = user.followRequests || [];
+
+    const posts = await Post.find({ user: user._id }).lean();
+    
+    res.render('profile', { 
+      user, 
+      posts,
+      tasks: tasks,
+      profilePhoto: user.profilePhoto || '/images/default-avatar.png',
+      hasTimetableScreenshot: !!user.timetableScreenshot,
+      hasManualTimetable: !!user.timetableManual
+    });
+  } catch (err) {
+    console.error('Profile page error:', err);
+    res.status(500).render('error', { message: 'Failed to load profile' });
+  }
 });
 
-// Get all posts
-router.get('/posts', async (req, res) => {
-    const posts = await Post.find({})
-        .populate('user', 'username profilePhoto')
-        .populate('comments.user', 'username profilePhoto')
-        .populate('comments.likes.user', 'username profilePhoto')
-        .populate('comments.replies.user', 'username profilePhoto')
-        .populate('comments.replies.likes.user', 'username profilePhoto')
-        .sort({ createdAt: -1 })
-        .lean();
-    res.render('listing/main', { posts, currUser: req.user });
-});
-
-// Get comments for a post
-// In your routes/posts.js
-router.get('/:postId/comments', async (req, res) => {
+router.post('/upload', isLoggedIn, (req, res) => {
+  console.log('Upload route hit'); // Debug log
+  upload(req, res, async (err) => {
     try {
-        const post = await Post.findById(req.params.postId)
-            .populate('user', '_id username')
-            .populate('user', 'username profilePhoto') // Include post user info
-            .populate('comments.user', 'username profilePhoto')
-            .populate('comments.likes.user', 'username profilePhoto')
-            .populate('comments.replies.user', 'username profilePhoto')
-            .populate('comments.replies.likes.user', 'username profilePhoto')
-            .lean();
-
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        // Return both post and comments in the response
-        res.json({ 
-            post: {
-                _id: post._id,
-                user: post.user
-            },
-            comments: post.comments || [] // Ensure comments is always an array
+      console.log('Multer processing started'); // Debug log
+      
+      if (err) {
+        console.error('Multer error:', err);
+        return res.status(400).json({ 
+          error: err.message,
+          code: err.code 
         });
-    } catch (err) {
-        console.error('Error fetching comments:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+      }
 
+      console.log('File:', req.file); // Debug log - check if file exists
+      
+      if (!req.file) {
+        console.log('No file received');
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
 
-// Add comment to post
-router.post('/:postId/comments', isLoggedIn, async (req, res) => {
-    try {
-        const { text } = req.body;
-        const post = await Post.findById(req.params.postId).populate('user');
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
+      console.log('File uploaded to:', req.file.path); // Debug log
+      
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        console.log('User not found');
+        await cloudinary.uploader.destroy(req.file.filename);
+        return res.status(404).json({ error: 'User not found' });
+      }
 
-        post.comments.push({
-            user: req.user._id,
-            text
-        });
+      console.log('Old profile photo:', user.profilePhoto); // Debug log
+      
+      if (user.profilePhoto) {
+        const publicId = user.profilePhoto.split('/').pop().split('.')[0];
+        console.log('Deleting old photo with publicId:', publicId);
+        await cloudinary.uploader.destroy(`PYQ/pages/${publicId}`);
+      }
 
-        await post.save();
-        
-        const updatedPost = await Post.findById(req.params.postId)
-            .populate('comments.user', 'username profilePhoto');
+      user.profilePhoto = req.file.path;
+if (user.gender && typeof user.gender === 'string') {
+  user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1).toLowerCase();
+}
+await user.save();
+      console.log('Profile updated successfully');
 
-        const newComment = updatedPost.comments[updatedPost.comments.length - 1];
-
-        // Create notification only if the post owner is not the one commenting
-        if (!post.user._id.equals(req.user._id)) {
-            await Notification.create({
-                recipient: post.user._id,
-                sender: req.user._id,
-                type: 'comment',
-                isRead: false,
-                message: `${req.user.username} commented on your post: "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`,
-                relatedPost: post._id,
-                relatedComment: newComment._id
-            });
-        }
-
-        res.json({
-            success: true,
-            comment: newComment
-        });
-    } catch (err) {
-        console.error('Error adding comment:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-// Like a comment
-router.post('/:postId/comments/:commentId/like', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId)
-            .populate('comments.user');
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        const comment = post.comments.id(req.params.commentId);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
-        }
-
-        const alreadyLiked = comment.likes.some(like => like.user.equals(req.user._id));
-        
-        if (alreadyLiked) {
-            comment.likes = comment.likes.filter(like => !like.user.equals(req.user._id));
-        } else {
-            comment.likes.push({ user: req.user._id });
-            
-            // Create notification only if the comment owner is not the one liking
-            if (!comment.user._id.equals(req.user._id)) {
-                await Notification.create({
-                    recipient: comment.user._id,
-                    sender: req.user._id,
-                    type: 'like',
-                    isRead: false,
-                    message: `${req.user.username} liked your comment`,
-                    relatedPost: post._id,
-                    relatedComment: comment._id
-                });
-            }
-        }
-
-        await post.save();
-        
-        res.json({ 
-            success: true,
-            likesCount: comment.likes.length,
-            isLiked: !alreadyLiked
-        });
-    } catch (err) {
-        console.error('Error liking comment:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
-// Reply to comment
-router.post('/:postId/comments/:commentId/replies', isLoggedIn, async (req, res) => {
-    try {
-        const { text } = req.body;
-        const post = await Post.findById(req.params.postId)
-            .populate('comments.user');
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        const comment = post.comments.id(req.params.commentId);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
-        }
-
-        comment.replies.push({
-            user: req.user._id,
-            text
-        });
-
-        await post.save();
-        
-        const updatedPost = await Post.findById(req.params.postId)
-            .populate('comments.replies.user', 'username profilePhoto');
-
-        const updatedComment = updatedPost.comments.id(req.params.commentId);
-        const newReply = updatedComment.replies[updatedComment.replies.length - 1];
-
-        // Create notification for the comment owner if it's not the same user
-        if (!comment.user._id.equals(req.user._id)) {
-            await Notification.create({
-                recipient: comment.user._id,
-                sender: req.user._id,
-                type: 'reply',
-                isRead: false,
-                message: `${req.user.username} replied to your comment`,
-                relatedPost: post._id,
-                relatedComment: comment._id,
-                relatedReply: newReply._id
-            });
-        }
-
-        res.json({
-            success: true,
-            reply: newReply
-        });
-    } catch (err) {
-        console.error('Error adding reply:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-
-// Like a post
-router.post('/:postId/like', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId).populate('user');
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        const alreadyLiked = post.likes.some(like => like.user.equals(req.user._id));
-        
-        if (alreadyLiked) {
-            post.likes = post.likes.filter(like => !like.user.equals(req.user._id));
-        } else {
-            post.likes.push({ user: req.user._id });
-            
-            // Create notification only if the post owner is not the one liking
-            if (!post.user._id.equals(req.user._id)) {
-                await Notification.create({
-                    recipient: post.user._id,
-                    sender: req.user._id,
-                    type: 'like',
-                    isRead: false,
-                    message: `${req.user.username} liked your post`,
-                    relatedPost: post._id
-                });
-            }
-        }
-
-        await post.save();
-        
-        res.json({ 
-            success: true,
-            likesCount: post.likes.length,
-            isLiked: !alreadyLiked
-        });
-    } catch (err) {
-        console.error('Error liking post:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-// In your routes file (e.g., routes/posts.js)
-router.post('/:postId/comments/:commentId/replies/:replyId/like', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId)
-            .populate('comments.replies.user');
-        if (!post) return res.status(404).json({ error: 'Post not found' });
-        
-        const comment = post.comments.id(req.params.commentId);
-        if (!comment) return res.status(404).json({ error: 'Comment not found' });
-        
-        const reply = comment.replies.id(req.params.replyId);
-        if (!reply) return res.status(404).json({ error: 'Reply not found' });
-        
-        const likeIndex = reply.likes.findIndex(like => like.user.equals(req.user._id));
-        
-        if (likeIndex >= 0) {
-            reply.likes.splice(likeIndex, 1);
-        } else {
-            reply.likes.push({ user: req.user._id });
-            
-            // Create notification only if the reply owner is not the one liking
-            if (!reply.user._id.equals(req.user._id)) {
-                await Notification.create({
-                    recipient: reply.user._id,
-                    sender: req.user._id,
-                    type: 'like',
-                    isRead: false,
-                    message: `${req.user.username} liked your reply`,
-                    relatedPost: post._id,
-                    relatedComment: comment._id,
-                    relatedReply: reply._id
-                });
-            }
-        }
-        
-        await post.save();
-        
-        res.json({
-            success: true,
-            likesCount: reply.likes.length,
-            isLiked: likeIndex < 0
-        });
+      res.json({ 
+        success: true, 
+        profilePhoto: req.file.path 
+      });
+      
     } catch (error) {
-        console.error('Error liking reply:', error);
-        res.status(500).json({ error: 'Server error' });
+      console.error('Full error stack:', error.stack); // More detailed error
+      if (req.file) {
+        console.log('Cleaning up uploaded file due to error');
+        await cloudinary.uploader.destroy(req.file.filename);
+      }
+      res.status(500).json({ 
+        error: 'Failed to update profile photo',
+        details: error.message 
+      });
     }
+  });
 });
-router.delete('/:id', isLoggedIn, async (req, res) => {
+// Add this to your profile.js routes
+router.post('/update', isLoggedIn, async (req, res) => {
+  try {
+    const { username, email, linkedinId, bio } = req.body;
+    
+    // Basic validation
+    if (!username || !email) {
+      return res.status(400).json({ error: 'Username and email are required' });
+    }
+    
+    // Update user
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { 
+        username,
+        email,
+        linkedinId: linkedinId || null, // Set to null if empty
+        bio: bio || null
+      },
+      { new: true }
+    );
+    
+    res.redirect('/profile');
+    
+  } catch (err) {
+    console.error('Profile update error:', err);
+    res.status(500).json({ error: 'Failed to update profile' });
+  }
+});
+
+router.post('/timetable-manual', isLoggedIn, async (req, res) => {
+  try {
+    const { timetable } = req.body;
+    if (!timetable) {
+      return res.status(400).json({ error: 'Timetable data is required' });
+    }
+
+    await User.findByIdAndUpdate(req.user._id, { timetableManual: timetable });
+    
+    res.redirect('/profile');
+    
+  } catch (err) {
+    console.error('Timetable save error:', err);
+    res.status(500).json({ error: 'Failed to save timetable' });
+  }
+});
+
+// In your posts routes file
+
+// In your profile routes (profile.js)
+// In your profile.js routes file
+router.post('/upload-timetable', isLoggedIn, (req, res) => {
+  upload(req, res, async (err) => {
     try {
-        const post = await Post.findById(req.params.id);
-        
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-        
-        // Check if user is authorized to delete
-        if (!post.user.equals(req.user._id)) {
-            return res.status(403).json({ error: 'Not authorized' });
-        }
-        
-        // Delete image from Cloudinary if exists
-        if (post.cloudinaryId) {
-            await cloudinary.uploader.destroy(post.cloudinaryId);
-        }
-        
-        // Delete post from database
-        await Post.findByIdAndDelete(req.params.id);
-        
-        res.json({ success: true });
-    } catch (err) {
-        console.error('Error deleting post:', err);
-        res.status(500).json({ error: 'Failed to delete post' });
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        await cloudinary.uploader.destroy(req.file.filename);
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Delete old screenshot if exists
+      if (user.timetableScreenshot) {
+        const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`timetables/${publicId}`);
+      }
+
+      user.timetableScreenshot = req.file.path;
+      await user.save();
+
+      res.json({ 
+        success: true, 
+        timetableScreenshot: req.file.path 
+      });
+      
+    } catch (error) {
+      console.error('Timetable upload error:', error);
+      if (req.file) {
+        await cloudinary.uploader.destroy(req.file.filename);
+      }
+      res.status(500).json({ error: 'Failed to upload timetable' });
     }
-});
-// In your routes/posts.js or similar
-router.delete('/:postId/comments/:commentId', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId);
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        const comment = post.comments.id(req.params.commentId);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
-        }
-
-        // Check if user is the comment author OR post owner
-        if (!comment.user.equals(req.user._id) && !post.user.equals(req.user._id)) {
-            return res.status(403).json({ error: 'Not authorized to delete this comment' });
-        }
-
-        // Remove the comment
-        post.comments.pull(req.params.commentId);
-        await post.save();
-
-        res.json({ success: true });
-    } catch (err) {
-        console.error('Error deleting comment:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+  });
 });
 
-router.delete('/:postId/comments/:commentId/replies/:replyId', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId);
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        const comment = post.comments.id(req.params.commentId);
-        if (!comment) {
-            return res.status(404).json({ error: 'Comment not found' });
-        }
-
-        const reply = comment.replies.id(req.params.replyId);
-        if (!reply) {
-            return res.status(404).json({ error: 'Reply not found' });
-        }
-
-        // Check if user is the reply author, comment author, or post owner
-        if (!reply.user.equals(req.user._id) && 
-            !comment.user.equals(req.user._id) && 
-            !post.user.equals(req.user._id)) {
-            return res.status(403).json({ error: 'Not authorized to delete this reply' });
-        }
-
-        // Remove the reply
-        comment.replies.pull(req.params.replyId);
-        await post.save();
-
-        res.json({ success: true });
-    } catch (err) {
-        console.error('Error deleting reply:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+// Add route for deleting screenshot
+router.post('/delete-timetable-screenshot', isLoggedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
+
+    if (user.timetableScreenshot) {
+      const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
+      await cloudinary.uploader.destroy(`timetables/${publicId}`);
+      
+      user.timetableScreenshot = undefined;
+      await user.save();
+    }
+
+    res.json({ success: true });
+    
+  } catch (error) {
+    console.error('Delete timetable error:', error);
+    res.status(500).json({ error: 'Failed to delete timetable' });
+  }
 });
+
 module.exports = router;
