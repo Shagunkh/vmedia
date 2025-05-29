@@ -1067,19 +1067,20 @@
             <a href="/aboutus" class="nav-link">About</a>
         </div>
         
-        <div class="auth-buttons">
-            <a href="/users/login" class="auth-btn login-btn">Login</a>
-            <a href="/users/signup" class="auth-btn signup-btn">Sign Up</a>
-        </div>
+       <div class="auth-buttons">
+  <% if (user) { %>
+    <a href="/" class="auth-btn login-btn">Home</a>
+  <% } else { %>
+    <a href="/users/login" class="auth-btn login-btn">Login</a>
+    <a href="/users/signup" class="auth-btn signup-btn">Sign Up</a>
+  <% } %>
+</div>
     </nav>
     
  
     <section class="hero" id="home">
        
-        <video autoplay muted loop class="hero-video">
-            <source src="/images/3163534-uhd_3840_2160_30fps.mp4" type="video/mp4">
-        </video>
-        
+       
         <div class="hero-content animate-fade" style="animation-delay: 0.3s;">
             <h1 class="logo">VALL</h1>
             <h2 class="tagline">The VITian Ecosystem</h2>
