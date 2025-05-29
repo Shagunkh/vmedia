@@ -1475,18 +1475,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const cosmicBackground = document.querySelector('.cosmic-background');
   
   // Create stars
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.className = 'cosmic-particle';
-    star.style.width = `${Math.random() * 3 + 1}px`;
-    star.style.height = star.style.width;
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.opacity = Math.random();
-    star.style.animationDuration = `${Math.random() * 50 + 50}s`;
-    star.style.animationDelay = `${Math.random() * 10}s`;
-    cosmicBackground.appendChild(star);
-  }
+  
   
   // Create larger cosmic elements
   for (let i = 0; i < 10; i++) {
