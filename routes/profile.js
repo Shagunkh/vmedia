@@ -9,6 +9,7 @@ const { storage, cloudinary } = require("../cloudConfig");
 const Task = require('../models/task'); // Add this line at the top with other requires
 
 // Configure multer with error handling
+
 const upload = multer({ 
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
@@ -22,7 +23,7 @@ const upload = multer({
     }
     cb(new Error('Only image (JPEG, JPG, PNG) and PDF files are allowed'));
   }
-}).single('photo');
+}).single('screenshot');
 
 // In your profile route (profile.js or user.js)
 router.get('/', isLoggedIn, async (req, res) => {
@@ -58,7 +59,9 @@ router.get('/', isLoggedIn, async (req, res) => {
       user, 
       posts,
       tasks: tasks,
-      profilePhoto: user.profilePhoto || '/images/default-avatar.png'
+      profilePhoto: user.profilePhoto || '/images/default-avatar.png',
+      hasTimetableScreenshot: !!user.timetableScreenshot,
+      hasManualTimetable: !!user.timetableManual
     });
   } catch (err) {
     console.error('Profile page error:', err);
@@ -177,33 +180,71 @@ router.post('/timetable-manual', isLoggedIn, async (req, res) => {
 });
 
 // In your posts routes file
-router.delete('/:id', isLoggedIn, async (req, res) => {
+
+// In your profile routes (profile.js)
+// In your profile.js routes file
+router.post('/upload-timetable', isLoggedIn, (req, res) => {
+  upload(req, res, async (err) => {
+    try {
+      if (err) {
+        return res.status(400).json({ error: err.message });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const user = await User.findById(req.user._id);
+      if (!user) {
+        await cloudinary.uploader.destroy(req.file.filename);
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Delete old screenshot if exists
+      if (user.timetableScreenshot) {
+        const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`timetables/${publicId}`);
+      }
+
+      user.timetableScreenshot = req.file.path;
+      await user.save();
+
+      res.json({ 
+        success: true, 
+        timetableScreenshot: req.file.path 
+      });
+      
+    } catch (error) {
+      console.error('Timetable upload error:', error);
+      if (req.file) {
+        await cloudinary.uploader.destroy(req.file.filename);
+      }
+      res.status(500).json({ error: 'Failed to upload timetable' });
+    }
+  });
+});
+
+// Add route for deleting screenshot
+router.post('/delete-timetable-screenshot', isLoggedIn, async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    
-    // Check if post exists and belongs to user
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
-    
-    if (!post.user.equals(req.user._id)) {
-      return res.status(403).json({ error: 'Not authorized to delete this post' });
+
+    if (user.timetableScreenshot) {
+      const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
+      await cloudinary.uploader.destroy(`timetables/${publicId}`);
+      
+      user.timetableScreenshot = undefined;
+      await user.save();
     }
-    
-    // Delete from Cloudinary if it's an image post
-    if (post.imageUrl) {
-      const publicId = post.imageUrl.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(`posts/${publicId}`);
-    }
-    
-    // Delete from database
-    await Post.findByIdAndDelete(req.params.id);
-    
+
     res.json({ success: true });
     
-  } catch (err) {
-    console.error('Delete post error:', err);
-    res.status(500).json({ error: 'Failed to delete post' });
+  } catch (error) {
+    console.error('Delete timetable error:', error);
+    res.status(500).json({ error: 'Failed to delete timetable' });
   }
 });
 
