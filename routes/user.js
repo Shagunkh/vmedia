@@ -1,251 +1,244 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const User = require('../models/user');
-const multer = require('multer');
-const path = require('path');
-const Post = require('../models/post');
+const wrapAsync = require("../utils/wrapAsyc.js");
+const User = require("../models/user.js");
+const passport = require("passport");
+const Notification = require('../models/notification');
 const { isLoggedIn } = require('../middleware/auth');
-const { storage, cloudinary } = require("../cloudConfig");
-const Task = require('../models/task'); // Add this line at the top with other requires
+const Post = require('../models/post.js');
 
-// Configure multer with error handling
-
-const upload = multer({ 
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|pdf/;
-    const mimetype = filetypes.test(file.mimetype);
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb(new Error('Only image (JPEG, JPG, PNG) and PDF files are allowed'));
-  }
-}).single('screenshot');
-
-// In your profile route (profile.js or user.js)
-router.get('/', isLoggedIn, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id)
-  .populate({
-    path: 'followRequests',
-    select: 'username profilePhoto',
-    options: { lean: true }
-  })
-  .populate({
-    path: 'followers',
-    select: 'username profilePhoto',
-    options: { lean: true }
-  })
-  .populate({
-    path: 'following',
-    select: 'username profilePhoto',
-    options: { lean: true }
-  })
-  .lean();
-    const tasks = await Task.find({ userId: req.user._id })
-      .sort({ dueDate: 1 })
-      .lean();
-    // Initialize empty arrays if they don't exist
-    user.followers = user.followers || [];
-    user.following = user.following || [];
-    user.followRequests = user.followRequests || [];
-
-    const posts = await Post.find({ user: user._id }).lean();
-    
-    res.render('profile', { 
-      user, 
-      posts,
-      tasks: tasks,
-      profilePhoto: user.profilePhoto || '/images/default-avatar.png',
-      hasTimetableScreenshot: !!user.timetableScreenshot,
-      hasManualTimetable: !!user.timetableManual
-    });
-  } catch (err) {
-    console.error('Profile page error:', err);
-    res.status(500).render('error', { message: 'Failed to load profile' });
-  }
+// Signup Routes
+router.get("/signup", (req, res) => {
+   res.render("users/signup.ejs");
 });
 
-router.post('/upload', isLoggedIn, (req, res) => {
-  console.log('Upload route hit'); // Debug log
-  upload(req, res, async (err) => {
+router.post("/signup", wrapAsync(async (req, res, next) => {
     try {
-      console.log('Multer processing started'); // Debug log
-      
-      if (err) {
-        console.error('Multer error:', err);
-        return res.status(400).json({ 
-          error: err.message,
-          code: err.code 
+        let { username, email, password } = req.body;
+        const newUser = new User({ email, username });
+        const registeredUser = await User.register(newUser, password);
+        
+        req.login(registeredUser, (err) => {
+            if (err) return next(err);
+             res.redirect("/users/complete-profile");
         });
-      }
-
-      console.log('File:', req.file); // Debug log - check if file exists
-      
-      if (!req.file) {
-        console.log('No file received');
-        return res.status(400).json({ error: 'No file uploaded' });
-      }
-
-      console.log('File uploaded to:', req.file.path); // Debug log
-      
-      const user = await User.findById(req.user._id);
-      if (!user) {
-        console.log('User not found');
-        await cloudinary.uploader.destroy(req.file.filename);
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      console.log('Old profile photo:', user.profilePhoto); // Debug log
-      
-      if (user.profilePhoto) {
-        const publicId = user.profilePhoto.split('/').pop().split('.')[0];
-        console.log('Deleting old photo with publicId:', publicId);
-        await cloudinary.uploader.destroy(`PYQ/pages/${publicId}`);
-      }
-
-      user.profilePhoto = req.file.path;
-if (user.gender && typeof user.gender === 'string') {
-  user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1).toLowerCase();
-}
-await user.save();
-      console.log('Profile updated successfully');
-
-      res.json({ 
-        success: true, 
-        profilePhoto: req.file.path 
-      });
-      
-    } catch (error) {
-      console.error('Full error stack:', error.stack); // More detailed error
-      if (req.file) {
-        console.log('Cleaning up uploaded file due to error');
-        await cloudinary.uploader.destroy(req.file.filename);
-      }
-      res.status(500).json({ 
-        error: 'Failed to update profile photo',
-        details: error.message 
-      });
+    } catch (e) {
+        res.redirect("/signup");
     }
-  });
+}));
+// Add this to your routes/users.js
+router.get("/complete-profile", isLoggedIn, (req, res) => {
+    // Check if user already completed profile
+    if (req.user.gender && req.user.collegeYear) {
+        return res.redirect("/");
+    }
+    res.render("users/completeProfile.ejs");
 });
-// Add this to your profile.js routes
-router.post('/update', isLoggedIn, async (req, res) => {
-  try {
-    const { username, email, linkedinId, bio } = req.body;
+
+router.post("/complete-profile", isLoggedIn, wrapAsync(async (req, res) => {
+    const { gender, collegeYear } = req.body;
+    await User.findByIdAndUpdate(req.user._id, {
+        gender,
+        collegeYear
+    });
+    res.redirect("/");
+}));
+// Login Routes
+router.get("/login", (req, res) => {
+    res.render("users/login.ejs");
+});
+
+router.post("/login", passport.authenticate("local", {
     
-    // Basic validation
-    if (!username || !email) {
-      return res.status(400).json({ error: 'Username and email are required' });
-    }
-    
-    // Update user
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user._id,
-      { 
-        username,
-        email,
-        linkedinId: linkedinId || null, // Set to null if empty
-        bio: bio || null
-      },
-      { new: true }
+    failureRedirect: '/users/login'
+}), (req, res) => {
+    const redirectUrl = res.locals.returnTo || '/';
+    delete res.locals.returnTo;
+    res.redirect(redirectUrl);
+});
+
+// Logout Route
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        res.redirect("/");
+    });
+});
+
+
+// Notification Route
+router.post('/notifications/mark-read', isLoggedIn, wrapAsync(async (req, res) => {
+    await Notification.updateMany(
+        { recipient: req.user._id, isRead: false },
+        { $set: { isRead: true } }
     );
-    
-    res.redirect('/profile');
-    
-  } catch (err) {
-    console.error('Profile update error:', err);
-    res.status(500).json({ error: 'Failed to update profile' });
-  }
-});
+    res.json({ success: true });
+}));
 
-router.post('/timetable-manual', isLoggedIn, async (req, res) => {
-  try {
-    const { timetable } = req.body;
-    if (!timetable) {
-      return res.status(400).json({ error: 'Timetable data is required' });
-    }
-
-    await User.findByIdAndUpdate(req.user._id, { timetableManual: timetable });
-    
-    res.redirect('/profile');
-    
-  } catch (err) {
-    console.error('Timetable save error:', err);
-    res.status(500).json({ error: 'Failed to save timetable' });
-  }
-});
-
-// In your posts routes file
-
-// In your profile routes (profile.js)
-// In your profile.js routes file
-router.post('/upload-timetable', isLoggedIn, (req, res) => {
-  upload(req, res, async (err) => {
+router.get('/search', async (req, res) => {
     try {
-      if (err) {
-        return res.status(400).json({ error: err.message });
-      }
+        const searchQuery = req.query.q;
+        if (!searchQuery) {
+            return res.json([]);
+        }
 
-      if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-      }
+        const users = await User.find({
+            username: { $regex: searchQuery, $options: 'i' }
+        }).limit(10);
 
-      const user = await User.findById(req.user._id);
-      if (!user) {
-        await cloudinary.uploader.destroy(req.file.filename);
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      // Delete old screenshot if exists
-      if (user.timetableScreenshot) {
-        const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
-        await cloudinary.uploader.destroy(`timetables/${publicId}`);
-      }
-
-      user.timetableScreenshot = req.file.path;
-      await user.save();
-
-      res.json({ 
-        success: true, 
-        timetableScreenshot: req.file.path 
-      });
-      
+        res.json(users);
     } catch (error) {
-      console.error('Timetable upload error:', error);
-      if (req.file) {
-        await cloudinary.uploader.destroy(req.file.filename);
-      }
-      res.status(500).json({ error: 'Failed to upload timetable' });
+        console.error('Search error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-  });
 });
 
-// Add route for deleting screenshot
-router.post('/delete-timetable-screenshot', isLoggedIn, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+// Add this route for viewing other profiles
+router.get('/:username', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username })
+            .populate('followers', 'username profilePhoto')
+            .populate('following', 'username profilePhoto');
+            
+        const posts = await Post.find({ user: user._id }).sort({ createdAt: -1 }).limit(10);
+        
+        if (!user) {
+            throw new ExpressError('User not found', 404);
+        }
+        
+        // Check if current user is logged in and following this user
+        let canViewPrivate = false;
+        if (req.user) {
+            canViewPrivate = req.user.following.includes(user._id) || req.user._id.equals(user._id);
+        }
+        
+        res.render('users/otherprofile', { 
+            user, 
+            posts: posts || [],
+            currentUser: req.user, // Pass current user to template
+            canViewPrivate
+        });
+    } catch (error) {
+        console.error('Profile view error:', error);
+        res.status(500).render('error', { error });
+    }
+});
+
+router.post('/:userId/request-follow', isLoggedIn, wrapAsync(async (req, res) => {
+    if (req.user._id.equals(req.params.userId)) {
+        return res.status(400).json({ error: "You can't follow yourself" });
     }
 
-    if (user.timetableScreenshot) {
-      const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(`timetables/${publicId}`);
-      
-      user.timetableScreenshot = undefined;
-      await user.save();
+    const targetUser = await User.findById(req.params.userId);
+    
+    // Check if already following
+    if (req.user.following.includes(req.params.userId)) {
+        return res.status(400).json({ error: "You're already following this user" });
     }
+
+    // Check if request already sent
+    if (req.user.sentFollowRequests.includes(req.params.userId)) {
+        return res.status(400).json({ error: "Follow request already sent" });
+    }
+
+    // If approval not required, follow directly
+    if (!targetUser.privacy.followApprovalRequired) {
+        const [follower, following] = await Promise.all([
+            User.findByIdAndUpdate(req.user._id, {
+                $addToSet: { following: req.params.userId }
+            }, { new: true }),
+            
+            User.findByIdAndUpdate(req.params.userId, {
+                $addToSet: { followers: req.user._id }
+            }, { new: true })
+        ]);
+
+        await Notification.create({
+            recipient: req.params.userId,
+            sender: req.user._id,
+            type: 'follow',
+            isRead: false,
+            message: `${req.user.username} started following you`
+        });
+
+        return res.json({ success: true, follower, following });
+    }
+
+    // If approval required, send request
+    await Promise.all([
+        User.findByIdAndUpdate(req.user._id, {
+            $addToSet: { sentFollowRequests: req.params.userId }
+        }),
+        
+        User.findByIdAndUpdate(req.params.userId, {
+            $addToSet: { followRequests: req.user._id }
+        })
+    ]);
+
+    await Notification.create({
+        recipient: req.params.userId,
+        sender: req.user._id,
+        type: 'follow-request',
+        isRead: false,
+        message: `${req.user.username} wants to follow you`
+    });
+
+    res.json({ success: true, requiresApproval: true });
+}));
+
+// Accept Follow Request
+router.post('/:userId/accept-follow', isLoggedIn, wrapAsync(async (req, res) => {
+    const [follower, following] = await Promise.all([
+        User.findByIdAndUpdate(req.params.userId, {
+            $addToSet: { following: req.user._id },
+            $pull: { sentFollowRequests: req.user._id }
+        }, { new: true }),
+        
+        User.findByIdAndUpdate(req.user._id, {
+            $addToSet: { followers: req.params.userId },
+            $pull: { followRequests: req.params.userId }
+        }, { new: true })
+    ]);
+
+    await Notification.create({
+        recipient: req.params.userId,
+        sender: req.user._id,
+        type: 'follow-accepted',
+        isRead: false,
+        message: `${req.user.username} accepted your follow request`
+    });
+
+    res.json({ success: true, follower, following });
+}));
+
+// Reject Follow Request
+router.post('/:userId/reject-follow', isLoggedIn, wrapAsync(async (req, res) => {
+    await Promise.all([
+        User.findByIdAndUpdate(req.params.userId, {
+            $pull: { sentFollowRequests: req.user._id }
+        }),
+        
+        User.findByIdAndUpdate(req.user._id, {
+            $pull: { followRequests: req.params.userId }
+        })
+    ]);
 
     res.json({ success: true });
-    
-  } catch (error) {
-    console.error('Delete timetable error:', error);
-    res.status(500).json({ error: 'Failed to delete timetable' });
-  }
-});
+}));
+
+// Unfollow Route
+router.delete('/:userId/follow', isLoggedIn, wrapAsync(async (req, res) => {
+    const [follower, following] = await Promise.all([
+        User.findByIdAndUpdate(req.user._id, {
+            $pull: { following: req.params.userId }
+        }, { new: true }),
+        
+        User.findByIdAndUpdate(req.params.userId, {
+            $pull: { followers: req.user._id }
+        }, { new: true })
+    ]);
+
+    res.json({ success: true, follower, following });
+}));
 
 module.exports = router;
