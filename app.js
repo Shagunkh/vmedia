@@ -167,6 +167,8 @@ const roomRoutes = require('./routes/roomRoutes');
 app.use('/api/rooms', roomRoutes);
 const apii=require('./routes/api.js');
 app.use('/api',apii);
+const appi = require('./routes/apii.js');
+app.use('/apii',appi);
 // app.js
 // In app.js, replace your current middleware with:
 
@@ -302,6 +304,12 @@ io.on('connection', (socket) => {
 
  
 });
+
+
+server.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
+
 
 
 server.listen(PORT, () => {
