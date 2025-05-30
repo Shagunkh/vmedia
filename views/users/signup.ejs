@@ -372,8 +372,14 @@
       font-size: 1rem;
     }
     .alexa{
-      width:400px;
+      width:360px;
     }
+    .error-message {
+    
+   
+   margin-left: -4rem;
+    width: 10rem;
+}
   }
 
   .alexa {
@@ -483,21 +489,91 @@
       caret-color: var(--text-primary);
       border: 1px solid rgba(0, 216, 255, 0.2) !important;
   }
-  
+  .error-message {
+    
+   
+   margin-left: -2.6rem;
+    width: 25rem;
+}
+.row {
+    max-width: 500px; /* Reduced from 800px */
+    padding: 1.5rem; /* Reduced from 2.5rem */
+    max-height: 550px; /* Reduced from 650px */
+    min-height: 500px; /* Reduced from 620px */
+  }
+
+  h1 {
+    font-size: 2rem; /* Reduced from 2.5rem */
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
+  }
+
+  .form-label {
+    font-size: 1rem; /* Reduced from 1.1rem */
+    margin-bottom: 0.5rem; /* Reduced from 0.8rem */
+  }
+
+  .form-control {
+    padding: 12px 15px; /* Reduced from 15px 20px */
+    font-size: 0.95rem; /* Reduced from 1rem */
+    width: 220px; /* Reduced from 250px */
+    margin-left: -2rem; /* Adjusted from -2.4rem */
+  }
+
+  .btn-success {
+    padding: 12px 20px; /* Reduced from 16px 30px */
+    font-size: 1rem; /* Reduced from 1.1rem */
+    margin-top: 1rem; /* Reduced from 1.5rem */
+  }
+
+  .login-link {
+    margin-top: 1rem; /* Reduced from 1.5rem */
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+  }
+
+  /* Adjust error message positioning */
+  .error-message {
+    margin-left: -2rem;
+    width: 20rem; /* Reduced from 25rem */
+    font-size: 0.8rem;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .row {
+      padding: 1rem;
+      width: 320px; /* Adjusted from 360px */
+    }
+    
+    h1 {
+      font-size: 1.5rem; /* Reduced from 1.8rem */
+    }
+    
+    .form-control {
+      width: 200px;
+      margin-left: -2.5rem;
+    }
+    
+    .error-message {
+      margin-left: -3rem;
+      width: 15rem;
+    }
+  }
+
 </style>
 
-<div class="row mt-3 alexa col-4">
+<div class="row mt-3 alexa col-4"> 
   <div class="col-6 offset-3">
     <h1>Sign Up</h1>
     <form action="/users/signup" method="POST">
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input name="username" 
-               id="username"
-               type="text" 
-               class="form-control"
-               required>
-      </div>
+     <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input name="username" 
+           id="username"
+           type="text" 
+           class="form-control"
+           required>
+    <div id="username-error" class="error-message">Try add numbers,etc in your username</div>
+</div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
@@ -542,10 +618,10 @@
       container.appendChild(dot);
     }
   }
-
+   
   document.addEventListener('DOMContentLoaded', function() {
     createDots();
-    
+     
     // Add input focus effects
     const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
@@ -567,18 +643,9 @@
         input.parentNode.querySelector('.form-label').style.opacity = '0.8';
       }
     });
+     
+
+// Function to apply suggestion to username field
     
-    // Signup button loading state
-    const signupBtn = document.querySelector('.btn-success');
-    signupBtn.addEventListener('click', function(e) {
-      this.innerHTML = 'Creating Account...';
-      this.disabled = true;
-      
-      // Simulate loading (remove in production)
-      setTimeout(() => {
-        this.innerHTML = 'Sign Up';
-        this.disabled = false;
-      }, 2000);
-    });
   });
 </script>
