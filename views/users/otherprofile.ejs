@@ -1123,6 +1123,10 @@
                   <% }) %>
                 </tbody>
               </table>
+            <% } else if (user.timetableScreenshot) { %>
+              <div class="text-center">
+                <img src="<%= user.timetableScreenshot %>" class="img-fluid rounded" alt="Timetable Screenshot">
+              </div>
             <% } else { %>
               <p class="text-center text-muted mt-4"><%= user.username %> hasn't shared their timetable yet</p>
             <% } %>
