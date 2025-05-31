@@ -1875,22 +1875,27 @@
     <%= post.caption %>
 </div>
 
-            <div class="feed-actions">
-                <button class="btn btn-sm <%= userLiked ? 'btn-danger' : 'btn-outline-secondary' %> like-btn" 
-                        data-post-id="<%= post._id %>">
-                    <i class="bi bi-heart<%= userLiked ? '-fill' : '' %>"></i> 
-                    <span class="like-count"><%= post.likes.length %></span>
-                </button>
-                
-                <button class="btn btn-sm btn-outline-secondary comment-btn" 
-                        data-post-id="<%= post._id %>"
-                        data-bs-toggle="modal" 
-                        data-bs-target="#commentsModal">
-                    <i class="bi bi-chat"></i> 
-                    <span class="comment-count"><%= commentsCount %></span>
-                </button>
-                
-            </div>
+          <div class="feed-actions">
+    <button class="btn btn-sm <%= post.userLiked ? 'btn-danger' : 'btn-outline-secondary' %> like-btn" 
+            data-post-id="<%= post._id %>">
+        <i class="bi bi-heart<%= post.userLiked ? '-fill' : '' %>"></i> 
+        <span class="like-count"><%= post.likes.length %></span>
+    </button>
+    
+    <button class="btn btn-sm <%= post.userDisliked ? 'btn-danger' : 'btn-outline-secondary' %> dislike-btn" 
+            data-post-id="<%= post._id %>">
+        <i class="bi bi-hand-thumbs-down<%= post.userDisliked ? '-fill' : '' %>"></i> 
+        <span class="dislike-count"><%= post.dislikes.length %></span>
+    </button>
+    
+    <button class="btn btn-sm btn-outline-secondary comment-btn" 
+            data-post-id="<%= post._id %>"
+            data-bs-toggle="modal" 
+            data-bs-target="#commentsModal">
+        <i class="bi bi-chat"></i> 
+        <span class="comment-count"><%= post.comments ? post.comments.length : 0 %></span>
+    </button>
+</div>
              
         </div>
     <% }) %>
@@ -2625,41 +2630,160 @@ if (scrollToBottomBtn) {
         });
     }
 
-    // Post like handler
-    document.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', async function() {
-            const postId = this.getAttribute('data-post-id');
-            try {
-                const response = await fetch(`/posts/${postId}/like`, {
-                    method: 'POST'
-                });
+   // Post like/dislike handler with immediate UI feedback
+document.querySelectorAll('.like-btn, .dislike-btn').forEach(btn => {
+    btn.addEventListener('click', async function() {
+        const postId = this.getAttribute('data-post-id');
+        const isLikeBtn = this.classList.contains('like-btn');
+        
+        // Optimistic UI update - change immediately
+        const likeCountEl = this.querySelector('.like-count');
+        const dislikeCountEl = this.closest('.feed-actions').querySelector('.dislike-btn .dislike-count');
+        
+        if (isLikeBtn) {
+            const isLiked = this.classList.contains('btn-danger');
+            const likeCount = parseInt(likeCountEl.textContent);
+            
+            if (isLiked) {
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-outline-secondary');
+                this.querySelector('i').classList.remove('bi-heart-fill');
+                this.querySelector('i').classList.add('bi-heart');
+                likeCountEl.textContent = likeCount - 1;
+            } else {
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('btn-danger');
+                this.querySelector('i').classList.remove('bi-heart');
+                this.querySelector('i').classList.add('bi-heart-fill');
+                likeCountEl.textContent = likeCount + 1;
                 
-                const result = await response.json();
+                // If disliked, remove dislike
+                const dislikeBtn = this.closest('.feed-actions').querySelector('.dislike-btn');
+                if (dislikeBtn.classList.contains('btn-danger')) {
+                    dislikeBtn.classList.remove('btn-danger');
+                    dislikeBtn.classList.add('btn-outline-secondary');
+                    dislikeBtn.querySelector('i').classList.remove('bi-hand-thumbs-down-fill');
+                    dislikeBtn.querySelector('i').classList.add('bi-hand-thumbs-down');
+                    dislikeCountEl.textContent = parseInt(dislikeCountEl.textContent) - 1;
+                }
+            }
+        } else {
+            const isDisliked = this.classList.contains('btn-danger');
+            const dislikeCount = parseInt(dislikeCountEl.textContent);
+            
+            if (isDisliked) {
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-outline-secondary');
+                this.querySelector('i').classList.remove('bi-hand-thumbs-down-fill');
+                this.querySelector('i').classList.add('bi-hand-thumbs-down');
+                dislikeCountEl.textContent = dislikeCount - 1;
+            } else {
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('btn-danger');
+                this.querySelector('i').classList.remove('bi-hand-thumbs-down');
+                this.querySelector('i').classList.add('bi-hand-thumbs-down-fill');
+                dislikeCountEl.textContent = dislikeCount + 1;
                 
-                if (result.success) {
-                    const likeCountEl = this.querySelector('.like-count');
-                    if (likeCountEl) {
-                        likeCountEl.textContent = result.likesCount;
-                    }
+                // If liked, remove like
+                const likeBtn = this.closest('.feed-actions').querySelector('.like-btn');
+                if (likeBtn.classList.contains('btn-danger')) {
+                    likeBtn.classList.remove('btn-danger');
+                    likeBtn.classList.add('btn-outline-secondary');
+                    likeBtn.querySelector('i').classList.remove('bi-heart-fill');
+                    likeBtn.querySelector('i').classList.add('bi-heart');
+                    likeCountEl.textContent = parseInt(likeCountEl.textContent) - 1;
+                }
+            }
+        }
+        
+        // Then make the actual API call
+        try {
+            const endpoint = isLikeBtn ? 'like' : 'dislike';
+            const response = await fetch(`/posts/${postId}/${endpoint}`, {
+                method: 'POST'
+            });
+            
+            const result = await response.json();
+            
+            if (!result.success) {
+                // Revert UI if API call fails
+                if (isLikeBtn) {
+                    const isLiked = this.classList.contains('btn-danger');
+                    const likeCount = parseInt(likeCountEl.textContent);
                     
-                    if (result.isLiked) {
-                        this.classList.remove('btn-outline-secondary');
-                        this.classList.add('btn-danger');
-                        this.querySelector('i').classList.remove('bi-heart');
-                        this.querySelector('i').classList.add('bi-heart-fill');
-                    } else {
+                    if (isLiked) {
                         this.classList.remove('btn-danger');
                         this.classList.add('btn-outline-secondary');
                         this.querySelector('i').classList.remove('bi-heart-fill');
                         this.querySelector('i').classList.add('bi-heart');
+                        likeCountEl.textContent = likeCount - 1;
+                    } else {
+                        this.classList.remove('btn-outline-secondary');
+                        this.classList.add('btn-danger');
+                        this.querySelector('i').classList.remove('bi-heart');
+                        this.querySelector('i').classList.add('bi-heart-fill');
+                        likeCountEl.textContent = likeCount + 1;
+                    }
+                } else {
+                    const isDisliked = this.classList.contains('btn-danger');
+                    const dislikeCount = parseInt(dislikeCountEl.textContent);
+                    
+                    if (isDisliked) {
+                        this.classList.remove('btn-danger');
+                        this.classList.add('btn-outline-secondary');
+                        this.querySelector('i').classList.remove('bi-hand-thumbs-down-fill');
+                        this.querySelector('i').classList.add('bi-hand-thumbs-down');
+                        dislikeCountEl.textContent = dislikeCount - 1;
+                    } else {
+                        this.classList.remove('btn-outline-secondary');
+                        this.classList.add('btn-danger');
+                        this.querySelector('i').classList.remove('bi-hand-thumbs-down');
+                        this.querySelector('i').classList.add('bi-hand-thumbs-down-fill');
+                        dislikeCountEl.textContent = dislikeCount + 1;
                     }
                 }
-            } catch (error) {
-                console.error('Error liking post:', error);
             }
-        });
+        } catch (error) {
+            console.error('Error:', error);
+            // Revert UI changes if there's an error
+            if (isLikeBtn) {
+                const isLiked = this.classList.contains('btn-danger');
+                const likeCount = parseInt(likeCountEl.textContent);
+                
+                if (isLiked) {
+                    this.classList.remove('btn-danger');
+                    this.classList.add('btn-outline-secondary');
+                    this.querySelector('i').classList.remove('bi-heart-fill');
+                    this.querySelector('i').classList.add('bi-heart');
+                    likeCountEl.textContent = likeCount - 1;
+                } else {
+                    this.classList.remove('btn-outline-secondary');
+                    this.classList.add('btn-danger');
+                    this.querySelector('i').classList.remove('bi-heart');
+                    this.querySelector('i').classList.add('bi-heart-fill');
+                    likeCountEl.textContent = likeCount + 1;
+                }
+            } else {
+                const isDisliked = this.classList.contains('btn-danger');
+                const dislikeCount = parseInt(dislikeCountEl.textContent);
+                
+                if (isDisliked) {
+                    this.classList.remove('btn-danger');
+                    this.classList.add('btn-outline-secondary');
+                    this.querySelector('i').classList.remove('bi-hand-thumbs-down-fill');
+                    this.querySelector('i').classList.add('bi-hand-thumbs-down');
+                    dislikeCountEl.textContent = dislikeCount - 1;
+                } else {
+                    this.classList.remove('btn-outline-secondary');
+                    this.classList.add('btn-danger');
+                    this.querySelector('i').classList.remove('bi-hand-thumbs-down');
+                    this.querySelector('i').classList.add('bi-hand-thumbs-down-fill');
+                    dislikeCountEl.textContent = dislikeCount + 1;
+                }
+            }
+        }
     });
-
+});
 
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
