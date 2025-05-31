@@ -198,6 +198,7 @@
         .input-group {
             position: relative;
             margin-bottom: 1.5rem;
+            border-radius: none;
            
         }
 
@@ -618,6 +619,8 @@
     width: 100%;
     max-width: 600px;
     margin: 2rem auto;
+    border-radius: none;
+    
   }
 
   .search-input {
@@ -648,7 +651,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    
     pointer-events: none;
     overflow: hidden;
   }
@@ -657,7 +660,7 @@
   .input-border::after {
     content: '';
     position: absolute;
-    border-radius: 10px;
+   
     background: linear-gradient(45deg, 
       #00d8ff, #008cff, #00d8ff, #008cff);
     background-size: 400% 400%;
@@ -909,7 +912,14 @@
             margin: 0 auto;
             padding: 2rem;
         }
-
+    .yoyo{
+        border-radius: 0px;
+       
+        height: 80px;
+    }
+    #rating{
+        background-color: #0a0a0a;
+    }
 
     </style>
 </head>
@@ -935,7 +945,7 @@
             
             <div class="search-container">
                 <h3>Search Faculty</h3>
-                <div class="input-group">
+                <div class="input-group yoyo">
   <input type="text" id="faculty-search" placeholder="Enter faculty name..." class="search-input">
   <span class="input-border"></span>
 </div>
@@ -951,7 +961,7 @@
             
             <div class="search-container">
                 <h3>Search Faculty Reviews</h3>
-                <div class="input-group">
+                <div class="input-group yoyo">
                     <input type="text" id="browse-search" placeholder="Enter faculty name...">
                 </div>
                 <button onclick="searchFacultyReviews()">Search</button>
@@ -970,18 +980,18 @@
                 <button class="modal-close" onclick="closeModal('register-modal')">&times;</button>
             </div>
             <div id="register-error" class="error" style="display: none;"></div>
-            <div class="input-group">
-                <label for="faculty-name">Full Name</label>
+               <label for="faculty-name">Full Name</label>
+            <div class="input-group yoyo">
+             
                 <input type="text" id="faculty-name" placeholder="Dr. John Smith" required>
             </div>
-            <div class="input-group">
-                <label for="faculty-department">Department</label>
+             <label for="faculty-department">Department</label>
+            <div class="input-group yoyo">
+               
                 <input type="text" id="faculty-department" placeholder="Computer Science" required>
             </div>
-            <div class="input-group">
-                <label for="faculty-email">Email (optional)</label>
-                <input type="email" id="faculty-email" placeholder="faculty@university.edu">
-            </div>
+           
+           
             <button onclick="registerFaculty()">Register Faculty</button>
         </div>
     </div>
