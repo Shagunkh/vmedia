@@ -38,7 +38,6 @@ const commentSchema = new mongoose.Schema({
         }]
     }]
 });
-
 const postSchema = new mongoose.Schema({
     user: { 
         type: mongoose.Schema.Types.ObjectId, 
@@ -54,6 +53,12 @@ const postSchema = new mongoose.Schema({
     },
     cloudinaryId: { type: String },
     likes: [{
+        user: { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'User' 
+        }
+    }],
+    dislikes: [{
         user: { 
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'User' 
