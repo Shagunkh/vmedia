@@ -53,7 +53,19 @@ router.get('/posts', async (req, res) => {
         .populate('comments.replies.likes.user', 'username profilePhoto')
         .sort({ createdAt: -1 })
         .lean();
-    res.render('listing/main', { posts, currUser: req.user });
+
+    // Add userLiked and userDisliked status for each post
+    const postsWithStatus = posts.map(post => {
+        const userLiked = post.likes.some(like => like.user && like.user._id.equals(req.user?._id));
+        const userDisliked = post.dislikes.some(dislike => dislike.user && dislike.user._id.equals(req.user?._id));
+        return {
+            ...post,
+            userLiked,
+            userDisliked
+        };
+    });
+
+    res.render('listing/main', { posts: postsWithStatus, currUser: req.user });
 });
 
 // Get comments for a post
@@ -234,11 +246,18 @@ router.post('/:postId/comments/:commentId/replies', isLoggedIn, async (req, res)
 
 
 // Like a post
+// Like a post
 router.post('/:postId/like', isLoggedIn, async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId).populate('user');
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Remove from dislikes if already disliked
+        const alreadyDisliked = post.dislikes.some(dislike => dislike.user.equals(req.user._id));
+        if (alreadyDisliked) {
+            post.dislikes = post.dislikes.filter(dislike => !dislike.user.equals(req.user._id));
         }
 
         const alreadyLiked = post.likes.some(like => like.user.equals(req.user._id));
@@ -266,10 +285,49 @@ router.post('/:postId/like', isLoggedIn, async (req, res) => {
         res.json({ 
             success: true,
             likesCount: post.likes.length,
-            isLiked: !alreadyLiked
+            dislikesCount: post.dislikes.length,
+            isLiked: !alreadyLiked,
+            isDisliked: false
         });
     } catch (err) {
         console.error('Error liking post:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Dislike a post
+router.post('/:postId/dislike', isLoggedIn, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.postId).populate('user');
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Remove from likes if already liked
+        const alreadyLiked = post.likes.some(like => like.user.equals(req.user._id));
+        if (alreadyLiked) {
+            post.likes = post.likes.filter(like => !like.user.equals(req.user._id));
+        }
+
+        const alreadyDisliked = post.dislikes.some(dislike => dislike.user.equals(req.user._id));
+        
+        if (alreadyDisliked) {
+            post.dislikes = post.dislikes.filter(dislike => !dislike.user.equals(req.user._id));
+        } else {
+            post.dislikes.push({ user: req.user._id });
+        }
+
+        await post.save();
+        
+        res.json({ 
+            success: true,
+            likesCount: post.likes.length,
+            dislikesCount: post.dislikes.length,
+            isLiked: false,
+            isDisliked: !alreadyDisliked
+        });
+    } catch (err) {
+        console.error('Error disliking post:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
