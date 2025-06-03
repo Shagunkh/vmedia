@@ -1097,50 +1097,60 @@
         
         // Faculty search for review submission
         async function searchFaculty() {
-            const query = document.getElementById('faculty-search').value.trim();
-            const resultsDiv = document.getElementById('search-results');
-            
-            if (!query) {
-                showError(resultsDiv, 'Please enter a faculty name to search');
-                return;
-            }
-            
-            try {
-                // Show loading state
-                resultsDiv.innerHTML = '<p>Searching...</p>';
-                
-                const response = await fetch(`/faculty/search?q=${encodeURIComponent(query)}`);
-                const facultyList = await response.json();
-                
-                if (facultyList.error) {
-                    showError(resultsDiv, facultyList.error);
-                    return;
-                }
-                
-                if (facultyList.length === 0) {
-                    resultsDiv.innerHTML = `
-                        <p>Faculty not found in our database.</p>
-                        <button onclick="openModal('register-modal')" class="glow">Register this faculty now</button>
-                    `;
-                    return;
-                }
-                
-                let html = '<h4>Select Faculty:</h4><ul class="faculty-list">';
-                facultyList.forEach(faculty => {
-                    html += `
+    const query = document.getElementById('faculty-search').value.trim();
+    const resultsDiv = document.getElementById('search-results');
+    
+    if (!query) {
+        showError(resultsDiv, 'Please enter a faculty name to search');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        resultsDiv.innerHTML = '<p>Searching...</p>';
+        
+        const response = await fetch(`/faculty/search?q=${encodeURIComponent(query)}`);
+        const facultyList = await response.json();
+        
+        if (facultyList.error) {
+            showError(resultsDiv, facultyList.error);
+            return;
+        }
+        
+        let html = '';
+        
+        if (facultyList.length === 0) {
+            html = `
+                <p>No faculty found matching "${query}"</p>
+                <button onclick="openRegisterModal('${query}')" class="glow">Register New Faculty</button>
+            `;
+        } else {
+            html = `
+                <h4>Search Results:</h4>
+                <ul class="faculty-list">
+                    ${facultyList.map(faculty => `
                         <li class="faculty-item" onclick="selectFaculty('${faculty._id}', '${faculty.name}')">
                             <strong>${faculty.name}</strong> - ${faculty.department}
                         </li>
-                    `;
-                });
-                html += '</ul>';
-                
-                resultsDiv.innerHTML = html;
-            } catch (error) {
-                console.error('Search error:', error);
-                showError(resultsDiv, 'Error searching for faculty. Please try again.');
-            }
+                    `).join('')}
+                </ul>
+                <div style="margin-top: 20px;">
+                    <p>Not who you're looking for?</p>
+                    <button onclick="openRegisterModal('${query}')" class="glow">Register New Faculty</button>
+                </div>
+            `;
         }
+        
+        resultsDiv.innerHTML = html;
+    } catch (error) {
+        console.error('Search error:', error);
+        showError(resultsDiv, 'Error searching for faculty. Please try again.');
+    }
+}
+        function openRegisterModal(name) {
+    document.getElementById('faculty-name').value = name;
+    openModal('register-modal');
+}
         
         // Select a faculty for review
         function selectFaculty(facultyId, facultyName) {
@@ -1160,60 +1170,63 @@
         
         // Register new faculty
         async function registerFaculty() {
-            const name = document.getElementById('faculty-name').value.trim();
-            const department = document.getElementById('faculty-department').value.trim();
-            const email = document.getElementById('faculty-email').value.trim();
-            const errorDiv = document.getElementById('register-error');
-            
-            if (!name || !department) {
-                showError(errorDiv, 'Name and department are required');
-                return;
-            }
-            
-            try {
-                // Show loading state
-                errorDiv.style.display = 'none';
-                const button = event.currentTarget;
-                button.disabled = true;
-                button.innerHTML = 'Registering...';
-                
-                const response = await fetch('/faculty', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, department, email })
-                });
-                
-                const result = await response.json();
-                
-                if (result.error) {
-                    showError(errorDiv, result.error);
-                    button.disabled = false;
-                    button.innerHTML = 'Register Faculty';
-                    return;
-                }
-                
-                // Faculty registered successfully
-                closeModal('register-modal');
-                document.getElementById('selected-faculty-id').value = result._id;
-                document.getElementById('search-results').innerHTML = `
-                    <div class="success animate__animated animate__fadeIn">
-                        <p>Faculty registered successfully!</p>
-                        <button onclick="openModal('review-modal')">Write Review</button>
-                    </div>
-                `;
-                
-                button.disabled = false;
-                button.innerHTML = 'Register Faculty';
-            } catch (error) {
-                console.error('Registration error:', error);
-                showError(errorDiv, 'Error registering faculty. Please try again.');
-                const button = event.currentTarget;
-                button.disabled = false;
-                button.innerHTML = 'Register Faculty';
-            }
+    const name = document.getElementById('faculty-name').value.trim();
+    const department = document.getElementById('faculty-department').value.trim();
+    const errorDiv = document.getElementById('register-error');
+    
+    if (!name || !department) {
+        showError(errorDiv, 'Name and department are required');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        errorDiv.style.display = 'none';
+        const button = event.currentTarget;
+        button.disabled = true;
+        button.innerHTML = 'Registering...';
+        
+        const response = await fetch('/faculty', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, department })
+        });
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            showError(errorDiv, result.error);
+            button.disabled = false;
+            button.innerHTML = 'Register Faculty';
+            return;
         }
+        
+        // Faculty registered successfully
+        closeModal('register-modal');
+        document.getElementById('selected-faculty-id').value = result._id;
+        document.getElementById('search-results').innerHTML = `
+            <div class="success animate__animated animate__fadeIn">
+                <p>Faculty registered successfully!</p>
+                <button onclick="openModal('review-modal')">Write Review</button>
+            </div>
+        `;
+        
+        // Reset the form
+        document.getElementById('faculty-name').value = '';
+        document.getElementById('faculty-department').value = '';
+        
+        button.disabled = false;
+        button.innerHTML = 'Register Faculty';
+    } catch (error) {
+        console.error('Registration error:', error);
+        showError(errorDiv, 'Error registering faculty. Please try again.');
+        const button = event.currentTarget;
+        button.disabled = false;
+        button.innerHTML = 'Register Faculty';
+    }
+}
         
         // Submit review
         async function submitReview() {
