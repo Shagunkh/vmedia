@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
         }
 
         const pyqs = await PYQ.find(query).sort({ uploadedAt: -1 });
-        res.render('./paper/pyq.ejs', { pyqs, search: search || '' });
+        res.render('./paper/pyq.ejs', { pyqs, search: search || '' ,user: req.user});
     } catch (error) {
         console.error('Error fetching PYQs:', error);
         res.status(500).render('error', { error: 'Failed to fetch PYQs' });
@@ -50,6 +50,34 @@ router.post('/upload', upload.array('pages'), async (req, res) => {
         res.json({ success: true, redirect: '/api/pyq' });
     } catch (error) {
         console.error('Upload error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Add this route before module.exports
+// Delete PYQ (admin only)
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedPYQ = await PYQ.findByIdAndDelete(id);
+        
+        if (!deletedPYQ) {
+            return res.status(404).json({ error: 'PYQ not found' });
+        }
+
+        // Delete files from Cloudinary if needed
+        if (deletedPYQ.pages && deletedPYQ.pages.length > 0) {
+            for (const page of deletedPYQ.pages) {
+                if (page.fileUrl) {
+                    const publicId = page.fileUrl.split('/').pop().split('.')[0];
+                    await cloudinary.uploader.destroy(publicId);
+                }
+            }
+        }
+
+        res.json({ success: true, message: 'PYQ deleted successfully' });
+    } catch (error) {
+        console.error('Delete error:', error);
         res.status(500).json({ error: error.message });
     }
 });
