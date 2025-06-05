@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   } catch (err) {
     console.error('Error fetching user count:', err);
     // Fallback to showing "5,000+" if there's an error
-    res.render('home/homepage.ejs', { userCount: 5000 });
+    res.render('home/homepagee.ejs', { userCount: 5000 });
   }
 });
 
