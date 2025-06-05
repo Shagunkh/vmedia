@@ -174,20 +174,24 @@ app.use('/apii',appi);
 
 const notificationRoutes = require('./routes/notifications');
 app.use('/notifications', notificationRoutes);
-
 app.get('/', async (req, res) => {
-  try {
-    const posts = await Post.find({})
-      .sort({ createdAt: -1 })
-      .populate('user') // fetches username, profilePhoto, etc.
-      .lean();
-      
-    res.render('listing/main', { posts, currUser: req.user });
-  } catch (err) {
-    res.status(500).send('Error loading posts');
+  // If user is logged in, show the main page with posts
+  if (req.isAuthenticated()) {
+    try {
+      const posts = await Post.find({})
+        .sort({ createdAt: -1 })
+        .populate('user') // fetches username, profilePhoto, etc.
+        .lean();
+        
+      res.render('listing/main', { posts, currUser: req.user });
+    } catch (err) {
+      res.status(500).send('Error loading posts');
+    }
+  } else {
+    // If not logged in, redirect to /home
+    res.redirect('/home');
   }
 });
-
   
 // app.use((err,req,res,next)=>{
 //     let {statusCode=500,message="Something went Wrong"}=err;
@@ -309,6 +313,5 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
 
 
