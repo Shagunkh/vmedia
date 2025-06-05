@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     return res.redirect('/');
   }
   // Otherwise render the home page
-  res.render('homepagee'); // Assuming you have a home.ejs view
+  res.render('homepage'); // Assuming you have a home.ejs view
 });
 
 module.exports = router;
