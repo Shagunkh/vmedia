@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   try {
     // Get the count of users in the database
     const userCount = await User.countDocuments();
-    res.render('home/homepage.ejs', { userCount });
+    res.render('home/homepagee.ejs', { userCount });
   } catch (err) {
     console.error('Error fetching user count:', err);
     // Fallback to showing "5,000+" if there's an error
