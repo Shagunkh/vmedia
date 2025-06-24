@@ -12,18 +12,24 @@ router.get("/signup", (req, res) => {
    res.render("users/signup.ejs");
 });
 
+const { sendWelcomeEmail } = require('../utils/email');
+
 router.post("/signup", wrapAsync(async (req, res, next) => {
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
         
+        // Send welcome email
+        await sendWelcomeEmail(email, username);
+        
         req.login(registeredUser, (err) => {
             if (err) return next(err);
-             res.redirect("/users/complete-profile");
+            res.redirect("/users/complete-profile");
         });
     } catch (e) {
-        res.redirect("/signup");
+        req.flash('error', e.message);
+        res.redirect("/users/signup");
     }
 }));
 // Add this to your routes/users.js
