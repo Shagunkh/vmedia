@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 const Notification = require('../models/notification');
-const {isLoggedIn}=require('../middleware/auth');
+const {isLoggedIn} = require('../middleware/auth');
 const multer = require('multer');
 const { storage, cloudinary } = require("../cloudConfig");
 const upload = multer({ storage });
@@ -12,7 +12,6 @@ router.post('/', isLoggedIn, upload.single('image'), async (req, res) => {
     try {
         const { caption } = req.body;
         
-        // Create new post with Cloudinary data if image was uploaded
         const newPost = new Post({
             user: req.user._id,
             caption,
@@ -24,14 +23,10 @@ router.post('/', isLoggedIn, upload.single('image'), async (req, res) => {
 
         await newPost.save();
         
-        res.status(201).json({
-            success: true,
-            post: newPost
-        });
+        res.redirect('/');
     } catch (err) {
         console.error('Error creating post:', err);
         
-        // If there was an error and an image was uploaded, delete it from Cloudinary
         if (req.file) {
             await cloudinary.uploader.destroy(req.file.filename);
         }
@@ -47,6 +42,7 @@ router.post('/', isLoggedIn, upload.single('image'), async (req, res) => {
 router.get('/posts', async (req, res) => {
     const posts = await Post.find({})
         .populate('user', 'username profilePhoto')
+        .populate('likes.user')
         .populate('comments.user', 'username profilePhoto')
         .populate('comments.likes.user', 'username profilePhoto')
         .populate('comments.replies.user', 'username profilePhoto')
@@ -54,14 +50,11 @@ router.get('/posts', async (req, res) => {
         .sort({ createdAt: -1 })
         .lean();
 
-    // Add userLiked and userDisliked status for each post
     const postsWithStatus = posts.map(post => {
         const userLiked = post.likes.some(like => like.user && like.user._id.equals(req.user?._id));
-        const userDisliked = post.dislikes.some(dislike => dislike.user && dislike.user._id.equals(req.user?._id));
         return {
             ...post,
-            userLiked,
-            userDisliked
+            userLiked
         };
     });
 
@@ -69,12 +62,11 @@ router.get('/posts', async (req, res) => {
 });
 
 // Get comments for a post
-// In your routes/posts.js
 router.get('/:postId/comments', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
             .populate('user', '_id username')
-            .populate('user', 'username profilePhoto') // Include post user info
+            .populate('user', 'username profilePhoto')
             .populate('comments.user', 'username profilePhoto')
             .populate('comments.likes.user', 'username profilePhoto')
             .populate('comments.replies.user', 'username profilePhoto')
@@ -85,20 +77,18 @@ router.get('/:postId/comments', async (req, res) => {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Return both post and comments in the response
         res.json({ 
             post: {
                 _id: post._id,
                 user: post.user
             },
-            comments: post.comments || [] // Ensure comments is always an array
+            comments: post.comments || []
         });
     } catch (err) {
         console.error('Error fetching comments:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 // Add comment to post
 router.post('/:postId/comments', isLoggedIn, async (req, res) => {
@@ -121,7 +111,6 @@ router.post('/:postId/comments', isLoggedIn, async (req, res) => {
 
         const newComment = updatedPost.comments[updatedPost.comments.length - 1];
 
-        // Create notification only if the post owner is not the one commenting
         if (!post.user._id.equals(req.user._id)) {
             await Notification.create({
                 recipient: post.user._id,
@@ -143,6 +132,7 @@ router.post('/:postId/comments', isLoggedIn, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 // Like a comment
 router.post('/:postId/comments/:commentId/like', isLoggedIn, async (req, res) => {
     try {
@@ -164,7 +154,6 @@ router.post('/:postId/comments/:commentId/like', isLoggedIn, async (req, res) =>
         } else {
             comment.likes.push({ user: req.user._id });
             
-            // Create notification only if the comment owner is not the one liking
             if (!comment.user._id.equals(req.user._id)) {
                 await Notification.create({
                     recipient: comment.user._id,
@@ -190,7 +179,6 @@ router.post('/:postId/comments/:commentId/like', isLoggedIn, async (req, res) =>
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 // Reply to comment
 router.post('/:postId/comments/:commentId/replies', isLoggedIn, async (req, res) => {
@@ -220,7 +208,6 @@ router.post('/:postId/comments/:commentId/replies', isLoggedIn, async (req, res)
         const updatedComment = updatedPost.comments.id(req.params.commentId);
         const newReply = updatedComment.replies[updatedComment.replies.length - 1];
 
-        // Create notification for the comment owner if it's not the same user
         if (!comment.user._id.equals(req.user._id)) {
             await Notification.create({
                 recipient: comment.user._id,
@@ -244,31 +231,25 @@ router.post('/:postId/comments/:commentId/replies', isLoggedIn, async (req, res)
     }
 });
 
-
-// Like a post
 // Like a post
 router.post('/:postId/like', isLoggedIn, async (req, res) => {
     try {
-        const post = await Post.findById(req.params.postId).populate('user');
+        const post = await Post.findById(req.params.postId);
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Remove from dislikes if already disliked
-        const alreadyDisliked = post.dislikes.some(dislike => dislike.user.equals(req.user._id));
-        if (alreadyDisliked) {
-            post.dislikes = post.dislikes.filter(dislike => !dislike.user.equals(req.user._id));
-        }
-
-        const alreadyLiked = post.likes.some(like => like.user.equals(req.user._id));
+        const likeIndex = post.likes.findIndex(like => like.user.equals(req.user._id));
         
-        if (alreadyLiked) {
-            post.likes = post.likes.filter(like => !like.user.equals(req.user._id));
+        if (likeIndex >= 0) {
+            // User already liked - remove like
+            post.likes.splice(likeIndex, 1);
         } else {
+            // Add new like
             post.likes.push({ user: req.user._id });
             
             // Create notification only if the post owner is not the one liking
-            if (!post.user._id.equals(req.user._id)) {
+            if (!post.user.equals(req.user._id)) {
                 await Notification.create({
                     recipient: post.user._id,
                     sender: req.user._id,
@@ -285,9 +266,7 @@ router.post('/:postId/like', isLoggedIn, async (req, res) => {
         res.json({ 
             success: true,
             likesCount: post.likes.length,
-            dislikesCount: post.dislikes.length,
-            isLiked: !alreadyLiked,
-            isDisliked: false
+            isLiked: likeIndex < 0
         });
     } catch (err) {
         console.error('Error liking post:', err);
@@ -295,43 +274,7 @@ router.post('/:postId/like', isLoggedIn, async (req, res) => {
     }
 });
 
-// Dislike a post
-router.post('/:postId/dislike', isLoggedIn, async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId).populate('user');
-        if (!post) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        // Remove from likes if already liked
-        const alreadyLiked = post.likes.some(like => like.user.equals(req.user._id));
-        if (alreadyLiked) {
-            post.likes = post.likes.filter(like => !like.user.equals(req.user._id));
-        }
-
-        const alreadyDisliked = post.dislikes.some(dislike => dislike.user.equals(req.user._id));
-        
-        if (alreadyDisliked) {
-            post.dislikes = post.dislikes.filter(dislike => !dislike.user.equals(req.user._id));
-        } else {
-            post.dislikes.push({ user: req.user._id });
-        }
-
-        await post.save();
-        
-        res.json({ 
-            success: true,
-            likesCount: post.likes.length,
-            dislikesCount: post.dislikes.length,
-            isLiked: false,
-            isDisliked: !alreadyDisliked
-        });
-    } catch (err) {
-        console.error('Error disliking post:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-// In your routes file (e.g., routes/posts.js)
+// Like a reply
 router.post('/:postId/comments/:commentId/replies/:replyId/like', isLoggedIn, async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
@@ -351,7 +294,6 @@ router.post('/:postId/comments/:commentId/replies/:replyId/like', isLoggedIn, as
         } else {
             reply.likes.push({ user: req.user._id });
             
-            // Create notification only if the reply owner is not the one liking
             if (!reply.user._id.equals(req.user._id)) {
                 await Notification.create({
                     recipient: reply.user._id,
@@ -378,6 +320,8 @@ router.post('/:postId/comments/:commentId/replies/:replyId/like', isLoggedIn, as
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+// Delete post
 router.delete('/:id', isLoggedIn, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
@@ -386,17 +330,14 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
             return res.status(404).json({ error: 'Post not found' });
         }
         
-        // Check if user is authorized to delete
         if (!post.user.equals(req.user._id)) {
             return res.status(403).json({ error: 'Not authorized' });
         }
         
-        // Delete image from Cloudinary if exists
         if (post.cloudinaryId) {
             await cloudinary.uploader.destroy(post.cloudinaryId);
         }
         
-        // Delete post from database
         await Post.findByIdAndDelete(req.params.id);
         
         res.json({ success: true });
@@ -405,7 +346,8 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
         res.status(500).json({ error: 'Failed to delete post' });
     }
 });
-// In your routes/posts.js or similar
+
+// Delete comment
 router.delete('/:postId/comments/:commentId', isLoggedIn, async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
@@ -418,12 +360,10 @@ router.delete('/:postId/comments/:commentId', isLoggedIn, async (req, res) => {
             return res.status(404).json({ error: 'Comment not found' });
         }
 
-        // Check if user is the comment author OR post owner
         if (!comment.user.equals(req.user._id) && !post.user.equals(req.user._id)) {
             return res.status(403).json({ error: 'Not authorized to delete this comment' });
         }
 
-        // Remove the comment
         post.comments.pull(req.params.commentId);
         await post.save();
 
@@ -434,6 +374,7 @@ router.delete('/:postId/comments/:commentId', isLoggedIn, async (req, res) => {
     }
 });
 
+// Delete reply
 router.delete('/:postId/comments/:commentId/replies/:replyId', isLoggedIn, async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
@@ -451,14 +392,12 @@ router.delete('/:postId/comments/:commentId/replies/:replyId', isLoggedIn, async
             return res.status(404).json({ error: 'Reply not found' });
         }
 
-        // Check if user is the reply author, comment author, or post owner
         if (!reply.user.equals(req.user._id) && 
             !comment.user.equals(req.user._id) && 
             !post.user.equals(req.user._id)) {
             return res.status(403).json({ error: 'Not authorized to delete this reply' });
         }
 
-        // Remove the reply
         comment.replies.pull(req.params.replyId);
         await post.save();
 
@@ -468,4 +407,5 @@ router.delete('/:postId/comments/:commentId/replies/:replyId', isLoggedIn, async
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 module.exports = router;
