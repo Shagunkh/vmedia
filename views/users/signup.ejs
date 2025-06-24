@@ -12,11 +12,9 @@
     --success: #00ffaa;
     --error: #ff4d7d;
     --neon-glow: 0 0 15px rgba(0, 216, 255, 0.6);
-    --deep-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   }
 
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap');
 
   * {
     box-sizing: border-box;
@@ -26,382 +24,87 @@
 
   body {
     font-family: 'Poppins', sans-serif;
-    background: 
-      linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%),
-      radial-gradient(circle at 20% 30%, rgba(0, 216, 255, 0.15) 0%, transparent 25%),
-      radial-gradient(circle at 80% 70%, rgba(0, 140, 255, 0.15) 0%, transparent 25%);
+    background: var(--dark-bg);
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    overflow-x: hidden;
-    position: relative;
+    padding: 1rem;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
+  /* Mobile-first container */
+  .signup-container {
     width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 20% 40%, rgba(0, 216, 255, 0.05) 0%, transparent 20%),
-      radial-gradient(circle at 80% 60%, rgba(0, 140, 255, 0.05) 0%, transparent 20%);
-    z-index: -1;
-    animation: cosmicPulse 15s infinite alternate;
-  }
-
-  @keyframes cosmicPulse {
-    0% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
-    100% { opacity: 0.8; transform: scale(1); }
-  }
-
-  .row {
+    max-width: 420px; /* Optimal width for mobile forms */
     background: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: 
-      var(--deep-shadow),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-      0 0 0 2px rgba(0, 216, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 216, 255, 0.2);
     backdrop-filter: blur(10px);
-    overflow: hidden;
-    margin: 1.5rem auto;
-    padding: 2.5rem;
-    max-width: 800px;
-    border: 1px solid rgba(0, 216, 255, 0.1);
-    transform: translateY(0);
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    z-index: 2;
-    animation: 
-      fadeIn 0.8s ease-out,
-      floating 8s ease-in-out infinite;
-    max-height: 650px;
-    min-height: 580px;
-  }
-
-  .mb-3 {
-    margin-bottom: 1.5rem;
-  }
-
-  .btn-success {
-    margin-top: 1rem;
-  }
-
-  @keyframes floating {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .row:hover {
-    transform: translateY(-10px) scale(1.01);
-    box-shadow: 
-      0 25px 60px rgba(0, 0, 0, 0.8),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 0 0 4px rgba(0, 216, 255, 0.2);
-  }
-
-  .row::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-      linear-gradient(
-        to bottom right,
-        transparent 45%,
-        rgba(0, 216, 255, 0.05) 50%,
-        transparent 55%
-      );
-    animation: shine 8s infinite;
-    pointer-events: none;
-  }
-
-  @keyframes shine {
-    0% { transform: translate(-30%, -30%) rotate(0deg); }
-    100% { transform: translate(30%, 30%) rotate(360deg); }
+    margin: 1rem;
   }
 
   h1 {
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
     background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: var(--neon-glow);
-    animation: 
-      textGlow 3s infinite alternate,
-      textFloat 5s ease-in-out infinite;
   }
 
-  @keyframes textGlow {
-    0% { text-shadow: 0 0 10px rgba(0, 216, 255, 0.5); }
-    100% { text-shadow: 0 0 20px rgba(0, 216, 255, 0.8), 0 0 30px rgba(0, 140, 255, 0.5); }
-  }
-
-  @keyframes textFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-
-  h1::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
-    border-radius: 3px;
-    animation: 
-      expandLine 0.8s ease-out forwards,
-      pulseUnderline 3s infinite 0.8s;
-  }
-
-  @keyframes pulseUnderline {
-    0%, 100% { opacity: 1; width: 100px; }
-    50% { opacity: 0.7; width: 120px; }
+  .form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
   }
 
   .form-label {
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 0.8rem;
     display: block;
-    transition: all 0.4s ease;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
   }
 
   .form-control {
-    background: rgba(10, 15, 30, 0.6);
-    border: 1px solid rgba(0, 216, 255, 0.2);
-    border-radius: 12px;
-    padding: 15px 20px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
-    margin-bottom: 5px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    background: rgba(10, 15, 30, 0.6);
+    color: var(--text-primary);
     font-size: 1rem;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
-    color: white;
-    width: 250px;
-    margin-left: -2.4rem;
-  }
-
-  .form-control::placeholder {
-    color: rgba(160, 184, 208, 0.5);
+    transition: all 0.3s ease;
   }
 
   .form-control:focus {
     outline: none;
     border-color: var(--primary-accent);
-    box-shadow: 
-      0 0 0 3px rgba(0, 198, 255, 0.3),
-      inset 0 2px 15px rgba(0, 0, 0, 0.4);
-    background: rgba(0, 198, 255, 0.05);
-    transform: translateY(-2px);
-    color: white;
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
   }
 
-  .form-control:valid {
-    border-color: var(--success);
-    background: rgba(0, 255, 170, 0.05);
-  }
-
-  .valid-feedback {
-    color: var(--success);
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    display: none;
-    text-shadow: 0 0 5px rgba(0, 255, 170, 0.3);
-    animation: fadeIn 0.5s ease;
-  }
-
-  .form-control:valid + .valid-feedback {
-    display: block;
-  }
-
-  .btn-success {
-    background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
     border: none;
-    border-radius: 12px;
-    padding: 16px 30px;
-    font-weight: 600;
-    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
     color: #111;
-    width: 100%;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    box-shadow: 
-      0 5px 20px rgba(0, 198, 255, 0.4),
-      0 0 0 1px rgba(0, 216, 255, 0.3);
-    z-index: 1;
-    margin-top: 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
   }
 
-  .btn-success:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 
-      0 10px 30px rgba(0, 198, 255, 0.6),
-      0 0 0 2px rgba(0, 216, 255, 0.4);
-    color: #000;
-  }
-
-  .btn-success:active {
+  .btn-submit:hover {
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 216, 255, 0.4);
   }
 
-  .btn-success::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.6s;
-    z-index: -1;
-  }
-
-  .btn-success:hover::before {
-    left: 100%;
-  }
-
-  .btn-success::after {
-    content: '';
-    position: absolute;
-    top: -150%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      to bottom right,
-      transparent 45%,
-      rgba(255, 255, 255, 0.2) 50%,
-      transparent 55%
-    );
-    animation: shine 4s infinite 1s;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .mb-3 {
-    position: relative;
-    margin-bottom: 2rem;
-  }
-
-  .mb-3::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--primary-accent), transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-
-  .mb-3:focus-within::after {
-    transform: scaleX(1);
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes expandLine {
-    from { width: 0; }
-    to { width: 100px; }
-  }
-
-  @media (max-width: 768px) {
-    body {
-      padding: 1rem;
-    }
-    
-    .row {
-      margin: 1rem;
-      padding: 2rem;
-      border-radius: 15px;
-    }
-    
-    h1 {
-      font-size: 2rem;
-    }
-    
-    .form-control {
-      padding: 12px 15px;
-    }
-    
-    .btn-success {
-      padding: 14px 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .row {
-      padding: 1.5rem;
-    }
-    
-    h1 {
-      font-size: 1.8rem;
-    }
-    
-    .form-label {
-      font-size: 1rem;
-    }
-    .alexa{
-      width:360px;
-    }
-    .error-message {
-    
-   
-   margin-left: -4rem;
-    width: 10rem;
-}
-  }
-
-  .alexa {
-    background: transparent !important;
-  }
-
-  .form-control:focus {
-    animation: inputGlow 1.5s infinite alternate;
-  }
-
-  @keyframes inputGlow {
-    0% { box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.3); }
-    100% { box-shadow: 0 0 0 5px rgba(0, 198, 255, 0.5); }
-  }
-
-  /* Signup-specific adjustments */
-  .row {
-    max-height: 650px;
-    min-height: 620px;
-  }
-
-  /* Login link styling */
   .login-link {
     text-align: center;
     margin-top: 1.5rem;
@@ -413,335 +116,123 @@
     color: var(--primary-accent);
     text-decoration: none;
     font-weight: 500;
-    position: relative;
   }
 
-  .login-link a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--primary-accent);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
-  .login-link a:hover {
-    color: var(--secondary-accent);
-  }
-
-  .login-link a:hover::after {
-    transform: scaleX(1);
-  }
-
-  .login-anchor {
-    display: inline-block;
-    position: relative;
-    z-index: 100;
-    color: var(--primary-accent);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.2rem 0;
-  }
-
-  .login-anchor::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--primary-accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-
-  .login-anchor:hover {
-    color: var(--secondary-accent);
-  }
-
-  .login-anchor:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  /* Autofill styling */
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus, 
-  input:-webkit-autofill:active {
-      -webkit-text-fill-color: var(--text-primary) !important;
-      -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
-      transition: background-color 5000s ease-in-out 0s;
-      caret-color: var(--text-primary);
-      border: 1px solid rgba(0, 216, 255, 0.2) !important;
-  }
-
-  input:-moz-autofill,
-  input:-moz-autofill:hover, 
-  input:-moz-autofill:focus, 
-  input:-moz-autofill:active {
-      -moz-text-fill-color: var(--text-primary) !important;
-      -moz-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
-      caret-color: var(--text-primary);
-      border: 1px solid rgba(0, 216, 255, 0.2) !important;
-  }
-  .error-message {
-    
-   
-   margin-left: -2.6rem;
-    width: 25rem;
-}
-.row {
-    max-width: 500px; /* Reduced from 800px */
-    padding: 1.5rem; /* Reduced from 2.5rem */
-    max-height: 550px; /* Reduced from 650px */
-    min-height: 500px; /* Reduced from 620px */
-  }
-
-  h1 {
-    font-size: 2rem; /* Reduced from 2.5rem */
-    margin-bottom: 1.5rem; /* Reduced from 2rem */
-  }
-
-  .form-label {
-    font-size: 1rem; /* Reduced from 1.1rem */
-    margin-bottom: 0.5rem; /* Reduced from 0.8rem */
-  }
-
-  .form-control {
-    padding: 12px 15px; /* Reduced from 15px 20px */
-    font-size: 0.95rem; /* Reduced from 1rem */
-    width: 220px; /* Reduced from 250px */
-    margin-left: -2rem; /* Adjusted from -2.4rem */
-  }
-
-  .btn-success {
-    padding: 12px 20px; /* Reduced from 16px 30px */
-    font-size: 1rem; /* Reduced from 1.1rem */
-    margin-top: 1rem; /* Reduced from 1.5rem */
-  }
-
-  .login-link {
-    margin-top: 1rem; /* Reduced from 1.5rem */
-    font-size: 0.85rem; /* Reduced from 0.9rem */
-  }
-
-  /* Adjust error message positioning */
-  .error-message {
-    margin-left: -2rem;
-    width: 20rem; /* Reduced from 25rem */
-    font-size: 0.8rem;
-  }
-
-  /* Mobile adjustments */
-  @media (max-width: 480px) {
-    .row {
-      padding: 1rem;
-      width: 320px; /* Adjusted from 360px */
-    }
-    
-    h1 {
-      font-size: 1.5rem; /* Reduced from 1.8rem */
-    }
-    
-    .form-control {
-      width: 200px;
-      margin-left: -2.5rem;
-    }
-    
-    .error-message {
-      margin-left: -3rem;
-      width: 15rem;
-    }
-  }
-
-    /* iOS-specific fixes */
-  input, button, select, textarea {
-    -webkit-appearance: none;
-    border-radius: 12px;
-  }
-
-  /* Error message styling */
   .error-message {
     color: var(--error);
     font-size: 0.8rem;
     margin-top: 0.3rem;
-    display: none;
+    display: block;
   }
 
-  /* Autofill styling */
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus, 
-  input:-webkit-autofill:active {
-    -webkit-text-fill-color: var(--text-primary) !important;
-    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
-    transition: background-color 5000s ease-in-out 0s;
-    caret-color: var(--text-primary);
-    border: 1px solid rgba(0, 216, 255, 0.2) !important;
-    font-size: 1rem !important;
+  /* iPhone notch/punch-hole safe areas */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 480px) {
+  /* Landscape orientation adjustments */
+  @media screen and (orientation: landscape) and (max-height: 500px) {
+    body {
+      align-items: flex-start;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  /* Larger mobile devices */
+  @media (min-width: 400px) {
     .signup-container {
-      padding: 1.5rem;
-      margin: 1rem;
-      max-width: 100%;
+      padding: 2.5rem;
+    }
+  }
+
+  /* Tablets and small laptops */
+  @media (min-width: 768px) {
+    .signup-container {
+      max-width: 450px;
+      padding: 2.5rem;
     }
     
     h1 {
-      font-size: 1.8rem;
-    }
-    
-    .form-control {
-      padding: 12px 14px;
-    }
-    
-    .btn-submit {
-      padding: 12px;
+      font-size: 2rem;
     }
   }
-  /* iPhone-specific fixes */
-@supports (-webkit-touch-callout: none) {
-  /* Fix for Safari on iOS */
-  body {
-    -webkit-text-size-adjust: 100%;
-    min-height: -webkit-fill-available;
-  }
-  
-  /* Fix gradient rendering */
-  .btn-success {
-    -webkit-background-clip: padding-box;
-  }
-  
-  /* Fix input styling */
-  input, textarea {
+
+  /* Fix for iOS form elements */
+  input, textarea, button {
     -webkit-appearance: none;
-    border-radius: 12px !important;
+    -moz-appearance: none;
+    appearance: none;
   }
-  
-  /* Fix autofill colors */
+
+  /* Autofill styling */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-text-fill-color: var(--text-primary) !important;
-    background-color: rgba(10, 15, 30, 0.6) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
     transition: background-color 5000s ease-in-out 0s;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
   }
-}
-
-/* Additional mobile fixes */
-@media (max-width: 480px) {
-  .row {
-    width: 90vw !important;
-    margin: 1rem auto !important;
-    padding: 1.5rem !important;
-  }
-  
-  .form-control {
-    width: 80vw !important;
-    margin-left: 0 !important;
-  }
-  
-  .error-message {
-    width: 80vw !important;
-    margin-left: 0 !important;
-  }
-}
-
 </style>
 
-<div class="row mt-3 alexa col-4"> 
-  <div class="col-6 offset-3">
-    <h1>Sign Up</h1>
-    <form action="/users/signup" method="POST">
-     <div class="mb-3">
-    <label for="username" class="form-label">Username</label>
-    <input name="username" 
-           id="username"
-           type="text" 
-           class="form-control"
-           required>
-    <div id="username-error" class="error-message">Try add numbers,etc in your username</div>
-</div>
-
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input name="email" 
-               id="email"
-               type="email" 
-               class="form-control"
-               required>
-      </div>
-
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input name="password" 
-               id="password"
-               type="password" 
-               class="form-control"
-               required>
-      </div>
-
-      <button class="btn btn-success">SignUp</button>
-    </form>
-    <div class="login-link">
-      <p>Already have an account? <a href="/users/login" class="login-anchor">Login</a></p>
+<div class="signup-container">
+  <h1>Sign Up</h1>
+  <form action="/users/signup" method="POST">
+    <div class="form-group">
+      <label for="username" class="form-label">Username</label>
+      <input name="username" id="username" type="text" class="form-control" required>
+      <div id="username-error" class="error-message">Try adding numbers, etc. to your username</div>
     </div>
-    <br>
+
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input name="email" id="email" type="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">Password</label>
+      <input name="password" id="password" type="password" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Sign Up</button>
+  </form>
+  
+  <div class="login-link">
+    <p>Already have an account? <a href="/users/login">Login</a></p>
   </div>
 </div>
 
 <script>
-  // Generate animated background dots
-  function createDots() {
-    const container = document.getElementById('dots-container');
-    for (let i = 0; i < 20; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      dot.style.width = `${Math.random() * 8 + 2}px`;
-      dot.style.height = dot.style.width;
-      dot.style.left = `${Math.random() * 100}%`;
-      dot.style.top = `${Math.random() * 100}%`;
-      dot.style.animationDelay = `${Math.random() * 5}s`;
-      dot.style.animationDuration = `${Math.random() * 20 + 10}s`;
-      container.appendChild(dot);
-    }
-  }
-   
   document.addEventListener('DOMContentLoaded', function() {
-    createDots();
-     
-    // Add input focus effects
+    // Form submission handling
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Creating account...';
+      
+      // Optional: Add a spinner here if desired
+      // submitBtn.innerHTML = '<span class="spinner"></span> Creating account...';
+    });
+    
+    // Input focus effects
     const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
       input.addEventListener('focus', function() {
-        this.parentNode.querySelector('.form-label').style.color = 'var(--accent)';
-        this.parentNode.querySelector('.form-label').style.transform = 'translateY(-20px) scale(0.9)';
+        this.style.borderColor = 'var(--primary-accent)';
+        this.parentNode.querySelector('.form-label').style.color = 'var(--primary-accent)';
       });
       
       input.addEventListener('blur', function() {
-        if (this.value === '') {
-          this.parentNode.querySelector('.form-label').style.color = 'var(--text-muted)';
-          this.parentNode.querySelector('.form-label').style.transform = '';
-        }
+        this.style.borderColor = 'rgba(0, 216, 255, 0.3)';
+        this.parentNode.querySelector('.form-label').style.color = 'var(--text-secondary)';
       });
-      
-      // Initialize labels if input has value
-      if (input.value !== '') {
-        input.parentNode.querySelector('.form-label').style.transform = 'translateY(-20px) scale(0.9)';
-        input.parentNode.querySelector('.form-label').style.opacity = '0.8';
-      }
     });
-     
-
-// Function to apply suggestion to username field
-    
   });
 </script>
