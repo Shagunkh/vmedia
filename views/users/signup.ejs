@@ -559,6 +559,102 @@
     }
   }
 
+    /* iOS-specific fixes */
+  input, button, select, textarea {
+    -webkit-appearance: none;
+    border-radius: 12px;
+  }
+
+  /* Error message styling */
+  .error-message {
+    color: var(--error);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    display: none;
+  }
+
+  /* Autofill styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--text-primary);
+    border: 1px solid rgba(0, 216, 255, 0.2) !important;
+    font-size: 1rem !important;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .signup-container {
+      padding: 1.5rem;
+      margin: 1rem;
+      max-width: 100%;
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+    }
+    
+    .form-control {
+      padding: 12px 14px;
+    }
+    
+    .btn-submit {
+      padding: 12px;
+    }
+  }
+  /* iPhone-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for Safari on iOS */
+  body {
+    -webkit-text-size-adjust: 100%;
+    min-height: -webkit-fill-available;
+  }
+  
+  /* Fix gradient rendering */
+  .btn-success {
+    -webkit-background-clip: padding-box;
+  }
+  
+  /* Fix input styling */
+  input, textarea {
+    -webkit-appearance: none;
+    border-radius: 12px !important;
+  }
+  
+  /* Fix autofill colors */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    background-color: rgba(10, 15, 30, 0.6) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+/* Additional mobile fixes */
+@media (max-width: 480px) {
+  .row {
+    width: 90vw !important;
+    margin: 1rem auto !important;
+    padding: 1.5rem !important;
+  }
+  
+  .form-control {
+    width: 80vw !important;
+    margin-left: 0 !important;
+  }
+  
+  .error-message {
+    width: 80vw !important;
+    margin-left: 0 !important;
+  }
+}
+
 </style>
 
 <div class="row mt-3 alexa col-4"> 
