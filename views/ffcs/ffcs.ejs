@@ -555,8 +555,8 @@ $('#downloadBtn').on('click', function() {
       pdfContainer.style.left = '-9999px';
       pdfContainer.style.width = elementId === 'timetableContainer' ? '1100px' : '800px';
       pdfContainer.style.padding = '20px';
-      pdfContainer.style.backgroundColor = '#f8f9fa';
-      pdfContainer.style.color = '#343a40';
+      pdfContainer.style.backgroundColor = '#1a2035';
+      pdfContainer.style.color = '#e0e0e0';
       pdfContainer.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
       
       const date = new Date().toLocaleDateString('en-US', { 
@@ -566,12 +566,14 @@ $('#downloadBtn').on('click', function() {
         day: 'numeric' 
       });
       
-      // Theme colors
-      const primaryColor = '#4e73df';
-      const secondaryColor = '#1cc88a';
-      const accentColor = '#f6c23e';
-      const lightColor = '#f8f9fc';
-      const darkColor = '#5a5c69';
+      // Dark theme colors
+      const primaryColor = '#6c63ff';
+      const secondaryColor = '#00bfa5';
+      const accentColor = '#ffab40';
+      const darkBgColor = '#1a2035';
+      const darkerBgColor = '#121828';
+      const textColor = '#e0e0e0';
+      const lightTextColor = '#ffffff';
       
       pdfContainer.innerHTML = `
         <style>
@@ -582,150 +584,197 @@ $('#downloadBtn').on('click', function() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           }
           
+          body {
+            background-color: ${darkBgColor};
+          }
+          
           .pdf-header { 
             text-align: center; 
-            margin-bottom: 15px; 
-            padding-bottom: 10px; 
-            border-bottom: 3px solid ${primaryColor};
-            background: linear-gradient(135deg, ${lightColor} 0%, #ffffff 100%);
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 25px; 
+            padding: 25px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, ${darkerBgColor} 0%, #2a3042 100%);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .pdf-header::before {
+            content: "VALL-Vit";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 72px;
+            font-weight: 800;
+            color: rgba(108, 99, 255, 0.08);
+            z-index: 0;
+            pointer-events: none;
           }
           
           .pdf-title { 
-            font-size: 24px; 
+            font-size: 28px; 
             font-weight: bold; 
             color: ${primaryColor}; 
             margin-bottom: 5px;
             letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
           }
           
           .institute-name {
-            font-size: 14px;
-            color: ${darkColor};
-            margin-bottom: 5px;
-            font-weight: 500;
+            font-size: 16px;
+            color: ${secondaryColor};
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
           }
           
           .student-info { 
-            font-size: 14px; 
-            margin-bottom: 5px; 
-            color: ${darkColor};
+            font-size: 16px; 
+            margin-bottom: 8px; 
+            color: ${lightTextColor};
             font-weight: 600;
+            position: relative;
+            z-index: 1;
           }
           
           .generated-date { 
-            font-size: 12px; 
-            color: #6c757d; 
-            margin-bottom: 8px; 
+            font-size: 14px; 
+            color: ${accentColor}; 
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
           }
           
           .section-title { 
-            font-size: 16px; 
+            font-size: 18px; 
             font-weight: bold; 
             color: ${primaryColor}; 
-            margin: 15px 0 10px 0; 
-            padding-bottom: 5px; 
+            margin: 25px 0 15px 0; 
+            padding-bottom: 8px; 
             border-bottom: 2px solid ${secondaryColor};
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
           
           ${elementId === 'timetableContainer' ? `
           .timetable-pdf { 
             width: 100%; 
             border-collapse: collapse; 
-            margin-bottom: 15px; 
-            font-size: 10px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px; 
+            font-size: 11px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: ${darkerBgColor};
           }
           
           .timetable-pdf th, .timetable-pdf td { 
-            border: 1px solid #dee2e6; 
-            padding: 4px !important; 
+            border: 1px solid #2d3446; 
+            padding: 6px !important; 
             text-align: center; 
-            height: 20px !important; 
-            line-height: 1.3 !important; 
+            height: 22px !important; 
+            line-height: 1.4 !important; 
           }
           
           .timetable-pdf th { 
             background-color: ${primaryColor}; 
-            color: white;
+            color: ${lightTextColor};
             font-weight: bold; 
-            padding: 5px !important; 
+            padding: 8px !important; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
           }
           
           .timetable-pdf tr:nth-child(even) {
-            background-color: ${lightColor};
+            background-color: rgba(255,255,255,0.03);
           }
           
-          .time-col { width: 35px; }
-          .day-col { width: 45px; }
-          .lunch-col { width: 15px; background-color: #f8f9fa !important; }
+          .timetable-pdf tr:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+          }
+          
+          .time-col { width: 40px; }
+          .day-col { width: 50px; font-weight: bold; color: ${secondaryColor}; }
+          .lunch-col { width: 18px; background-color: ${darkerBgColor} !important; }
           
           ` : `
           .courses-table { 
             width: 100%; 
             border-collapse: collapse; 
-            margin-bottom: 15px; 
-            font-size: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px; 
+            font-size: 11px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: ${darkerBgColor};
           }
           
           .courses-table th, .courses-table td { 
-            border: 1px solid #dee2e6; 
-            padding: 4px !important; 
-            line-height: 1.3 !important; 
-            height: 18px !important; 
+            border: 1px solid #2d3446; 
+            padding: 6px !important; 
+            line-height: 1.4 !important; 
+            height: 20px !important; 
           }
           
           .courses-table th { 
             background-color: ${primaryColor}; 
-            color: white;
+            color: ${lightTextColor};
             font-weight: bold; 
-            padding: 5px !important; 
+            padding: 8px !important; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
           }
           
           .courses-table tr:nth-child(even) {
-            background-color: ${lightColor};
+            background-color: rgba(255,255,255,0.03);
           }
           
-          .course-code { width: 10%; }
-          .course-name { width: 25%; }
-          .course-slot { width: 10%; }
-          .course-venue { width: 15%; }
-          .course-faculty { width: 20%; }
-          .course-credits { width: 8%; text-align: center; }
+          .courses-table tr:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+          }
+          
+          .course-code { width: 12%; color: ${accentColor}; font-weight: 600; }
+          .course-name { width: 28%; }
+          .course-slot { width: 12%; }
+          .course-venue { width: 16%; }
+          .course-faculty { width: 22%; }
+          .course-credits { width: 10%; text-align: center; font-weight: bold; color: ${secondaryColor}; }
           .course-action { width: 12%; }
           `}
           
           .credits-summary { 
             text-align: right; 
             font-weight: bold; 
-            margin: 10px 0; 
-            font-size: 12px;
-            color: ${darkColor};
+            margin: 20px 0; 
+            font-size: 14px;
+            color: ${lightTextColor};
+            padding: 10px;
+            background-color: rgba(0, 191, 165, 0.1);
+            border-left: 4px solid ${secondaryColor};
           }
           
           .footer { 
             text-align: center; 
-            margin-top: 15px; 
-            font-size: 10px; 
-            color: #6c757d; 
-            border-top: 1px solid #dee2e6; 
-            padding-top: 8px; 
+            margin-top: 25px; 
+            font-size: 14px; 
+            color: #8c92a4; 
+            border-top: 1px solid #2d3446; 
+            padding-top: 15px; 
           }
           
           .brand {
             color: ${primaryColor};
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
           }
         </style>
         
         <div class="pdf-header">
-          <div class="pdf-title">VALL FFCS ${title}</div>
+          <div class="pdf-title">VALL-Vit FFCS ${title}</div>
           <div class="institute-name">VIT Vellore University</div>
-          <div class="student-info">Student: ${username}</div>
-          <div class="generated-date">Generated on: ${date}</div>
+          <div class="student-info">${username}</div>
+          <div class="generated-date">Generated on ${date}</div>
         </div>
         
         <div class="section-title">${title}</div>
@@ -749,12 +798,13 @@ $('#downloadBtn').on('click', function() {
         
         ${elementId === 'coursesTable' ? `
           <div class="credits-summary">
-            Total Credits: <span style="color: ${primaryColor};">${$('#totalCredits').text()}</span>
+            Total Credits: <span style="color: ${accentColor}; font-size: 16px;">${$('#totalCredits').text()}</span>
           </div>
         ` : ''}
         
         <div class="footer">
-          Plan your semester with <span class="brand">VALL-Vit</span> - Your Academic Life Line at VIT
+          <div style="margin-bottom: 10px; font-size: 24px; font-weight: 800; color: ${primaryColor}">VALL-Vit</div>
+          Your Academic Life Line at VIT • Powered by VALL-Vit Technologies
         </div>
       `;
       
@@ -766,7 +816,7 @@ $('#downloadBtn').on('click', function() {
         useCORS: true,
         scrollX: 0,
         scrollY: 0,
-        backgroundColor: '#f8f9fa'
+        backgroundColor: darkBgColor
       }).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -783,7 +833,7 @@ $('#downloadBtn').on('click', function() {
         const yPos = (pageHeight - imgHeight) / 2;
         
         pdf.addImage(imgData, 'PNG', 10, yPos, imgWidth, imgHeight);
-        pdf.save(`FFCS_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.pdf`);
+        pdf.save(`VALL-Vit_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.pdf`);
         
         document.body.removeChild(pdfContainer);
       }).catch(error => {
@@ -799,7 +849,6 @@ $('#downloadBtn').on('click', function() {
       generatePDF('coursesTable', 'Course_Details', 'Course Details');
     }, 1000);
 });
-
   function showError(message) {
     const errorMessage = $('#errorMessage');
     errorMessage.html(message).addClass('error').fadeIn(300);
