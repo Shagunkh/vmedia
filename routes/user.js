@@ -28,7 +28,7 @@ router.post("/signup", wrapAsync(async (req, res, next) => {
             res.redirect("/users/complete-profile");
         });
     } catch (e) {
-        req.flash('error', e.message);
+      
         res.redirect("/users/signup");
     }
 }));
