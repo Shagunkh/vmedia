@@ -1,20 +1,18 @@
 <% layout("/layouts/boilerplate") %>
 <br><br><br>
 <div class="hero">
- <div class="hero-text">
-  <h1 class="ffcs-title">
-    <span class="gradient-text">FFCS PLANNER</span>
-    <div class="title-underline"></div>
-  </h1>
-  <div class="tagline-container">
-    <p class="typing-text" id="animated-tagline">Your Ultimate Timetable Architect Course Masterpiece Creator</p>
+  <div class="hero-text">
+    <h1 class="ffcs-title">
+      <span class="gradient-text">FFCS PLANNER</span>
+      <div class="title-underline"></div>
+    </h1>
+    <div class="tagline-container">
+      <p class="typing-text" id="animated-tagline">Your Ultimate Timetable </p>
+    </div>
   </div>
 </div>
-</div>
-</div>
+
 <div class="container">
-  
-  
   <div class="add-course-section">
     <h2>Add New Course</h2>
     <form id="courseForm">
@@ -47,37 +45,35 @@
     <div id="errorMessage"></div>
   </div>
 
-
-  
   <div class="button-group">
     <button id="resetBtn" class="gradient-btn red pulse">Reset Table</button>
+    <button id="downloadBtn" class="gradient-btn pulse">Download PDF</button>
   </div>
   
   <h3>Default Table</h3>
   
   <div class="table-container" id="timetableContainer">
     <table class="timetable">
-      <!-- Table header remains the same -->
       <thead>
         <tr style="height: 50px;">
-         <th rowspan="2" style="width: 60px;">THEORY HOURS</th>
-      <th colspan="6"></th>
-      <th rowspan="7" class="lunch-cell" style="width: 30px;">LUNCH</th>
-      <th colspan="7"></th>
+          <th rowspan="2" style="width: 60px;">THEORY HOURS</th>
+          <th colspan="6"></th>
+          <th rowspan="7" class="lunch-cell" style="width: 30px;">LUNCH</th>
+          <th colspan="7"></th>
         </tr>
         <tr>
-           <th style="width: 60px;">8:00-8:50</th>
-      <th style="width: 60px;">9:00-9:50</th>
-      <th style="width: 60px;">10:00-10:50</th>
-      <th style="width: 60px;">11:00-11:50</th>
-      <th style="width: 60px;">12:00-12:50</th>
-      <th style="width: 60px;"></th>
-      <th style="width: 60px;">2:00-2:50</th>
-      <th style="width: 60px;">3:00-3:50</th>
-      <th style="width: 60px;">4:00-4:50</th>
-      <th style="width: 60px;">5:00-5:50</th>
-      <th style="width: 60px;">6:00-6:50</th>
-      <th style="width: 60px;">6:51-7:50</th>
+          <th style="width: 60px;">8:00-8:50</th>
+          <th style="width: 60px;">9:00-9:50</th>
+          <th style="width: 60px;">10:00-10:50</th>
+          <th style="width: 60px;">11:00-11:50</th>
+          <th style="width: 60px;">12:00-12:50</th>
+          <th style="width: 60px;"></th>
+          <th style="width: 60px;">2:00-2:50</th>
+          <th style="width: 60px;">3:00-3:50</th>
+          <th style="width: 60px;">4:00-4:50</th>
+          <th style="width: 60px;">5:00-5:50</th>
+          <th style="width: 60px;">6:00-6:50</th>
+          <th style="width: 60px;">6:51-7:50</th>
         </tr>
         <tr>
           <th>LAB HOURS</th>
@@ -96,86 +92,85 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Table rows remain the same -->
-       <tr style="height: 50px;">
+        <tr style="height: 50px;">
           <td>Mon</td>
-          <td class="slot">A1 / L1</td>
-          <td class="slot">F1 / L2</td>
-          <td class="slot">D1 / L3</td>
-          <td class="slot">TB1 / L4</td>
-          <td class="slot">TG1 / L5</td>
-          <td class="slot">L6</td>
+          <td class="slot" data-slot="A1">A1 / L1</td>
+          <td class="slot" data-slot="F1">F1 / L2</td>
+          <td class="slot" data-slot="D1">D1 / L3</td>
+          <td class="slot" data-slot="TB1">TB1 / L4</td>
+          <td class="slot" data-slot="TG1">TG1 / L5</td>
+          <td class="slot" data-slot="L6">L6</td>
           <td></td>
-          <td class="slot">A2 / L31</td>
-          <td class="slot">F2 / L32</td>
-          <td class="slot">D2 / L33</td>
-          <td class="slot">TB2 / L34</td>
-          <td class="slot">TG2 / L35</td>
-          <td class="slot">L36<br>V3</td>
+          <td class="slot" data-slot="A2">A2 / L31</td>
+          <td class="slot" data-slot="F2">F2 / L32</td>
+          <td class="slot" data-slot="D2">D2 / L33</td>
+          <td class="slot" data-slot="TB2">TB2 / L34</td>
+          <td class="slot" data-slot="TG2">TG2 / L35</td>
+          <td class="slot" data-slot="L36">L36<br>V3</td>
         </tr>
         <tr>
           <td>Tue</td>
-          <td class="slot">B1 / L7</td>
-          <td class="slot">G1 / L8</td>
-          <td class="slot">E1 / L9</td>
-          <td class="slot">TC1 / L10</td>
-          <td class="slot">TAA1 / L11</td>
-          <td class="slot">L12</td>
+          <td class="slot" data-slot="B1">B1 / L7</td>
+          <td class="slot" data-slot="G1">G1 / L8</td>
+          <td class="slot" data-slot="E1">E1 / L9</td>
+          <td class="slot" data-slot="TC1">TC1 / L10</td>
+          <td class="slot" data-slot="TAA1">TAA1 / L11</td>
+          <td class="slot" data-slot="L12">L12</td>
           <td></td>
-          <td class="slot">B2 / L37</td>
-          <td class="slot">G2 / L38</td>
-          <td class="slot">E2 / L39</td>
-          <td class="slot">TC2 / L40</td>
-          <td class="slot">TAA2 / L41</td>
-          <td class="slot">L42<br>V4</td>
+          <td class="slot" data-slot="B2">B2 / L37</td>
+          <td class="slot" data-slot="G2">G2 / L38</td>
+          <td class="slot" data-slot="E2">E2 / L39</td>
+          <td class="slot" data-slot="TC2">TC2 / L40</td>
+          <td class="slot" data-slot="TAA2">TAA2 / L41</td>
+          <td class="slot" data-slot="L42">L42<br>V4</td>
         </tr>
         <tr>
           <td>Wed</td>
-          <td class="slot">C1 / L13</td>
-          <td class="slot">A1 / L14</td>
-          <td class="slot">F1 / L15</td>
-          <td class="slot">V1 / L16</td>
-          <td class="slot">V2 / L17</td>
-          <td class="slot">L18</td>
+          <td class="slot" data-slot="C1">C1 / L13</td>
+          <td class="slot" data-slot="A1">A1 / L14</td>
+          <td class="slot" data-slot="F1">F1 / L15</td>
+          <td class="slot" data-slot="V1">V1 / L16</td>
+          <td class="slot" data-slot="V2">V2 / L17</td>
+          <td class="slot" data-slot="L18">L18</td>
           <td></td>
-          <td class="slot">C2 / L43</td>
-          <td class="slot">A2 / L44</td>
-          <td class="slot">F2 / L45</td>
-          <td class="slot">TD2 / L46</td>
-          <td class="slot">TBB2 / L47</td>
-          <td class="slot">L48<br>V5</td>
+          <td class="slot" data-slot="C2">C2 / L43</td>
+          <td class="slot" data-slot="A2">A2 / L44</td>
+          <td class="slot" data-slot="F2">F2 / L45</td>
+          <td class="slot" data-slot="TD2">TD2 / L46</td>
+          <td class="slot" data-slot="TBB2">TBB2 / L47</td>
+          <td class="slot" data-slot="L48">L48<br>V5</td>
         </tr>
         <tr>
           <td>Thu</td>
-          <td class="slot">D1 / L19</td>
-          <td class="slot">B1 / L20</td>
-          <td class="slot">G1 / L21</td>
-          <td class="slot">TE1 / L22</td>
-          <td class="slot">TCC1 / L23</td>
-          <td class="slot">L24</td>
+          <td class="slot" data-slot="D1">D1 / L19</td>
+          <td class="slot" data-slot="B1">B1 / L20</td>
+          <td class="slot" data-slot="G1">G1 / L21</td>
+          <td class="slot" data-slot="TE1">TE1 / L22</td>
+          <td class="slot" data-slot="TCC1">TCC1 / L23</td>
+          <td class="slot" data-slot="L24">L24</td>
           <td></td>
-          <td class="slot">D2 / L49</td>
-          <td class="slot">B2 / L50</td>
-          <td class="slot">G2 / L51</td>
-          <td class="slot">TE2 / L52</td>
-          <td class="slot">TCC2 / L53</td>
-          <td class="slot">L54<br>V6</td>
+          <td class="slot" data-slot="D2">D2 / L49</td>
+          <td class="slot" data-slot="B2">B2 / L50</td>
+          <td class="slot" data-slot="G2">G2 / L51</td>
+          <td class="slot" data-slot="TE2">TE2 / L52</td>
+          <td class="slot" data-slot="TCC2">TCC2 / L53</td>
+          <td class="slot" data-slot="L54">L54<br>V6</td>
         </tr>
         <tr>
           <td>Fri</td>
-          <td class="slot">E1 / L25</td>
-          <td class="slot">C1 / L26</td>
-          <td class="slot">TA1 / L27</td>
-          <td class="slot">TF1 / L28</td>
-          <td class="slot">TD1 / L29</td>
-          <td class="slot">L30</td>
+          <td class="slot" data-slot="E1">E1 / L25</td>
+          <td class="slot" data-slot="C1">C1 / L26</td>
+          <td class="slot" data-slot="TA1">TA1 / L27</td>
+          <td class="slot" data-slot="TF1">TF1 / L28</td>
+          <td class="slot" data-slot="TD1">TD1 / L29</td>
+          <td class="slot" data-slot="L30">L30</td>
           <td></td>
-          <td class="slot">E2 / L55</td>
-          <td class="slot">C2 / L56</td>
-          <td class="slot">TA2 / L57</td>
-          <td class="slot">TF2 / L58</td>
-          <td class="slot">TDD2 / L59</td>
-          <td class="slot">L60<br>V7</td>
+          <td class="slot" data-slot="E2">E2 / L55</td>
+          <td class="slot" data-slot="C2">C2 / L56</td>
+          <td class="slot" data-slot="TA2">TA2 / L57</td>
+          <td class="slot" data-slot="TF2">TF2 / L58</td>
+          <td class="slot" data-slot="TDD2">TDD2 / L59</td>
+          <td class="slot" data-slot="L60">L60<br>V7</td>
         </tr>
       </tbody>
     </table>
@@ -195,7 +190,7 @@
             <th>Faculty</th>
             <th>Venue</th>
             <th>Credits</th>
-            <th>Action</th>
+           
           </tr>
         </thead>
         <tbody></tbody>
@@ -204,27 +199,34 @@
     <p>Total Credits: <span id="totalCredits">0</span></p>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 $(function() {
+  const { jsPDF } = window.jspdf;
   const courses = [];
- const colorPalette = [
-  'rgba(244, 67, 54, 0.9)',    // Red
-  'rgba(33, 150, 243, 0.9)',   // Blue
-  'rgba(76, 175, 80, 0.9)',    // Green
-  'rgba(255, 193, 7, 0.9)',    // Amber
-  'rgba(156, 39, 176, 0.9)',   // Purple
-  'rgba(255, 87, 34, 0.9)',    // Deep Orange
-  'rgba(63, 81, 181, 0.9)',    // Indigo
-  'rgba(0, 188, 212, 0.9)',    // Cyan
-  'rgba(205, 220, 57, 0.9)'    // Lime
-];
+  const colorPalette = [
+    'rgba(244, 67, 54, 0.9)',    // Red
+    'rgba(33, 150, 243, 0.9)',   // Blue
+    'rgba(76, 175, 80, 0.9)',    // Green
+    'rgba(255, 193, 7, 0.9)',    // Amber
+    'rgba(156, 39, 176, 0.9)',   // Purple
+    'rgba(255, 87, 34, 0.9)',    // Deep Orange
+    'rgba(63, 81, 181, 0.9)',    // Indigo
+    'rgba(0, 188, 212, 0.9)',    // Cyan
+    'rgba(205, 220, 57, 0.9)'    // Lime
+  ];
 
   let colorIndex = 0;
 
-  $('#courseForm').on('submit', function(e) {
+  // Store original cell content
+  $('.slot').each(function() {
+    $(this).attr('data-original', $(this).html());
+  });
+// Modified slot matching in course submission
+$('#courseForm').on('submit', function(e) {
     e.preventDefault();
     const errorMessage = $('#errorMessage');
     errorMessage.text('').removeClass('error success').hide();
@@ -239,20 +241,65 @@ $(function() {
 
     // Basic validation
     if (!slotInput || !courseCode || !courseTitle || !faculty || !venue || !credits) {
-      showError('Please fill in all fields');
-      return;
+        showError('Please fill in all fields');
+        return;
     }
 
+    // Process slots - split by + and trim each one
     const slots = slotInput.split('+').map(s => s.trim());
     
-    // Check for conflicts (only if there are existing courses)
-    if (courses.length > 0) {
-      const conflicts = checkSlotConflicts(slots, courseCode);
-      
-      if (conflicts.length > 0) {
+    // Check for conflicts
+    const conflicts = [];
+    slots.forEach(slot => {
+        // Find all cells that match this slot (either exact or contains)
+        const matchingCells = $(`.slot`).filter(function() {
+            const cellText = $(this).text();
+            const dataSlot = $(this).attr('data-slot');
+            
+            // Check if this is an exact slot match (A1, B2, etc.)
+            if (dataSlot === slot) return true;
+            
+            // For lab slots (L1, L2, etc.), we need exact matches
+            if (slot.startsWith('L')) {
+                // Check if cell contains the exact lab slot (L2 should match L2 but not L22)
+                const labSlots = cellText.match(/L\d+/g) || [];
+                return labSlots.includes(slot);
+            }
+            
+            // Check for combined slots (A1+TA1)
+            if (cellText.includes(slot) && !cellText.includes('/')) return true;
+            
+            return false;
+        });
+
+        // Check each matching cell for existing course
+        matchingCells.each(function() {
+            const cellContent = $(this).text();
+            const originalContent = $(this).attr('data-original');
+            
+            // Skip if cell is empty or contains only slot info
+            if (cellContent === originalContent) return;
+            
+            // Check if cell already has a course
+            if (cellContent.includes('/')) {
+                const parts = cellContent.split('/');
+                if (parts[1].trim() && !parts[1].trim().startsWith('L')) {
+                    conflicts.push(`${slot} (${parts[1].trim()})`);
+                }
+            } else if (cellContent.includes('-')) {
+                const parts = cellContent.split('-');
+                if (parts[1].trim()) {
+                    conflicts.push(`${slot} (${parts[1].trim()})`);
+                }
+            } else if (!cellContent.startsWith('L')) {
+                conflicts.push(`${slot} (${cellContent.trim()})`);
+            }
+        });
+    });
+
+    if (conflicts.length > 0) {
         showError(`Slot conflict detected! Cannot add course because these slots are already occupied:<br>${conflicts.map(c => `• ${c}`).join('<br>')}`);
         return;
-      }
     }
 
     const courseColor = colorPalette[colorIndex % colorPalette.length];
@@ -261,67 +308,100 @@ $(function() {
     // Process the course addition with animation
     $('.gradient-btn.pulse').addClass('active');
     setTimeout(() => {
-      $('.gradient-btn.pulse').removeClass('active');
-      
-      const slotCells = [];
-      slots.forEach(slot => {
-        $('.slot').filter(function() {
-          let cellText = $(this).text().replace(/<br\s*\/?>/ig, ' ').split('/')[0].trim().split(' ')[0];
-          return cellText === slot;
-        }).each(function() {
-          const cell = $(this);
-          let cellContent = cell.html();
-          
-          if (cellContent.includes('/')) {
-            cell.html(cellContent.split('/')[0].trim() + ' / ' + courseCode);
-          } else if (cellContent.includes('<br>')) {
-            cell.html(cellContent.split('<br>')[0].trim() + ' - ' + courseCode + '<br>' + cellContent.split('<br>')[1]);
-          } else {
-            cell.text(slot + ' - ' + courseCode);
-          }
-          
-          cell.css({
-            'background-color': courseColor,
-            'color': '#fff',
-            'font-weight': 'bold'
-          }).addClass('cell-pop');
-          
-          setTimeout(() => cell.removeClass('cell-pop'), 500);
-          slotCells.push(cell[0]);
-        });
-      });
+        $('.gradient-btn.pulse').removeClass('active');
+        
+        const slotCells = [];
+        slots.forEach(slot => {
+            // Find all matching cells for this slot (either exact or contains)
+            const matchingCells = $(`.slot`).filter(function() {
+                const cellText = $(this).text();
+                const dataSlot = $(this).attr('data-slot');
+                
+                // Exact slot match
+                if (dataSlot === slot) return true;
+                
+                // For lab slots (L1, L2, etc.), we need exact matches
+                if (slot.startsWith('L')) {
+                    // Check if cell contains the exact lab slot (L2 should match L2 but not L22)
+                    const labSlots = cellText.match(/L\d+/g) || [];
+                    return labSlots.includes(slot);
+                }
+                
+                // Combined slot match
+                if (cellText.includes(slot) && !cellText.includes('/')) return true;
+                
+                return false;
+            });
 
-      // Add to courses list
-      const newCourse = {
-        slots,
-        courseCode,
-        courseTitle,
-        faculty,
-        venue,
-        credits,
-        color: courseColor,
-        slotCells
-      };
-      
-      courses.push(newCourse);
-      addCourseToTable(newCourse);
-      updateTotalCredits();
-      showSuccess('Course added successfully!');
-      this.reset();
+            // Update each matching cell
+            matchingCells.each(function() {
+                const cell = $(this);
+                const originalContent = cell.attr('data-original');
+                let newContent = '';
+                
+                // Handle different cell formats
+                if (originalContent.includes('/')) {
+                    const parts = originalContent.split('/');
+                    if (parts[1].trim().startsWith('L')) {
+                        // Lab slot format (A1 / L1)
+                        newContent = `${parts[0].trim()} / ${courseCode}`;
+                    } else {
+                        // Theory slot format (A1 - CS101)
+                        newContent = `${parts[0].trim()} - ${courseCode}`;
+                    }
+                } else if (originalContent.includes('<br>')) {
+                    // Venue format (L36<br>V3)
+                    const parts = originalContent.split('<br>');
+                    newContent = `${courseCode}<br>${parts[1]}`;
+                } else {
+                    // Simple slot (L6)
+                    newContent = courseCode;
+                }
+                
+                cell.html(newContent)
+                    .css({
+                        'background-color': courseColor,
+                        'color': '#fff',
+                        'font-weight': 'bold'
+                    })
+                    .addClass('cell-pop');
+                
+                setTimeout(() => cell.removeClass('cell-pop'), 500);
+                slotCells.push(cell[0]);
+            });
+        });
+
+        // Add to courses list
+        const newCourse = {
+            slots,
+            courseCode,
+            courseTitle,
+            faculty,
+            venue,
+            credits,
+            color: courseColor,
+            slotCells
+        };
+        
+        courses.push(newCourse);
+        addCourseToTable(newCourse);
+        updateTotalCredits();
+        showSuccess('Course added successfully!');
+        this.reset();
     }, 300);
-  });
+});
 
   function checkSlotConflicts(slots, currentCourseCode) {
     const conflicts = [];
     
     slots.forEach(slot => {
-      $('.slot').filter(function() {
-        let cellText = $(this).text().replace(/<br\s*\/?>/ig, ' ').split('/')[0].trim().split(' ')[0];
-        return cellText === slot;
-      }).each(function() {
+      $(`.slot[data-slot="${slot}"]`).each(function() {
         const cellContent = $(this).text();
         
-        // Only check for actual course codes (not slot labels)
+        // Skip if cell only contains slot label (no course added yet)
+        if (cellContent === $(this).attr('data-original')) return;
+        
+        // Check for existing course codes
         if (cellContent.includes('/')) {
           const parts = cellContent.split('/');
           if (parts.length > 1 && parts[1].trim() !== '' && !parts[1].trim().startsWith('L')) {
@@ -332,100 +412,88 @@ $(function() {
           if (parts.length > 1 && parts[1].trim() !== '' && !parts[1].trim().startsWith('L')) {
             conflicts.push(`${slot} (${parts[1].trim()})`);
           }
+        } else if (!cellContent.startsWith('L')) {
+          // If it's not a lab slot and has content, it's a conflict
+          conflicts.push(`${slot} (${cellContent.trim()})`);
         }
       });
     });
     
     return conflicts;
   }
- $('.button-group button:contains("Download Timetable")').on('click', function () {
-  const timetable = document.getElementById('timetableContainer');
-
-  // Temporarily adjust styling
-  const originalBackground = timetable.style.background;
-  timetable.style.background = '#ffffff';
-
-  html2canvas(timetable, {
-    scrollY: -window.scrollY,
-    backgroundColor: '#ffffff',
-    useCORS: true, // if you're loading fonts/images from external sources
-    scale: 2 // higher quality
-  }).then(canvas => {
-    const link = document.createElement('a');
-    link.download = 'FFCS_Timetable.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-
-    // Restore original background
-    timetable.style.background = originalBackground;
-  });
-});
-
-
 
   function addCourseToTable(course) {
-    const coursesTable = $('#coursesTable tbody');
-    const newRow = $('<tr>').css('background-color', course.color).hide();
-    newRow.html(`
-      <td>${course.slots.join(', ')}</td>
-      <td>${course.courseCode}</td>
-      <td>${course.courseTitle}</td>
-      <td>${course.faculty}</td>
-      <td>${course.venue}</td>
-      <td>${course.credits}</td>
-      <td><button class="gradient-btn red pulse remove-btn" data-code="${course.courseCode}">Remove</button></td>
-    `);
+    const row = `
+      <tr>
+        <td>${course.slots.join(', ')}</td>
+        <td>${course.courseCode}</td>
+        <td>${course.courseTitle}</td>
+        <td>${course.faculty}</td>
+        <td>${course.venue}</td>
+        <td>${course.credits}</td>
+        
+      </tr>
+    `;
     
-    newRow.find('.remove-btn').on('click', function() {
+    $('#coursesTable tbody').append(row);
+    
+    // Add click handler for remove button
+    $(`button.remove-btn[data-course="${course.courseCode}"]`).on('click', function() {
       removeCourse(course.courseCode);
     });
     
-    newRow.on('dblclick', function() {
-      loadCourseIntoForm(course);
+    // Add double click handler for the row
+    $('#coursesTable tbody tr:last').on('dblclick', function() {
+      const courseCode = $(this).find('td:nth-child(2)').text();
+      const courseToEdit = courses.find(c => c.courseCode === courseCode);
+      if (courseToEdit) {
+        loadCourseIntoForm(courseToEdit);
+      }
     });
-    
-    coursesTable.append(newRow);
-    newRow.fadeIn(300);
   }
 
   function removeCourse(courseCode) {
     const courseIndex = courses.findIndex(c => c.courseCode === courseCode);
     if (courseIndex !== -1) {
-      const course = courses[courseIndex];
-      
-      // Animate removal
-      $(`#coursesTable tbody tr td:nth-child(2):contains('${courseCode}')`).parent().fadeOut(300, function() {
-        $(this).remove();
-      });
-      
-      // Restore timetable cells with animation
-      course.slotCells.forEach(cell => {
-        const $cell = $(cell);
-        if ($cell.text().includes(course.courseCode)) {
-          $cell.addClass('cell-fade');
-          setTimeout(() => {
-            $cell.css({
-              'background-color': '',
-              'color': '',
-              'font-weight': ''
-            }).removeClass('cell-fade');
-            
-            if ($cell.text().includes('/')) {
-              $cell.text($cell.text().split('/')[0].trim());
-            } else if ($cell.text().includes('-')) {
-              $cell.text($cell.text().split('-')[0].trim());
-            } else {
-              $cell.text('');
+        const course = courses[courseIndex];
+        
+        // Remove from courses table - more precise targeting
+        $('#coursesTable tbody tr').each(function() {
+            const rowCode = $(this).find('td:nth-child(2)').text().trim();
+            if (rowCode === courseCode) {
+                $(this).fadeOut(300, function() {
+                    $(this).remove();
+                });
+                return false; // break the loop
             }
-          }, 300);
-        }
-      });
-      
-      courses.splice(courseIndex, 1);
-      updateTotalCredits();
-      showSuccess('Course removed successfully!');
+        });
+        
+        // Restore timetable cells for this specific course
+        course.slotCells.forEach(cell => {
+            const $cell = $(cell);
+            const originalContent = $cell.attr('data-original');
+            
+            // Check if this cell actually contains our course code
+            if ($cell.text().includes(course.courseCode)) {
+                $cell.addClass('cell-fade');
+                setTimeout(() => {
+                    $cell.html(originalContent)
+                        .css({
+                            'background-color': '',
+                            'color': '',
+                            'font-weight': ''
+                        })
+                        .removeClass('cell-fade');
+                }, 300);
+            }
+        });
+        
+        // Remove from courses array
+        courses.splice(courseIndex, 1);
+        updateTotalCredits();
+        showSuccess('Course removed successfully!');
     }
-  }
+}
 
   function loadCourseIntoForm(course) {
     $('#slot').val(course.slots.join('+'));
@@ -456,27 +524,18 @@ $(function() {
       setTimeout(() => {
         $('.gradient-btn.red.pulse').removeClass('active');
         
-        const originalSlots = [
-          ['A1 / L1', 'F1 / L2', 'D1 / L3', 'TB1 / L4', 'TG1 / L5', 'L6', '', 'A2 / L31', 'F2 / L32', 'D2 / L33', 'TB2 / L34', 'TG2 / L35', 'L36<br>V3'],
-          ['B1 / L7', 'G1 / L8', 'E1 / L9', 'TC1 / L10', 'TAA1 / L11', 'L12', '', 'B2 / L37', 'G2 / L38', 'E2 / L39', 'TC2 / L40', 'TAA2 / L41', 'L42<br>V4'],
-          ['C1 / L13', 'A1 / L14', 'F1 / L15', 'V1 / L16', 'V2 / L17', 'L18', '', 'C2 / L43', 'A2 / L44', 'F2 / L45', 'TD2 / L46', 'TBB2 / L47', 'L48<br>V5'],
-          ['D1 / L19', 'B1 / L20', 'G1 / L21', 'TE1 / L22', 'TCC1 / L23', 'L24', '', 'D2 / L49', 'B2 / L50', 'G2 / L51', 'TE2 / L52', 'TCC2 / L53', 'L54<br>V6'],
-          ['E1 / L25', 'C1 / L26', 'TA1 / L27', 'TF1 / L28', 'TD1 / L29', 'L30', '', 'E2 / L55', 'C2 / L56', 'TA2 / L57', 'TF2 / L58', 'TDD2 / L59', 'L60<br>V7']
-        ];
-        
-        $('.timetable tbody tr').each(function(rowIndex) {
-          if (rowIndex < originalSlots.length) {
-            $(this).find('.slot').each(function(cellIndex) {
-              $(this).html(originalSlots[rowIndex][cellIndex]);
-              $(this).css({
-                'background-color': '',
-                'color': '',
-                'font-weight': ''
-              });
+        // Restore all slots to original content
+        $('.slot').each(function() {
+          const $cell = $(this);
+          $cell.html($cell.attr('data-original'))
+            .css({
+              'background-color': '',
+              'color': '',
+              'font-weight': ''
             });
-          }
         });
         
+        // Clear courses list
         $('#coursesTable tbody').empty();
         courses.length = 0;
         $('#totalCredits').text('0');
@@ -485,6 +544,261 @@ $(function() {
       }, 300);
     }
   });
+$('#downloadBtn').on('click', function() {
+    const username = prompt("Enter your name for the timetable:", "Student");
+    if (username === null) return;
+    
+    const generatePDF = (elementId, fileName, title) => {
+      const pdfContainer = document.createElement('div');
+      pdfContainer.id = 'pdf-container';
+      pdfContainer.style.position = 'absolute';
+      pdfContainer.style.left = '-9999px';
+      pdfContainer.style.width = elementId === 'timetableContainer' ? '1100px' : '800px';
+      pdfContainer.style.padding = '20px';
+      pdfContainer.style.backgroundColor = '#f8f9fa';
+      pdfContainer.style.color = '#343a40';
+      pdfContainer.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+      
+      const date = new Date().toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      // Theme colors
+      const primaryColor = '#4e73df';
+      const secondaryColor = '#1cc88a';
+      const accentColor = '#f6c23e';
+      const lightColor = '#f8f9fc';
+      const darkColor = '#5a5c69';
+      
+      pdfContainer.innerHTML = `
+        <style>
+          * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          .pdf-header { 
+            text-align: center; 
+            margin-bottom: 15px; 
+            padding-bottom: 10px; 
+            border-bottom: 3px solid ${primaryColor};
+            background: linear-gradient(135deg, ${lightColor} 0%, #ffffff 100%);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          }
+          
+          .pdf-title { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: ${primaryColor}; 
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+          }
+          
+          .institute-name {
+            font-size: 14px;
+            color: ${darkColor};
+            margin-bottom: 5px;
+            font-weight: 500;
+          }
+          
+          .student-info { 
+            font-size: 14px; 
+            margin-bottom: 5px; 
+            color: ${darkColor};
+            font-weight: 600;
+          }
+          
+          .generated-date { 
+            font-size: 12px; 
+            color: #6c757d; 
+            margin-bottom: 8px; 
+          }
+          
+          .section-title { 
+            font-size: 16px; 
+            font-weight: bold; 
+            color: ${primaryColor}; 
+            margin: 15px 0 10px 0; 
+            padding-bottom: 5px; 
+            border-bottom: 2px solid ${secondaryColor};
+          }
+          
+          ${elementId === 'timetableContainer' ? `
+          .timetable-pdf { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 10px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+          }
+          
+          .timetable-pdf th, .timetable-pdf td { 
+            border: 1px solid #dee2e6; 
+            padding: 4px !important; 
+            text-align: center; 
+            height: 20px !important; 
+            line-height: 1.3 !important; 
+          }
+          
+          .timetable-pdf th { 
+            background-color: ${primaryColor}; 
+            color: white;
+            font-weight: bold; 
+            padding: 5px !important; 
+          }
+          
+          .timetable-pdf tr:nth-child(even) {
+            background-color: ${lightColor};
+          }
+          
+          .time-col { width: 35px; }
+          .day-col { width: 45px; }
+          .lunch-col { width: 15px; background-color: #f8f9fa !important; }
+          
+          ` : `
+          .courses-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+          }
+          
+          .courses-table th, .courses-table td { 
+            border: 1px solid #dee2e6; 
+            padding: 4px !important; 
+            line-height: 1.3 !important; 
+            height: 18px !important; 
+          }
+          
+          .courses-table th { 
+            background-color: ${primaryColor}; 
+            color: white;
+            font-weight: bold; 
+            padding: 5px !important; 
+          }
+          
+          .courses-table tr:nth-child(even) {
+            background-color: ${lightColor};
+          }
+          
+          .course-code { width: 10%; }
+          .course-name { width: 25%; }
+          .course-slot { width: 10%; }
+          .course-venue { width: 15%; }
+          .course-faculty { width: 20%; }
+          .course-credits { width: 8%; text-align: center; }
+          .course-action { width: 12%; }
+          `}
+          
+          .credits-summary { 
+            text-align: right; 
+            font-weight: bold; 
+            margin: 10px 0; 
+            font-size: 12px;
+            color: ${darkColor};
+          }
+          
+          .footer { 
+            text-align: center; 
+            margin-top: 15px; 
+            font-size: 10px; 
+            color: #6c757d; 
+            border-top: 1px solid #dee2e6; 
+            padding-top: 8px; 
+          }
+          
+          .brand {
+            color: ${primaryColor};
+            font-weight: bold;
+          }
+        </style>
+        
+        <div class="pdf-header">
+          <div class="pdf-title">VALL FFCS ${title}</div>
+          <div class="institute-name">VIT Vellore University</div>
+          <div class="student-info">Student: ${username}</div>
+          <div class="generated-date">Generated on: ${date}</div>
+        </div>
+        
+        <div class="section-title">${title}</div>
+        ${elementId === 'timetableContainer' ? 
+          document.getElementById('timetableContainer').innerHTML
+            .replace(/class="timetable"/g, 'class="timetable-pdf"')
+            .replace(/<th style="width: 60px;">/g, '<th class="time-col">')
+            .replace(/<th rowspan="2" style="width: 60px;">/g, '<th rowspan="2" class="day-col">')
+            .replace(/<th rowspan="7" class="lunch-cell" style="width: 30px;">/g, '<th rowspan="7" class="lunch-cell lunch-col">')
+          : 
+          document.getElementById('coursesTable').outerHTML
+            .replace(/id="coursesTable"/g, 'class="courses-table"')
+            .replace(/<th>Course Code<\/th>/g, '<th class="course-code">Code</th>')
+            .replace(/<th>Course Title<\/th>/g, '<th class="course-name">Title</th>')
+            .replace(/<th>Slot<\/th>/g, '<th class="course-slot">Slot</th>')
+            .replace(/<th>Venue<\/th>/g, '<th class="course-venue">Venue</th>')
+            .replace(/<th>Faculty<\/th>/g, '<th class="course-faculty">Faculty</th>')
+            .replace(/<th>Credits<\/th>/g, '<th class="course-credits">Credits</th>')
+            .replace(/<th>Action<\/th>/g, '<th class="course-action">Action</th>')
+        }
+        
+        ${elementId === 'coursesTable' ? `
+          <div class="credits-summary">
+            Total Credits: <span style="color: ${primaryColor};">${$('#totalCredits').text()}</span>
+          </div>
+        ` : ''}
+        
+        <div class="footer">
+          Plan your semester with <span class="brand">VALL-Vit</span> - Your Academic Life Line at VIT
+        </div>
+      `;
+      
+      document.body.appendChild(pdfContainer);
+      
+      html2canvas(pdfContainer, {
+        scale: 2,
+        logging: false,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        backgroundColor: '#f8f9fa'
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: elementId === 'timetableContainer' ? 'landscape' : 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = pageWidth - 20;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        const yPos = (pageHeight - imgHeight) / 2;
+        
+        pdf.addImage(imgData, 'PNG', 10, yPos, imgWidth, imgHeight);
+        pdf.save(`FFCS_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.pdf`);
+        
+        document.body.removeChild(pdfContainer);
+      }).catch(error => {
+        console.error('Error generating PDF:', error);
+        showError('Failed to generate PDF. Please try again.');
+        document.body.removeChild(pdfContainer);
+      });
+    };
+
+    // Generate both PDFs with a small delay between them
+    generatePDF('timetableContainer', 'Timetable', 'Weekly Timetable');
+    setTimeout(() => {
+      generatePDF('coursesTable', 'Course_Details', 'Course Details');
+    }, 1000);
+});
 
   function showError(message) {
     const errorMessage = $('#errorMessage');
@@ -499,35 +813,30 @@ $(function() {
     setTimeout(() => errorMessage.fadeOut(3000), 2000);
   }
 });
-</script>
-<script>
-   document.addEventListener('DOMContentLoaded', function() {
-    const tagline = "Your Ultimate Timetable Architect Course Masterpiece Creator";
-    const element = document.getElementById('animated-tagline');
-    element.innerHTML = ''; // Clear the initial text
-    
-    let i = 0;
-    const speed = 50; // Speed in milliseconds
-    
-    function typeWriter() {
-      if (i < tagline.length) {
-        // Add a span around each letter for individual styling
-        const span = document.createElement('span');
-        span.textContent = tagline.charAt(i);
-        span.style.opacity = '0';
-        span.style.animation = `fadeIn 0.5s ${i * 0.05}s forwards`;
-        element.appendChild(span);
-        
-        i++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-    
-    // Start the animation after a small delay
-    setTimeout(typeWriter, 500);
-  });
-</script>
 
+document.addEventListener('DOMContentLoaded', function() {
+  const tagline = "Your Ultimate Timetable ";
+  const element = document.getElementById('animated-tagline');
+  element.innerHTML = ''; 
+  
+  let i = 0;
+  const speed = 50; 
+  
+  function typeWriter() {
+    if (i < tagline.length) {
+      const span = document.createElement('span');
+      span.textContent = tagline.charAt(i);
+      span.style.opacity = '0';
+      span.style.animation = `fadeIn 0.5s ${i * 0.05}s forwards`;
+      element.appendChild(span);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+  
+  setTimeout(typeWriter, 500);
+});
+</script>
 <style>
   :root {
   --primary-blue: #00d8ff;
@@ -1660,7 +1969,7 @@ h3 {
 /* Add these styles to your existing CSS */
 .tagline-container {
     overflow: hidden; /* Hide overflow during animation */
-    white-space: nowrap; /* Keep text in one line */
+     /* Keep text in one line */
     margin: 20px 0;
   }
 
