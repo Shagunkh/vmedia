@@ -1784,6 +1784,36 @@
   max-height: 80vh;
   border-radius: 8px;
 }
+/* Feed image styling */
+.feed-image-container {
+  margin: 10px 0;
+  max-width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.feed-image {
+  max-width: 100%;
+  max-height: 500px; /* Adjust as needed */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.feed-image:hover {
+  transform: scale(1.02);
+}
+
+/* Modal image styling */
+#fullSizeImage {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
   </style>
 
   <body>
@@ -1865,9 +1895,16 @@
               </span>
             </div>
 
-            <% if (post.imageUrl && post.imageUrl.trim() !== '') { %>
-              <img class="feed-image" src="<%= post.imageUrl %>" alt="Feed Image">
-            <% } %>
+          <% if (post.imageUrl && post.imageUrl.trim() !== '') { %>
+  <div class="feed-image-container">
+    <img class="feed-image" 
+         src="<%= post.imageUrl %>" 
+         alt="Post Image"
+         data-bs-toggle="modal" 
+         data-bs-target="#imageModal"
+         onclick="document.getElementById('fullSizeImage').src = '<%= post.imageUrl %>'">
+  </div>
+<% } %>
             <br><br>
             <div class="feed-caption">
               <%= post.caption %>
@@ -2019,7 +2056,19 @@
       </div>
     </div>
 
-
+<!-- Image View Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="fullSizeImage" class="img-fluid" style="max-height: 80vh;">
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Chat Modal -->
     <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
       <br><br>
@@ -2212,7 +2261,67 @@ if (scrollToBottomBtn) {
     scrollToBottom();
   }
 });
+// Make images in feed clickable to view full size
+// Make images in feed clickable to view full size
+document.querySelectorAll('.feed-image').forEach(img => {
+  img.addEventListener('click', function(e) {
+    if (window.innerWidth > 768) {
+      e.preventDefault();
+      const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+      
+      // Properly handle modal events
+      modal.show();
+      
+      // Clear any existing backdrop
+      const existingBackdrop = document.querySelector('.modal-backdrop');
+      if (existingBackdrop) {
+        existingBackdrop.remove();
+      }
+    }
+  });
+});
 
+// Fix for modal closing issues
+const imageModal = document.getElementById('imageModal');
+if (imageModal) {
+  // Properly handle modal hide event
+  imageModal.addEventListener('hidden.bs.modal', function() {
+    // Remove the backdrop
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+    
+    // Reset body styling
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  });
+
+  // On mobile, allow pinch-to-zoom in the modal
+  imageModal.addEventListener('shown.bs.modal', function() {
+    const img = document.getElementById('fullSizeImage');
+    if (img) {
+      img.style.touchAction = 'none';
+      img.style.pointerEvents = 'auto';
+    }
+  });
+}
+
+// Add this as a fallback to fix stuck modals
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modals = document.querySelectorAll('.modal.show');
+    modals.forEach(modal => {
+      bootstrap.Modal.getInstance(modal).hide();
+    });
+    
+    // Force remove backdrops
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+    
+    // Reset body styling
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+  }
+});
       // Load previous messages when chat modal opens
       const chatModal = document.getElementById('chatModal');
   chatModal.addEventListener('shown.bs.modal', () => {
@@ -2868,9 +2977,6 @@ loadAnnouncements();
 
 
 
-
-
-  </body>
 
 
   </body>
