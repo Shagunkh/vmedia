@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 const sendWelcomeEmail = async (email, username) => {
     try {
         const mailOptions = {
-            from: `"VALL Team" <${process.env.EMAIL_USERNAME}>`,
+            from: `"VALL Team" <${"vitforall2025@gmail.com"}>`,
             to: email,
             subject: 'Welcome to VALL - Your Complete VITian Ecosystem!',
             html: `
