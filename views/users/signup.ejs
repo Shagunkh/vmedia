@@ -37,7 +37,7 @@
   .signup-container {
     width: 100%;
     max-width: 420px; /* Optimal width for mobile forms */
-    background: var(--card-bg);
+    background: black;
     border-radius: 16px;
     padding: 2rem 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -84,6 +84,8 @@
     outline: none;
     border-color: var(--primary-accent);
     box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+    background: #152228;
+    color: #f0f8ff;
   }
 
   .btn-submit {
@@ -179,6 +181,33 @@
     transition: background-color 5000s ease-in-out 0s;
     border: 1px solid rgba(0, 216, 255, 0.3) !important;
   }
+  <style>
+  /* Update the form background to match body */
+  .signup-container {
+    background: var(--dark-bg); /* Changed from black to match body */
+    /* ... rest of the existing styles ... */
+  }
+
+  /* Update the input focus state */
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+    background: rgba(10, 15, 30, 0.8); /* Darker than default but not white */
+    color: #f0f8ff;
+  }
+
+  /* Ensure autofill matches our theme */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.8) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+  }
+</style>
 </style>
 
 <div class="signup-container">
