@@ -10,7 +10,23 @@ const Task = require('../models/task'); // Add this line at the top with other r
 
 // Configure multer with error handling
 
-const upload = multer({ 
+// Separate the upload configurations to avoid conflicts
+const profilePhotoUpload = multer({ 
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Only image files (JPEG, JPG, PNG) are allowed'));
+  }
+}).single('photo'); // This must match the name attribute in your form
+
+const timetableUpload = multer({ 
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
@@ -23,8 +39,7 @@ const upload = multer({
     }
     cb(new Error('Only image (JPEG, JPG, PNG) and PDF files are allowed'));
   }
-}).single('screenshot');
-
+}).single('screenshot'); // This must match the name attribute in your timetable form // Make sure this matches your form field name
 // In your profile route (profile.js or user.js)
 router.get('/', isLoggedIn, async (req, res) => {
   try {
@@ -68,13 +83,9 @@ router.get('/', isLoggedIn, async (req, res) => {
     res.status(500).render('error', { message: 'Failed to load profile' });
   }
 });
-
 router.post('/upload', isLoggedIn, (req, res) => {
-  console.log('Upload route hit'); // Debug log
-  upload(req, res, async (err) => {
+  profilePhotoUpload(req, res, async (err) => { // Use profilePhotoUpload here
     try {
-      console.log('Multer processing started'); // Debug log
-      
       if (err) {
         console.error('Multer error:', err);
         return res.status(400).json({ 
@@ -82,15 +93,11 @@ router.post('/upload', isLoggedIn, (req, res) => {
           code: err.code 
         });
       }
-
-      console.log('File:', req.file); // Debug log - check if file exists
       
       if (!req.file) {
         console.log('No file received');
         return res.status(400).json({ error: 'No file uploaded' });
       }
-
-      console.log('File uploaded to:', req.file.path); // Debug log
       
       const user = await User.findById(req.user._id);
       if (!user) {
@@ -98,8 +105,6 @@ router.post('/upload', isLoggedIn, (req, res) => {
         await cloudinary.uploader.destroy(req.file.filename);
         return res.status(404).json({ error: 'User not found' });
       }
-
-      console.log('Old profile photo:', user.profilePhoto); // Debug log
       
       if (user.profilePhoto) {
         const publicId = user.profilePhoto.split('/').pop().split('.')[0];
@@ -108,11 +113,10 @@ router.post('/upload', isLoggedIn, (req, res) => {
       }
 
       user.profilePhoto = req.file.path;
-if (user.gender && typeof user.gender === 'string') {
-  user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1).toLowerCase();
-}
-await user.save();
-      console.log('Profile updated successfully');
+      if (user.gender && typeof user.gender === 'string') {
+        user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1).toLowerCase();
+      }
+      await user.save();
 
       res.json({ 
         success: true, 
@@ -120,7 +124,7 @@ await user.save();
       });
       
     } catch (error) {
-      console.error('Full error stack:', error.stack); // More detailed error
+      console.error('Full error stack:', error.stack);
       if (req.file) {
         console.log('Cleaning up uploaded file due to error');
         await cloudinary.uploader.destroy(req.file.filename);
@@ -184,7 +188,7 @@ router.post('/timetable-manual', isLoggedIn, async (req, res) => {
 // In your profile routes (profile.js)
 // In your profile.js routes file
 router.post('/upload-timetable', isLoggedIn, (req, res) => {
-  upload(req, res, async (err) => {
+  timetableUpload(req, res, async (err) => { // Use timetableUpload here
     try {
       if (err) {
         return res.status(400).json({ error: err.message });
@@ -200,7 +204,6 @@ router.post('/upload-timetable', isLoggedIn, (req, res) => {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      // Delete old screenshot if exists
       if (user.timetableScreenshot) {
         const publicId = user.timetableScreenshot.split('/').pop().split('.')[0];
         await cloudinary.uploader.destroy(`timetables/${publicId}`);
@@ -223,7 +226,6 @@ router.post('/upload-timetable', isLoggedIn, (req, res) => {
     }
   });
 });
-
 // Add route for deleting screenshot
 router.post('/delete-timetable-screenshot', isLoggedIn, async (req, res) => {
   try {
