@@ -558,307 +558,296 @@ $('#downloadBtn').on('click', function() {
     const username = prompt("Enter your name for the timetable:", "Student");
     if (username === null) return;
     
-    const generatePDF = (elementId, fileName, title) => {
-      const pdfContainer = document.createElement('div');
-      pdfContainer.id = 'pdf-container';
-      pdfContainer.style.position = 'absolute';
-      pdfContainer.style.left = '-9999px';
-      pdfContainer.style.width = elementId === 'timetableContainer' ? '1100px' : '800px';
-      pdfContainer.style.padding = '20px';
-      pdfContainer.style.backgroundColor = '#1a2035';
-      pdfContainer.style.color = '#e0e0e0';
-      pdfContainer.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-      
-      const date = new Date().toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-      
-      // Dark theme colors
-      const primaryColor = '#6c63ff';
-      const secondaryColor = '#00bfa5';
-      const accentColor = '#ffab40';
-      const darkBgColor = '#1a2035';
-      const darkerBgColor = '#121828';
-      const textColor = '#e0e0e0';
-      const lightTextColor = '#ffffff';
-      
-      pdfContainer.innerHTML = `
-        <style>
-          * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          }
-          
-          body {
-            background-color: ${darkBgColor};
-            padding:0;
-            margin:0;
-          }
-          
-          .pdf-header { 
-            text-align: center; 
-            margin-bottom: 25px; 
-            padding: 25px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, ${darkerBgColor} 0%, #2a3042 100%);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-          }
-          
-          .pdf-header::before {
-            content: "VALL-Vit";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 72px;
-            font-weight: 800;
-            color: rgba(108, 99, 255, 0.08);
-            z-index: 0;
-            pointer-events: none;
-          }
-          
-          .pdf-title { 
-            font-size: 28px; 
-            font-weight: bold; 
-            color: ${primaryColor}; 
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-          }
-          
-          .institute-name {
-            font-size: 16px;
-            color: ${secondaryColor};
-            margin-bottom: 10px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-          }
-          
-          .student-info { 
-            font-size: 16px; 
-            margin-bottom: 8px; 
-            color: ${lightTextColor};
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-          }
-          
-          .generated-date { 
-            font-size: 14px; 
-            color: ${accentColor}; 
-            margin-bottom: 0;
-            position: relative;
-            z-index: 1;
-          }
-          
-          .section-title { 
-            font-size: 18px; 
-            font-weight: bold; 
-            color: ${primaryColor}; 
-            margin: 25px 0 15px 0; 
-            padding-bottom: 8px; 
-            border-bottom: 2px solid ${secondaryColor};
-            text-transform: uppercase;
-            letter-spacing: 1px;
-          }
-          
-          ${elementId === 'timetableContainer' ? `
-          .timetable-pdf { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-bottom: 25px; 
-            font-size: 11px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            background-color: ${darkerBgColor};
-          }
-          
-          .timetable-pdf th, .timetable-pdf td { 
-            border: 1px solid #2d3446; 
-            padding: 6px !important; 
-            text-align: center; 
-            height: 22px !important; 
-            line-height: 1.4 !important; 
-          }
-          
-          .timetable-pdf th { 
-            background-color: ${primaryColor}; 
-            color: ${lightTextColor};
-            font-weight: bold; 
-            padding: 8px !important; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-          }
-          
-          .timetable-pdf tr:nth-child(even) {
-            background-color: rgba(255,255,255,0.03);
-          }
-          
-          .timetable-pdf tr:hover {
-            background-color: rgba(108, 99, 255, 0.1);
-          }
-          
-          .time-col { width: 40px; }
-          .day-col { width: 50px; font-weight: bold; color: ${secondaryColor}; }
-          .lunch-col { width: 18px; background-color: ${darkerBgColor} !important; }
-          
-          ` : `
-          .courses-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-bottom: 25px; 
-            font-size: 11px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            background-color: ${darkerBgColor};
-          }
-          
-          .courses-table th, .courses-table td { 
-            border: 1px solid #2d3446; 
-            padding: 6px !important; 
-            line-height: 1.4 !important; 
-            height: 20px !important; 
-          }
-          
-          .courses-table th { 
-            background-color: ${primaryColor}; 
-            color: ${lightTextColor};
-            font-weight: bold; 
-            padding: 8px !important; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-          }
-          
-          .courses-table tr:nth-child(even) {
-            background-color: rgba(255,255,255,0.03);
-          }
-          
-          .courses-table tr:hover {
-            background-color: rgba(108, 99, 255, 0.1);
-          }
-          
-          .course-code { width: 12%; color: ${accentColor}; font-weight: 600; }
-          .course-name { width: 28%; }
-          .course-slot { width: 12%; }
-          .course-venue { width: 16%; }
-          .course-faculty { width: 22%; }
-          .course-credits { width: 10%; text-align: center; font-weight: bold; color: ${secondaryColor}; }
-          .course-action { width: 12%; }
-          `}
-          
-          .credits-summary { 
-  text-align: right; 
-  font-weight: bold; 
-  margin: 20px 0; 
-  font-size: 14px;
-  color: ${lightTextColor};
-  padding: 10px;
-  background-color: rgba(0, 191, 165, 0.1);
-  border-left: 4px solid ${secondaryColor};
-}
-          
-          .footer { 
-            text-align: center; 
-            margin-top: 25px; 
-            font-size: 14px; 
-            color: #8c92a4; 
-            border-top: 1px solid #2d3446; 
-            padding-top: 15px; 
-          }
-          
-          .brand {
-            color: ${primaryColor};
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
-          }
-        </style>
+    const generateImage = (elementId, fileName, title) => {
+        const pdfContainer = document.createElement('div');
+        pdfContainer.id = 'image-container';
+        pdfContainer.style.position = 'absolute';
+        pdfContainer.style.left = '-9999px';
+        pdfContainer.style.width = elementId === 'timetableContainer' ? '1100px' : '800px';
+        pdfContainer.style.padding = '20px';
+        pdfContainer.style.backgroundColor = '#1a2035';
+        pdfContainer.style.color = '#e0e0e0';
+        pdfContainer.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
         
-        <div class="pdf-header">
-          <div class="pdf-title">VALL-Vit FFCS ${title}</div>
-          <div class="institute-name">VIT Vellore University</div>
-          <div class="student-info">${username}</div>
-          <div class="generated-date">Generated on ${date}</div>
-        </div>
-        
-        <div class="section-title">${title}</div>
-        ${elementId === 'timetableContainer' ? 
-          document.getElementById('timetableContainer').innerHTML
-            .replace(/class="timetable"/g, 'class="timetable-pdf"')
-            .replace(/<th style="width: 60px;">/g, '<th class="time-col">')
-            .replace(/<th rowspan="2" style="width: 60px;">/g, '<th rowspan="2" class="day-col">')
-            .replace(/<th rowspan="7" class="lunch-cell" style="width: 30px;">/g, '<th rowspan="7" class="lunch-cell lunch-col">')
-          : 
-          document.getElementById('coursesTable').outerHTML
-            .replace(/id="coursesTable"/g, 'class="courses-table"')
-            .replace(/<th>Course Code<\/th>/g, '<th class="course-code">Code</th>')
-            .replace(/<th>Course Title<\/th>/g, '<th class="course-name">Title</th>')
-            .replace(/<th>Slot<\/th>/g, '<th class="course-slot">Slot</th>')
-            .replace(/<th>Venue<\/th>/g, '<th class="course-venue">Venue</th>')
-            .replace(/<th>Faculty<\/th>/g, '<th class="course-faculty">Faculty</th>')
-            .replace(/<th>Credits<\/th>/g, '<th class="course-credits">Credits</th>')
-            .replace(/<th>Action<\/th>/g, '<th class="course-action">Action</th>')
-        }
-        
-        ${elementId === 'coursesTable' ? `
-          <div class="credits-summary">
-            Total Credits: <span style="color: ${accentColor}; font-size: 16px;">${$('#totalCredits').text()}</span>
-          </div>
-        ` : ''}
-        
-        <div class="footer">
-          <div style="margin-bottom: 10px; font-size: 24px; font-weight: 800; color: ${primaryColor}">VALL-Vit</div>
-          Your Academic Life Line at VIT • Powered by VALL-Vit Technologies
-        </div>
-      `;
-      
-      document.body.appendChild(pdfContainer);
-      
-      html2canvas(pdfContainer, {
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        scrollX: 0,
-        scrollY: 0,
-        backgroundColor: darkBgColor
-      }).then(canvas => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-          orientation: elementId === 'timetableContainer' ? 'landscape' : 'portrait',
-          unit: 'mm',
-          format: 'a4'
+        const date = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
         });
         
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = pageWidth - 20;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        // Dark theme colors
+        const primaryColor = '#6c63ff';
+        const secondaryColor = '#00bfa5';
+        const accentColor = '#ffab40';
+        const darkBgColor = '#1a2035';
+        const darkerBgColor = '#121828';
+        const textColor = '#e0e0e0';
+        const lightTextColor = '#ffffff';
         
-        const yPos = (pageHeight - imgHeight) / 2;
+        pdfContainer.innerHTML = `
+            <style>
+                * { 
+                    box-sizing: border-box; 
+                    margin: 0; 
+                    padding: 0; 
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+                
+                body {
+                    background-color: ${darkBgColor};
+                    padding:0;
+                    margin:0;
+                }
+                
+                .pdf-header { 
+                    text-align: center; 
+                    margin-bottom: 25px; 
+                    padding: 25px;
+                    border-radius: 8px;
+                    background: linear-gradient(135deg, ${darkerBgColor} 0%, #2a3042 100%);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .pdf-header::before {
+                    content: "VALL-Vit";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 72px;
+                    font-weight: 800;
+                    color: rgba(108, 99, 255, 0.08);
+                    z-index: 0;
+                    pointer-events: none;
+                }
+                
+                .pdf-title { 
+                    font-size: 28px; 
+                    font-weight: bold; 
+                    color: ${primaryColor}; 
+                    margin-bottom: 5px;
+                    letter-spacing: 1px;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .institute-name {
+                    font-size: 16px;
+                    color: ${secondaryColor};
+                    margin-bottom: 10px;
+                    font-weight: 600;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .student-info { 
+                    font-size: 16px; 
+                    margin-bottom: 8px; 
+                    color: ${lightTextColor};
+                    font-weight: 600;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .generated-date { 
+                    font-size: 14px; 
+                    color: ${accentColor}; 
+                    margin-bottom: 0;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .section-title { 
+                    font-size: 18px; 
+                    font-weight: bold; 
+                    color: ${primaryColor}; 
+                    margin: 25px 0 15px 0; 
+                    padding-bottom: 8px; 
+                    border-bottom: 2px solid ${secondaryColor};
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                ${elementId === 'timetableContainer' ? `
+                .timetable-pdf { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-bottom: 25px; 
+                    font-size: 11px; 
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    background-color: ${darkerBgColor};
+                }
+                
+                .timetable-pdf th, .timetable-pdf td { 
+                    border: 1px solid #2d3446; 
+                    padding: 6px !important; 
+                    text-align: center; 
+                    height: 22px !important; 
+                    line-height: 1.4 !important; 
+                }
+                
+                .timetable-pdf th { 
+                    background-color: ${primaryColor}; 
+                    color: ${lightTextColor};
+                    font-weight: bold; 
+                    padding: 8px !important; 
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .timetable-pdf tr:nth-child(even) {
+                    background-color: rgba(255,255,255,0.03);
+                }
+                
+                .timetable-pdf tr:hover {
+                    background-color: rgba(108, 99, 255, 0.1);
+                }
+                
+                .time-col { width: 40px; }
+                .day-col { width: 50px; font-weight: bold; color: ${secondaryColor}; }
+                .lunch-col { width: 18px; background-color: ${darkerBgColor} !important; }
+                
+                ` : `
+                .courses-table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-bottom: 25px; 
+                    font-size: 11px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    background-color: ${darkerBgColor};
+                }
+                
+                .courses-table th, .courses-table td { 
+                    border: 1px solid #2d3446; 
+                    padding: 6px !important; 
+                    line-height: 1.4 !important; 
+                    height: 20px !important; 
+                }
+                
+                .courses-table th { 
+                    background-color: ${primaryColor}; 
+                    color: ${lightTextColor};
+                    font-weight: bold; 
+                    padding: 8px !important; 
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .courses-table tr:nth-child(even) {
+                    background-color: rgba(255,255,255,0.03);
+                }
+                
+                .courses-table tr:hover {
+                    background-color: rgba(108, 99, 255, 0.1);
+                }
+                
+                .course-code { width: 12%; color: ${accentColor}; font-weight: 600; }
+                .course-name { width: 28%; }
+                .course-slot { width: 12%; }
+                .course-venue { width: 16%; }
+                .course-faculty { width: 22%; }
+                .course-credits { width: 10%; text-align: center; font-weight: bold; color: ${secondaryColor}; }
+                .course-action { width: 12%; }
+                `}
+                
+                .credits-summary { 
+                    text-align: right; 
+                    font-weight: bold; 
+                    margin: 20px 0; 
+                    font-size: 14px;
+                    color: ${lightTextColor};
+                    padding: 10px;
+                    background-color: rgba(0, 191, 165, 0.1);
+                    border-left: 4px solid ${secondaryColor};
+                }
+                
+                .footer { 
+                    text-align: center; 
+                    margin-top: 25px; 
+                    font-size: 14px; 
+                    color: #8c92a4; 
+                    border-top: 1px solid #2d3446; 
+                    padding-top: 15px; 
+                }
+                
+                .brand {
+                    color: ${primaryColor};
+                    font-weight: 800;
+                    font-size: 18px;
+                    letter-spacing: 1px;
+                    text-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+                }
+            </style>
+            
+            <div class="pdf-header">
+                <div class="pdf-title">VALL-Vit FFCS ${title}</div>
+                <div class="institute-name">VIT Vellore University</div>
+                <div class="student-info">${username}</div>
+                <div class="generated-date">Generated on ${date}</div>
+            </div>
+            
+            <div class="section-title">${title}</div>
+            ${elementId === 'timetableContainer' ? 
+                document.getElementById('timetableContainer').innerHTML
+                    .replace(/class="timetable"/g, 'class="timetable-pdf"')
+                    .replace(/<th style="width: 60px;">/g, '<th class="time-col">')
+                    .replace(/<th rowspan="2" style="width: 60px;">/g, '<th rowspan="2" class="day-col">')
+                    .replace(/<th rowspan="7" class="lunch-cell" style="width: 30px;">/g, '<th rowspan="7" class="lunch-cell lunch-col">')
+                : 
+                document.getElementById('coursesTable').outerHTML
+                    .replace(/id="coursesTable"/g, 'class="courses-table"')
+                    .replace(/<th>Course Code<\/th>/g, '<th class="course-code">Code</th>')
+                    .replace(/<th>Course Title<\/th>/g, '<th class="course-name">Title</th>')
+                    .replace(/<th>Slot<\/th>/g, '<th class="course-slot">Slot</th>')
+                    .replace(/<th>Venue<\/th>/g, '<th class="course-venue">Venue</th>')
+                    .replace(/<th>Faculty<\/th>/g, '<th class="course-faculty">Faculty</th>')
+                    .replace(/<th>Credits<\/th>/g, '<th class="course-credits">Credits</th>')
+                    .replace(/<th>Action<\/th>/g, '<th class="course-action">Action</th>')
+            }
+            
+            ${elementId === 'coursesTable' ? `
+                <div class="credits-summary">
+                    Total Credits: <span style="color: ${accentColor}; font-size: 16px;">${$('#totalCredits').text()}</span>
+                </div>
+            ` : ''}
+            
+            <div class="footer">
+                <div style="margin-bottom: 10px; font-size: 24px; font-weight: 800; color: ${primaryColor}">VALL-Vit</div>
+                Your Academic Life Line at VIT • Powered by VALL-Vit Technologies
+            </div>
+        `;
         
-        pdf.addImage(imgData, 'PNG', 10, yPos, imgWidth, imgHeight);
-        pdf.save(`VALL-Vit_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.pdf`);
+        document.body.appendChild(pdfContainer);
         
-        document.body.removeChild(pdfContainer);
-      }).catch(error => {
-        console.error('Error generating PDF:', error);
-        showError('Failed to generate PDF. Please try again.');
-        document.body.removeChild(pdfContainer);
-      });
+        html2canvas(pdfContainer, {
+            scale: 2,
+            logging: false,
+            useCORS: true,
+            scrollX: 0,
+            scrollY: 0,
+            backgroundColor: darkBgColor
+        }).then(canvas => {
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `VALL-Vit_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            document.body.removeChild(pdfContainer);
+        }).catch(error => {
+            console.error('Error generating image:', error);
+            showError('Failed to generate image. Please try again.');
+            document.body.removeChild(pdfContainer);
+        });
     };
 
-    // Generate both PDFs with a small delay between them
-    generatePDF('timetableContainer', 'Timetable', 'Weekly Timetable');
+    // Generate both images with a small delay between them
+    generateImage('timetableContainer', 'Timetable', 'Weekly Timetable');
     setTimeout(() => {
-      generatePDF('coursesTable', 'Course_Details', 'Course Details');
+        generateImage('coursesTable', 'Course_Details', 'Course Details');
     }, 1000);
 });
 
