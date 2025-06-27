@@ -36,10 +36,10 @@
         <label for="venue">Venue:</label>
         <input type="text" id="venue" name="venue" required>
       </div>
-      <div class="form-group">
-        <label for="credits">Credits:</label>
-        <input type="number" id="credits" name="credits" min="1" max="5" required>
-      </div>
+     <div class="form-group">
+  <label for="credits">Credits:</label>
+  <input type="text" id="credits" name="credits" pattern="^\d+(\.\d{1,2})?$" title="Enter a number with up to 2 decimal places (e.g., 1.5)" required>
+</div>
       <button type="submit" class="gradient-btn pulse">Add Course</button>
     </form>
     <div id="errorMessage"></div>
@@ -237,17 +237,24 @@ $('#courseForm').on('submit', function(e) {
     const courseTitle = $('#courseTitle').val().trim();
     const faculty = $('#faculty').val().trim();
     const venue = $('#venue').val().trim();
-    const credits = $('#credits').val();
+    const creditsInput = $('#credits').val().trim();
+const credits = parseFloat(creditsInput);
 
+// Add validation for credits
+if (isNaN(credits) || credits <= 0) {
+    showError('Please enter a valid positive number for credits');
+    return;
+}
+   
     // Basic validation
     if (!slotInput || !courseCode || !courseTitle || !faculty || !venue || !credits) {
         showError('Please fill in all fields');
         return;
     }
-
+    
     // Process slots - split by + and trim each one
     const slots = slotInput.split('+').map(s => s.trim());
-    
+     
     // Check for conflicts
     const conflicts = [];
     slots.forEach(slot => {
@@ -296,6 +303,7 @@ $('#courseForm').on('submit', function(e) {
             }
         });
     });
+    
 
     if (conflicts.length > 0) {
         showError(`Slot conflict detected! Cannot add course because these slots are already occupied:<br>${conflicts.map(c => `• ${c}`).join('<br>')}`);
@@ -507,17 +515,19 @@ $('#courseForm').on('submit', function(e) {
   }
 
   function updateTotalCredits() {
-    let total = 0;
-    courses.forEach(course => {
-      total += parseInt(course.credits) || 0;
-    });
-    
-    // Animate credit change
-    $('#totalCredits').fadeOut(100, function() {
-      $(this).text(total).fadeIn(100);
-    });
-  }
-
+  let total = 0;
+  courses.forEach(course => {
+    total += parseFloat(course.credits) || 0;
+  });
+  
+  // Format to 1 decimal place if needed, but show as integer if whole number
+  const formattedTotal = total % 1 === 0 ? total : total.toFixed(1);
+  
+  // Animate credit change
+  $('#totalCredits').fadeOut(100, function() {
+    $(this).text(formattedTotal).fadeIn(100);
+  });
+}
   $('#resetBtn').on('click', function() {
     if (confirm('Are you sure you want to reset the entire timetable?')) {
       $('.gradient-btn.red.pulse').addClass('active');
@@ -586,6 +596,8 @@ $('#downloadBtn').on('click', function() {
           
           body {
             background-color: ${darkBgColor};
+            padding:0;
+            margin:0;
           }
           
           .pdf-header { 
@@ -742,15 +754,15 @@ $('#downloadBtn').on('click', function() {
           `}
           
           .credits-summary { 
-            text-align: right; 
-            font-weight: bold; 
-            margin: 20px 0; 
-            font-size: 14px;
-            color: ${lightTextColor};
-            padding: 10px;
-            background-color: rgba(0, 191, 165, 0.1);
-            border-left: 4px solid ${secondaryColor};
-          }
+  text-align: right; 
+  font-weight: bold; 
+  margin: 20px 0; 
+  font-size: 14px;
+  color: ${lightTextColor};
+  padding: 10px;
+  background-color: rgba(0, 191, 165, 0.1);
+  border-left: 4px solid ${secondaryColor};
+}
           
           .footer { 
             text-align: center; 
@@ -849,6 +861,7 @@ $('#downloadBtn').on('click', function() {
       generatePDF('coursesTable', 'Course_Details', 'Course Details');
     }, 1000);
 });
+
   function showError(message) {
     const errorMessage = $('#errorMessage');
     errorMessage.html(message).addClass('error').fadeIn(300);
@@ -2263,4 +2276,10 @@ h3 {
       font-size: 0.8rem;
     }
   }}
+  .course-credits { 
+  width: 10%; 
+  text-align: center; 
+  font-weight: bold; 
+
+}
   </style>
