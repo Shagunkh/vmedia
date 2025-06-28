@@ -1825,6 +1825,7 @@
       <div class="sidebar1">
         
         <ul>
+          <li><a href="/add-drop/page" style="color: white; text-decoration: none;">Add/Drop Subjects</a></li>
           <li><a href="/cgpa" style="color: white; text-decoration: none;">CGPA/GPA Calculator</a></li>
 
          <li><a href="/tasks" style="color:white; text-decoration:none;">Study Planner</a></li>
@@ -1938,7 +1939,7 @@
     <!-- Announcements will be loaded here -->
   </div>
 
-<% if (currUser && (currUser._id.toString() === '685c2316542fe0eff3f68527' || currUser._id.toString() === '685c4477542fe0eff3f6a9f8')) { %>
+  <% if (currUser && (currUser._id.toString() === '685c2316542fe0eff3f68527' || currUser._id.toString() === '685c4477542fe0eff3f6a9f8')) { %>
     <div class="admin-controls">
       <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createTextAnnouncementModal">
         <i class="bi bi-card-text"></i> Text Announcement
