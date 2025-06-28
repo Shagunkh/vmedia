@@ -36,7 +36,7 @@ async function sendInterestNotification(ownerEmail, ownerName, interestedUserNam
                     <p>You can now connect with them to discuss the details:</p>
                     
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="${process.env.BASE_URL}/add-drop/page" 
+                        <a href="https://vmedia.onrender.com/add-drop/page" 
                            style="display: inline-block; background: linear-gradient(135deg, #6e8efb, #a777e3); 
                                   color: white; padding: 12px 30px; text-decoration: none; 
                                   border-radius: 50px; font-weight: 500; font-size: 16px;
