@@ -169,6 +169,11 @@ const apii=require('./routes/api.js');
 app.use('/api',apii);
 const appi = require('./routes/apii.js');
 app.use('/apii',appi);
+const addDropRoutes = require('./routes/addDrop');
+
+// Add near your other app.use() routes
+app.use('/add-drop', addDropRoutes);
+
 // app.js
 // In app.js, replace your current middleware with:
 
@@ -249,6 +254,28 @@ io.on('connection', (socket) => {
   });
 });
 
+// Socket.IO connection handler
+io.on('connection', (socket) => {
+    console.log('New client connected');
+    
+    socket.on('joinAddDropRoom', (roomId) => {
+        socket.join(roomId);
+        console.log(`User joined room ${roomId}`);
+    });
+    
+    socket.on('addDropMessage', (data) => {
+        // Broadcast the message to everyone in the room
+        io.to(data.roomId).emit('addDropMessage', {
+            roomId: data.roomId,
+            message: data.message
+        });
+        console.log('Message received:', data.message);
+    });
+    
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
 
 // In your main server file (app.js or server.js)
 // In your app.js after socket.io setup
@@ -313,5 +340,3 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
-
