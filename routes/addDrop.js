@@ -15,7 +15,7 @@ router.get('/page', isLoggedIn, wrapAsync(async (req, res) => {
         .populate('interestedUser', 'username profilePhoto')
         .sort({ createdAt: -1 });
     
-    res.render('add-drop/index', { 
+    res.render('indexx', { 
         title: 'Add/Drop Subjects',
         currentUser: req.user,
         addDrops
