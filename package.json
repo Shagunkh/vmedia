@@ -24,6 +24,14 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
     "socket.io": "^4.8.1"
+  },
+  {
+  "name": "vmedia",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   }
 
 }
