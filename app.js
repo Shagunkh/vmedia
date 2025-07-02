@@ -173,7 +173,10 @@ const addDropRoutes = require('./routes/addDrop');
 
 // Add near your other app.use() routes
 app.use('/add-drop', addDropRoutes);
+const vrideRoutes = require('./routes/vride');
 
+// Add near the other app.use() routes
+app.use('/vride', vrideRoutes);
 // app.js
 // In app.js, replace your current middleware with:
 
