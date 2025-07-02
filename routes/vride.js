@@ -174,7 +174,7 @@ router.delete('/:id', isLoggedIn, wrapAsync(async (req, res) => {
     
     const ride = await VRide.findById(id);
     if (!ride) {
-        req.flash('error', 'Ride not found');
+     
         return res.redirect('/vride');
     }
     
