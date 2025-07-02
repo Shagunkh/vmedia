@@ -1216,26 +1216,34 @@
         </div>
         
         <!-- Action Buttons -->
-        <div class="action-buttons">
-          <% if (ride.seatsAvailable > 0) { %>
-            <button class="action-btn join-btn" data-toggle="modal" data-target="#joinModal-<%= ride._id %>">
-              Join Ride
-            </button>
-          <% } else { %>
-            <button class="action-btn disabled-btn">
-              Ride Full
-            </button>
-          <% } %>
-          
-          <!-- Add delete button for ride creator or admin -->
-          <% if (currentUser && (currentUser._id.equals(ride.creator._id) || currentUser.isAdmin)) { %>
-            <form class="delete-form" action="/vride/<%= ride._id %>?_method=DELETE" method="POST">
-              <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this ride?')">
-                Delete
-              </button>
-            </form>
-          <% } %>
-        </div>
+        <!-- In your ride card section -->
+<div class="action-buttons">
+  <% if (ride.seatsAvailable > 0) { %>
+    <% const hasJoined = currentUser && ride.joinedUsers.some(j => j.user.equals(currentUser._id)); %>
+    <% if (!hasJoined) { %>
+      <button class="action-btn join-btn" data-toggle="modal" data-target="#joinModal-<%= ride._id %>">
+        Join Ride
+      </button>
+    <% } else { %>
+      <button class="action-btn disabled-btn">
+        Already Joined
+      </button>
+    <% } %>
+  <% } else { %>
+    <button class="action-btn disabled-btn">
+      Ride Full
+    </button>
+  <% } %>
+  
+  <!-- Add delete button for ride creator or admin -->
+  <% if (currentUser && (currentUser._id.equals(ride.creator._id) || currentUser.isAdmin)) { %>
+    <form class="delete-form" action="/vride/<%= ride._id %>?_method=DELETE" method="POST">
+      <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this ride?')">
+        Delete
+      </button>
+    </form>
+  <% } %>
+</div>
       </div>
     <% }); %>
   </div>
