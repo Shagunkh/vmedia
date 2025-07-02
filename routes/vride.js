@@ -145,7 +145,7 @@ router.post('/:id/join', isLoggedIn, wrapAsync(async (req, res) => {
     await ride.save();
     
     try {
-        if (process.env.EMAIL_USERNAME && process.env.EMAIL_PASSWORD) {
+        if ("vitforall2025@gmail.com" && "oxdfqvuwkzxqyylo") {
             const creatorEmail = ride.creator.email;
             const joinerEmail = req.user.email;
             
