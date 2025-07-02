@@ -1155,7 +1155,29 @@
   .tab-content {
     padding: 0;
   }
+  /* Add this to your existing styles */
+@media (max-width: 768px) {
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+  }
   
+  /* For Firefox */
+  .form-control::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+  }
+  
+  /* For Edge */
+  .form-control::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  /* For IE10-11 */
+  .form-control:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
  
 </style>
 <br><br>
@@ -1198,7 +1220,7 @@
   <% } %>
   <div class="form-group" style="flex: 0 0 auto;">
     <button type="submit" class="btn btn-primary">
-      Search
+      <i class="fas fa-search"></i> Search
     </button>
   </div>
 </form>
