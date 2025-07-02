@@ -10,20 +10,15 @@ const wrapAsync = require('../utils/wrapAsyc');
 // Main V-Ride Page with Integrated Search
 // Main V-Ride Page with Integrated Search
 // Helper function to normalize time format
-const normalizeTime = (timeString) => {
-  if (!timeString) return null;
-  const [hours, minutes] = timeString.split(':').map(Number);
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-};
-
-// Main V-Ride Page with Integrated Search
 router.get('/', wrapAsync(async (req, res) => {
     const { from, to, date, time, nearby } = req.query;
     
     let recentRides = [];
     let searchResults = [];
+    let myRides = [];
     let searchParams = { from, to, date, time, nearby };
     let isSearch = false;
+    
 
     // If search parameters exist
     if (from || to || date) {
@@ -44,7 +39,7 @@ router.get('/', wrapAsync(async (req, res) => {
         }
         
         // First find all rides matching other criteria
-        let results = await VRide.find(query).populate('creator');
+        let results = await VRide.find(query).populate('creator joinedUsers.user');
         
         // Handle time filtering
         if (time) {
@@ -72,16 +67,38 @@ router.get('/', wrapAsync(async (req, res) => {
     recentRides = await VRide.find({ seatsAvailable: { $gt: 0 } })
         .sort({ createdAt: -1 })
         .limit(5)
-        .populate('creator');
+        .populate('creator joinedUsers.user');
+    
+    // Get user's rides if logged in
+    if (req.user) {
+        myRides = await VRide.find({
+            $or: [
+                { creator: req.user._id },
+                { 'joinedUsers.user': req.user._id }
+            ]
+        })
+        .sort({ date: 1, time: 1 })
+        .populate('creator joinedUsers.user');
+    }
     
     res.render('vrideindex', { 
         recentRides,
         searchResults: isSearch ? searchResults : [],
         searchParams,
         isSearch,
+        myRides,
         currentUser: req.user
     });
 }));
+
+// Helper function to normalize time format
+function normalizeTime(timeString) {
+    if (!timeString) return '';
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const paddedHours = hours.toString().padStart(2, '0');
+    const paddedMinutes = minutes.toString().padStart(2, '0');
+    return `${paddedHours}:${paddedMinutes}`;
+}
 // Create Ride Form
 router.get('/new', isLoggedIn, (req, res) => {
     res.render('vridecreate');
