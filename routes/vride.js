@@ -74,7 +74,7 @@ router.get('/', wrapAsync(async (req, res) => {
         .limit(5)
         .populate('creator');
     
-    res.render('vride/index', { 
+    res.render('vrideindex', { 
         recentRides,
         searchResults: isSearch ? searchResults : [],
         searchParams,
@@ -84,7 +84,7 @@ router.get('/', wrapAsync(async (req, res) => {
 }));
 // Create Ride Form
 router.get('/new', isLoggedIn, (req, res) => {
-    res.render('vride/create');
+    res.render('vridecreate');
 });
 
 // Create Ride
