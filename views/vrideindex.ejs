@@ -1117,6 +1117,46 @@
   .btn-primary:hover::after {
     transform: translateX(0);
   }
+   .nav-tabs {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  .nav-link {
+    color: var(--text-muted);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    position: relative;
+    font-weight: 500;
+    transition: var(--transition);
+  }
+  
+  .nav-link:hover {
+    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .nav-link.active {
+    color: var(--primary-light);
+    background: transparent;
+    border: none;
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-gradient);
+  }
+  
+  .tab-content {
+    padding: 0;
+  }
+  
+ 
 </style>
 <br><br>
 <div class="container">
@@ -1175,90 +1215,177 @@
       </div>
 <% const ridesToShow = isSearch ? searchResults : recentRides; %>
 
-<% if (ridesToShow.length > 0) { %>
-  <div class="rides-grid">
-    <% ridesToShow.forEach(ride => { %>
-      <div class="ride-card">
-        <!-- Route Header -->
-        <div class="route-header">
-          <div class="route-path">
-            <div class="location from">
-              <span class="location-marker"></span>
-              <span class="location-text"><%= ride.from %></span>
-            </div>
-            <div class="path-line"></div>
-            <div class="location to">
-              <span class="location-marker to-marker"></span>
-              <span class="location-text"><%= ride.to %></span>
-            </div>
-          </div>
-          <div class="seats-badge <%= ride.seatsAvailable > 0 ? 'available' : 'full' %>">
-            <%= ride.seatsAvailable > 0 ? ride.seatsAvailable + ' Seats' : 'Full' %>
-          </div>
-        </div>
-        
-        <!-- Ride Details -->
-        <div class="details-grid">
-          <div class="detail">
-            <div class="detail-label">Date</div>
-            <div class="detail-value"><%= ride.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) %></div>
-          </div>
-          
-          <div class="detail">
-            <div class="detail-label">Time</div>
-            <div class="detail-value"><%= ride.time %></div>
-          </div>
-          
-          <div class="detail">
-            <div class="detail-label">Price</div>
-            <div class="detail-value">₹<%= ride.perPersonFare %>/person</div>
-          </div>
-        </div>
-        
-        <!-- Action Buttons -->
-        <!-- In your ride card section -->
-<div class="action-buttons">
-  <% if (ride.seatsAvailable > 0) { %>
-    <% const hasJoined = currentUser && ride.joinedUsers.some(j => j.user.equals(currentUser._id)); %>
-    <% if (!hasJoined) { %>
-      <button class="action-btn join-btn" data-toggle="modal" data-target="#joinModal-<%= ride._id %>">
-        Join Ride
-      </button>
-    <% } else { %>
-      <button class="action-btn disabled-btn">
-        Already Joined
-      </button>
+<br><br>
+<div class="tabs-container" style="margin-bottom: 2rem;">
+  <ul class="nav nav-tabs" id="ridesTabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="available-tab" data-toggle="tab" href="#available" role="tab" aria-controls="available" aria-selected="true">
+        Available Rides
+      </a>
+    </li>
+    <% if (currentUser) { %>
+    <li class="nav-item">
+      <a class="nav-link" id="myrides-tab" data-toggle="tab" href="#myrides" role="tab" aria-controls="myrides" aria-selected="false">
+        My Rides
+      </a>
+    </li>
     <% } %>
-  <% } else { %>
-    <button class="action-btn disabled-btn">
-      Ride Full
-    </button>
-  <% } %>
+  </ul>
   
-  <!-- Add delete button for ride creator or admin -->
-  <% if (currentUser && (currentUser._id.equals(ride.creator._id) || currentUser.isAdmin)) { %>
-    <form class="delete-form" action="/vride/<%= ride._id %>?_method=DELETE" method="POST">
-      <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this ride?')">
-        Delete
-      </button>
-    </form>
-  <% } %>
-</div>
+  <div class="tab-content" id="ridesTabsContent">
+    <!-- Available Rides Tab -->
+    <div class="tab-pane fade show active" id="available" role="tabpanel" aria-labelledby="available-tab">
+      <% if (ridesToShow.length > 0) { %>
+        <div class="rides-grid">
+          <% ridesToShow.forEach(ride => { %>
+  <div class="ride-card">
+    <div class="route-header">
+      <div class="route-path">
+        <div class="location from">
+          <span class="location-marker"></span>
+          <span class="location-text"><%= ride.from %></span>
+        </div>
+        <div class="path-line"></div>
+        <div class="location to">
+          <span class="location-marker to-marker"></span>
+          <span class="location-text"><%= ride.to %></span>
+        </div>
       </div>
-    <% }); %>
+      <div class="seats-badge <%= ride.seatsAvailable > 0 ? 'available' : 'full' %>">
+        <%= ride.seatsAvailable > 0 ? ride.seatsAvailable + ' Seats' : 'Full' %>
+      </div>
+    </div>
+    
+    <div class="details-grid">
+      <div class="detail">
+        <div class="detail-label">Date</div>
+        <div class="detail-value"><%= ride.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) %></div>
+      </div>
+      
+      <div class="detail">
+        <div class="detail-label">Time</div>
+        <div class="detail-value"><%= ride.time %></div>
+      </div>
+      
+      <div class="detail">
+        <div class="detail-label">Price</div>
+        <div class="detail-value">₹<%= ride.perPersonFare %>/person</div>
+      </div>
+    </div>
+    
+    <div class="action-buttons">
+      <% if (ride.seatsAvailable > 0) { %>
+        <% const hasJoined = currentUser && ride.joinedUsers.some(j => j.user.equals(currentUser._id)); %>
+        <% if (!hasJoined) { %>
+          <button class="action-btn join-btn" data-toggle="modal" data-target="#joinModal-<%= ride._id %>">
+            Join Ride
+          </button>
+        <% } else { %>
+          <button class="action-btn disabled-btn">
+            Already Joined
+          </button>
+        <% } %>
+      <% } else { %>
+        <button class="action-btn disabled-btn">
+          Ride Full
+        </button>
+      <% } %>
+      
+      <% if (currentUser && (currentUser._id.equals(ride.creator._id) || currentUser.isAdmin)) { %>
+        <form class="delete-form" action="/vride/<%= ride._id %>?_method=DELETE" method="POST">
+          <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this ride?')">
+            Delete
+          </button>
+        </form>
+      <% } %>
+    </div>
   </div>
-<% } else { %>
-  <div class="empty-state">
-    <% if (isSearch) { %>
-      <h3>No Rides Found</h3>
-      <p>Try adjusting your search criteria.</p>
-    <% } else { %>
-      <h3>No Rides Available Yet</h3>
-      <p>Be the first to create a ride and start sharing trips with others.</p>
+<% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <% if (isSearch) { %>
+            <h3>No Rides Found</h3>
+            <p>Try adjusting your search criteria.</p>
+          <% } else { %>
+            <h3>No Rides Available Yet</h3>
+            <p>Be the first to create a ride and start sharing trips with others.</p>
+          <% } %>
+          <a href="/vride/new" class="primary-btn">Create Ride</a>
+        </div>
+      <% } %>
+    </div>
+    
+    <!-- My Rides Tab (only shown if user is logged in) -->
+    <% if (currentUser) { %>
+    <div class="tab-pane fade" id="myrides" role="tabpanel" aria-labelledby="myrides-tab">
+      <% if (myRides.length > 0) { %>
+        <div class="rides-grid">
+          <% myRides.forEach(ride => { %>
+            <div class="ride-card">
+              <!-- Same ride card structure as available rides -->
+              <div class="route-header">
+                <div class="route-path">
+                  <div class="location from">
+                    <span class="location-marker"></span>
+                    <span class="location-text"><%= ride.from %></span>
+                  </div>
+                  <div class="path-line"></div>
+                  <div class="location to">
+                    <span class="location-marker to-marker"></span>
+                    <span class="location-text"><%= ride.to %></span>
+                  </div>
+                </div>
+                <div class="seats-badge <%= ride.seatsAvailable > 0 ? 'available' : 'full' %>">
+                  <%= ride.seatsAvailable > 0 ? ride.seatsAvailable + ' Seats' : 'Full' %>
+                </div>
+              </div>
+              
+              <div class="details-grid">
+                <div class="detail">
+                  <div class="detail-label">Date</div>
+                  <div class="detail-value"><%= ride.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) %></div>
+                </div>
+                
+                <div class="detail">
+                  <div class="detail-label">Time</div>
+                  <div class="detail-value"><%= ride.time %></div>
+                </div>
+                
+                <div class="detail">
+                  <div class="detail-label">Price</div>
+                  <div class="detail-value">₹<%= ride.perPersonFare %>/person</div>
+                </div>
+              </div>
+              
+              <div class="action-buttons">
+                
+                
+                <!-- Delete button for ride creator or admin -->
+                <% if (currentUser._id.equals(ride.creator._id) || currentUser.isAdmin) { %>
+                  <form class="delete-form" action="/vride/<%= ride._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this ride?')">
+                      Delete
+                    </button>
+                  </form>
+                <% } %>
+                
+               
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <h3>No Rides Found</h3>
+          <p>You haven't created or joined any rides yet.</p>
+          <a href="/vride/new" class="primary-btn">Create Ride</a>
+        </div>
+      <% } %>
+    </div>
     <% } %>
-    <a href="/vride/new" class="primary-btn">Create Ride</a>
   </div>
-<% } %>
+</div>
 <!-- Join Ride Modal Template -->
 <% ridesToShow.forEach(ride => { %>
 <div class="modal fade" id="joinModal-<%= ride._id %>" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel-<%= ride._id %>" aria-hidden="true">
