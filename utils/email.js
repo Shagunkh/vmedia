@@ -23,17 +23,7 @@ const sendWelcomeEmail = async (email, username) => {
                         <p style="color: #a0b8d0; font-size: 16px;">Your all-in-one VITian platform is ready</p>
                     </div>
                     
-                    <!-- FFCS Highlight Section -->
-                    <div style="background: linear-gradient(135deg, rgba(0,216,255,0.2), rgba(0,140,255,0.2)); padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 2px solid #00d8ff; text-align: center;">
-                        <h2 style="color: #00d8ff; font-size: 24px; margin-top: 0; margin-bottom: 10px; text-transform: uppercase;">FFCS SEASON IS HERE!</h2>
-                        <p style="color: #ffffff; font-size: 18px; font-weight: 600; margin-bottom: 15px;">YOU HAVEN'T FINALIZED YOUR FFCS YET</p>
-                        <p style="color: #a0b8d0; font-size: 16px; margin-bottom: 20px;">For who are you waiting? Go and finalize your FFCS with VALL's smart planner!</p>
-                        <a href="${process.env.BASE_URL}/ffcs-planner" 
-                           style="display: inline-block; padding: 10px 20px; background: linear-gradient(135deg, #00d8ff, #008cff); 
-                           color: #111; text-decoration: none; border-radius: 6px; font-weight: 600;">
-                            Plan Your FFCS Now
-                        </a>
-                    </div>
+                  
                     
                     <div style="background: rgba(20, 25, 40, 0.8); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                         <h2 style="color: #00d8ff; font-size: 22px; text-align: center; margin-bottom: 15px;">Explore Your VITian Ecosystem</h2>
