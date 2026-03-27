@@ -205,22 +205,51 @@ router.get('/product/:id', async (req, res) => {
 // ============ PROTECTED ROUTES ============
 
 // My products
+// My products - Updated to include night mess items
+// My products - Updated with earnings data
 router.get('/my-products', isLoggedIn, async (req, res) => {
     try {
         const products = await Product.find({ seller: req.user._id })
             .sort({ createdAt: -1 });
-            
+        
+        const NightMessFood = require('../models/NightMessFood');
+        const nightmessItems = await NightMessFood.find({ vendor: req.user._id })
+            .sort({ createdAt: -1 });
+        
+        const hiddenCount = [...products, ...nightmessItems].filter(item => item.status === 'hidden').length;
+        
+        // Calculate earnings from sold products
+        const soldProducts = products.filter(p => p.status === 'sold');
+        const soldProductsCount = soldProducts.length;
+        const productEarnings = soldProducts.reduce((sum, p) => sum + p.price, 0);
+        
+        // Calculate earnings from sold food items
+        const soldFoodItems = nightmessItems.filter(i => i.status === 'sold_out');
+        const soldFoodItemsCount = soldFoodItems.length;
+        const foodEarnings = soldFoodItems.reduce((sum, i) => sum + (i.price || 0), 0);
+        
+        const totalEarnings = productEarnings + foodEarnings;
+        const totalItemsSold = soldProductsCount + soldFoodItemsCount;
+        const avgOrderValue = totalItemsSold > 0 ? Math.round(totalEarnings / totalItemsSold) : 0;
+        
         res.render('marketplace/my-products', { 
             products,
+            nightmessItems,
+            hiddenCount,
+            totalEarnings,
+            soldProductsCount,
+            soldFoodItemsCount,
+            avgOrderValue,
             currUser: req.user,
             searchQuery: ''
         });
     } catch (error) {
         console.error(error);
-        req.flash('error', 'Error loading your products');
+        req.flash('error', 'Error loading your items');
         res.redirect('/');
     }
 });
+
 
 // My orders
 router.get('/orders', isLoggedIn, async (req, res) => {
@@ -674,6 +703,7 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
     }
 });
 
+
 // Mark as sold
 router.post('/product/:id/mark-sold', isLoggedIn, async (req, res) => {
     try {
@@ -907,6 +937,161 @@ router.post('/product/:id/review/:reviewId/reply', isLoggedIn, async (req, res) 
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
+    }
+});
+
+// Get all active chats for user (combined)
+router.get('/my-chats', isLoggedIn, async (req, res) => {
+    try {
+        // Get product chats
+        const productsAsSeller = await Product.find({ seller: req.user._id })
+            .populate('chatRooms.user', 'username profilePhoto');
+        
+        const productsAsBuyer = await Product.find({
+            'chatRooms.user': req.user._id
+        }).populate('seller', 'username profilePhoto');
+        
+        const allChats = [];
+        
+        // Process product seller chats
+        for (const product of productsAsSeller) {
+            if (product.chatRooms && product.chatRooms.length > 0) {
+                for (const chat of product.chatRooms) {
+                    if (chat.user) {
+                        allChats.push({
+                            productId: product._id,
+                            productTitle: product.title,
+                            productImage: product.images[0],
+                            otherUserId: chat.user._id,
+                            otherUserName: chat.user.username,
+                            roomId: chat.roomId,
+                            lastMessage: chat.lastMessage || 'No messages yet',
+                            lastMessageTime: chat.lastMessageTime,
+                            unreadCount: chat.unreadCount,
+                            role: 'seller',
+                            type: 'product'
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Process product buyer chats
+        for (const product of productsAsBuyer) {
+            if (product.chatRooms && product.chatRooms.length > 0) {
+                const chat = product.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
+                if (chat) {
+                    allChats.push({
+                        productId: product._id,
+                        productTitle: product.title,
+                        productImage: product.images[0],
+                        otherUserId: product.seller._id,
+                        otherUserName: product.seller.username,
+                        roomId: chat.roomId,
+                        lastMessage: chat.lastMessage || 'No messages yet',
+                        lastMessageTime: chat.lastMessageTime,
+                        unreadCount: chat.unreadCount,
+                        role: 'buyer',
+                        type: 'product'
+                    });
+                }
+            }
+        }
+        
+        // Get night mess food chats
+        const NightMessFood = require('../models/NightMessFood');
+        const itemsAsVendor = await NightMessFood.find({ vendor: req.user._id })
+            .populate('chatRooms.user', 'username profilePhoto');
+        
+        const itemsAsBuyer = await NightMessFood.find({
+            'chatRooms.user': req.user._id
+        }).populate('vendor', 'username profilePhoto');
+        
+        // Process night mess vendor chats
+        for (const item of itemsAsVendor) {
+            if (item.chatRooms && item.chatRooms.length > 0) {
+                for (const chat of item.chatRooms) {
+                    if (chat.user) {
+                        allChats.push({
+                            productId: item._id,
+                            productTitle: item.title,
+                            productImage: item.images[0],
+                            otherUserId: chat.user._id,
+                            otherUserName: chat.user.username,
+                            roomId: chat.roomId,
+                            lastMessage: chat.lastMessage || 'No messages yet',
+                            lastMessageTime: chat.lastMessageTime,
+                            unreadCount: chat.unreadCount,
+                            role: 'vendor',
+                            type: 'nightmess'
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Process night mess buyer chats
+        for (const item of itemsAsBuyer) {
+            if (item.chatRooms && item.chatRooms.length > 0) {
+                const chat = item.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
+                if (chat) {
+                    allChats.push({
+                        productId: item._id,
+                        productTitle: item.title,
+                        productImage: item.images[0],
+                        otherUserId: item.vendor._id,
+                        otherUserName: item.vendor.username,
+                        roomId: chat.roomId,
+                        lastMessage: chat.lastMessage || 'No messages yet',
+                        lastMessageTime: chat.lastMessageTime,
+                        unreadCount: chat.unreadCount,
+                        role: 'buyer',
+                        type: 'nightmess'
+                    });
+                }
+            }
+        }
+        
+        // Sort by last message time
+        allChats.sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime));
+        
+        res.render('marketplace/my-chats', { 
+            chats: allChats,
+            currUser: req.user,
+            searchQuery: ''
+        });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Error loading chats');
+        res.redirect('/');
+    }
+});
+// Add this to marketplaceController.js
+// Toggle visibility for product
+// Toggle visibility for product
+router.put('/product/:id/visibility', isLoggedIn, async (req, res) => {
+    try {
+        const { status } = req.body;
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        
+        if (product.seller.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ error: 'Unauthorized - You can only edit your own products' });
+        }
+        
+        // Update status - 'available' means visible, 'hidden' means not visible
+        product.status = status;
+        await product.save();
+        
+        console.log(`Product ${product._id} visibility toggled to: ${status}`);
+        
+        res.json({ success: true, status: product.status });
+    } catch (error) {
+        console.error('Error updating visibility:', error);
+        res.status(500).json({ error: 'Error updating visibility: ' + error.message });
     }
 });
 

@@ -1,0 +1,99 @@
+<%- include('../partials/header') %>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                    <h4 class="mb-0 text-white">Edit Food Item</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/nightmess/edit-item/<%= item._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Item Name *</label>
+                            <input type="text" name="title" class="form-control" value="<%= item.title %>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Description *</label>
+                            <textarea name="description" rows="5" class="form-control" required><%= item.description %></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" name="price" class="form-control" step="0.01" value="<%= item.price %>">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category *</label>
+                                <select name="category" class="form-select" required>
+                                    <option value="Snacks" <%= item.category === 'Snacks' ? 'selected' : '' %>>Snacks</option>
+                                    <option value="Beverages" <%= item.category === 'Beverages' ? 'selected' : '' %>>Beverages</option>
+                                    <option value="Meals" <%= item.category === 'Meals' ? 'selected' : '' %>>Meals</option>
+                                    <option value="Desserts" <%= item.category === 'Desserts' ? 'selected' : '' %>>Desserts</option>
+                                    <option value="Burgers" <%= item.category === 'Burgers' ? 'selected' : '' %>>Burgers</option>
+                                    <option value="Pizza" <%= item.category === 'Pizza' ? 'selected' : '' %>>Pizza</option>
+                                    <option value="Others" <%= item.category === 'Others' ? 'selected' : '' %>>Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Hostel Block *</label>
+                                <select name="hostelBlock" class="form-select" required>
+                                    <% const blocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']; %>
+                                    <% blocks.forEach(block => { %>
+                                        <option value="<%= block %>" <%= item.hostelBlock === block ? 'selected' : '' %>>Block <%= block %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tags (comma separated)</label>
+                                <input type="text" name="tags" class="form-control" value="<%= item.tags.join(', ') %>">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Vendor Phone *</label>
+                                <input type="tel" name="vendorPhone" class="form-control" value="<%= item.vendorPhone %>" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Vendor Email *</label>
+                                <input type="email" name="vendorEmail" class="form-control" value="<%= item.vendorEmail %>" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Current Images</label>
+                            <div class="row">
+                                <% item.images.forEach((image, index) => { %>
+                                    <div class="col-md-3 mb-2">
+                                        <img src="<%= image %>" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Add More Images</label>
+                            <input type="file" name="images" class="form-control" multiple accept="image/*">
+                            <small class="text-muted">You can add more images. Max size 5MB each.</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white;">Update Item</button>
+                            <a href="/nightmess/my-items" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/vall-promo-banner') %>

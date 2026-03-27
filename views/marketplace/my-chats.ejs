@@ -1,0 +1,318 @@
+<%- include('../partials/header') %>
+
+<style>
+/* ========== CHAT LIST STYLES ========== */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --accent: #f97316;
+    --dark: #0f172a;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+.chats-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.chats-header {
+    margin-bottom: 32px;
+}
+
+.chats-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.chats-header p {
+    color: var(--gray-600);
+}
+
+.chats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gray-200);
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+}
+
+.chat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+    background: var(--gray-50);
+}
+
+.chat-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat-avatar span {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.chat-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+}
+
+.chat-with {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 4px;
+}
+
+.chat-last-message {
+    font-size: 14px;
+    color: var(--gray-700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-time {
+    font-size: 11px;
+    color: var(--gray-500);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.unread-badge {
+    background: var(--primary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--gray-50);
+    border-radius: 32px;
+}
+
+.empty-icon {
+    font-size: 80px;
+    color: var(--gray-400);
+    margin-bottom: 24px;
+}
+
+.empty-icon i {
+    font-size: 80px;
+}
+
+.empty-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--gray-800);
+}
+
+.empty-text {
+    color: var(--gray-600);
+    margin-bottom: 32px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.empty-btn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.empty-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .chats-container {
+        padding: 0 16px;
+        margin: 20px auto;
+    }
+    
+    .chats-header h1 {
+        font-size: 28px;
+    }
+    
+    .chat-card {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .chat-avatar {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .chat-avatar span {
+        font-size: 18px;
+    }
+    
+    .chat-product-title {
+        font-size: 14px;
+    }
+    
+    .chat-last-message {
+        font-size: 12px;
+    }
+}
+</style>
+
+<div class="chats-container">
+    <div class="chats-header">
+        <h1>Messages</h1>
+        <p>Your conversations with buyers and sellers</p>
+    </div>
+    
+    <div class="chats-list">
+        <% if (chats && chats.length > 0) { %>
+            <% chats.forEach(chat => { %>
+               <div class="chat-card" 
+     data-room-id="<%= chat.roomId %>"
+     data-product-id="<%= chat.productId %>"
+     data-product-title="<%= chat.productTitle.replace(/'/g, "\\'") %>"
+     data-product-image="<%= chat.productImage %>"
+     data-other-user-id="<%= chat.otherUserId %>"
+     data-other-user-name="<%= chat.otherUserName.replace(/'/g, "\\'") %>"
+     data-unread-count="<%= chat.unreadCount %>">
+    <div class="chat-avatar">
+        <% if (chat.productImage) { %>
+            <img src="<%= chat.productImage %>" alt="<%= chat.productTitle %>">
+        <% } else { %>
+            <span><%= chat.productTitle.charAt(0).toUpperCase() %></span>
+        <% } %>
+    </div>
+    <div class="chat-info">
+        <div class="chat-product-title"><%= chat.productTitle %></div>
+        <div class="chat-with">
+            <% if (chat.role === 'seller') { %>
+                <i class="fas fa-user"></i> Buyer: <%= chat.otherUserName %>
+            <% } else { %>
+                <i class="fas fa-store"></i> Seller: <%= chat.otherUserName %>
+            <% } %>
+        </div>
+        <div class="chat-last-message">
+            <% if (chat.lastMessage && chat.lastMessage !== 'No messages yet') { %>
+                <%= chat.lastMessage.length > 50 ? chat.lastMessage.substring(0, 50) + '...' : chat.lastMessage %>
+            <% } else { %>
+                <span class="text-muted">No messages yet. Start the conversation!</span>
+            <% } %>
+        </div>
+    </div>
+    <div class="chat-time">
+        <% if (chat.lastMessageTime) { %>
+            <%= new Date(chat.lastMessageTime).toLocaleDateString([], { month: 'short', day: 'numeric' }) %>
+        <% } %>
+    </div>
+    <% if (chat.unreadCount > 0) { %>
+        <div class="unread-badge"><%= chat.unreadCount %></div>
+    <% } %>
+</div>
+            <% }) %>
+        <% } else { %>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="empty-title">No active chats yet</h3>
+                <p class="empty-text">Start a conversation by showing interest in a product or responding to interested buyers</p>
+                <a href="/marketplace" class="empty-btn">
+                    Browse Products <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+function openChatWindow(roomId, productId, productTitle, productImage, otherUserId, otherUserName) {
+    if (window.chatPopup) {
+        window.chatPopup.openChat({
+            roomId: roomId,
+            productId: productId,
+            productTitle: productTitle,
+            productImage: productImage,
+            otherUserId: otherUserId,
+            otherUserName: otherUserName
+        });
+        
+        // Close the sidebar if it's open
+        if (window.chatPopup.chatSidebar && window.chatPopup.chatSidebar.classList.contains('open')) {
+            window.chatPopup.chatSidebar.classList.remove('open');
+        }
+    }
+}
+
+// Add click handler for chat cards
+document.querySelectorAll('.chat-card').forEach(card => {
+    card.addEventListener('click', function() {
+        openChatWindow(
+            this.dataset.roomId,
+            this.dataset.productId,
+            this.dataset.productTitle,
+            this.dataset.productImage,
+            this.dataset.otherUserId,
+            this.dataset.otherUserName
+        );
+    });
+});
+</script>

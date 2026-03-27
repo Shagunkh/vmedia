@@ -1,0 +1,479 @@
+<%- include('../partials/header') %>
+
+<style>
+.food-detail-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    color: #f97316;
+    transform: translateX(-4px);
+}
+
+.food-image {
+    border-radius: 24px;
+    overflow: hidden;
+    background: #f3f4f6;
+}
+
+.food-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.thumbnail:hover, .thumbnail.active {
+    opacity: 1;
+    border-color: #f97316;
+}
+
+.info-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.price {
+    font-size: 36px;
+    font-weight: 800;
+    color: #f97316;
+}
+
+.block-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 40px;
+    font-weight: 600;
+}
+
+.btn-orange {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-orange:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(249,115,22,0.3);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #e5e7eb;
+    color: #374151;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-outline:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
+
+.btn-success {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.time-alert {
+    background: #fef3c7;
+    border-left: 4px solid #f97316;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.similar-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.similar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.similar-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    text-decoration: none;
+    display: block;
+}
+
+.similar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.similar-image {
+    height: 150px;
+    overflow: hidden;
+}
+
+.similar-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.similar-info {
+    padding: 12px;
+}
+
+.similar-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.similar-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f97316;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.interested-buyers-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.buyer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.buyer-item:hover {
+    background: #fef3c7;
+    transform: translateX(5px);
+}
+
+.seller-controls {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.seller-controls h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .food-image img {
+        height: 300px;
+    }
+    
+    .info-card {
+        padding: 20px;
+    }
+    
+    .price {
+        font-size: 28px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+</style>
+
+<div class="food-detail-container">
+    <a href="/marketplace" class="back-button" onclick="switchToMarketplace()">
+        <i class="fas fa-arrow-left"></i> Back to Marketplace
+    </a>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="food-image">
+                <img id="mainImage" src="<%= item.images[0] %>" alt="<%= item.title %>">
+            </div>
+            <div class="thumbnail-container mt-3 d-flex gap-2">
+                <% item.images.forEach((image, index) => { %>
+                    <img src="<%= image %>" class="thumbnail <%= index === 0 ? 'active' : '' %>" 
+                         onclick="changeImage(this, '<%= image %>')">
+                <% }) %>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="info-card">
+                <h1 class="mb-3"><%= item.title %></h1>
+                
+                <div class="mb-3">
+                    <span class="block-badge">Block <%= item.hostelBlock %></span>
+                    <span class="badge bg-info ms-2"><%= item.category %></span>
+                    <span class="badge bg-<%= item.status === 'available' ? 'success' : 'danger' %> ms-2">
+                        <%= item.status.toUpperCase() %>
+                    </span>
+                </div>
+                
+                <div class="price mb-3">
+                    <%= item.price > 0 ? '₹' + item.price : 'Price Varies' %>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-user-circle fa-2x me-2 text-muted"></i>
+                        <div>
+                            <strong><%= item.vendor.username %></strong>
+                            <div class="text-muted small">Vendor</div>
+                        </div>
+                    </div>
+                    <div class="text-muted small">
+                        <i class="fas fa-eye me-1"></i> <%= item.views %> views
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h6>Description</h6>
+                    <p class="text-muted"><%= item.description %></p>
+                </div>
+                
+                <% if (item.tags && item.tags.length > 0) { %>
+                    <div class="mb-4">
+                        <h6>Tags</h6>
+                        <div>
+                            <% item.tags.forEach(tag => { %>
+                                <span class="badge bg-light text-dark me-1">#<%= tag %></span>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+                
+                <% if (!isOpen) { %>
+                    <div class="time-alert">
+                        <i class="fas fa-clock"></i>
+                        <span>Night mess is currently closed. Open from 10:30 PM to 3:00 AM.</span>
+                    </div>
+                <% } else if (currUser && item.vendor._id.toString() !== currUser._id.toString()) { %>
+                    <!-- Buyer View -->
+                    <div class="action-buttons">
+                        <% if (!hasInterested && item.status === 'available') { %>
+                            <form action="/nightmess/item/<%= item._id %>/interest" method="POST" style="flex: 1;">
+                                <button type="submit" class="btn-orange w-100">
+                                    <i class="fas fa-heart"></i> I'm Interested
+                                </button>
+                            </form>
+                        <% } else if (hasInterested && item.status === 'available') { %>
+                            <button class="btn-orange w-100" disabled>
+                                <i class="fas fa-check"></i> Interest Shown!
+                            </button>
+                        <% } else if (item.status === 'sold_out') { %>
+                            <div class="alert alert-secondary text-center w-100">
+                                <i class="fas fa-shopping-cart"></i> This item has been sold!
+                            </div>
+                        <% } %>
+                        
+                        <!-- Chat Button for Buyer -->
+                        <% if (existingChatRoom && item.status === 'available') { %>
+                            <button class="btn-outline w-100 open-chat-btn"
+                                    data-room-id="<%= existingChatRoom %>"
+                                    data-product-id="<%= item._id %>"
+                                    data-product-title="<%= item.title %>"
+                                    data-other-user-id="<%= item.vendor._id %>"
+                                    data-other-user-name="<%= item.vendor.username %>">
+                                <i class="fas fa-comments"></i> Chat with Vendor
+                            </button>
+                        <% } %>
+                    </div>
+                <% } else if (currUser && item.vendor._id.toString() === currUser._id.toString()) { %>
+                    <!-- Seller View -->
+                    <div class="seller-controls">
+                        <h4><i class="fas fa-store"></i> Manage Your Item</h4>
+                        
+                        <div class="action-buttons">
+                            <a href="/nightmess/edit-item/<%= item._id %>" class="btn-orange w-100">
+                                <i class="fas fa-edit"></i> Edit Item
+                            </a>
+                            
+                            <!-- Mark as Sold Button - Only show if available and has interested buyers -->
+                            <% if (item.status === 'available' && interestedBuyersWithChat && interestedBuyersWithChat.length > 0) { %>
+                                <form action="/nightmess/item/<%= item._id %>/mark-sold" method="POST" style="flex: 1;">
+                                    <select name="buyerId" class="form-select mb-2" required style="border-radius: 12px; border: 1px solid #e5e7eb;">
+                                        <option value="">Select buyer</option>
+                                        <% interestedBuyersWithChat.forEach(buyer => { %>
+                                            <option value="<%= buyer.user._id %>"><%= buyer.user.username %></option>
+                                        <% }) %>
+                                    </select>
+                                    <button type="submit" class="btn-success w-100">
+                                        <i class="fas fa-check-circle"></i> Mark as Sold
+                                    </button>
+                                </form>
+                            <% } else if (item.status === 'available') { %>
+                                <button class="btn-outline w-100" disabled>
+                                    <i class="fas fa-info-circle"></i> No interested buyers yet
+                                </button>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <!-- Show Interested Buyers List -->
+                    <% if (interestedBuyersWithChat && interestedBuyersWithChat.length > 0) { %>
+                        <div class="interested-buyers-section">
+                            <h6 class="mb-3"><i class="fas fa-users"></i> Interested Buyers (<%= interestedBuyersWithChat.length %>)</h6>
+                            <% interestedBuyersWithChat.forEach(buyer => { %>
+                                <div class="buyer-item">
+                                    <div>
+                                        <strong><%= buyer.user.username %></strong>
+                                        <% if (buyer.lastMessage) { %>
+                                            <div class="small text-muted mt-1">
+                                                <i class="fas fa-comment-dots"></i> <%= buyer.lastMessage.substring(0, 50) %>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary open-chat-btn"
+                                            data-room-id="<%= buyer.chatRoomId %>"
+                                            data-product-id="<%= item._id %>"
+                                            data-product-title="<%= item.title %>"
+                                            data-other-user-id="<%= buyer.user._id %>"
+                                            data-other-user-name="<%= buyer.user.username %>">
+                                        <i class="fas fa-comments"></i> Chat
+                                    </button>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                <% } else { %>
+                    <div class="alert alert-warning text-center">
+                        <a href="/users/login?returnTo=<%= encodeURIComponent('/nightmess/item/' + item._id) %>" class="alert-link">
+                            Login to show interest
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <% if (similarItems && similarItems.length > 0) { %>
+        <div class="similar-section">
+            <h2 class="mb-4">Similar Items in Block <%= item.hostelBlock %></h2>
+            <div class="similar-grid">
+                <% similarItems.forEach(similar => { %>
+                    <a href="/nightmess/item/<%= similar._id %>" class="similar-card">
+                        <div class="similar-image">
+                            <img src="<%= similar.images[0] %>" alt="<%= similar.title %>">
+                        </div>
+                        <div class="similar-info">
+                            <div class="similar-name"><%= similar.title %></div>
+                            <div class="similar-price"><%= similar.price > 0 ? '₹' + similar.price : 'Price Varies' %></div>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<script>
+function changeImage(element, src) {
+    document.getElementById('mainImage').src = src;
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    element.classList.add('active');
+}
+
+function switchToMarketplace() {
+    sessionStorage.setItem('activeTab', 'nightmess');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const chatButtons = document.querySelectorAll('.open-chat-btn');
+    chatButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const data = this.dataset;
+            if (window.chatPopup && data.roomId) {
+                window.chatPopup.openChat({
+                    roomId: data.roomId,
+                    productId: data.productId,
+                    productTitle: data.productTitle,
+                    otherUserId: data.otherUserId,
+                    otherUserName: data.otherUserName
+                });
+            }
+        });
+    });
+});
+</script>
+
+<%- include('../partials/vall-promo-banner') %>

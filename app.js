@@ -169,7 +169,8 @@ app.use('/add-drop', addDropRoutes);
 
 const marketplaceRoutes = require('./routes/marketplaceController');
 app.use('/marketplace', marketplaceRoutes);
-
+const nightMessRoutes = require('./routes/nightMess');
+app.use('/nightmess', nightMessRoutes);
 const vrideRoutes = require('./routes/vride');
 app.use('/vride', vrideRoutes);
 

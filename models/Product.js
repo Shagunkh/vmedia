@@ -111,9 +111,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // ✅ FIX: Added 'hidden' to enum
     status: {
         type: String,
-        enum: ['available', 'sold', 'reserved'],
+        enum: ['available', 'sold', 'reserved', 'hidden'],
         default: 'available'
     },
     buyer: {

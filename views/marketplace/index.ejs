@@ -58,20 +58,6 @@
     z-index: 2;
 }
 
-.banner-tag {
-    display: inline-block;
-    background: rgba(249,115,22,0.2);
-    backdrop-filter: blur(10px);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #f97316;
-    margin-bottom: 24px;
-    border: 1px solid rgba(249,115,22,0.3);
-    letter-spacing: 1px;
-}
-
 .banner-title {
     font-size: 56px;
     font-weight: 800;
@@ -95,10 +81,66 @@
     line-height: 1.6;
 }
 
+/* ========== SEARCH BAR - FIXED ========== */
+.banner-search {
+    display: flex;
+    gap: 12px;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.banner-search-input {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 24px;
+    border-radius: 60px;
+    border: none;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.banner-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+}
+
+.banner-search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.banner-search-btn {
+    flex-shrink: 0;
+    padding: 0 28px;
+    border-radius: 60px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.banner-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
 .banner-buttons {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+    margin-top: 24px;
 }
 
 .btn-banner-primary {
@@ -176,23 +218,153 @@
     max-width: 500px;
 }
 
+/* ========== MOBILE VIEW FIXES ========== */
 @media (max-width: 992px) {
     .vmall-hero {
         margin: 10px;
         border-radius: 24px;
     }
+    
     .vmall-banner {
         padding: 40px 30px;
+        text-align: center;
     }
+    
     .banner-title {
-        font-size: 40px;
+        font-size: 36px;
+        text-align: center;
+        line-height: 1.3;
     }
+    
+    .banner-subtitle {
+        font-size: 14px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+    }
+    
     .banner-image {
         display: none;
     }
+    
     .banner-stats {
         flex-wrap: wrap;
         gap: 20px;
+        justify-content: center;
+    }
+    
+    .banner-search {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .banner-search-input {
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+    
+    .banner-search-btn {
+        padding: 0 24px;
+        font-size: 14px;
+    }
+    
+    .banner-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .vmall-banner {
+        padding: 30px 20px;
+    }
+    
+    .banner-title {
+        font-size: 32px;
+    }
+    
+    .banner-subtitle {
+        font-size: 13px;
+    }
+    
+    .banner-stats {
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+    
+    .banner-search-btn {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .banner-search {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .banner-search-input {
+        flex: 1;
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+    
+    .banner-search-input::placeholder {
+        font-size: 12px;
+    }
+    
+    .banner-search-btn {
+        padding: 0 16px;
+        font-size: 13px;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 430px) {
+    .banner-search {
+        gap: 6px;
+    }
+    
+    .banner-search-input {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+    
+    .banner-search-btn {
+        padding: 0 12px;
+        font-size: 12px;
+    }
+    
+    .banner-search-btn i {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .banner-search-btn span {
+        display: none;
+    }
+    
+    .banner-search-btn {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+    }
+    
+    .banner-search-btn i {
+        margin: 0;
+        font-size: 18px;
     }
 }
 
@@ -201,48 +373,127 @@
     margin: 60px 20px 40px 20px;
 }
 
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+/* ========== TAB STYLES ========== */
+.tab-container {
     margin-bottom: 32px;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 8px;
     flex-wrap: wrap;
-    gap: 16px;
 }
 
-.section-title {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--dark);
+.tab-btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 40px;
     position: relative;
-    padding-left: 20px;
 }
 
-.section-title::before {
+.tab-btn:hover {
+    color: var(--primary);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.05));
+}
+
+.tab-btn.active::after {
     content: '';
     position: absolute;
+    bottom: -2px;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 28px;
-    background: linear-gradient(135deg, #3b82f6, #f97316);
-    border-radius: 4px;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
 }
 
-.section-link {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== NIGHT MESS EMPTY STATE ========== */
+.night-mess-empty {
+    text-align: center;
+    padding: 80px 40px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+    border-radius: 32px;
+    margin: 20px 0;
+}
+
+.night-mess-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: gap 0.3s ease;
+    justify-content: center;
+    margin-bottom: 24px;
 }
 
-.section-link:hover {
-    gap: 12px;
-    color: var(--primary-dark);
+.night-mess-icon i {
+    font-size: 48px;
+    color: white;
+}
+
+.night-mess-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #7c2d12;
+}
+
+.night-mess-text {
+    color: #9a3412;
+    margin-bottom: 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.night-mess-btn {
+    background: #7c2d12;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.night-mess-btn:hover {
+    background: #9a3412;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(124, 45, 18, 0.3);
 }
 
 /* ========== FILTER BAR ========== */
@@ -343,9 +594,14 @@
     .filter-group {
         justify-content: space-between;
     }
+    
+    .tab-btn {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
 }
 
-/* ========== PRODUCT GRID - IMPRESSIVE DESIGN ========== */
+/* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -541,6 +797,161 @@
     color: var(--primary);
 }
 
+/* ========== PRODUCT GRID - RESPONSIVE ========== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 4px;
+    }
+    
+    .product-card-vmall {
+        border-radius: 12px;
+    }
+    
+    .product-image-vmall {
+        aspect-ratio: 1;
+    }
+    
+    .product-info {
+        padding: 10px;
+    }
+    
+    .product-title-vmall {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 34px;
+    }
+    
+    .product-meta-vmall {
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .seller-vmall {
+        font-size: 10px;
+    }
+    
+    .seller-vmall i {
+        font-size: 9px;
+    }
+    
+    .condition-vmall {
+        font-size: 8px;
+        padding: 2px 6px;
+        border-radius: 12px;
+    }
+    
+    .product-description {
+        display: none;
+    }
+    
+    .price-section {
+        padding-top: 6px;
+        margin-top: 0;
+        border-top: 1px solid var(--gray-200);
+    }
+    
+    .product-price-vmall {
+        font-size: 14px;
+        font-weight: 700;
+    }
+    
+    .view-details-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .view-details-icon i {
+        font-size: 10px;
+    }
+    
+    .product-badge-vmall {
+        top: 8px;
+        left: 8px;
+        padding: 3px 8px;
+        font-size: 8px;
+        font-weight: 500;
+    }
+    
+    .product-wishlist {
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .product-wishlist i {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        gap: 10px;
+    }
+    
+    .product-info {
+        padding: 8px;
+    }
+    
+    .product-title-vmall {
+        font-size: 12px;
+        min-height: 30px;
+    }
+    
+    .seller-vmall {
+        font-size: 9px;
+    }
+    
+    .condition-vmall {
+        font-size: 7px;
+        padding: 1px 4px;
+    }
+    
+    .product-price-vmall {
+        font-size: 13px;
+    }
+    
+    .view-details-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .view-details-icon i {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 360px) {
+    .products-grid {
+        gap: 8px;
+    }
+    
+    .product-title-vmall {
+        font-size: 11px;
+        min-height: 28px;
+    }
+    
+    .product-price-vmall {
+        font-size: 12px;
+    }
+}
+
 /* ========== ONGOING SECTION ========== */
 .ongoing-section {
     margin: 40px 20px;
@@ -611,6 +1022,26 @@
     color: white;
 }
 
+@media (max-width: 768px) {
+    .ongoing-section {
+        padding: 30px 20px;
+        margin: 30px 10px;
+    }
+    
+    .ongoing-title {
+        font-size: 28px;
+    }
+    
+    .ongoing-text {
+        font-size: 14px;
+    }
+    
+    .ongoing-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
 /* ========== EMPTY STATE ========== */
 .empty-state {
     text-align: center;
@@ -669,163 +1100,688 @@
 .product-card-vmall:nth-child(4) { animation-delay: 0.2s; }
 .product-card-vmall:nth-child(5) { animation-delay: 0.25s; }
 .product-card-vmall:nth-child(6) { animation-delay: 0.3s; }
+    /* ========== VMALL PREMIUM HERO ========== */
+    .vmall-premium-hero {
+        position: relative;
+        background: linear-gradient(135deg, #0a0a1a 0%, #000000 100%);
+        margin: 20px 20px 40px 20px;
+        border-radius: 48px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 216, 255, 0.15);
+        transition: all 0.4s ease;
+    }
+    
+    .vmall-premium-hero:hover {
+        box-shadow: 0 25px 50px rgba(0, 140, 255, 0.1);
+        border-color: rgba(0, 216, 255, 0.3);
+    }
+    
+    /* Animated Background */
+    .hero-bg-animation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .hero-bg-animation::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background: radial-gradient(circle, rgba(0, 216, 255, 0.08) 0%, transparent 70%);
+        animation: rotateBg 20s linear infinite;
+    }
+    
+    @keyframes rotateBg {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Floating Particles */
+    .hero-particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .hero-particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #00d8ff;
+        border-radius: 50%;
+        opacity: 0;
+        animation: floatParticle 10s ease-in-out infinite;
+    }
+    
+    @keyframes floatParticle {
+        0% {
+            opacity: 0;
+            transform: translateY(0) translateX(0);
+        }
+        10% {
+            opacity: 0.5;
+        }
+        90% {
+            opacity: 0.3;
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-120px) translateX(60px);
+        }
+    }
+    
+    /* Hero Content */
+    .hero-premium-content {
+        position: relative;
+        z-index: 2;
+        padding: 60px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+    
+    /* Left Section */
+    .hero-premium-left {
+        flex: 1;
+        min-width: 280px;
+    }
+    
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 216, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 100px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(0, 216, 255, 0.3);
+        animation: badgePulse 2s infinite;
+    }
+    
+    @keyframes badgePulse {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(0, 216, 255, 0.2);
+        }
+        50% {
+            box-shadow: 0 0 0 12px rgba(0, 216, 255, 0);
+        }
+    }
+    
+    .hero-badge i {
+        color: #00d8ff;
+        font-size: 12px;
+    }
+    
+    .hero-badge span {
+        color: #00d8ff;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+    .hero-premium-title {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        color: white;
+    }
+    
+    .hero-premium-title span {
+        background: linear-gradient(135deg, #00d8ff, #008cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+       
+    }
+    
+    
+    
+    .hero-premium-subtitle {
+        font-size: 17px;
+        color: #a1a1a6;
+        margin-bottom: 32px;
+        line-height: 1.6;
+        max-width: 500px;
+    }
+    
+    /* Search Bar */
+    .hero-premium-search {
+        display: flex;
+        gap: 12px;
+        max-width: 550px;
+        width: 100%;
+        margin-bottom: 28px;
+    }
+    
+    .hero-search-input {
+        flex: 1;
+        padding: 16px 24px;
+        border-radius: 60px;
+        border: 1px solid rgba(0, 216, 255, 0.2);
+        font-size: 15px;
+        background: rgba(10, 10, 26, 0.6);
+        color: white;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    
+    .hero-search-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .hero-search-input:focus {
+        outline: none;
+        border-color: #00d8ff;
+        background: rgba(0, 216, 255, 0.05);
+        box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.1);
+    }
+    
+    .hero-search-btn {
+        padding: 0 32px;
+        border-radius: 60px;
+        background: linear-gradient(135deg, #00d8ff, #008cff);
+        border: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-search-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .hero-search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 140, 255, 0.3);
+    }
+    
+    .hero-search-btn:hover::before {
+        left: 100%;
+    }
+    
+    /* CTA Buttons */
+    .hero-premium-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .hero-sell-btn {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(0, 216, 255, 0.2);
+    }
+    
+    .hero-sell-btn:hover {
+        background: rgba(0, 216, 255, 0.15);
+        border-color: rgba(0, 216, 255, 0.5);
+        transform: translateY(-2px);
+        color: white;
+    }
+    
+    /* Right Section - Stats Card */
+    .hero-premium-right {
+        flex: 0.8;
+        min-width: 280px;
+        background: rgba(10, 10, 26, 0.5);
+        backdrop-filter: blur(20px);
+        border-radius: 32px;
+        padding: 32px;
+        border: 1px solid rgba(0, 216, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-premium-right::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 216, 255, 0.05) 0%, transparent 70%);
+        animation: rotateSlow 20s linear infinite;
+    }
+    
+    @keyframes rotateSlow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .hero-stats-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-stat-card {
+        text-align: center;
+        margin-bottom: 24px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 216, 255, 0.05);
+    }
+    
+    .hero-stat-card:hover {
+        transform: scale(1.02);
+        background: rgba(0, 216, 255, 0.05);
+        border-color: rgba(0, 216, 255, 0.2);
+    }
+    
+    .hero-stat-number {
+        font-size: 44px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #00d8ff, #008cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .hero-stat-label {
+        font-size: 13px;
+        color: #a1a1a6;
+        letter-spacing: 1px;
+    }
+    
+    .hero-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 216, 255, 0.3), transparent);
+        margin: 20px 0;
+    }
+    
+    .hero-feature-tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        background: rgba(0, 216, 255, 0.03);
+        border-radius: 16px;
+        margin-top: 16px;
+    }
+    
+    .hero-feature-tag i {
+        color: #00d8ff;
+        font-size: 14px;
+    }
+    
+    .hero-feature-tag span {
+        font-size: 12px;
+        color: #a1a1a6;
+    }
+    
+    /* Floating Image */
+    .hero-float-image {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;  /* Increased from 280px to 380px */
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+   
+    filter: drop-shadow(0 0 20px rgba(0, 216, 255, 0.3));
+}
+    
+    @keyframes floatImage {
+        0%, 100% { transform: translateY(-50%) translateX(0); }
+        50% { transform: translateY(-50%) translateX(-15px); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+        .hero-premium-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .hero-premium-title {
+            font-size: 44px;
+        }
+        
+        .hero-premium-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-premium-search {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-premium-buttons {
+            justify-content: center;
+        }
+        
+        .hero-premium-right {
+            width: 100%;
+        }
+        
+        .hero-float-image {
+            display: none;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .vmall-premium-hero {
+            margin: 10px;
+            border-radius: 32px;
+        }
+        
+        .hero-premium-title {
+            font-size: 32px;
+        }
+        
+        .hero-premium-subtitle {
+            font-size: 14px;
+        }
+        
+        .hero-search-input {
+            padding: 12px 18px;
+            font-size: 13px;
+        }
+        
+        .hero-search-btn {
+            padding: 0 20px;
+            font-size: 13px;
+        }
+        
+        .hero-stat-number {
+            font-size: 36px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .hero-premium-title {
+            font-size: 28px;
+        }
+        
+        .hero-premium-search {
+            flex-direction: column;
+        }
+        
+        .hero-search-btn {
+            justify-content: center;
+            padding: 12px;
+        }
+    }
 </style>
 
-<!-- VMALL STYLE HERO BANNER -->
-<div class="vmall-hero">
-    <div class="vmall-banner">
-       
-        <h1 class="banner-title">
-            Buy & Sell <span>Student Essentials</span><br>
-            With Confidence
-        </h1>
-        <p class="banner-subtitle">
-            Join thousands of students buying and selling textbooks, electronics, 
-            furniture, and more. Safe, easy, and completely free.
-        </p>
-        <div class="banner-buttons">
-            <form action="/marketplace/search" method="GET" style="display: flex; gap: 8px;">
-                <input type="text" name="q" class="form-control" placeholder="Search products..." 
-                       value="<%= searchQuery %>" 
-                       style="padding: 14px 20px; border-radius: 60px; border: none; width: 280px; background: rgba(255,255,255,0.1); color: white;">
-                <button class="btn-banner-primary">
-                    <i class="fas fa-search"></i> Search
+<div class="vmall-premium-hero">
+    <div class="hero-bg-animation"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    
+    <div class="hero-premium-content">
+        <div class="hero-premium-left">
+           
+            
+            <h1 class="hero-premium-title">
+                Buy & Sell <span>Student Essentials</span><br>
+                With Confidence
+            </h1>
+            
+            <p class="hero-premium-subtitle">
+                Join thousands of students buying and selling textbooks, electronics, 
+                furniture, and more. Safe, easy, and completely free.
+            </p>
+            
+            <div class="hero-premium-search">
+                <input type="text" id="bannerSearchInput" class="hero-search-input" 
+                       placeholder="Search products..." 
+                       value="<%= searchQuery %>">
+                <button class="hero-search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i> <span>Search</span>
                 </button>
-            </form>
+            </div>
+            
+            <div class="hero-premium-buttons">
+                <% if (currUser) { %>
+                    <a href="/marketplace/add-product" class="hero-sell-btn">
+                        <i class="fas fa-plus-circle"></i> Sell Now
+                    </a>
+                <% } %>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    <div class="hero-float-image">
+        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="Shopping" style="width: 100%; opacity: 0.6;">
+    </div>
+</div>
+
+
+<script>
+function performSearch() {
+    const searchQuery = document.getElementById('bannerSearchInput').value;
+    if (searchQuery.trim()) {
+        window.location.href = `/marketplace?search=${encodeURIComponent(searchQuery)}`;
+    } else {
+        window.location.href = '/marketplace';
+    }
+}
+
+document.getElementById('bannerSearchInput')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+</script>
+
+<!-- BROWSE SECTION WITH TABS -->
+<div class="browse-section">
+    <!-- Tab Buttons -->
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('products')">
+                <i class="fas fa-box"></i> Products
+            </button>
+            <button class="tab-btn" onclick="switchTab('nightmess')">
+                <i class="fas fa-utensils"></i> Night Mess Food
+            </button>
+        </div>
+    </div>
+    
+    <!-- Products Tab Content -->
+    <div id="productsTab" class="tab-content active">
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
+                <form action="/marketplace" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap;" id="filterForm">
+                    <select name="category" class="filter-select">
+                        <option value="">All Categories</option>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
+                        <% }) %>
+                    </select>
+                    <div class="price-input-group">
+                        <input type="number" name="minPrice" class="price-input" placeholder="Min ₹" value="<%= filters.minPrice %>">
+                        <span>-</span>
+                        <input type="number" name="maxPrice" class="price-input" placeholder="Max ₹" value="<%= filters.maxPrice %>">
+                    </div>
+                    <select name="condition" class="filter-select">
+                        <option value="">Any Condition</option>
+                        <option value="New" <%= filters.condition === 'New' ? 'selected' : '' %>>New</option>
+                        <option value="Like New" <%= filters.condition === 'Like New' ? 'selected' : '' %>>Like New</option>
+                        <option value="Good" <%= filters.condition === 'Good' ? 'selected' : '' %>>Good</option>
+                        <option value="Fair" <%= filters.condition === 'Fair' ? 'selected' : '' %>>Fair</option>
+                    </select>
+                    <button type="submit" class="filter-apply">Apply</button>
+                </form>
+            </div>
             <% if (currUser) { %>
-                <a href="/marketplace/add-product" class="btn-banner-secondary">
-                    <i class="fas fa-plus-circle"></i> Sell Now
+                <a href="/marketplace/add-product" class="sell-quick-btn">
+                    <i class="fas fa-plus-circle"></i> Sell Item
                 </a>
             <% } %>
         </div>
         
-    </div>
-    <div class="banner-image">
-        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="Shopping" style="width: 100%; opacity: 0.8;">
-    </div>
-</div>
-
-<!-- BROWSE SECTION -->
-<div class="browse-section">
-    <div class="section-header">
-        <h2 class="section-title">Browse Products</h2>
-        <a href="/marketplace" class="section-link">
-            View All <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-    
-    <!-- FILTER BAR -->
-    <div class="filter-bar">
-        <div class="filter-group">
-            <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
-            <form action="/marketplace" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <select name="category" class="filter-select">
-                    <option value="">All Categories</option>
-                    <% categories.forEach(cat => { %>
-                        <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
-                    <% }) %>
-                </select>
-                <div class="price-input-group">
-                    <input type="number" name="minPrice" class="price-input" placeholder="Min ₹" value="<%= filters.minPrice %>">
-                    <span>-</span>
-                    <input type="number" name="maxPrice" class="price-input" placeholder="Max ₹" value="<%= filters.maxPrice %>">
+        <!-- PRODUCTS GRID -->
+        <% if (products.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-store"></i>
                 </div>
-                <select name="condition" class="filter-select">
-                    <option value="">Any Condition</option>
-                    <option value="New" <%= filters.condition === 'New' ? 'selected' : '' %>>New</option>
-                    <option value="Like New" <%= filters.condition === 'Like New' ? 'selected' : '' %>>Like New</option>
-                    <option value="Good" <%= filters.condition === 'Good' ? 'selected' : '' %>>Good</option>
-                    <option value="Fair" <%= filters.condition === 'Fair' ? 'selected' : '' %>>Fair</option>
-                </select>
-                <button type="submit" class="filter-apply">Apply</button>
-            </form>
-        </div>
-        <% if (currUser) { %>
-            <a href="/marketplace/add-product" class="sell-quick-btn">
-                <i class="fas fa-plus-circle"></i> Sell Item
-            </a>
+                <h3 class="empty-title">No products found</h3>
+                <p class="empty-text">
+                    <% if (currUser) { %>
+                        Be the first to list an item and start selling!
+                    <% } else { %>
+                        Login to start buying and selling on the marketplace.
+                    <% } %>
+                </p>
+                <% if (currUser) { %>
+                    <a href="/marketplace/add-product" class="btn-banner-primary" style="text-decoration: none;">
+                        <i class="fas fa-plus-circle"></i> Sell Your First Item
+                    </a>
+                <% } else { %>
+                    <a href="/users/login?returnTo=<%= encodeURIComponent('/marketplace') %>" class="btn-banner-primary" style="text-decoration: none;">
+                        <i class="fas fa-sign-in-alt"></i> Login to Start
+                    </a>
+                <% } %>
+            </div>
+        <% } else { %>
+            <div class="products-grid">
+                <% products.forEach(product => { %>
+                    <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
+                        <div class="product-image-vmall">
+                            <img src="<%= product.images[0] %>" alt="<%= product.title %>">
+                            <div class="product-badge-vmall">
+                                <%= product.category %>
+                            </div>
+                            <div class="product-wishlist" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist(this, '<%= product._id %>')">
+                                <i class="far fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title-vmall"><%= product.title %></h3>
+                            <div class="product-meta-vmall">
+                                <span class="seller-vmall">
+                                    <i class="fas fa-user-circle"></i> <%= product.seller.username %>
+                                </span>
+                                <span class="condition-vmall condition-<%= product.condition === 'New' ? 'new' : (product.condition === 'Like New' ? 'like-new' : 'good') %>">
+                                    <%= product.condition %>
+                                </span>
+                            </div>
+                            <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
+                            <div class="price-section">
+                                <span class="product-price-vmall">₹<%= product.price %></span>
+                                <div class="view-details-icon">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
         <% } %>
     </div>
     
-    <!-- PRODUCTS GRID -->
-    <% if (products.length === 0) { %>
-        <div class="empty-state">
-            <div class="empty-icon">
-                <i class="fas fa-store"></i>
+    <!-- Night Mess Food Tab Content (Empty for now) -->
+    <!-- Night Mess Food Tab Content -->
+<!-- Night Mess Food Tab Content -->
+<div id="nightmessTab" class="tab-content">
+    <!-- Night Mess Hero Banner (Orange Theme) -->
+    <div class="nightmess-hero" style="background: linear-gradient(135deg, #f97316, #ea580c); border-radius: 24px; padding: 40px; margin-bottom: 32px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+        <div style="position: relative; z-index: 2;">
+            <h2 style="color: white; font-size: 32px; font-weight: 800; margin-bottom: 12px;">🌙 Night Mess Food</h2>
+            <p style="color: rgba(255,255,255,0.9); font-size: 16px; max-width: 500px;">Order delicious food from your favorite vendors. Available 10:30 PM - 3:00 AM</p>
+        </div>
+    </div>
+    
+    <!-- Block Search Section with Add Button -->
+    <div class="block-search-section" style="margin-bottom: 32px;">
+        <div class="block-search-card" style="background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);">
+            <div class="block-title" style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">
+                <i class="fas fa-building"></i> Search by Hostel Block
             </div>
-            <h3 class="empty-title">No products found</h3>
-            <p class="empty-text">
+            <div class="block-buttons" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                <% const hostelBlocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']; %>
+                <% hostelBlocks.forEach(block => { %>
+                    <button class="block-btn" onclick="filterNightMessByBlock('<%= block %>')" 
+                            style="width: 50px; height: 50px; border-radius: 12px; background: var(--gray-100); border: 1px solid var(--gray-200); font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        <%= block %>
+                    </button>
+                <% }) %>
+                <button class="block-btn" onclick="filterNightMessByBlock('')" 
+                        style="width: 50px; height: 50px; border-radius: 12px; background: var(--gray-100); border: 1px solid var(--gray-200); font-size: 18px; font-weight: 600; cursor: pointer;">
+                        All
+                </button>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <input type="text" id="nightmessSearchInput" class="form-control" placeholder="Search for food items..." style="flex: 1; padding: 12px 16px; border-radius: 40px; border: 1px solid #e5e7eb;">
+                <button onclick="searchNightMess()" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px;">
+                    <i class="fas fa-search"></i> Search
+                </button>
                 <% if (currUser) { %>
-                    Be the first to list an item and start selling!
-                <% } else { %>
-                    Login to start buying and selling on the marketplace.
+                    <a href="/nightmess/add-item" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-plus-circle"></i> Add Food Item
+                    </a>
                 <% } %>
-            </p>
-            <% if (currUser) { %>
-                <a href="/marketplace/add-product" class="btn-banner-primary" style="text-decoration: none;">
-                    <i class="fas fa-plus-circle"></i> Sell Your First Item
-                </a>
-            <% } else { %>
-                <a href="/users/login" class="btn-banner-primary" style="text-decoration: none;">
-                    <i class="fas fa-sign-in-alt"></i> Login to Start
-                </a>
-            <% } %>
+            </div>
         </div>
-    <% } else { %>
-        <div class="products-grid">
-            <% products.forEach(product => { %>
-                <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
-                    <div class="product-image-vmall">
-                        <img src="<%= product.images[0] %>" alt="<%= product.title %>">
-                        <div class="product-badge-vmall">
-                            <%= product.category %>
-                        </div>
-                        <div class="product-wishlist" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist(this, '<%= product._id %>')">
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title-vmall"><%= product.title %></h3>
-                        <div class="product-meta-vmall">
-                            <span class="seller-vmall">
-                                <i class="fas fa-user-circle"></i> <%= product.seller.username %>
-                            </span>
-                            <span class="condition-vmall condition-<%= product.condition === 'New' ? 'new' : (product.condition === 'Like New' ? 'like-new' : 'good') %>">
-                                <%= product.condition %>
-                            </span>
-                        </div>
-                        <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
-                        <div class="price-section">
-                            <span class="product-price-vmall">₹<%= product.price %></span>
-                            <div class="view-details-icon">
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            <% }) %>
+    </div>
+    
+    <!-- Night Mess Items Container -->
+    <div id="nightmessItemsContainer">
+        <div style="text-align: center; padding: 60px;">
+            <div style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div>
+            <p>Loading night mess items...</p>
         </div>
-    <% } %>
-</div>
-
-<!-- ONGOING PROMO SECTION -->
-<div class="ongoing-section">
-    <div class="ongoing-content">
-        <div class="ongoing-badge">
-            🔥 LIMITED TIME OFFER
-        </div>
-        <h2 class="ongoing-title">
-            End of Semester Mega Sale!
-        </h2>
-        <p class="ongoing-text">
-            Get up to 50% off on textbooks, electronics, and more. 
-            Hurry, offers ending soon! Limited stock available.
-        </p>
-        <a href="/marketplace" class="ongoing-btn">
-            Shop Now <i class="fas fa-arrow-right"></i>
-        </a>
     </div>
 </div>
+</div>
+
+<%- include('../partials/vall-promo-banner') %>
 
 <script>
 function toggleWishlist(element, productId) {
@@ -834,15 +1790,264 @@ function toggleWishlist(element, productId) {
         icon.classList.remove('far');
         icon.classList.add('fas');
         icon.style.color = '#ef4444';
-        // Add to wishlist API call here
         console.log('Added to wishlist:', productId);
     } else {
         icon.classList.remove('fas');
         icon.classList.add('far');
         icon.style.color = '';
-        // Remove from wishlist API call here
         console.log('Removed from wishlist:', productId);
     }
 }
-</script>
 
+function switchTab(tabName) {
+    // Update active button styles
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    // Update content visibility
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active'));
+    
+    if (tabName === 'products') {
+        document.getElementById('productsTab').classList.add('active');
+        document.querySelector('.tab-buttons button:first-child').classList.add('active');
+    } else if (tabName === 'nightmess') {
+        document.getElementById('nightmessTab').classList.add('active');
+        document.querySelector('.tab-buttons button:last-child').classList.add('active');
+    }
+}
+</script>
+<script>
+// ============ NIGHT MESS FUNCTIONS ============
+let nightMessItems = [];
+let currentBlockFilter = '';
+let currentSearchQuery = '';
+
+function loadNightMessItems() {
+    const container = document.getElementById('nightmessItemsContainer');
+    if (!container) return;
+    
+    container.innerHTML = '<div style="text-align: center; padding: 60px;"><div style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div><p>Loading night mess items...</p></div>';
+    
+    // FIXED: Correct API endpoint
+    let url = 'nightmess/api/nightmess';
+    const params = new URLSearchParams();
+    if (currentBlockFilter) params.append('hostelBlock', currentBlockFilter);
+    if (currentSearchQuery) params.append('search', currentSearchQuery);
+    if (params.toString()) url += '?' + params.toString();
+    
+    console.log('Fetching from URL:', url);
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Night mess data received:', data);
+            if (data.success !== false) {
+                nightMessItems = data.items || [];
+                renderNightMessItems(data);
+            } else {
+                throw new Error(data.error || 'Failed to load');
+            }
+        })
+        .catch(err => {
+            console.error('Error loading night mess items:', err);
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Unable to load items</h3>
+                    <p>Please try again later. Make sure the server is running.</p>
+                    <button onclick="loadNightMessItems()" class="btn btn-primary mt-3">Retry</button>
+                </div>
+            `;
+        });
+}
+
+function renderNightMessItems(data) {
+    const container = document.getElementById('nightmessItemsContainer');
+    
+    // Check if night mess is open
+    const isOpen = data.isOpen !== undefined ? data.isOpen : true;
+    
+    if (!isOpen) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-clock"></i></div>
+                <h3>Night Mess is Closed</h3>
+                <p>Open from 10:30 PM to 3:00 AM. Come back later for delicious food!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const items = data.items || [];
+    
+    if (items.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon"><i class="fas fa-utensils"></i></div>
+                <h3>No items found</h3>
+                <p>Be the first to add a food item!</p>
+                <% if (currUser) { %>
+                    <a href="/nightmess/add-item" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block; margin-top: 16px;">
+                        <i class="fas fa-plus-circle"></i> Add Your First Item
+                    </a>
+                <% } else { %>
+                    <a href="/users/login" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; display: inline-block; margin-top: 16px;">
+                        Login to Add Items
+                    </a>
+                <% } %>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '<div class="food-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">';
+    
+    items.forEach(item => {
+        const priceText = item.price > 0 ? '₹' + item.price : 'Price Varies';
+        const ratingHtml = item.averageRating > 0 
+            ? `<i class="fas fa-star"></i> ${item.averageRating.toFixed(1)}` 
+            : '<i class="far fa-star"></i> No ratings';
+        
+        html += `
+            <a href="/nightmess/item/${item._id}" class="food-card" style="background: white; border-radius: 20px; overflow: hidden; transition: all 0.3s ease; border: 1px solid #e5e7eb; cursor: pointer; text-decoration: none; display: block;">
+                <div class="food-image" style="position: relative; height: 200px; overflow: hidden;">
+                    <img src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.title)}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                    <div class="food-badge" style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); padding: 4px 10px; border-radius: 20px; font-size: 11px; color: white;">
+                        <i class="fas fa-tag"></i> ${escapeHtml(item.category)}
+                    </div>
+                    <div class="food-block-badge" style="position: absolute; bottom: 12px; right: 12px; background: linear-gradient(135deg, #f97316, #ea580c); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; color: white;">
+                        Block ${escapeHtml(item.hostelBlock)}
+                    </div>
+                </div>
+                <div class="food-info" style="padding: 16px;">
+                    <div class="food-title" style="font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #1f2937;">${escapeHtml(item.title)}</div>
+                    <div class="food-price" style="font-size: 18px; font-weight: 700; color: #f97316; margin-bottom: 8px;">${escapeHtml(priceText)}</div>
+                    <div class="food-meta" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="food-vendor" style="font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 4px;">
+                            <i class="fas fa-user-circle"></i> ${escapeHtml(item.vendor?.username || 'Unknown')}
+                        </span>
+                        <span class="food-rating" style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #f59e0b;">
+                            ${ratingHtml}
+                        </span>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function filterNightMessByBlock(block) {
+    currentBlockFilter = block;
+    loadNightMessItems();
+    
+    // Update active button styles
+    document.querySelectorAll('#nightmessTab .block-btn').forEach(btn => {
+        if (btn.innerText === block || (block === '' && btn.innerText === 'All')) {
+            btn.style.background = 'linear-gradient(135deg, #f97316, #ea580c)';
+            btn.style.color = 'white';
+            btn.style.borderColor = 'transparent';
+        } else {
+            btn.style.background = 'var(--gray-100)';
+            btn.style.color = 'var(--gray-600)';
+            btn.style.borderColor = 'var(--gray-200)';
+        }
+    });
+}
+
+function switchTab(tabName) {
+    // Update active button styles
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    // Update content visibility
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active'));
+    
+    if (tabName === 'products') {
+        document.getElementById('productsTab').classList.add('active');
+        document.querySelector('.tab-buttons button:first-child').classList.add('active');
+    } else if (tabName === 'nightmess') {
+        document.getElementById('nightmessTab').classList.add('active');
+        document.querySelector('.tab-buttons button:last-child').classList.add('active');
+        // Load night mess items when tab is clicked
+        loadNightMessItems();
+    }
+}
+
+function toggleWishlist(element, productId) {
+    const icon = element.querySelector('i');
+    if (icon.classList.contains('far')) {
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = '#ef4444';
+        console.log('Added to wishlist:', productId);
+    } else {
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = '';
+        console.log('Removed from wishlist:', productId);
+    }
+}
+
+function performSearch() {
+    const searchQuery = document.getElementById('bannerSearchInput').value;
+    if (searchQuery.trim()) {
+        window.location.href = `/marketplace?search=${encodeURIComponent(searchQuery)}`;
+    } else {
+        window.location.href = '/marketplace';
+    }
+}
+
+// Handle night mess search
+document.addEventListener('DOMContentLoaded', function() {
+    // Load night mess items on page load if nightmess tab is active
+    if (document.getElementById('nightmessTab') && document.getElementById('nightmessTab').classList.contains('active')) {
+        loadNightMessItems();
+    }
+    
+    const searchInput = document.getElementById('nightmessSearchInput');
+    const searchBtn = document.querySelector('#nightmessTab .btn[type="submit"]');
+    
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentSearchQuery = searchInput ? searchInput.value : '';
+            loadNightMessItems();
+        });
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                currentSearchQuery = searchInput.value;
+                loadNightMessItems();
+            }
+        });
+    }
+    
+    document.getElementById('bannerSearchInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+});
+
+
+</script>

@@ -60,6 +60,7 @@
     background: var(--gray-50);
     padding: 12px 24px;
     border-radius: 60px;
+    flex-wrap: wrap;
 }
 
 .stat-badge {
@@ -82,6 +83,137 @@
     color: var(--primary);
 }
 
+/* Track Purchase Button */
+.track-purchase-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    border: none;
+}
+
+.track-purchase-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Earnings Modal */
+.earnings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.earnings-modal-content {
+    background: white;
+    border-radius: 28px;
+    max-width: 500px;
+    width: 90%;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.earnings-modal-header {
+    background: linear-gradient(135deg, #10b981, #059669);
+    padding: 24px;
+    text-align: center;
+}
+
+.earnings-modal-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.earnings-modal-body {
+    padding: 32px;
+}
+
+.earnings-total {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.earnings-amount {
+    font-size: 48px;
+    font-weight: 800;
+    color: #10b981;
+    margin-bottom: 8px;
+}
+
+.earnings-label {
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
+.earnings-breakdown {
+    margin-bottom: 24px;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.breakdown-label {
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.breakdown-value {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.earnings-note {
+    background: #fef3c7;
+    border-radius: 16px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.close-modal-btn {
+    width: 100%;
+    background: var(--gray-100);
+    border: none;
+    padding: 12px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-modal-btn:hover {
+    background: var(--gray-200);
+}
+
 .add-product-btn {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
@@ -102,7 +234,82 @@
     color: white;
 }
 
-/* ========== EMPTY STATE ========== */
+.add-nightmess-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.add-nightmess-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(249,115,22,0.3);
+    color: white;
+}
+
+/* Tab Styles */
+.tab-container {
+    margin-bottom: 32px;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 40px;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.05));
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Empty State */
 .empty-state {
     text-align: center;
     padding: 80px 40px;
@@ -139,33 +346,14 @@
     margin-bottom: 32px;
 }
 
-.empty-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 12px 32px;
-    border-radius: 60px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-}
-
-.empty-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-    color: white;
-}
-
-/* ========== PRODUCT GRID ========== */
+/* Product Grid */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 28px;
 }
 
-/* ========== PRODUCT CARD ========== */
+/* Product Card */
 .product-card-modern {
     background: white;
     border-radius: 24px;
@@ -182,14 +370,6 @@
     border-color: transparent;
 }
 
-.product-card-modern:nth-child(1) { animation-delay: 0.05s; }
-.product-card-modern:nth-child(2) { animation-delay: 0.1s; }
-.product-card-modern:nth-child(3) { animation-delay: 0.15s; }
-.product-card-modern:nth-child(4) { animation-delay: 0.2s; }
-.product-card-modern:nth-child(5) { animation-delay: 0.25s; }
-.product-card-modern:nth-child(6) { animation-delay: 0.3s; }
-
-/* Image Container */
 .card-image {
     position: relative;
     height: 240px;
@@ -234,6 +414,71 @@
 .status-reserved {
     background: rgba(245, 158, 11, 0.9);
     color: white;
+}
+
+.status-hidden {
+    background: rgba(107, 114, 128, 0.9);
+    color: white;
+}
+
+/* Visibility Toggle */
+.visibility-toggle {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #10b981;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-label {
+    font-size: 10px;
+    margin-left: 8px;
+    color: white;
+    font-weight: 600;
 }
 
 /* Category Badge */
@@ -308,6 +553,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .meta-item {
@@ -376,37 +623,21 @@
     transform: translateY(-2px);
 }
 
-/* ========== ANIMATIONS ========== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Night Mess Badge */
+.nightmess-badge {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    position: absolute;
+    top: 16px;
+    left: 80px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    z-index: 2;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-/* Delete Confirmation Toast */
+/* Toast */
 .delete-toast {
     position: fixed;
     bottom: 30px;
@@ -428,6 +659,27 @@
     color: var(--danger);
 }
 
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes slideInRight {
     from {
         opacity: 0;
@@ -436,6 +688,28 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -467,6 +741,11 @@
         flex: auto;
         min-width: calc(33.33% - 7px);
     }
+    
+    .tab-btn {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
 }
 </style>
 
@@ -474,118 +753,348 @@
     <!-- Header -->
     <div class="page-header">
         <div class="header-left">
-            <h1>My Products</h1>
-            <p>Manage your listings and track sales</p>
+            <h1>My Items</h1>
+            <p>Manage your marketplace products and night mess food items</p>
         </div>
         
         <div class="header-stats">
             <div class="stat-badge">
                 <i class="fas fa-box"></i>
-                <span>Total:</span>
+                <span>Products:</span>
                 <span><%= products.length %></span>
             </div>
             <div class="stat-badge">
-                <i class="fas fa-check-circle"></i>
-                <span>Available:</span>
-                <span><%= products.filter(p => p.status === 'available').length %></span>
+                <i class="fas fa-utensils"></i>
+                <span>Food Items:</span>
+                <span><%= nightmessItems.length %></span>
             </div>
             <div class="stat-badge">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Sold:</span>
-                <span><%= products.filter(p => p.status === 'sold').length %></span>
+                <i class="fas fa-eye-slash"></i>
+                <span>Hidden:</span>
+                <span><%= hiddenCount %></span>
+            </div>
+            <div class="stat-badge">
+                <i class="fas fa-rupee-sign"></i>
+                <span>Total Sales:</span>
+                <span>₹<%= totalEarnings %></span>
             </div>
         </div>
         
-        <a href="/marketplace/add-product" class="add-product-btn">
-            <i class="fas fa-plus-circle"></i> Add New Product
-        </a>
-    </div>
-    
-    <!-- Products Grid or Empty State -->
-    <% if (products.length === 0) { %>
-        <div class="empty-state">
-            <div class="empty-icon">
-                <i class="fas fa-store"></i>
-            </div>
-            <h3 class="empty-title">No products listed yet</h3>
-            <p class="empty-text">Start selling your items and reach thousands of students on campus!</p>
-            <a href="/marketplace/add-product" class="empty-btn">
-                <i class="fas fa-plus-circle"></i> Sell Your First Item
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="track-purchase-btn" onclick="showEarningsModal()">
+                <i class="fas fa-chart-line"></i> Track Purchase
+            </button>
+            <a href="/marketplace/add-product" class="add-product-btn">
+                <i class="fas fa-plus-circle"></i> Add Product
+            </a>
+            <a href="/nightmess/add-item" class="add-nightmess-btn">
+                <i class="fas fa-plus-circle"></i> Add Food Item
             </a>
         </div>
-    <% } else { %>
-        <div class="products-grid">
-            <% products.forEach(product => { 
-                const statusClass = product.status === 'available' ? 'status-available' : 
-                                   (product.status === 'sold' ? 'status-sold' : 'status-reserved');
-                const conditionClass = product.condition === 'New' ? 'condition-new' :
-                                      (product.condition === 'Like New' ? 'condition-like-new' :
-                                      (product.condition === 'Good' ? 'condition-good' : 'condition-fair'));
-            %>
-                <div class="product-card-modern" data-product-id="<%= product._id %>">
-                    <div class="card-image">
-                        <img src="<%= product.images[0] %>" alt="<%= product.title %>">
-                        <div class="status-badge <%= statusClass %>">
-                            <i class="fas <%= product.status === 'available' ? 'fa-check-circle' : (product.status === 'sold' ? 'fa-shopping-cart' : 'fa-clock') %>"></i>
-                            <%= product.status.toUpperCase() %>
-                        </div>
-                        <div class="category-badge">
-                            <i class="fas fa-tag"></i> <%= product.category %>
-                        </div>
+    </div>
+    
+    <!-- Earnings Modal -->
+    <div id="earningsModal" class="earnings-modal" style="display: none;">
+        <div class="earnings-modal-content">
+            <div class="earnings-modal-header">
+                <h2><i class="fas fa-chart-line"></i> Sales Tracker</h2>
+            </div>
+            <div class="earnings-modal-body">
+                <div class="earnings-total">
+                    <div class="earnings-amount">₹<%= totalEarnings %></div>
+                    <div class="earnings-label">Total Earnings</div>
+                </div>
+                
+                <div class="earnings-breakdown">
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Products Sold:</span>
+                        <span class="breakdown-value"><%= soldProductsCount %> items</span>
                     </div>
-                    
-                    <div class="card-content">
-                        <h3 class="product-title"><%= product.title %></h3>
-                        <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
-                        
-                        <div class="price-section">
-                            <span class="product-price">₹<%= product.price %></span>
-                            <span class="condition-tag <%= conditionClass %>"><%= product.condition %></span>
-                        </div>
-                        
-                        <div class="product-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span>Listed: <%= new Date(product.createdAt).toLocaleDateString() %></span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-eye"></i>
-                                <span><%= product.views %> views</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-heart"></i>
-                                <span><%= product.interestedBuyers ? product.interestedBuyers.length : 0 %> interested</span>
-                            </div>
-                        </div>
-                        
-                        <div class="action-buttons">
-                            <a href="/marketplace/product/<%= product._id %>" class="btn-action btn-view">
-                                <i class="fas fa-eye"></i> View
-                            </a>
-                            <a href="/marketplace/edit-product/<%= product._id %>" class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <button onclick="deleteProduct('<%= product._id %>', '<%= product.title %>')" class="btn-action btn-delete">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </button>
-                        </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Food Items Sold:</span>
+                        <span class="breakdown-value"><%= soldFoodItemsCount %> items</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Total Items Sold:</span>
+                        <span class="breakdown-value"><%= soldProductsCount + soldFoodItemsCount %> items</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Average Order Value:</span>
+                        <span class="breakdown-value">₹<%= avgOrderValue %></span>
                     </div>
                 </div>
-            <% }) %>
+                
+                <div class="earnings-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>This includes all completed sales from your products and food items.</span>
+                </div>
+                
+                <button class="close-modal-btn" onclick="closeEarningsModal()">Close</button>
+            </div>
         </div>
-    <% } %>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('products')">
+                <i class="fas fa-box"></i> Products
+            </button>
+            <button class="tab-btn" onclick="switchTab('nightmess')">
+                <i class="fas fa-utensils"></i> Night Mess Food
+            </button>
+        </div>
+    </div>
+    
+    <!-- Products Tab -->
+    <div id="productsTab" class="tab-content active">
+        <% if (products.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3 class="empty-title">No products listed yet</h3>
+                <p class="empty-text">Start selling your items and reach thousands of students on campus!</p>
+                <a href="/marketplace/add-product" class="empty-btn">
+                    <i class="fas fa-plus-circle"></i> Sell Your First Product
+                </a>
+            </div>
+        <% } else { %>
+            <div class="products-grid">
+                <% products.forEach(product => { 
+                    const statusClass = product.status === 'available' ? 'status-available' : 
+                                       (product.status === 'sold' ? 'status-sold' : 'status-reserved');
+                    const conditionClass = product.condition === 'New' ? 'condition-new' :
+                                          (product.condition === 'Like New' ? 'condition-like-new' :
+                                          (product.condition === 'Good' ? 'condition-good' : 'condition-fair'));
+                %>
+                    <div class="product-card-modern" data-product-id="<%= product._id %>" data-type="product">
+                        <div class="card-image">
+                            <img src="<%= product.images[0] %>" alt="<%= product.title %>">
+                            <div class="visibility-toggle">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="visibility-checkbox" 
+                                           data-id="<%= product._id %>" 
+                                           data-type="product"
+                                           <%= product.status !== 'hidden' ? 'checked' : '' %>
+                                           onchange="toggleVisibility('<%= product._id %>', 'product', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-label">Visible</span>
+                            </div>
+                            <div class="status-badge <%= product.status === 'available' ? 'status-available' : (product.status === 'sold' ? 'status-sold' : (product.status === 'hidden' ? 'status-hidden' : 'status-reserved')) %>">
+                                <i class="fas <%= product.status === 'available' ? 'fa-check-circle' : (product.status === 'sold' ? 'fa-shopping-cart' : (product.status === 'hidden' ? 'fa-eye-slash' : 'fa-clock')) %>"></i>
+                                <%= product.status === 'hidden' ? 'HIDDEN' : product.status.toUpperCase() %>
+                            </div>
+                            <div class="category-badge">
+                                <i class="fas fa-tag"></i> <%= product.category %>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="product-title"><%= product.title %></h3>
+                            <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
+                            
+                            <div class="price-section">
+                                <span class="product-price">₹<%= product.price %></span>
+                                <span class="condition-tag <%= conditionClass %>"><%= product.condition %></span>
+                            </div>
+                            
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Listed: <%= new Date(product.createdAt).toLocaleDateString() %></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span><%= product.views %> views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span><%= product.interestedBuyers ? product.interestedBuyers.length : 0 %> interested</span>
+                                </div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <a href="/marketplace/product/<%= product._id %>" class="btn-action btn-view">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="/marketplace/edit-product/<%= product._id %>" class="btn-action btn-edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <button onclick="deleteItem('<%= product._id %>', 'product', '<%= product.title %>')" class="btn-action btn-delete">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Night Mess Tab -->
+    <div id="nightmessTab" class="tab-content">
+        <% if (nightmessItems.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3 class="empty-title">No food items added yet</h3>
+                <p class="empty-text">Start selling your delicious food items to hungry students!</p>
+                <a href="/nightmess/add-item" class="empty-btn" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                    <i class="fas fa-plus-circle"></i> Add Your First Food Item
+                </a>
+            </div>
+        <% } else { %>
+            <div class="products-grid">
+                <% nightmessItems.forEach(item => { 
+                    const statusClass = item.status === 'available' ? 'status-available' : 
+                                       (item.status === 'sold_out' ? 'status-sold' : 'status-hidden');
+                %>
+                    <div class="product-card-modern" data-item-id="<%= item._id %>" data-type="nightmess">
+                        <div class="card-image">
+                            <img src="<%= item.images[0] %>" alt="<%= item.title %>">
+                            <div class="visibility-toggle">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="visibility-checkbox" 
+                                           data-id="<%= item._id %>" 
+                                           data-type="nightmess"
+                                           <%= item.status !== 'hidden' ? 'checked' : '' %>
+                                           onchange="toggleVisibility('<%= item._id %>', 'nightmess', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-label">Visible</span>
+                            </div>
+                            <div class="status-badge <%= statusClass %>">
+                                <i class="fas <%= item.status === 'available' ? 'fa-check-circle' : (item.status === 'sold_out' ? 'fa-shopping-cart' : 'fa-eye-slash') %>"></i>
+                                <%= item.status.toUpperCase() %>
+                            </div>
+                            <div class="category-badge">
+                                <i class="fas fa-tag"></i> <%= item.category %>
+                            </div>
+                            <div class="nightmess-badge">
+                                <i class="fas fa-utensils"></i> Night Mess
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="product-title"><%= item.title %></h3>
+                            <p class="product-description"><%= item.description.substring(0, 80) %><%= item.description.length > 80 ? '...' : '' %></p>
+                            
+                            <div class="price-section">
+                                <span class="product-price"><%= item.price > 0 ? '₹' + item.price : 'Price Varies' %></span>
+                                <span class="condition-tag condition-good">Block <%= item.hostelBlock %></span>
+                            </div>
+                            
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Listed: <%= new Date(item.createdAt).toLocaleDateString() %></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span><%= item.views %> views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span><%= item.interestedBuyers ? item.interestedBuyers.length : 0 %> interested</span>
+                                </div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <a href="/nightmess/item/<%= item._id %>" class="btn-action btn-view">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                                <a href="/nightmess/edit-item/<%= item._id %>" class="btn-action btn-edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <button onclick="deleteItem('<%= item._id %>', 'nightmess', '<%= item.title %>')" class="btn-action btn-delete">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
 </div>
 
 <script>
-function deleteProduct(productId, productTitle) {
-    if (confirm(`Are you sure you want to delete "${productTitle}"? This action cannot be undone.`)) {
-        const deleteBtn = event.target.closest('.btn-delete');
-        if (deleteBtn) {
-            deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
-            deleteBtn.disabled = true;
+function showEarningsModal() {
+    document.getElementById('earningsModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEarningsModal() {
+    document.getElementById('earningsModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('earningsModal');
+    if (event.target === modal) {
+        closeEarningsModal();
+    }
+}
+
+function switchTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+    
+    if (tabName === 'products') {
+        document.getElementById('productsTab').classList.add('active');
+        document.querySelector('.tab-buttons button:first-child').classList.add('active');
+    } else if (tabName === 'nightmess') {
+        document.getElementById('nightmessTab').classList.add('active');
+        document.querySelector('.tab-buttons button:last-child').classList.add('active');
+    }
+}
+
+function toggleVisibility(id, type, isVisible) {
+    const status = isVisible ? 'available' : 'hidden';
+    let url;
+    
+    if (type === 'product') {
+        url = `/marketplace/product/${id}/visibility`;
+    } else {
+        url = `/nightmess/item/${id}/visibility`;
+    }
+    
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(`Item is now ${isVisible ? 'visible' : 'hidden'}!`, 'success');
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            showToast('Failed to update visibility', 'error');
+            const checkbox = document.querySelector(`.visibility-checkbox[data-id="${id}"][data-type="${type}"]`);
+            if (checkbox) checkbox.checked = !isVisible;
         }
+    })
+    .catch(err => {
+        showToast('Error updating visibility', 'error');
+        const checkbox = document.querySelector(`.visibility-checkbox[data-id="${id}"][data-type="${type}"]`);
+        if (checkbox) checkbox.checked = !isVisible;
+    });
+}
+
+function deleteItem(id, type, title) {
+    if (confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+        const url = type === 'product' ? '/marketplace/product/' : '/nightmess/item/';
         
-        fetch(`/marketplace/product/${productId}`, {
+        fetch(`${url}${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -594,33 +1103,14 @@ function deleteProduct(productId, productTitle) {
         .then(response => response.json())
         .then(data => {
             if (data.success || response.ok) {
-                // Show success toast
-                showToast('Product deleted successfully!', 'success');
-                // Remove the product card with animation
-                const productCard = document.querySelector(`.product-card-modern[data-product-id="${productId}"]`);
-                if (productCard) {
-                    productCard.style.animation = 'fadeOut 0.3s ease forwards';
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 300);
-                } else {
-                    window.location.reload();
-                }
+                showToast('Item deleted successfully!', 'success');
+                setTimeout(() => window.location.reload(), 1000);
             } else {
-                showToast('Error deleting product', 'error');
-                if (deleteBtn) {
-                    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
-                    deleteBtn.disabled = false;
-                }
+                showToast('Error deleting item', 'error');
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            showToast('Error deleting product', 'error');
-            if (deleteBtn) {
-                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
-                deleteBtn.disabled = false;
-            }
+            showToast('Error deleting item', 'error');
         });
     }
 }
@@ -628,7 +1118,6 @@ function deleteProduct(productId, productTitle) {
 function showToast(message, type) {
     const toast = document.createElement('div');
     toast.className = 'delete-toast';
-    toast.style.animation = 'slideInRight 0.3s ease';
     
     const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
     const color = type === 'success' ? '#10b981' : '#ef4444';
@@ -642,37 +1131,18 @@ function showToast(message, type) {
     
     setTimeout(() => {
         toast.style.animation = 'slideOutRight 0.3s ease forwards';
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
+        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
-// Add fadeOut animation
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes fadeOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-    }
-    
     @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100px);
-        }
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(100px); }
     }
 `;
 document.head.appendChild(style);
 </script>
 
+<%- include('../partials/vall-promo-banner') %>

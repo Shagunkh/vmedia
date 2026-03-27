@@ -5,7 +5,7 @@ class ChatPopup {
         this.currentUser = null;
         this.typingTimeouts = new Map();
         this.joinedRooms = new Set();
-        this.pendingMessages = new Set(); // Track pending messages to prevent duplicates
+        this.pendingMessages = new Set();
         this.init();
     }
     
@@ -75,10 +75,10 @@ class ChatPopup {
             .then(html => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
-                const chatItems = doc.querySelectorAll('.chat-item');
+                const chatCards = doc.querySelectorAll('.chat-card');
                 
-                chatItems.forEach(item => {
-                    const roomId = item.dataset.roomId;
+                chatCards.forEach(card => {
+                    const roomId = card.dataset.roomId;
                     if (roomId && !this.joinedRooms.has(roomId)) {
                         this.socket.emit('join-chat-room', roomId);
                         this.joinedRooms.add(roomId);
@@ -124,14 +124,48 @@ class ChatPopup {
             .then(html => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
-                const chatItems = doc.querySelectorAll('.chat-item');
-                this.renderChatList(chatItems);
+                const chatCards = doc.querySelectorAll('.chat-card');
                 
-                chatItems.forEach(item => {
+                const chatItemsForSidebar = [];
+                chatCards.forEach(card => {
+                    const roomId = card.dataset.roomId;
+                    const productId = card.dataset.productId;
+                    const productTitle = card.dataset.productTitle;
+                    const productImage = card.dataset.productImage;
+                    const otherUserId = card.dataset.otherUserId;
+                    const otherUserName = card.dataset.otherUserName;
+                    const unreadCount = parseInt(card.dataset.unreadCount) || 0;
+                    const type = card.dataset.type || 'product';
+                    
+                    const lastMessageEl = card.querySelector('.chat-last-message');
+                    const lastMessage = lastMessageEl ? lastMessageEl.innerText.trim() : 'No messages yet';
+                    
+                    if (roomId && productId && otherUserId) {
+                        chatItemsForSidebar.push({
+                            dataset: {
+                                roomId: roomId,
+                                productId: productId,
+                                productTitle: productTitle,
+                                productImage: productImage,
+                                otherUserId: otherUserId,
+                                otherUserName: otherUserName,
+                                unreadCount: unreadCount,
+                                lastMessage: lastMessage,
+                                type: type
+                            }
+                        });
+                    }
+                });
+                
+                console.log('Found chats:', chatItemsForSidebar.length);
+                this.renderChatList(chatItemsForSidebar);
+                
+                chatItemsForSidebar.forEach(item => {
                     const roomId = item.dataset.roomId;
                     if (roomId && this.socket && !this.joinedRooms.has(roomId)) {
                         this.socket.emit('join-chat-room', roomId);
                         this.joinedRooms.add(roomId);
+                        console.log('Auto-joined room:', roomId);
                     }
                 });
             })
@@ -153,16 +187,19 @@ class ChatPopup {
             totalUnread += unreadCount;
             const unreadBadge = unreadCount > 0 ? `<span class="unread-badge">${unreadCount}</span>` : '';
             
+            const productImage = chat.dataset.productImage || '/images/default-product.jpg';
+            
             html += `
                 <div class="chat-item" 
                      data-room-id="${chat.dataset.roomId}"
                      data-product-id="${chat.dataset.productId}"
-                     data-product-title="${chat.dataset.productTitle}"
-                     data-product-image="${chat.dataset.productImage}"
+                     data-product-title="${this.escapeHtml(chat.dataset.productTitle)}"
+                     data-product-image="${productImage}"
                      data-other-user-id="${chat.dataset.otherUserId}"
-                     data-other-user-name="${chat.dataset.otherUserName}"
-                     data-unread-count="${unreadCount}">
-                    <img src="${chat.dataset.productImage || '/images/default-product.jpg'}" class="chat-item-image">
+                     data-other-user-name="${this.escapeHtml(chat.dataset.otherUserName)}"
+                     data-unread-count="${unreadCount}"
+                     data-type="${chat.dataset.type}">
+                    <img src="${productImage}" class="chat-item-image" onerror="this.src='/images/default-product.jpg'">
                     <div class="chat-item-info">
                         <div class="chat-item-title">${this.escapeHtml(chat.dataset.productTitle)}</div>
                         <div class="chat-item-user">with ${this.escapeHtml(chat.dataset.otherUserName)}</div>
@@ -193,7 +230,8 @@ class ChatPopup {
                     productTitle: item.dataset.productTitle,
                     productImage: item.dataset.productImage,
                     otherUserId: item.dataset.otherUserId,
-                    otherUserName: item.dataset.otherUserName
+                    otherUserName: item.dataset.otherUserName,
+                    type: item.dataset.type
                 };
                 this.openChat(data);
                 
@@ -222,13 +260,23 @@ class ChatPopup {
         
         const chatWindow = this.createChatWindow(data);
         this.activeChats.set(roomId, chatWindow);
-        this.loadChatHistory(roomId, data.productId, data.otherUserId, chatWindow);
+        
+        // Determine API endpoint based on type
+        let apiEndpoint;
+        if (data.type === 'nightmess' || roomId.startsWith('nightmess_')) {
+            apiEndpoint = `/nightmess/chat/${data.productId}/${data.otherUserId}`;
+        } else {
+            apiEndpoint = `/marketplace/chat/${data.productId}/${data.otherUserId}`;
+        }
+        
+        this.loadChatHistory(apiEndpoint, roomId, chatWindow);
     }
     
     createChatWindow(data) {
         const chatWindow = document.createElement('div');
         chatWindow.className = 'chat-window';
         chatWindow.dataset.roomId = data.roomId;
+        chatWindow.dataset.type = data.type || 'product';
         chatWindow.innerHTML = `
             <div class="chat-window-header">
                 <div class="chat-window-title">
@@ -296,10 +344,10 @@ class ChatPopup {
         return chatWindow;
     }
     
-    loadChatHistory(roomId, productId, otherUserId, chatWindow) {
-        console.log('Loading chat history for:', { roomId, productId, otherUserId });
+    loadChatHistory(apiEndpoint, roomId, chatWindow) {
+        console.log('Loading chat history from:', apiEndpoint);
         
-        fetch(`/marketplace/chat/${productId}/${otherUserId}`)
+        fetch(apiEndpoint)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -352,14 +400,12 @@ class ChatPopup {
         return messageDiv;
     }
     
-    // FIXED: No local message addition - let socket handle it
     sendMessage(chatWindow, data) {
         const textarea = chatWindow.querySelector('textarea');
         const message = textarea.value.trim();
         
         if (!message) return;
         
-        // Create a temporary ID to track this message
         const tempId = Date.now() + '_' + Math.random();
         this.pendingMessages.add(tempId);
         
@@ -377,13 +423,21 @@ class ChatPopup {
             tempId: tempId
         };
         
-        console.log('📤 Sending message:', messageData);
+        // Determine API endpoint based on type
+        let apiEndpoint;
+        if (data.type === 'nightmess' || data.roomId.startsWith('nightmess_')) {
+            apiEndpoint = '/nightmess/chat/send';
+            messageData.itemId = data.productId;
+            delete messageData.productId;
+        } else {
+            apiEndpoint = '/marketplace/chat/send';
+        }
         
-        // Clear input immediately
+        console.log('📤 Sending message to:', apiEndpoint, messageData);
+        
         textarea.value = '';
         
-        // Save to database - backend will broadcast to room
-        fetch('/marketplace/chat/send', {
+        fetch(apiEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -394,7 +448,6 @@ class ChatPopup {
         .then(data => {
             if (data.success) {
                 console.log('✅ Message saved successfully');
-                // Remove from pending
                 this.pendingMessages.delete(tempId);
             } else {
                 console.error('Failed to send message:', data);
@@ -410,11 +463,9 @@ class ChatPopup {
         });
     }
     
-    // FIXED: Strict duplicate prevention
     handleIncomingMessage(data) {
         console.log('📩 Handling incoming message:', data);
         
-        // Check if this is a message we just sent (by tempId)
         if (data.tempId && this.pendingMessages.has(data.tempId)) {
             console.log('Ignoring our own message (still pending)');
             return;
@@ -435,7 +486,6 @@ class ChatPopup {
                 messagesContainer.innerHTML = '';
             }
             
-            // STRICT duplicate check by message ID
             const existingMessages = messagesContainer.querySelectorAll('.message');
             let messageExists = false;
             
