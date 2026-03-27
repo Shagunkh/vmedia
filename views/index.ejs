@@ -1,0 +1,726 @@
+<% layout("layouts/boilerplate") %>
+<style>
+  
+ body {
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  padding: 3rem 0;
+  overflow-y: scroll; /* allows vertical scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Confession Form */
+  .confession-form {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .confession-form textarea {
+    width: 100%;
+    height: 120px;
+    background: var(--secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    resize: none;
+  }
+
+  .confession-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+  }
+
+  .confession-form select {
+    background: var(--secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--text);
+    width: 100%;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .confession-form select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  
+  
+
+  /* Floating Hearts Background */
+  .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .heart {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 15s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+  }
+
+  .heart::before, .heart::after {
+    content: "";
+    background-color: #ff69b4;
+    position: absolute;
+    width: 20px;
+    height: 32px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .heart::before {
+    transform: rotate(-45deg);
+    left: 15px;
+  }
+
+  .heart::after {
+    transform: rotate(45deg);
+    left: -15px;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.1;
+    }
+    90% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Rest of your existing styles... */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  body {
+  background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  padding: 3rem 0;
+  overflow-y: scroll; /* allows vertical scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.confession-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 1300px; /* Adjust as needed for 4 cards */
+  margin-left: -14rem; /* Slight left shift */
+  margin-right: auto;
+}
+
+ .back-btn {
+      padding: 0.8rem 1.5rem;
+      background: rgb(38, 204, 230);
+      color: var(--primary);
+      font-weight: 600;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 1rem auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background: rgba(0, 208, 255, 0.3);
+      transform: translateX(-5px);
+    }
+    .intro-container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+      
+     
+
+:root {
+    --deep-red: #8b0000;
+    --blood-red: #6a0000;
+    --crimson: #dc143c;
+    --dark-bg: #1a0000;
+    --text-light: #ffebee;
+    --text-glow: #ff4d4d;
+  }
+  
+  body {
+    background: var(--dark-bg);
+    color: var(--text-light);
+    font-family: 'Playfair Display', serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Pulsing Neon Border */
+  .neon-pulse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--crimson);
+    box-shadow: 0 0 10px var(--crimson), 0 0 20px var(--crimson);
+    animation: pulse 2s infinite alternate;
+    z-index: 1000;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; box-shadow: 0 0 15px var(--crimson), 0 0 30px var(--crimson); }
+  }
+
+  /* Floating Hearts Animation */
+  .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .heart {
+    position: absolute;
+    opacity: 0;
+    font-size: 24px;
+    color: rgba(220, 20, 60, 0.7);
+    animation: float 15s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+  }
+
+  /* Dramatic Intro Text */
+  .intro-container {
+    text-align: center;
+    margin: 5rem 0;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .confession-wall-heading {
+    font-size: 6rem;
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(45deg, #ff4d4d, #8b0000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+    letter-spacing: 2px;
+    line-height: 1.1;
+    animation: textGlow 3s infinite alternate;
+  }
+
+  .tagline {
+    font-size: 3rem;
+    margin: 1rem 0;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-light);
+    opacity: 0.9;
+    animation: fadeIn 2s ease-in;
+  }
+
+  .highlight {
+    color: var(--crimson);
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--text-glow);
+  }
+
+  @keyframes textGlow {
+    0% { text-shadow: 0 0 10px rgba(255, 77, 77, 0.5); }
+    100% { text-shadow: 0 0 30px rgba(255, 77, 77, 0.9); }
+  }
+
+  /* Confession Form */
+  .confession-form {
+    background: rgba(26, 0, 0, 0.7);
+    border: 1px solid var(--deep-red);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 3rem auto;
+    max-width: 800px;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .confession-form:hover {
+    box-shadow: 0 0 40px rgba(220, 20, 60, 0.5);
+    transform: translateY(-5px);
+  }
+
+  .confession-form textarea {
+    width: 100%;
+    min-height: 150px;
+    background: rgba(10, 0, 0, 0.7);
+    border: 1px solid var(--blood-red);
+    color: var(--text-light);
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .confession-form textarea:focus {
+    outline: none;
+    border-color: var(--crimson);
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.5);
+  }
+
+  .confession-form select {
+    background: rgba(10, 0, 0, 0.7);
+    border: 1px solid var(--blood-red);
+    color: var(--text-light);
+    padding: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+  }
+
+  .confession-form button {
+    background: linear-gradient(45deg, var(--deep-red), var(--crimson));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .confession-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(220, 20, 60, 0.4);
+  }
+
+  /* Confession Cards */
+  .confession-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .confession-card {
+    background: rgba(26, 0, 0, 0.7);
+    border: 1px solid var(--deep-red);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+  }
+
+  .confession-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(220, 20, 60, 0.1));
+    z-index: -1;
+  }
+
+  .confession-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+  }
+
+  .confession-category {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: var(--deep-red);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .confession-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .confession-text::after {
+    content: '""';
+    position: absolute;
+    bottom: -1.5rem;
+    right: 0;
+    font-size: 3rem;
+    color: rgba(220, 20, 60, 0.2);
+    line-height: 0;
+  }
+
+  .reaction-form {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+  }
+
+  .reaction-btn {
+    background: transparent;
+    border: 1px solid var(--blood-red);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .reaction-btn:hover {
+    background: rgba(220, 20, 60, 0.2);
+    transform: scale(1.1);
+  }
+
+  .reaction-count {
+    font-size: 0.9rem;
+  }
+
+  /* Back Button */
+  .back-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(26, 0, 0, 0.7);
+    border: 1px solid var(--deep-red);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 100;
+    transition: all 0.3s ease;
+    margin-top: 4rem;
+  }
+
+  .back-btn:hover {
+    background: var(--deep-red);
+    transform: translateX(-5px);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .confession-wall-heading {
+      font-size: 3.5rem;
+    }
+    
+    .tagline {
+      font-size: 2rem;
+    }
+    
+    .confession-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .confession-card {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Delay animations for each card */
+  .confession-card:nth-child(1) { animation-delay: 0.1s; }
+  .confession-card:nth-child(2) { animation-delay: 0.2s; }
+  .confession-card:nth-child(3) { animation-delay: 0.3s; }
+  .confession-card:nth-child(4) { animation-delay: 0.4s; }
+  .confession-card:nth-child(5) { animation-delay: 0.5s; }
+  .confession-card:nth-child(6) { animation-delay: 0.6s; }
+
+   .neon-button {
+    background: red;
+    color: var(--primary);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(0, 216, 255, 0.5);
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.neon-button:hover {
+    background:#8b0000;
+    box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 216, 255, 0.7);
+    transform: translateY(-2px);
+}
+/* Comments Section */
+.comments-section {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(220, 20, 60, 0.2);
+  padding-top: 1rem;
+}
+
+.comment-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.comment-form input {
+  flex-grow: 1;
+  background: rgba(10, 0, 0, 0.7);
+  border: 1px solid var(--blood-red);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+}
+
+.comment-form button {
+  background: var(--deep-red);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.comment-form button:hover {
+  background: var(--crimson);
+}
+
+.comments-list {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.comment {
+  background: rgba(10, 0, 0, 0.5);
+  border-left: 2px solid var(--deep-red);
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0 5px 5px 0;
+}
+
+.comment-text {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.comment-time {
+  color: rgba(255, 235, 238, 0.6);
+  font-size: 0.7rem;
+}
+
+/* Custom scrollbar for comments */
+.comments-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+  background: rgba(10, 0, 0, 0.3);
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background: var(--deep-red);
+  border-radius: 5px;
+}
+
+</style>
+
+
+<div ></div>
+  <div class="floating-hearts" id="hearts-container"></div>
+
+  <div class="page-wrapper">
+    <button class="back-btn" onclick="window.location.href='/'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+      Back to Home
+    </button>
+    <br>
+    <div class="intro-container">
+      <h3 class="confession-wall-heading">Say It. Confess It. Leave It Here.</h3>
+      <p class="tagline">Your Secrets Are <span class="highlight">Safe</span> With Us</p>
+      <p class="tagline">Whispers in the <span class="highlight">Digital Void</span></p>
+    </div>
+
+    <div class="container">
+      <form class="confession-form" method="POST" action="/confessions/submit">
+        <textarea name="text" required placeholder="Share your confession..."></textarea>
+        <select name="category">
+          <option value="love">Love</option>
+          <option value="regret">Regret</option>
+          <option value="secret">Secret</option>
+          <option value="other">Other</option>
+        </select>
+       <button type="submit" class="neon-button">Confess</button>
+
+      </form>
+
+      <div class="confession-grid">
+        <% confessions.forEach(c => { %>
+          <div class="confession-card">
+            <span class="confession-category"><%= c.category %></span>
+            <span class="comment-count"><%= c.comments.length %> comments</span>
+            <p class="confession-text"><%= c.text %></p>
+            <form class="reaction-form" method="POST" action="/confessions/react/<%= c._id %>">
+              <button class="reaction-btn like" name="reaction" value="like">❤️ <span class="reaction-count"><%= c.reactions.like %></span></button>
+              <button class="reaction-btn hug" name="reaction" value="hug">🤗 <span class="reaction-count"><%= c.reactions.hug %></span></button>
+              <button class="reaction-btn sad" name="reaction" value="sad">😢 <span class="reaction-count"><%= c.reactions.sad %></span></button>
+
+            </form>
+            <div class="comments-section">
+  <form class="comment-form" method="POST" action="/confessions/<%= c._id %>/comment">
+    <input type="text" name="text" required placeholder="Add anonymous comment..." maxlength="200">
+    <button type="submit">Post</button>
+  </form>
+  
+  <div class="comments-list">
+    <% c.comments.forEach(comment => { %>
+      <div class="comment">
+        <p class="comment-text"><%= comment.text %></p>
+        <small class="comment-time">
+          <%= new Date(comment.createdAt).toLocaleString() %>
+        </small>
+      </div>
+    <% }); %>
+  </div>
+</div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+<script>
+        // Create floating confession texts
+        const confessions = [
+            "I cheated on a test...",
+            "I love someone I shouldn't...",
+            "I pretend to be happy...",
+            "I stole once...",
+            "I regret everything...",
+            "I'm not who they think I am..."
+        ];
+
+        for (let i = 0; i < 20; i++) {
+            const text = document.createElement('div');
+            text.classList.add('floating-text');
+            text.textContent = confessions[Math.floor(Math.random() * confessions.length)];
+            
+            // Random position and animation delay
+            text.style.left = `${Math.random() * 100}%`;
+            text.style.animationDelay = `${Math.random() * 15}s`;
+            text.style.animationDuration = `${10 + Math.random() * 20}s`;
+            text.style.fontSize = `${0.8 + Math.random() * 1.2}rem`;
+            text.style.opacity = `${0.1 + Math.random() * 0.2}`;
+            
+            document.body.appendChild(text);
+        }
+    </script>
+<script>
+  // Create floating hearts
+  function createHearts() {
+    const container = document.getElementById('hearts-container');
+    const color = '#ff0000'; // Solid red
+
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+
+      // Random properties
+      const size = Math.random() * 20 + 10;
+      const posX = Math.random() * 100;
+      const delay = Math.random() * 15;
+      const duration = Math.random() * 10 + 10;
+
+      heart.style.left = `${posX}%`;
+      heart.style.width = `${size}px`;
+      heart.style.height = `${size}px`;
+      heart.style.animationDelay = `${delay}s`;
+      heart.style.animationDuration = `${duration}s`;
+
+      // Apply red color via inline styles
+      heart.style.setProperty('--heart-color', color);
+
+      container.appendChild(heart);
+    }
+  }
+
+  // Initialize hearts when page loads
+  document.addEventListener('DOMContentLoaded', createHearts);
+</script>

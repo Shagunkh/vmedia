@@ -1,0 +1,2274 @@
+<% layout("/layouts/boilerplate") %>
+<br><br><br>
+<div class="hero">
+  <div class="hero-text">
+    <h1 class="ffcs-title">
+      <span class="gradient-text">FFCS PLANNER</span>
+      <div class="title-underline"></div>
+    </h1>
+    <div class="tagline-container">
+      <p class="typing-text" id="animated-tagline">Your Ultimate Timetable </p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="add-course-section">
+    <h2>Add New Course</h2>
+    <form id="courseForm">
+      <div class="form-group">
+        <label for="slot">Slot (use + for multiple slots):</label>
+        <input type="text" id="slot" name="slot" placeholder="e.g., A1+TA1+TAA1" required>
+      </div>
+      <div class="form-group">
+        <label for="courseCode">Course Code:</label>
+        <input type="text" id="courseCode" name="courseCode" required>
+      </div>
+      <div class="form-group">
+        <label for="courseTitle">Course Title:</label>
+        <input type="text" id="courseTitle" name="courseTitle" required>
+      </div>
+      <div class="form-group">
+        <label for="faculty">Faculty:</label>
+        <input type="text" id="faculty" name="faculty" required>
+      </div>
+      <div class="form-group">
+        <label for="venue">Venue:</label>
+        <input type="text" id="venue" name="venue" required>
+      </div>
+     <div class="form-group">
+  <label for="credits">Credits:</label>
+  <input type="text" id="credits" name="credits" pattern="^\d+(\.\d{1,2})?$" title="Enter a number with up to 2 decimal places (e.g., 1.5)" required>
+</div>
+      <button type="submit" class="gradient-btn pulse">Add Course</button>
+    </form>
+    <div id="errorMessage"></div>
+  </div>
+
+  <div class="button-group">
+    <button id="resetBtn" class="gradient-btn red pulse">Reset Table</button>
+    <button id="downloadBtn" class="gradient-btn pulse">Download PDF</button>
+  </div>
+  
+  <h3>Default Table</h3>
+  
+  <div class="table-container" id="timetableContainer">
+    <table class="timetable">
+      <thead>
+        <tr style="height: 50px;">
+          <th rowspan="2" style="width: 60px;">THEORY HOURS</th>
+          <th colspan="6"></th>
+          <th rowspan="7" class="lunch-cell" style="width: 30px;">LUNCH</th>
+          <th colspan="7"></th>
+        </tr>
+        <tr>
+          <th style="width: 60px;">8:00-8:50</th>
+          <th style="width: 60px;">9:00-9:50</th>
+          <th style="width: 60px;">10:00-10:50</th>
+          <th style="width: 60px;">11:00-11:50</th>
+          <th style="width: 60px;">12:00-12:50</th>
+          <th style="width: 60px;"></th>
+          <th style="width: 60px;">2:00-2:50</th>
+          <th style="width: 60px;">3:00-3:50</th>
+          <th style="width: 60px;">4:00-4:50</th>
+          <th style="width: 60px;">5:00-5:50</th>
+          <th style="width: 60px;">6:00-6:50</th>
+          <th style="width: 60px;">6:51-7:50</th>
+        </tr>
+        <tr>
+          <th>LAB HOURS</th>
+          <th>08:00 AM<br>to<br>08:50 AM</th>
+          <th>08:51 AM<br>to<br>09:40 AM</th>
+          <th>09:51 AM<br>to<br>10:40 AM</th>
+          <th>10:41 AM<br>to<br>11:30 AM</th>
+          <th>11:40 AM<br>to<br>12:30 PM</th>
+          <th>12:40 AM<br>to<br>1:20 PM</th>
+          <th>2:00 PM<br>to<br>2:50 PM</th>
+          <th>2:51 PM<br>to<br>3:40 PM</th>
+          <th>3:51 PM<br>to<br>4:40 PM</th>
+          <th>4:41 PM<br>to<br>5:30 PM</th>
+          <th>5:40 PM<br>to<br>6:30 PM</th>
+          <th>6:31 PM<br>to<br>7:20 PM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="height: 50px;">
+          <td>Mon</td>
+          <td class="slot" data-slot="A1">A1 / L1</td>
+          <td class="slot" data-slot="F1">F1 / L2</td>
+          <td class="slot" data-slot="D1">D1 / L3</td>
+          <td class="slot" data-slot="TB1">TB1 / L4</td>
+          <td class="slot" data-slot="TG1">TG1 / L5</td>
+          <td class="slot" data-slot="L6">L6</td>
+          <td></td>
+          <td class="slot" data-slot="A2">A2 / L31</td>
+          <td class="slot" data-slot="F2">F2 / L32</td>
+          <td class="slot" data-slot="D2">D2 / L33</td>
+          <td class="slot" data-slot="TB2">TB2 / L34</td>
+          <td class="slot" data-slot="TG2">TG2 / L35</td>
+          <td class="slot" data-slot="L36">L36<br>V3</td>
+        </tr>
+        <tr>
+          <td>Tue</td>
+          <td class="slot" data-slot="B1">B1 / L7</td>
+          <td class="slot" data-slot="G1">G1 / L8</td>
+          <td class="slot" data-slot="E1">E1 / L9</td>
+          <td class="slot" data-slot="TC1">TC1 / L10</td>
+          <td class="slot" data-slot="TAA1">TAA1 / L11</td>
+          <td class="slot" data-slot="L12">L12</td>
+          <td></td>
+          <td class="slot" data-slot="B2">B2 / L37</td>
+          <td class="slot" data-slot="G2">G2 / L38</td>
+          <td class="slot" data-slot="E2">E2 / L39</td>
+          <td class="slot" data-slot="TC2">TC2 / L40</td>
+          <td class="slot" data-slot="TAA2">TAA2 / L41</td>
+          <td class="slot" data-slot="L42">L42<br>V4</td>
+        </tr>
+        <tr>
+          <td>Wed</td>
+          <td class="slot" data-slot="C1">C1 / L13</td>
+          <td class="slot" data-slot="A1">A1 / L14</td>
+          <td class="slot" data-slot="F1">F1 / L15</td>
+          <td class="slot" data-slot="V1">V1 / L16</td>
+          <td class="slot" data-slot="V2">V2 / L17</td>
+          <td class="slot" data-slot="L18">L18</td>
+          <td></td>
+          <td class="slot" data-slot="C2">C2 / L43</td>
+          <td class="slot" data-slot="A2">A2 / L44</td>
+          <td class="slot" data-slot="F2">F2 / L45</td>
+          <td class="slot" data-slot="TD2">TD2 / L46</td>
+          <td class="slot" data-slot="TBB2">TBB2 / L47</td>
+          <td class="slot" data-slot="L48">L48<br>V5</td>
+        </tr>
+        <tr>
+          <td>Thu</td>
+          <td class="slot" data-slot="D1">D1 / L19</td>
+          <td class="slot" data-slot="B1">B1 / L20</td>
+          <td class="slot" data-slot="G1">G1 / L21</td>
+          <td class="slot" data-slot="TE1">TE1 / L22</td>
+          <td class="slot" data-slot="TCC1">TCC1 / L23</td>
+          <td class="slot" data-slot="L24">L24</td>
+          <td></td>
+          <td class="slot" data-slot="D2">D2 / L49</td>
+          <td class="slot" data-slot="B2">B2 / L50</td>
+          <td class="slot" data-slot="G2">G2 / L51</td>
+          <td class="slot" data-slot="TE2">TE2 / L52</td>
+          <td class="slot" data-slot="TCC2">TCC2 / L53</td>
+          <td class="slot" data-slot="L54">L54<br>V6</td>
+        </tr>
+        <tr>
+          <td>Fri</td>
+          <td class="slot" data-slot="E1">E1 / L25</td>
+          <td class="slot" data-slot="C1">C1 / L26</td>
+          <td class="slot" data-slot="TA1">TA1 / L27</td>
+          <td class="slot" data-slot="TF1">TF1 / L28</td>
+          <td class="slot" data-slot="TD1">TD1 / L29</td>
+          <td class="slot" data-slot="L30">L30</td>
+          <td></td>
+          <td class="slot" data-slot="E2">E2 / L55</td>
+          <td class="slot" data-slot="C2">C2 / L56</td>
+          <td class="slot" data-slot="TA2">TA2 / L57</td>
+          <td class="slot" data-slot="TF2">TF2 / L58</td>
+          <td class="slot" data-slot="TDD2">TDD2 / L59</td>
+          <td class="slot" data-slot="L60">L60<br>V7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="course-list">
+    <h3>Available Courses</h3>
+    <p>Double click a course in the list below to load it back into the course panel.</p>
+    
+    <div class="table-container">
+      <table id="coursesTable">
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>Faculty</th>
+            <th>Venue</th>
+            <th>Credits</th>
+           
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p>Total Credits: <span id="totalCredits">0</span></p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(function() {
+  const { jsPDF } = window.jspdf;
+  const courses = [];
+  const colorPalette = [
+    'rgba(244, 67, 54, 0.9)',    // Red
+    'rgba(33, 150, 243, 0.9)',   // Blue
+    'rgba(76, 175, 80, 0.9)',    // Green
+    'rgba(255, 193, 7, 0.9)',    // Amber
+    'rgba(156, 39, 176, 0.9)',   // Purple
+    'rgba(255, 87, 34, 0.9)',    // Deep Orange
+    'rgba(63, 81, 181, 0.9)',    // Indigo
+    'rgba(0, 188, 212, 0.9)',    // Cyan
+    'rgba(205, 220, 57, 0.9)'    // Lime
+  ];
+
+  let colorIndex = 0;
+
+  // Store original cell content
+  $('.slot').each(function() {
+    $(this).attr('data-original', $(this).html());
+  });
+// Modified slot matching in course submission
+$('#courseForm').on('submit', function(e) {
+    e.preventDefault();
+    const errorMessage = $('#errorMessage');
+    errorMessage.text('').removeClass('error success').hide();
+    
+    // Get form values
+    const slotInput = $('#slot').val().trim();
+    const courseCode = $('#courseCode').val().trim();
+    const courseTitle = $('#courseTitle').val().trim();
+    const faculty = $('#faculty').val().trim();
+    const venue = $('#venue').val().trim();
+    const creditsInput = $('#credits').val().trim();
+const credits = parseFloat(creditsInput);
+
+// Add validation for credits
+if (isNaN(credits) || credits <= 0) {
+    showError('Please enter a valid positive number for credits');
+    return;
+}
+   
+    // Basic validation
+    if (!slotInput || !courseCode || !courseTitle || !faculty || !venue || !credits) {
+        showError('Please fill in all fields');
+        return;
+    }
+    
+    // Process slots - split by + and trim each one
+    const slots = slotInput.split('+').map(s => s.trim());
+     
+    // Check for conflicts
+    const conflicts = [];
+    slots.forEach(slot => {
+        // Find all cells that match this slot (either exact or contains)
+        const matchingCells = $(`.slot`).filter(function() {
+            const cellText = $(this).text();
+            const dataSlot = $(this).attr('data-slot');
+            
+            // Check if this is an exact slot match (A1, B2, etc.)
+            if (dataSlot === slot) return true;
+            
+            // For lab slots (L1, L2, etc.), we need exact matches
+            if (slot.startsWith('L')) {
+                // Check if cell contains the exact lab slot (L2 should match L2 but not L22)
+                const labSlots = cellText.match(/L\d+/g) || [];
+                return labSlots.includes(slot);
+            }
+            
+            // Check for combined slots (A1+TA1)
+            if (cellText.includes(slot) && !cellText.includes('/')) return true;
+            
+            return false;
+        });
+
+        // Check each matching cell for existing course
+        matchingCells.each(function() {
+            const cellContent = $(this).text();
+            const originalContent = $(this).attr('data-original');
+            
+            // Skip if cell is empty or contains only slot info
+            if (cellContent === originalContent) return;
+            
+            // Check if cell already has a course
+            if (cellContent.includes('/')) {
+                const parts = cellContent.split('/');
+                if (parts[1].trim() && !parts[1].trim().startsWith('L')) {
+                    conflicts.push(`${slot} (${parts[1].trim()})`);
+                }
+            } else if (cellContent.includes('-')) {
+                const parts = cellContent.split('-');
+                if (parts[1].trim()) {
+                    conflicts.push(`${slot} (${parts[1].trim()})`);
+                }
+            } else if (!cellContent.startsWith('L')) {
+                conflicts.push(`${slot} (${cellContent.trim()})`);
+            }
+        });
+    });
+    
+
+    if (conflicts.length > 0) {
+        showError(`Slot conflict detected! Cannot add course because these slots are already occupied:<br>${conflicts.map(c => `• ${c}`).join('<br>')}`);
+        return;
+    }
+
+    const courseColor = colorPalette[colorIndex % colorPalette.length];
+    colorIndex++;
+
+    // Process the course addition with animation
+    $('.gradient-btn.pulse').addClass('active');
+    setTimeout(() => {
+        $('.gradient-btn.pulse').removeClass('active');
+        
+        const slotCells = [];
+        slots.forEach(slot => {
+            // Find all matching cells for this slot (either exact or contains)
+            const matchingCells = $(`.slot`).filter(function() {
+                const cellText = $(this).text();
+                const dataSlot = $(this).attr('data-slot');
+                
+                // Exact slot match
+                if (dataSlot === slot) return true;
+                
+                // For lab slots (L1, L2, etc.), we need exact matches
+                if (slot.startsWith('L')) {
+                    // Check if cell contains the exact lab slot (L2 should match L2 but not L22)
+                    const labSlots = cellText.match(/L\d+/g) || [];
+                    return labSlots.includes(slot);
+                }
+                
+                // Combined slot match
+                if (cellText.includes(slot) && !cellText.includes('/')) return true;
+                
+                return false;
+            });
+
+            // Update each matching cell
+            matchingCells.each(function() {
+                const cell = $(this);
+                const originalContent = cell.attr('data-original');
+                let newContent = '';
+                
+                // Handle different cell formats
+                if (originalContent.includes('/')) {
+                    const parts = originalContent.split('/');
+                    if (parts[1].trim().startsWith('L')) {
+                        // Lab slot format (A1 / L1)
+                        newContent = `${parts[0].trim()} / ${courseCode}`;
+                    } else {
+                        // Theory slot format (A1 - CS101)
+                        newContent = `${parts[0].trim()} - ${courseCode}`;
+                    }
+                } else if (originalContent.includes('<br>')) {
+                    // Venue format (L36<br>V3)
+                    const parts = originalContent.split('<br>');
+                    newContent = `${courseCode}<br>${parts[1]}`;
+                } else {
+                    // Simple slot (L6)
+                    newContent = courseCode;
+                }
+                
+                cell.html(newContent)
+                    .css({
+                        'background-color': courseColor,
+                        'color': '#fff',
+                        'font-weight': 'bold'
+                    })
+                    .addClass('cell-pop');
+                
+                setTimeout(() => cell.removeClass('cell-pop'), 500);
+                slotCells.push(cell[0]);
+            });
+        });
+
+        // Add to courses list
+        const newCourse = {
+            slots,
+            courseCode,
+            courseTitle,
+            faculty,
+            venue,
+            credits,
+            color: courseColor,
+            slotCells
+        };
+        
+        courses.push(newCourse);
+        addCourseToTable(newCourse);
+        updateTotalCredits();
+        showSuccess('Course added successfully!');
+        this.reset();
+    }, 300);
+});
+
+  function checkSlotConflicts(slots, currentCourseCode) {
+    const conflicts = [];
+    
+    slots.forEach(slot => {
+      $(`.slot[data-slot="${slot}"]`).each(function() {
+        const cellContent = $(this).text();
+        
+        // Skip if cell only contains slot label (no course added yet)
+        if (cellContent === $(this).attr('data-original')) return;
+        
+        // Check for existing course codes
+        if (cellContent.includes('/')) {
+          const parts = cellContent.split('/');
+          if (parts.length > 1 && parts[1].trim() !== '' && !parts[1].trim().startsWith('L')) {
+            conflicts.push(`${slot} (${parts[1].trim()})`);
+          }
+        } else if (cellContent.includes('-')) {
+          const parts = cellContent.split('-');
+          if (parts.length > 1 && parts[1].trim() !== '' && !parts[1].trim().startsWith('L')) {
+            conflicts.push(`${slot} (${parts[1].trim()})`);
+          }
+        } else if (!cellContent.startsWith('L')) {
+          // If it's not a lab slot and has content, it's a conflict
+          conflicts.push(`${slot} (${cellContent.trim()})`);
+        }
+      });
+    });
+    
+    return conflicts;
+  }
+
+  function addCourseToTable(course) {
+    const row = `
+      <tr>
+        <td>${course.slots.join(', ')}</td>
+        <td>${course.courseCode}</td>
+        <td>${course.courseTitle}</td>
+        <td>${course.faculty}</td>
+        <td>${course.venue}</td>
+        <td>${course.credits}</td>
+        
+      </tr>
+    `;
+    
+    $('#coursesTable tbody').append(row);
+    
+    // Add click handler for remove button
+    $(`button.remove-btn[data-course="${course.courseCode}"]`).on('click', function() {
+      removeCourse(course.courseCode);
+    });
+    
+    // Add double click handler for the row
+    $('#coursesTable tbody tr:last').on('dblclick', function() {
+      const courseCode = $(this).find('td:nth-child(2)').text();
+      const courseToEdit = courses.find(c => c.courseCode === courseCode);
+      if (courseToEdit) {
+        loadCourseIntoForm(courseToEdit);
+      }
+    });
+  }
+
+  function removeCourse(courseCode) {
+    const courseIndex = courses.findIndex(c => c.courseCode === courseCode);
+    if (courseIndex !== -1) {
+        const course = courses[courseIndex];
+        
+        // Remove from courses table - more precise targeting
+        $('#coursesTable tbody tr').each(function() {
+            const rowCode = $(this).find('td:nth-child(2)').text().trim();
+            if (rowCode === courseCode) {
+                $(this).fadeOut(300, function() {
+                    $(this).remove();
+                });
+                return false; // break the loop
+            }
+        });
+        
+        // Restore timetable cells for this specific course
+        course.slotCells.forEach(cell => {
+            const $cell = $(cell);
+            const originalContent = $cell.attr('data-original');
+            
+            // Check if this cell actually contains our course code
+            if ($cell.text().includes(course.courseCode)) {
+                $cell.addClass('cell-fade');
+                setTimeout(() => {
+                    $cell.html(originalContent)
+                        .css({
+                            'background-color': '',
+                            'color': '',
+                            'font-weight': ''
+                        })
+                        .removeClass('cell-fade');
+                }, 300);
+            }
+        });
+        
+        // Remove from courses array
+        courses.splice(courseIndex, 1);
+        updateTotalCredits();
+        showSuccess('Course removed successfully!');
+    }
+}
+
+  function loadCourseIntoForm(course) {
+    $('#slot').val(course.slots.join('+'));
+    $('#courseCode').val(course.courseCode);
+    $('#courseTitle').val(course.courseTitle);
+    $('#faculty').val(course.faculty);
+    $('#venue').val(course.venue);
+    $('#credits').val(course.credits);
+    removeCourse(course.courseCode);
+    showSuccess('Course loaded for editing!');
+  }
+
+  function updateTotalCredits() {
+  let total = 0;
+  courses.forEach(course => {
+    total += parseFloat(course.credits) || 0;
+  });
+  
+  // Format to 1 decimal place if needed, but show as integer if whole number
+  const formattedTotal = total % 1 === 0 ? total : total.toFixed(1);
+  
+  // Animate credit change
+  $('#totalCredits').fadeOut(100, function() {
+    $(this).text(formattedTotal).fadeIn(100);
+  });
+}
+  $('#resetBtn').on('click', function() {
+    if (confirm('Are you sure you want to reset the entire timetable?')) {
+      $('.gradient-btn.red.pulse').addClass('active');
+      setTimeout(() => {
+        $('.gradient-btn.red.pulse').removeClass('active');
+        
+        // Restore all slots to original content
+        $('.slot').each(function() {
+          const $cell = $(this);
+          $cell.html($cell.attr('data-original'))
+            .css({
+              'background-color': '',
+              'color': '',
+              'font-weight': ''
+            });
+        });
+        
+        // Clear courses list
+        $('#coursesTable tbody').empty();
+        courses.length = 0;
+        $('#totalCredits').text('0');
+        colorIndex = 0;
+        showSuccess('Timetable reset successfully!');
+      }, 300);
+    }
+  });
+$('#downloadBtn').on('click', function() {
+    const username = prompt("Enter your name for the timetable:", "Student");
+    if (username === null) return;
+    
+    const generateImage = (elementId, fileName, title) => {
+        const pdfContainer = document.createElement('div');
+        pdfContainer.id = 'image-container';
+        pdfContainer.style.position = 'absolute';
+        pdfContainer.style.left = '-9999px';
+        pdfContainer.style.width = elementId === 'timetableContainer' ? '1100px' : '800px';
+        pdfContainer.style.padding = '20px';
+        pdfContainer.style.backgroundColor = '#1a2035';
+        pdfContainer.style.color = '#e0e0e0';
+        pdfContainer.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        
+        const date = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        // Dark theme colors
+        const primaryColor = '#6c63ff';
+        const secondaryColor = '#00bfa5';
+        const accentColor = '#ffab40';
+        const darkBgColor = '#1a2035';
+        const darkerBgColor = '#121828';
+        const textColor = '#e0e0e0';
+        const lightTextColor = '#ffffff';
+        
+        pdfContainer.innerHTML = `
+            <style>
+                * { 
+                    box-sizing: border-box; 
+                    margin: 0; 
+                    padding: 0; 
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+                
+                body {
+                    background-color: ${darkBgColor};
+                    padding:0;
+                    margin:0;
+                }
+                
+                .pdf-header { 
+                    text-align: center; 
+                    margin-bottom: 25px; 
+                    padding: 25px;
+                    border-radius: 8px;
+                    background: linear-gradient(135deg, ${darkerBgColor} 0%, #2a3042 100%);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .pdf-header::before {
+                    content: "VALL-Vit";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 72px;
+                    font-weight: 800;
+                    color: rgba(108, 99, 255, 0.08);
+                    z-index: 0;
+                    pointer-events: none;
+                }
+                
+                .pdf-title { 
+                    font-size: 28px; 
+                    font-weight: bold; 
+                    color: ${primaryColor}; 
+                    margin-bottom: 5px;
+                    letter-spacing: 1px;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .institute-name {
+                    font-size: 16px;
+                    color: ${secondaryColor};
+                    margin-bottom: 10px;
+                    font-weight: 600;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .student-info { 
+                    font-size: 16px; 
+                    margin-bottom: 8px; 
+                    color: ${lightTextColor};
+                    font-weight: 600;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .generated-date { 
+                    font-size: 14px; 
+                    color: ${accentColor}; 
+                    margin-bottom: 0;
+                    position: relative;
+                    z-index: 1;
+                }
+                
+                .section-title { 
+                    font-size: 18px; 
+                    font-weight: bold; 
+                    color: ${primaryColor}; 
+                    margin: 25px 0 15px 0; 
+                    padding-bottom: 8px; 
+                    border-bottom: 2px solid ${secondaryColor};
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                ${elementId === 'timetableContainer' ? `
+                .timetable-pdf { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-bottom: 25px; 
+                    font-size: 11px; 
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    background-color: ${darkerBgColor};
+                }
+                
+                .timetable-pdf th, .timetable-pdf td { 
+                    border: 1px solid #2d3446; 
+                    padding: 6px !important; 
+                    text-align: center; 
+                    height: 22px !important; 
+                    line-height: 1.4 !important; 
+                }
+                
+                .timetable-pdf th { 
+                    background-color: ${primaryColor}; 
+                    color: ${lightTextColor};
+                    font-weight: bold; 
+                    padding: 8px !important; 
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .timetable-pdf tr:nth-child(even) {
+                    background-color: rgba(255,255,255,0.03);
+                }
+                
+                .timetable-pdf tr:hover {
+                    background-color: rgba(108, 99, 255, 0.1);
+                }
+                
+                .time-col { width: 40px; }
+                .day-col { width: 50px; font-weight: bold; color: ${secondaryColor}; }
+                .lunch-col { width: 18px; background-color: ${darkerBgColor} !important; }
+                
+                ` : `
+                .courses-table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                    margin-bottom: 25px; 
+                    font-size: 11px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    background-color: ${darkerBgColor};
+                }
+                
+                .courses-table th, .courses-table td { 
+                    border: 1px solid #2d3446; 
+                    padding: 6px !important; 
+                    line-height: 1.4 !important; 
+                    height: 20px !important; 
+                }
+                
+                .courses-table th { 
+                    background-color: ${primaryColor}; 
+                    color: ${lightTextColor};
+                    font-weight: bold; 
+                    padding: 8px !important; 
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .courses-table tr:nth-child(even) {
+                    background-color: rgba(255,255,255,0.03);
+                }
+                
+                .courses-table tr:hover {
+                    background-color: rgba(108, 99, 255, 0.1);
+                }
+                
+                .course-code { width: 12%; color: ${accentColor}; font-weight: 600; }
+                .course-name { width: 28%; }
+                .course-slot { width: 12%; }
+                .course-venue { width: 16%; }
+                .course-faculty { width: 22%; }
+                .course-credits { width: 10%; text-align: center; font-weight: bold; color: ${secondaryColor}; }
+                .course-action { width: 12%; }
+                `}
+                
+                .credits-summary { 
+                    text-align: right; 
+                    font-weight: bold; 
+                    margin: 20px 0; 
+                    font-size: 14px;
+                    color: ${lightTextColor};
+                    padding: 10px;
+                    background-color: rgba(0, 191, 165, 0.1);
+                    border-left: 4px solid ${secondaryColor};
+                }
+                
+                .footer { 
+                    text-align: center; 
+                    margin-top: 25px; 
+                    font-size: 14px; 
+                    color: #8c92a4; 
+                    border-top: 1px solid #2d3446; 
+                    padding-top: 15px; 
+                }
+                
+                .brand {
+                    color: ${primaryColor};
+                    font-weight: 800;
+                    font-size: 18px;
+                    letter-spacing: 1px;
+                    text-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+                }
+            </style>
+            
+            <div class="pdf-header">
+                <div class="pdf-title">VALL-Vit FFCS ${title}</div>
+                <div class="institute-name">VIT Vellore University</div>
+                <div class="student-info">${username}</div>
+                <div class="generated-date">Generated on ${date}</div>
+            </div>
+            
+            <div class="section-title">${title}</div>
+            ${elementId === 'timetableContainer' ? 
+                document.getElementById('timetableContainer').innerHTML
+                    .replace(/class="timetable"/g, 'class="timetable-pdf"')
+                    .replace(/<th style="width: 60px;">/g, '<th class="time-col">')
+                    .replace(/<th rowspan="2" style="width: 60px;">/g, '<th rowspan="2" class="day-col">')
+                    .replace(/<th rowspan="7" class="lunch-cell" style="width: 30px;">/g, '<th rowspan="7" class="lunch-cell lunch-col">')
+                : 
+                document.getElementById('coursesTable').outerHTML
+                    .replace(/id="coursesTable"/g, 'class="courses-table"')
+                    .replace(/<th>Course Code<\/th>/g, '<th class="course-code">Code</th>')
+                    .replace(/<th>Course Title<\/th>/g, '<th class="course-name">Title</th>')
+                    .replace(/<th>Slot<\/th>/g, '<th class="course-slot">Slot</th>')
+                    .replace(/<th>Venue<\/th>/g, '<th class="course-venue">Venue</th>')
+                    .replace(/<th>Faculty<\/th>/g, '<th class="course-faculty">Faculty</th>')
+                    .replace(/<th>Credits<\/th>/g, '<th class="course-credits">Credits</th>')
+                    .replace(/<th>Action<\/th>/g, '<th class="course-action">Action</th>')
+            }
+            
+            ${elementId === 'coursesTable' ? `
+                <div class="credits-summary">
+                    Total Credits: <span style="color: ${accentColor}; font-size: 16px;">${$('#totalCredits').text()}</span>
+                </div>
+            ` : ''}
+            
+            <div class="footer">
+                <div style="margin-bottom: 10px; font-size: 24px; font-weight: 800; color: ${primaryColor}">VALL-Vit</div>
+                Your Academic Life Line at VIT • Powered by VALL-Vit Technologies
+            </div>
+        `;
+        
+        document.body.appendChild(pdfContainer);
+        
+        html2canvas(pdfContainer, {
+            scale: 2,
+            logging: false,
+            useCORS: true,
+            scrollX: 0,
+            scrollY: 0,
+            backgroundColor: darkBgColor
+        }).then(canvas => {
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `VALL-Vit_${title.replace(/\s+/g, '_')}_${username.replace(/\s+/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            document.body.removeChild(pdfContainer);
+        }).catch(error => {
+            console.error('Error generating image:', error);
+            showError('Failed to generate image. Please try again.');
+            document.body.removeChild(pdfContainer);
+        });
+    };
+
+    // Generate both images with a small delay between them
+    generateImage('timetableContainer', 'Timetable', 'Weekly Timetable');
+    setTimeout(() => {
+        generateImage('coursesTable', 'Course_Details', 'Course Details');
+    }, 1000);
+});
+
+  function showError(message) {
+    const errorMessage = $('#errorMessage');
+    errorMessage.html(message).addClass('error').fadeIn(300);
+    errorMessage.css('animation', 'shake 0.5s');
+    setTimeout(() => errorMessage.css('animation', ''), 500);
+  }
+
+  function showSuccess(message) {
+    const errorMessage = $('#errorMessage');
+    errorMessage.html(message).addClass('success').fadeIn(300);
+    setTimeout(() => errorMessage.fadeOut(3000), 2000);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const tagline = "Your Ultimate Timetable ";
+  const element = document.getElementById('animated-tagline');
+  element.innerHTML = ''; 
+  
+  let i = 0;
+  const speed = 50; 
+  
+  function typeWriter() {
+    if (i < tagline.length) {
+      const span = document.createElement('span');
+      span.textContent = tagline.charAt(i);
+      span.style.opacity = '0';
+      span.style.animation = `fadeIn 0.5s ${i * 0.05}s forwards`;
+      element.appendChild(span);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+  
+  setTimeout(typeWriter, 500);
+});
+</script>
+<style>
+  :root {
+  --primary-blue: #00d8ff;
+  --secondary-blue: #008cff;
+  --dark-blue: #0062b3;
+  --black: #0a0a0a;
+  --darker-gray: #121212;
+  --dark-gray: #1a1a1a;
+  --medium-gray: #2a2a2a;
+  --light-gray: #444;
+  --lighter-gray: #666;
+  --white: #f0f0f0;
+  --error-red: #ff4444;
+  --success-green: #00C851;
+  --neon-glow: 0 0 10px rgba(0, 216, 255, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: var(--white);
+  background-color: var(--black);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Cosmic Background Effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 216, 255, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, rgba(0, 140, 255, 0.1) 0%, transparent 20%),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(5, 5, 5, 0.95));
+  z-index: -1;
+  animation: cosmicPulse 15s infinite alternate;
+}
+
+@keyframes cosmicPulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.container {
+  max-width: 1400px;
+ 
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(18, 18, 18, 0.9);
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 216, 255, 0.1);
+  border: 1px solid var(--medium-gray);
+  animation: 
+    fadeIn 0.8s ease-out,
+    floating 8s ease-in-out infinite;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    linear-gradient(
+      to bottom right,
+      transparent 45%,
+      rgba(0, 216, 255, 0.03) 50%,
+      transparent 55%
+    );
+  animation: shine 6s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { transform: translate(-30%, -30%) rotate(0deg); }
+  100% { transform: translate(30%, 30%) rotate(360deg); }
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2, h3 {
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
+  position: relative;
+}
+
+h1 {
+  font-size: 3.5rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  animation: 
+    glow 2s infinite alternate,
+    textFloat 5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(0, 216, 255, 0.5); }
+  to { text-shadow: 0 0 20px rgba(0, 216, 255, 0.8), 0 0 30px rgba(0, 140, 255, 0.5); }
+}
+
+@keyframes textFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+  border-radius: 2px;
+  animation: 
+    expandUnderline 1.2s ease-out forwards,
+    pulseUnderline 3s infinite 1.2s;
+}
+
+@keyframes pulseUnderline {
+  0%, 100% { opacity: 1; width: 100px; }
+  50% { opacity: 0.7; width: 120px; }
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-blue), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+h2:hover::after {
+  transform: scaleX(1);
+}
+
+h3 {
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+}
+
+
+@keyframes heroGlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes titleGlow {
+  from { text-shadow: 0 0 10px rgba(0, 216, 255, 0.5); }
+  to { text-shadow: 0 0 30px rgba(0, 216, 255, 0.8); }
+}
+
+
+@keyframes underlinePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.tagline-container {
+  margin-top: 2rem;
+  perspective: 1000px;
+}
+
+.tagline {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  opacity: 0;
+  transform: translateY(20px) rotateX(45deg);
+  transform-origin: bottom;
+  display: inline-block;
+}
+
+.tagline:nth-child(1) {
+  animation: 
+    fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+    textShine 3s infinite 1s;
+  animation-delay: 0.5s;
+}
+
+.tagline:nth-child(2) {
+  animation: 
+    fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+    textShine 3s infinite 1.5s;
+  animation-delay: 1s;
+}
+
+.tagline:nth-child(3) {
+  animation: 
+    fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+    textShine 3s infinite 2s;
+  animation-delay: 1.5s;
+}
+
+@keyframes textShine {
+  0% { 
+    background-position: 0% 50%;
+    text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+  }
+  50% { 
+    background-position: 100% 50%;
+    text-shadow: 0 0 20px rgba(0, 216, 255, 0.8);
+  }
+  100% { 
+    background-position: 0% 50%;
+    text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+  }
+}
+
+/* Form Styles */
+.add-course-section {
+  background-color: rgba(26, 26, 26, 0.7);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(0, 216, 255, 0.1);
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  transition: 
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.5s;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-course-section:hover {
+  transform: translateY(-5px) scale(1.005);
+  box-shadow: 
+    0 12px 30px rgba(0, 216, 255, 0.2),
+    inset 0 0 0 1px rgba(0, 216, 255, 0.2);
+}
+
+.add-course-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 216, 255, 0.05),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.add-course-section:hover::before {
+  left: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: var(--white);
+  font-size: 1.1rem;
+  text-shadow: 0 0 5px rgba(0, 216, 255, 0.2);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(0, 216, 255, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--white);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group input:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 
+    0 0 0 3px rgba(0, 216, 255, 0.3),
+    0 5px 15px rgba(0, 216, 255, 0.2);
+  outline: none;
+  background-color: rgba(26, 26, 26, 0.9);
+  transform: translateY(-2px);
+}
+
+/* Button Styles */
+.gradient-btn {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 5px 15px rgba(0, 216, 255, 0.3),
+    0 0 0 1px rgba(0, 216, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+.gradient-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+}
+
+.gradient-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 8px 25px rgba(0, 216, 255, 0.4),
+    0 0 0 1px rgba(0, 216, 255, 0.3);
+}
+
+.gradient-btn:hover::before {
+  opacity: 1;
+}
+
+.gradient-btn:active {
+  transform: translateY(1px);
+}
+
+.gradient-btn.active {
+  animation: 
+    pulse 0.6s ease,
+    btnGlow 1.5s infinite alternate;
+}
+
+@keyframes btnGlow {
+  from { box-shadow: 0 0 10px rgba(0, 216, 255, 0.5); }
+  to { box-shadow: 0 0 20px rgba(0, 216, 255, 0.8); }
+}
+
+.gradient-btn.red {
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+}
+
+.gradient-btn.red::before {
+  background: linear-gradient(135deg, #cc0000, #ff4444);
+}
+
+.gradient-btn.red:hover {
+  box-shadow: 0 8px 25px rgba(255, 68, 68, 0.4);
+}
+
+.gradient-btn.red.active {
+  animation: 
+    pulse 0.6s ease,
+    btnGlowRed 1.5s infinite alternate;
+}
+
+@keyframes btnGlowRed {
+  from { box-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+  to { box-shadow: 0 0 20px rgba(255, 68, 68, 0.8); }
+}
+
+/* Error/Success Messages */
+#errorMessage {
+  padding: 1.2rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  display: none;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+#errorMessage.error {
+  display: block;
+  background-color: rgba(255, 68, 68, 0.1);
+  color: var(--error-red);
+  border-left: 4px solid var(--error-red);
+  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+#errorMessage.success {
+  display: block;
+  background-color: rgba(0, 200, 83, 0.1);
+  color: var(--success-green);
+  border-left: 4px solid var(--success-green);
+  animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#errorMessage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shineOver 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shineOver {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 3rem;
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(0, 216, 255, 0.1);
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: rgba(18, 18, 18, 0.8);
+  position: relative;
+}
+
+.table-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+  animation: progressBar 3s infinite;
+}
+
+@keyframes progressBar {
+  0% { width: 0; left: 0; right: auto; }
+  50% { width: 100%; left: 0; right: auto; }
+  51% { width: 0; left: auto; right: 0; }
+  100% { width: 100%; left: auto; right: 0; }
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 0;
+  position: relative;
+  max-height: 200px;
+}
+
+.timetable th, .timetable td {
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  padding: 1rem;
+  text-align: center;
+  min-width: 90px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.timetable th {
+  background-color: rgba(0, 216, 255, 0.1);
+  color: var(--white);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.timetable th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-blue), transparent);
+}
+
+.timetable td {
+  background-color: rgba(26, 26, 26, 0.7);
+  color: var(--lighter-gray);
+  vertical-align: middle;
+}
+
+.lunch-cell {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  font-weight: bold;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-align: center;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: lunchGlow 3s infinite alternate;
+}
+
+@keyframes lunchGlow {
+  from { box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); }
+  to { box-shadow: inset 0 0 20px rgba(0, 216, 255, 0.3); }
+}
+
+.slot {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  min-height: 70px;
+  overflow: hidden;
+}
+
+.slot:hover {
+  transform: scale(1.03);
+  box-shadow: 
+    0 5px 15px rgba(0, 216, 255, 0.3),
+    0 0 0 1px rgba(0, 216, 255, 0.2);
+  z-index: 5;
+}
+
+.slot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 216, 255, 0.1),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.slot:hover::before {
+  opacity: 1;
+}
+
+.cell-pop {
+  animation: 
+    pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    cellGlow 1.5s infinite alternate;
+}
+
+.cell-fade {
+  animation: fadeOut 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.9); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes cellGlow {
+  from { box-shadow: inset 0 0 5px rgba(0, 216, 255, 0.3); }
+  to { box-shadow: inset 0 0 15px rgba(0, 216, 255, 0.5); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.9); }
+}
+
+/* Course List Styles */
+.course-list {
+  margin-top: 3rem;
+  background-color: rgba(26, 26, 26, 0.7);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(0, 216, 255, 0.1);
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  animation: fadeIn 1s ease-out;
+}
+
+.course-list p {
+  margin-bottom: 1.5rem;
+  color: var(--lighter-gray);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+#coursesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1.5rem;
+}
+
+#coursesTable th {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  padding: 1.2rem;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#coursesTable td {
+  padding: 1.2rem;
+  border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+  color: var(--white);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+#coursesTable td::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary-blue), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+#coursesTable tr:hover td::after {
+  transform: scaleX(1);
+}
+
+#coursesTable tr {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#coursesTable tr:hover {
+  background-color: rgba(0, 216, 255, 0.05) !important;
+  transform: translateX(10px);
+  box-shadow: 0 5px 15px rgba(0, 216, 255, 0.1);
+}
+
+.remove-btn {
+  padding: 0.7rem 1.2rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+#totalCredits {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-block;
+  text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+  animation: pulse 2s infinite;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 3rem;
+  }
+  
+  .ffcs-title {
+    font-size: 4rem;
+  }
+  
+  .tagline {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+    padding-bottom: 1rem;
+  }
+  
+  .ffcs-title {
+    font-size: 2.5rem;
+  }
+  
+  .tagline {
+    font-size: 1.5rem;
+  }
+  
+  .add-course-section {
+    padding: 1.5rem;
+  }
+  
+  .form-group input {
+    padding: 0.8rem;
+  }
+  
+  .gradient-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .timetable th, .timetable td {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    min-width: 60px;
+  }
+  
+  #coursesTable th, #coursesTable td {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .ffcs-title {
+    font-size: 2rem;
+  }
+  
+  .tagline {
+    font-size: 1.2rem;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+  }
+  
+  .gradient-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .timetable th, .timetable td {
+    padding: 0.4rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Special Effects */
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Particle Background (Optional) */
+.particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.particle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0, 216, 255, 0.05) 0%, transparent 25%),
+    radial-gradient(circle at 70% 60%, rgba(0, 140, 255, 0.05) 0%, transparent 25%);
+  animation: particleMove 20s infinite alternate;
+}
+
+@keyframes particleMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}.tagline-container {
+  margin-top: 2rem;
+  perspective: 1000px;
+  opacity: 1 !important; /* Force visibility */
+  visibility: visible !important; /* Double guarantee */
+  transform-style: preserve-3d;
+  text-align: center;
+  position: relative;
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+.tagline {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  display: block; /* Ensure block display */
+  background: linear-gradient(90deg, #00d8ff, #008cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+  opacity: 1 !important;
+  transform: translateY(0) rotateX(0) !important;
+  animation: 
+    taglineFloat 3s ease-in-out infinite alternate,
+    textPulse 2s infinite;
+}
+
+/* Animation for the taglines */
+@keyframes taglineFloat {
+  0% { transform: translateY(0) rotateX(0); }
+  100% { transform: translateY(-10px) rotateX(5deg); }
+}
+
+@keyframes textPulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(0, 216, 255, 0.3); }
+  50% { text-shadow: 0 0 20px rgba(0, 216, 255, 0.6); }
+}
+
+/* Individual tagline animations */
+.tagline:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.tagline:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.tagline:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.hero {
+    position: relative;
+    padding: 5rem 0;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    background: 
+      radial-gradient(ellipse at center, 
+        rgba(0, 216, 255, 0.1) 0%, 
+        rgba(0, 0, 0, 0) 70%);
+    animation: heroGlow 8s infinite alternate;
+  }
+
+  @keyframes heroGlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Enhanced Title Animation */
+  .ffcs-title {
+    font-size:7rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 216, 255, 0.5);
+    position: relative;
+    display: inline-block;
+    animation: 
+      titleEntrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+      titleFloat 6s ease-in-out infinite 1.2s,
+      titleGlow 3s alternate infinite 1.2s;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  @keyframes titleEntrance {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes titleGlow {
+    from { text-shadow: 0 0 10px rgba(0, 216, 255, 0.5); }
+    to { text-shadow: 0 0 30px rgba(0, 216, 255, 0.8); }
+  }
+
+  
+  @keyframes expandUnderline {
+    from { width: 0; }
+    to { width: 100px; }
+  }
+
+  @keyframes underlinePulse {
+    0%, 100% { opacity: 1; transform: scaleX(1); }
+    50% { opacity: 0.7; transform: scaleX(1.2); }
+  }
+
+  /* Enhanced Tagline Animations */
+  .tagline-container {
+    margin-top: 2rem;
+    perspective: 1000px;
+    opacity: 1;
+    visibility: visible;
+    transform-style: preserve-3d;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+
+
+  @keyframes taglineEntrance {
+    to {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+  }
+
+  @keyframes taglineFloat {
+    0% { transform: translateY(0) rotateX(0); }
+    100% { transform: translateY(-10px) rotateX(5deg); }
+  }
+
+  @keyframes textPulse {
+    0%, 100% { text-shadow: 0 0 10px rgba(0, 216, 255, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(0, 216, 255, 0.6); }
+  }
+
+  /* Staggered tagline animations */
+  .tagline:nth-child(1) {
+    animation-delay: 1.5s, 2s, 2s;
+  }
+
+  .tagline:nth-child(2) {
+    animation-delay: 1.8s, 2.1s, 2.1s;
+  }
+
+  .tagline:nth-child(3) {
+    animation-delay: 2.1s, 2.2s, 2.2s;
+  }
+
+  /* Holographic effect for the entire hero section */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 216, 255, 0.05) 50%,
+        transparent 55%
+      );
+    animation: hologramScan 8s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes hologramScan {
+    0% { transform: translate(-30%, -30%) rotate(0deg); }
+    100% { transform: translate(30%, 30%) rotate(360deg); }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .ffcs-title {
+      font-size: 4rem;
+    }
+    .tagline {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ffcs-title {
+      font-size: 3rem;
+    }
+    .tagline {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ffcs-title {
+      font-size: 2.2rem;
+    }
+    .tagline {
+      font-size: 1.2rem;
+    }
+  }
+    .timetable {
+  font-size: 0.85rem; /* Slightly smaller font */
+  max-height: 500px;
+ 
+}
+
+.timetable th, 
+.timetable td {
+  padding: 0.5rem; /* Reduced padding */
+  min-width: 60px; /* Smaller minimum width */
+  line-height: 1.3; /* Tighter line spacing */
+}
+
+.lunch-cell {
+  min-width: 30px; /* Narrower lunch column */
+}
+
+/* Adjust header font sizes */
+.timetable th {
+  font-size: 0.75rem;
+}
+
+/* Make time slots text smaller */
+.timetable th:not(:first-child) {
+  font-size: 0.7rem;
+}
+
+/* Adjust the container to prevent horizontal scrolling */
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 900px;
+}
+
+/* Optional: Add smooth scrolling for mobile */
+.table-container {
+  scroll-behavior: smooth;
+}
+/* Add these styles to your existing CSS */
+.tagline-container {
+    overflow: hidden; /* Hide overflow during animation */
+     /* Keep text in one line */
+    margin: 20px 0;
+  }
+
+  .typing-text {
+    display: inline-block;
+    opacity: 0;
+    animation: typing 3s steps(40, end) forwards;
+  }
+
+  @keyframes typing {
+    from { 
+      width: 0;
+      opacity: 1;
+    }
+    to { 
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+   @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+   .tagline-container {
+    height: 60px; /* Fixed height to prevent layout shift */
+    margin: 20px 0;
+  }
+
+  .typing-text {
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+  }
+
+  .typing-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: letterAppear 0.3s forwards;
+  }
+
+  @keyframes letterAppear {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Optional: Add a blinking cursor effect */
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.5rem;
+    background: #00d8ff;
+    margin-left: 4px;
+    animation: blink 0.7s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @media (max-width: 768px) {
+    .container {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+    }
+    
+    .hero {
+      padding: 2rem 0;
+      margin-bottom: 1rem;
+    }
+    
+    .ffcs-title {
+      font-size: 2.5rem !important;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+    
+    .title-underline {
+      height: 3px;
+      margin: 0.5rem auto;
+    }
+    
+    .typing-text {
+      font-size: 1.2rem !important;
+      white-space: normal !important;
+      line-height: 1.5;
+    }
+    
+    .add-course-section {
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-group input {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+    
+    .gradient-btn {
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .table-container {
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      max-height: none;
+    }
+    
+    .timetable {
+      font-size: 0.7rem;
+    }
+    
+    .timetable th, 
+    .timetable td {
+      padding: 0.3rem;
+      min-width: 40px;
+      line-height: 1.2;
+    }
+    
+    .lunch-cell {
+      min-width: 20px;
+      font-size: 0.6rem;
+    }
+    
+    .timetable th {
+      font-size: 0.65rem;
+      padding: 0.5rem 0.3rem;
+    }
+    
+    .course-list {
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    #coursesTable th, 
+    #coursesTable td {
+      padding: 0.6rem;
+      font-size: 0.8rem;
+    }
+    
+    #totalCredits {
+      font-size: 1.2rem;
+    }
+    
+    /* Stack form inputs on very small screens */
+    @media (max-width: 480px) {
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .timetable th, 
+      .timetable td {
+        font-size: 0.6rem;
+        padding: 0.2rem;
+      }
+      
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .gradient-btn {
+        width: 100%;
+      }
+    }
+    
+  
+    
+   
+  
+  /* Additional mobile-specific improvements */
+  @media (max-width: 768px) {
+    /* Better scrolling for timetable */
+    .table-container {
+      -webkit-overflow-scrolling: touch;
+      overflow-x: scroll;
+      padding-bottom: 1rem;
+    }
+    
+    /* Adjust hero section */
+    .hero-text {
+      padding: 0 1rem;
+    }
+    
+    /* Better button spacing */
+    .button-group {
+      margin: 1rem 0;
+    }
+    
+    /* Optimize course list display */
+    .course-list h3 {
+      font-size: 1.3rem;
+    }
+    
+    .course-list p {
+      font-size: 0.9rem;
+    }
+    
+    /* Improve form input readability */
+    input, select, textarea {
+      font-size: 16px !important; /* Prevent iOS zoom */
+    }
+  }
+  
+  /* Very small devices (phones, 360px and down) */
+  @media (max-width: 360px) {
+    .ffcs-title {
+      font-size: 2rem !important;
+    }
+    
+    .typing-text {
+      font-size: 1rem !important;
+    }
+    
+    .form-group input {
+      padding: 0.7rem;
+    }
+    
+    .gradient-btn {
+      padding: 0.7rem;
+      font-size: 0.8rem;
+    }
+  }}
+  .course-credits { 
+  width: 10%; 
+  text-align: center; 
+  font-weight: bold; 
+
+}
+  </style>

@@ -1,0 +1,2152 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  :root {
+    --neon-primary: #00d8ff;
+    --neon-secondary: #008cff;
+    --deep-space: #0a0a12;
+    --cosmic-gray: #1a1a2e;
+    --void-black: #050508;
+    --cyber-dark: #111;
+  }
+
+  /* Cosmic Background Animation */
+  @keyframes cosmicPulse {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.6; }
+  }
+
+  /* Floating Animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Gradient Flow Animation */
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Cyber Glow Effect */
+  @keyframes cyberGlow {
+    0% { opacity: 0.7; transform: scale(0.9); box-shadow: 0 0 10px var(--neon-primary); }
+    100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 20px var(--neon-primary); }
+  }
+
+  /* Grid Scan Animation */
+  @keyframes gridScan {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+  }
+
+  /* Particle Drift */
+  @keyframes particleDrift {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+  }
+
+  /* Holographic Flicker */
+  @keyframes hologramFlicker {
+    0%, 100% { opacity: 0.8; }
+    20%, 60% { opacity: 0.95; }
+    40%, 80% { opacity: 0.7; }
+  }
+
+  body {
+    background: var(--void-black);
+    color: #fff;
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: 
+      linear-gradient(rgba(0, 216, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 216, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridScan 60s linear infinite;
+  }
+   html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+/* Ensure no hidden elements are taking space */
+.hidden {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+  /* Cyberpunk Container */
+  .cyber-container {
+    background: rgba(10, 10, 18, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow:
+      0 0 40px rgba(0, 216, 255, 0.15),
+      0 15px 50px rgba(0, 0, 0, 0.6);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cyber-container:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow:
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Profile Image with Holographic Effect */
+  #profileImage {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary)) border-box;
+    box-shadow:
+      0 0 20px rgba(0, 216, 255, 0.3),
+      0 0 40px rgba(0, 140, 255, 0.2);
+    transition: all 0.5s ease;
+    position: relative;
+    cursor: pointer;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  #profileImage:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 30px rgba(0, 216, 255, 0.5),
+      0 0 60px rgba(0, 140, 255, 0.3);
+    animation: none;
+  }
+
+  #profileImage::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+    background-size: 200% 200%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gradientFlow 4s ease infinite;
+  }
+
+  #profileImage:hover::before {
+    opacity: 0.7;
+  }
+
+  /* Cyberpunk Button */
+  .cyber-btn {
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+    background-size: 200% 200%;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+   
+    box-shadow: 
+      0 4px 20px rgba(0, 216, 255, 0.4),
+      0 0 15px rgba(0, 140, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    
+    margin: 1rem 0;
+  }
+
+  .cyber-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 8px 35px rgba(0, 216, 255, 0.6),
+      0 0 25px rgba(0, 140, 255, 0.5);
+  }
+
+  .cyber-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+   
+  }
+
+  .cyber-btn:hover::before {
+    left: 100%;
+  }
+
+  /* Stats with Glow Effect */
+  .profile-stat {
+    text-align: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    position: relative;
+  }
+
+  .profile-stat:hover {
+    transform: translateY(-5px);
+    text-shadow: 0 0 10px var(--neon-primary);
+  }
+
+  .profile-stat h6 {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .profile-stat p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  .profile-stat p a {
+    color: var(--neon-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .profile-stat p a:hover {
+    text-shadow: 0 0 15px var(--neon-primary);
+  }
+
+  .profile-stat p a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--neon-primary);
+    transition: width 0.3s ease;
+  }
+
+  .profile-stat p a:hover::after {
+    width: 100%;
+  }
+
+  /* Notification Badge */
+  .cyber-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff0000;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    animation: cyberGlow 1.5s infinite alternate;
+    box-shadow: 0 0 10px #ff0000;
+  }
+
+  /* Username Text */
+  .username-text {
+    color: white;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+    position: relative;
+    display: inline-block;
+  }
+
+  .username-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+  }
+
+  .username-text:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Tagline */
+  .tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    position: relative;
+    animation: hologramFlicker 6s infinite;
+  }
+
+  .tagline::before,
+  .tagline::after {
+    content: '"';
+    color: var(--neon-primary);
+    font-size: 1.2rem;
+  }
+
+  /* Timetable Section */
+  .timetable-section {
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.4),
+      inset 0 0 15px rgba(0, 216, 255, 0.05);
+    transition: all 0.5s ease;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timetable-section:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Posts Section */
+  .posts-section {
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.4),
+      inset 0 0 15px rgba(0, 216, 255, 0.05);
+    transition: all 0.5s ease;
+    max-height: 900px;
+    overflow-y: auto;
+  }
+
+  .posts-section:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Post Cards */
+  .post-card {
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 216, 255, 0.1);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+    border-color: rgba(0, 216, 255, 0.3);
+  }
+
+  .post-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+    transition: all 0.5s ease;
+  }
+
+  .post-card:hover img {
+    transform: scale(1.02);
+  }
+
+  .post-card .post-caption {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .post-card .post-date {
+    color: rgba(0, 216, 255, 0.7);
+    font-size: 0.8rem;
+    padding: 0 1rem 1rem;
+  }
+
+  /* Timetable Table */
+  .saved-timetable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: hologramFlicker 8s infinite;
+  }
+
+  .saved-timetable th, 
+  .saved-timetable td {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 216, 255, 0.1);
+    text-align: center;
+  }
+
+  .saved-timetable th {
+    background: rgba(0, 216, 255, 0.1);
+    color: var(--neon-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .saved-timetable td {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+  }
+
+  .saved-timetable .lunch {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  /* Modal Styles */
+  .cyber-modal .modal-content {
+    background: rgba(15, 15, 25, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 0 50px rgba(0, 216, 255, 0.2);
+    animation: hologramFlicker 5s infinite;
+  }
+
+  .cyber-modal .modal-header {
+    border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .cyber-modal .modal-footer {
+    border-top: 1px solid rgba(0, 216, 255, 0.2);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .cyber-modal .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+  }
+
+  /* Form Inputs */
+  .cyber-input {
+    background: rgba(20, 20, 30, 0.8) !important;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+    color: white !important;
+    transition: all 0.3s ease;
+  }
+
+  .cyber-input:focus {
+    background: rgba(30, 30, 40, 0.9) !important;
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.3) !important;
+  }
+
+  /* Lab Slot Highlight */
+  .lab-slot.practical {
+    background: linear-gradient(135deg, rgba(248, 200, 220, 0.8), rgba(161, 0, 0, 0.8)) !important;
+    font-weight: 600;
+    color: white !important;
+    border: 1px solid rgba(248, 200, 220, 0.5) !important;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .container-fluid {
+      margin-top: 2rem;
+    }
+    
+    .profile-sidebar, 
+    .timetable-section, 
+    .posts-section {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    background: var(--neon-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleDrift linear infinite;
+    opacity: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--neon-primary), var(--neon-secondary));
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
+  }
+
+  /* Modal Enhancements */
+  .modal-content {
+    background: rgba(10, 10, 20, 0.95) !important;
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 216, 255, 0.35) !important;
+    box-shadow: 
+      0 0 60px rgba(0, 216, 255, 0.25),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+    
+  }
+
+  .modal-header {
+    border-bottom: 1px solid rgba(0, 216, 255, 0.25) !important;
+    background: rgba(0, 216, 255, 0.08) !important;
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgba(0, 216, 255, 0.25) !important;
+    background: rgba(0, 216, 255, 0.08) !important;
+  }
+
+  /* Form Input Enhancements */
+  .form-control {
+    background: rgba(20, 20, 30, 0.9) !important;
+    border: 1px solid rgba(0, 216, 255, 0.35) !important;
+    color: white !important;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .form-control:focus {
+    background: rgba(30, 30, 40, 0.95) !important;
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 15px rgba(0, 216, 255, 0.4) !important;
+    transform: scale(1.02);
+  }
+
+  /* Glitch Text Effect */
+  .glitch-text {
+    animation: glitch 1s linear infinite;
+  }
+
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    background: var(--neon-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleDrift linear infinite;
+    opacity: 0;
+    filter: blur(1px);
+  }
+
+
+  .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      background: rgba(0, 216, 255, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        var(--primary), 
+        var(--secondary), 
+        var(--tertiary)
+      );
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+      border-color: transparent;
+    }
+
+    .social-link:hover::before {
+      opacity: 0.7;
+    }
+
+    .social-link svg {
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-link:hover svg {
+      transform: scale(1.2);
+    }
+    .posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.post-card {
+  background: rgba(20, 20, 30, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+  border-color: rgba(0, 216, 255, 0.3);
+}
+
+.post-card img {
+  width: 100%;
+  height: 250px; /* Fixed height for images */
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+  transition: all 0.5s ease;
+}
+
+.post-card:hover img {
+  transform: scale(1.02);
+}
+
+.post-content {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-caption {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-date {
+  color: rgba(0, 216, 255, 0.7);
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .posts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .posts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .post-card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.timetable-container {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    border-radius: 12px;
+    background: rgba(15, 15, 25, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow: 
+      inset 0 0 15px rgba(0, 216, 255, 0.1),
+      0 0 30px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+  }
+
+  .saved-timetable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    animation: hologramFlicker 8s infinite;
+  }
+
+  .saved-timetable th, 
+  .saved-timetable td {
+    padding: 0.75rem 0.5rem;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .saved-timetable th {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.15), 
+      rgba(0, 140, 255, 0.1));
+    color: var(--neon-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+  }
+
+  .saved-timetable tr:hover td {
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .saved-timetable td {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    position: relative;
+  }
+
+  .saved-timetable td:not(.lunch):hover {
+    background: rgba(0, 216, 255, 0.1) !important;
+    transform: scale(1.02);
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(0, 216, 255, 0.2);
+  }
+
+  .saved-timetable .lunch {
+    background: linear-gradient(135deg, 
+      rgba(255, 215, 0, 0.15), 
+      rgba(255, 165, 0, 0.1)) !important;
+    color: #ffd700;
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+  }
+
+  .saved-timetable tr:nth-child(even) td:not(.lunch) {
+    background: rgba(25, 25, 35, 0.6);
+  }
+
+  /* Day Column Styling */
+  .saved-timetable tr td:first-child {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.1), 
+      rgba(0, 140, 255, 0.05)) !important;
+    color: var(--neon-primary);
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+  }
+
+  /* Modal Timetable Styles */
+  .modal-timetable-container {
+    max-height: 60vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    background: rgba(15, 15, 25, 0.95);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    box-shadow: inset 0 0 20px rgba(0, 216, 255, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-timetable {
+    width: 100%;
+    min-width: 1200px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(20, 20, 30, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .modal-timetable th, 
+  .modal-timetable td {
+    padding: 0.8rem 0.5rem;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .modal-timetable th {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.2), 
+      rgba(0, 140, 255, 0.15));
+    color: var(--neon-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .modal-timetable tr:hover td {
+    background: rgba(0, 216, 255, 0.08);
+  }
+
+  .modal-timetable td {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+  }
+
+  .modal-timetable .lunch {
+    background: linear-gradient(135deg, 
+      rgba(255, 215, 0, 0.2), 
+      rgba(255, 165, 0, 0.15)) !important;
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  .modal-timetable tr:nth-child(even) td:not(.lunch) {
+    background: rgba(25, 25, 35, 0.7);
+  }
+
+  /* Input Styling in Modal */
+  .modal-timetable input {
+    background: rgba(30, 30, 40, 0.9) !important;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+    color: white !important;
+    border-radius: 4px;
+    padding: 0.5rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .modal-timetable input:focus {
+    background: rgba(40, 40, 50, 0.95) !important;
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.3) !important;
+    outline: none;
+  }
+
+  .modal-timetable .lab-slot input {
+    background: rgba(248, 200, 220, 0.1) !important;
+    border-color: rgba(248, 200, 220, 0.3) !important;
+  }
+
+  .modal-timetable .lab-slot input:focus {
+    background: rgba(248, 200, 220, 0.15) !important;
+    border-color: rgba(161, 0, 0, 0.5) !important;
+  }
+
+  /* Day Header in Modal */
+  .modal-day-header {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.15), 
+      rgba(0, 140, 255, 0.1)) !important;
+    color: var(--neon-primary) !important;
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+  }
+  .delete-post-btn {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.delete-post-btn:hover {
+  background: rgba(255, 0, 0, 0.7) !important;
+  transform: scale(1.1);
+}
+
+  /* Custom Scrollbar for Timetable */
+  .timetable-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .timetable-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .timetable-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--neon-primary), var(--neon-secondary));
+    border-radius: 10px;
+  }
+
+  .timetable-container::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-primary);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .timetable-container {
+      max-height: 400px;
+    }
+    
+    .saved-timetable th, 
+    .saved-timetable td {
+      padding: 0.5rem 0.3rem;
+      font-size: 0.75rem;
+    }
+  }
+  /* Darker timetable cells */
+.saved-timetable td {
+  background: rgba(10, 10, 15, 0.9) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.saved-timetable tr:nth-child(even) td:not(.lunch) {
+  background: rgba(15, 15, 20, 0.9) !important;
+}
+
+.saved-timetable td:hover {
+  background: rgba(20, 20, 30, 0.95) !important;
+}
+/* Post Stats */
+.post-stats {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0 1rem;
+}
+
+.post-stats i {
+  margin-right: 5px;
+}
+
+/* Comments Section */
+.post-comments-section {
+  padding: 0 1rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.comment {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.comment strong {
+  color: var(--neon-primary);
+  margin-right: 8px;
+}
+
+.view-all-comments {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.view-all-comments a {
+  color: var(--neon-primary) !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.view-all-comments a:hover {
+  text-shadow: 0 0 8px rgba(0, 216, 255, 0.5);
+}
+
+/* Custom scrollbar for comments */
+.post-comments-section::-webkit-scrollbar {
+  width: 5px;
+}
+
+.post-comments-section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.post-comments-section::-webkit-scrollbar-thumb {
+  background: var(--neon-primary);
+  border-radius: 5px;
+}
+/* Post Actions */
+.post-actions {
+  display: flex;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid rgba(0, 216, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+.like-action, .comment-action {
+  margin-right: 1.5rem;
+}
+
+.like-btn, .comment-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.like-btn i, .comment-btn i {
+  margin-right: 5px;
+  font-size: 1.1rem;
+}
+
+.like-btn:hover, .comment-btn:hover {
+  color: var(--neon-primary);
+  transform: scale(1.05);
+}
+
+.like-btn.liked {
+  color: #ff0000;
+}
+
+.like-btn.liked i {
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Comments Preview */
+.comments-preview {
+  padding: 0 1rem;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.comment {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.comment strong {
+  color: var(--neon-primary);
+  margin-right: 8px;
+}
+
+.view-all {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-all:hover {
+  color: var(--neon-primary);
+}
+
+/* Custom scrollbar for comments */
+.comments-preview::-webkit-scrollbar {
+  width: 4px;
+}
+
+.comments-preview::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.comments-preview::-webkit-scrollbar-thumb {
+  background: var(--neon-primary);
+  border-radius: 4px;
+}
+/* Hover effects for icons */
+.like-btn i, .comment-btn i {
+  transition: all 0.3s ease;
+}
+
+.like-btn:hover i {
+  color: #ff0000;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+.comment-btn:hover i {
+  color: var(--neon-primary);
+  text-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+}
+
+/* Remove extra space below posts section */
+.posts-section {
+  margin-bottom: 0;
+  padding-bottom: 1rem; /* Add some padding at the bottom */
+}
+
+/* Ensure the posts grid doesn't create extra space */
+.posts-grid {
+  margin-bottom: 0;
+}
+
+/* Make sure the container doesn't have extra padding/margin */
+.container-fluid {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.like-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s ease;
+    }
+
+    .like-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .like-button.liked {
+      color: #e0245e;
+    }
+
+    .like-icon {
+      margin-right: 6px;
+    }
+    .whit{
+      color: white;
+      
+    }
+    /* Timeline styling for comments */
+.comment-timeline {
+  position: relative;
+  padding-left: 30px;
+  margin: 20px 0;
+}
+
+.comment-timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--neon-primary);
+  opacity: 0.5;
+}
+
+.comment-timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.comment-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-secondary);
+  border: 2px solid var(--neon-primary);
+}
+
+.comment-timeline-date {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-bottom: 5px;
+}
+
+.comment-timeline-content {
+  background: rgba(30, 30, 45, 0.7);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid var(--neon-primary);
+}
+
+/* Add this to your CSS */
+.edit-profile-link {
+  color: var(--neon-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  position: relative;
+  display: inline-block;
+}
+
+.edit-profile-link:hover {
+  color: white;
+  text-shadow: 0 0 10px var(--neon-primary);
+}
+
+.edit-profile-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--neon-primary);
+  transition: width 0.3s ease;
+}
+
+.edit-profile-link:hover::after {
+  width: 100%;
+}
+/* Update the lunch cell styling */
+.cyber-btn {
+ overflow: visible;
+  border-radius: 12px; /* Adjust this if necessary */
+}
+
+.delete-comment-btn {
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  margin-left: 10px;
+  align-self: center;
+}
+
+.delete-comment-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.comment-timeline-item:hover .delete-comment-btn {
+  opacity: 1;
+}
+ 
+</style>
+<br>
+<div class="container-fluid mt-5 pt-4">
+  <div class="row">
+
+    <!-- Left Sidebar -->
+    <div class="col-md-3">
+      <div class="cyber-container p-4 text-center">
+        <!-- Profile Photo Upload -->
+        <form id="profilePhotoForm" enctype="multipart/form-data">
+  <label for="photoInput">
+    <img id="profileImage" src="<%= profilePhoto %>" class="rounded-circle mb-4">
+  </label>
+  <input type="file" name="photo" id="photoInput" accept="image/*" style="display: none;">
+</form>
+
+        <!-- Username -->
+       <h3 class="username-text"><%= user.username %></h3>
+<% if (user.bio) { %>
+  <p class="tagline"><%= user.bio %></p>
+<% } else { %>
+  <p class="tagline">Be the Change</p>
+<% } %>
+
+        
+        <!-- Friend Requests Button -->
+        <div class="position-relative">
+          <button class="cyber-btn" id="followRequestsBtn">
+            Friend Tap
+            <% if (user.followRequests && user.followRequests.length > 0) { %>
+              <span class="cyber-badge">
+                <%= user.followRequests.length %>
+              </span>
+            <% } %>
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="d-flex justify-content-around mt-3">
+          <div class="profile-stat">
+            <h6>Fans</h6>
+            <p>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#followersModal">
+                <%= (user.followers && user.followers.length) || 0 %>
+              </a>
+            </p>
+          </div>
+          <div class="profile-stat">
+            <h6>Looped In</h6>
+            <p>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#followingModal">
+                <%= (user.following && user.following.length) || 0 %>
+              </a>
+            </p>
+          </div>
+        </div>
+       <div class="social-links">
+  <% if (user.linkedinId) { %>
+    <a href="https://www.linkedin.com/in/<%= user.linkedinId %>" target="_blank" class="social-link animate__animated animate__fadeInLeft">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+        <rect x="2" y="9" width="4" height="12"></rect>
+        <circle cx="4" cy="4" r="2"></circle>
+      </svg>
+      LinkedIn
+    </a>
+  <% } %>
+  <a href="mailto:<%= user.email %>" class="social-link animate__animated animate__fadeInRight">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+      <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+    Email
+  </a>
+</div><br>
+     <a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal" class="edit-profile-link" style="text-decoration: none;">Edit Profile</a>
+      </div>
+    </div>
+
+    <!-- Center Content -->
+    <div class="col-md-9">
+      <!-- In your profile template (profile.ejs) -->
+<div class="timetable-section p-4 mb-4">
+  <h4 class="text-center mb-4" style="color: var(--neon-primary);">Your Timetable</h4>
+  
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs mb-4" id="timetableTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="view-tab" data-bs-toggle="tab" data-bs-target="#view-timetable" type="button" role="tab">
+        View Timetable
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload-timetable" type="button" role="tab">
+        Upload Screenshot
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual-timetable" type="button" role="tab">
+        Enter Manually
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <!-- View Timetable Tab -->
+    <div class="tab-pane fade show active" id="view-timetable" role="tabpanel">
+      <% if (hasTimetableScreenshot) { %>
+        <div class="text-center">
+          <img src="<%= user.timetableScreenshot %>" class="img-fluid rounded" alt="Timetable Screenshot">
+          <button class="btn btn-danger mt-3" id="deleteScreenshotBtn">Delete Screenshot</button>
+        </div>
+      <% } else if (hasManualTimetable) { %>
+        <!-- Show manual timetable table here (your existing code) -->
+        <div class="mt-4 timetable-container">
+          <table class="table saved-timetable mt-3">
+            <!-- Your existing timetable table code -->
+          </table>
+        </div>
+      <% } else { %>
+        <p class="text-center text-muted">No timetable available. Upload a screenshot or enter manually.</p>
+      <% } %>
+    </div>
+
+    <!-- Upload Screenshot Tab -->
+    <div class="tab-pane fade" id="upload-timetable" role="tabpanel">
+    <form id="timetableUploadForm" enctype="multipart/form-data" method="POST" action="/profile/upload-timetable">
+        <div class="mb-3">
+          <label for="timetableScreenshot" class="form-label">Upload Timetable Screenshot</label>
+          <input type="file" class="form-control" id="timetableScreenshot" name="screenshot" accept="image/*" required>
+          <small class="text-muted">Upload a clear screenshot of your timetable (JPG, PNG)</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+
+    <!-- Manual Entry Tab -->
+    <div class="tab-pane fade" id="manual-timetable" role="tabpanel">
+      <!-- Your existing manual timetable entry form -->
+      <div class="text-center">
+        <button class="cyber-btn" data-bs-toggle="modal" data-bs-target="#timetableManualModal">
+          Enter Timetable Manually
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <!-- Right Sidebar - Posts -->
+    
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="posts-section p-3">
+    <h5 class="mb-4" style="color: var(--neon-primary);">Recent Posts</h5>
+    <div class="posts-grid">
+      <% posts.forEach(post => { %>
+        <div class="post-card" data-post-id="<%= post._id %>">
+           <% if (post.user._id.equals(user._id)) { %>
+    <button class="delete-post-btn" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); border: none; color: white; border-radius: 50%; width: 30px; height: 30px; z-index: 10;">
+      ×
+    </button>
+  <% } %>
+  
+  <img src="<%= post.imageUrl %>" alt="Post" class="img-fluid">
+  <div class="post-content">
+    <div class="post-caption"><%= post.caption || 'No caption' %></div>
+    
+    <!-- Like and Comment Icons -->
+    <div class="post-actions">
+      
+  
+      <div class="like-action">
+        <button class="like-btn  <%= post.likes.some(like => like.user.equals(user._id)) ? 'liked' : '' %>">
+         
+         <span><%= post.likes.length %> </span>&nbsp;Likes <span class="like-icon">❤️</span>
+        </button>
+      </div>
+      <div class="comment-action">
+        <button class="comment-btn">
+          
+          <span><%= post.comments.length %>&nbsp;Comments</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Comments Preview -->
+    <% if (post.comments.length > 0) { %>
+      <div class="comments-preview">
+        <% post.comments.slice(0, 2).forEach(comment => { %>
+          <div class="comment">
+            <strong><%= comment.user.username %></strong>
+            <span><%= comment.text %></span>
+          </div>
+        <% }) %>
+        <% if (post.comments.length > 2) { %>
+          <div class="view-all">
+            View all <%= post.comments.length %> comments
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+    
+    <div class="post-date">
+      Posted on: <%= new Date(post.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      }) %>
+    </div>
+  </div>
+</div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<!-- Timetable Manual Entry Modal -->
+<!-- Timetable Manual Entry Modal -->
+<div class="modal fade" id="timetableManualModal" tabindex="-1" aria-labelledby="timetableManualModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content cyber-modal">
+      <form action="/profile/timetable-manual" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="timetableManualModalLabel">Enter Your Weekly Timetable</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-timetable-container">
+            <table class="modal-timetable">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="modal-day-header">Day</th>
+                  <th colspan="11">Theory</th>
+                  <th rowspan="2" class="lunch">Lunch</th>
+                  <th colspan="10">Lab</th>
+                </tr>
+                <tr>
+                  <th>8:00-8:50</th>
+                  <th>9:00-9:50</th>
+                  <th>10:00-10:50</th>
+                  <th>11:00-11:50</th>
+                  <th>12:00-12:50</th>
+                  <th>14:00-14:50</th>
+                  <th>15:00-15:50</th>
+                  <th>16:00-16:50</th>
+                  <th>17:00-17:50</th>
+                  <th>18:00-18:50</th>
+                  <th>19:00-19:50</th>
+                  <th>8:51-9:40</th>
+                  <th>9:51-10:40</th>
+                  <th>10:51-11:30</th>
+                  <th>11:41-12:30</th>
+                  <th>12:40-1:20</th>
+                  <th>14:51-3:40</th>
+                  <th>15:51-4:40</th>
+                  <th>16:51-5:30</th>
+                  <th>17:41-6:30</th>
+                  <th>18:31-7:20</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT"]; %>
+                <% days.forEach(day => { %>
+                <tr>
+                  <td class="modal-day-header"><%= day %></td>
+                  <% for (let i = 0; i < 11; i++) { %>
+                    <td>
+                      <input type="text" class="form-control" 
+                             name="timetable[<%= day %>][theory][<%= i %>]" 
+                             placeholder="-" 
+                             autocomplete="off"
+                             value="<%= user.timetableManual?.[day]?.theory?.[i] || '' %>">
+                    </td>
+                  <% } %>
+                  <td class="lunch whit">Lunch</td>
+                  <% for (let i = 0; i < 10; i++) { %> 
+                    <td class="lab-slot">
+                      <input type="text" class="form-control" 
+                             name="timetable[<%= day %>][lab][<%= i %>]" 
+                             placeholder="-" 
+                             autocomplete="off"
+                             value="<%= user.timetableManual?.[day]?.lab?.[i] || '' %>">
+                    </td>
+                  <% } %>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="cyber-btn">Save Timetable</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="followRequestsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Follow Requests</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if (user.followRequests && user.followRequests.length > 0) { %>
+          <div class="list-group">
+            <% user.followRequests.forEach(request => { %>
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="<%= request.profilePhoto || '/default-profile.png' %>" 
+                       class="rounded-circle me-2" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
+                  <span><%= request.username %></span>
+                </div>
+                <div>
+                  <button class="btn btn-success btn-sm accept-request" 
+                          data-user-id="<%= request._id %>">Accept</button>
+                  <button class="btn btn-danger btn-sm reject-request" 
+                          data-user-id="<%= request._id %>">Reject</button>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="whit">No pending follow requests</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Followers Modal -->
+<div class="modal fade" id="followersModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Fans</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if (user.followers && user.followers.length > 0) { %>
+          <div class="list-group">
+            <% user.followers.forEach(follower => { %>
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="<%= follower.profilePhoto || '/default-profile.png' %>" 
+                       class="rounded-circle me-2" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
+                  <span><%= follower.username %></span>
+                </div>
+                <button class="btn btn-outline-danger btn-sm unfollow-btn" 
+                        data-user-id="<%= follower._id %>">
+                  Remove
+                </button>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="text-muted">You don't have any fans yet</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Following Modal -->
+<div class="modal fade" id="followingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">People You're Looped In With</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if (user.following && user.following.length > 0) { %>
+          <div class="list-group">
+            <% user.following.forEach(followedUser => { %>
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="<%= followedUser.profilePhoto || '/default-profile.png' %>" 
+                       class="rounded-circle me-2" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
+                  <span><%= followedUser.username %></span>
+                </div>
+                <button class="btn btn-outline-danger btn-sm unfollow-btn" 
+                        data-user-id="<%= followedUser._id %>">
+                  Unfollow
+                </button>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="text-muted">You're not looped in with anyone yet</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Comments Modal -->
+<div class="modal fade" id="commentsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content cyber-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">Comments</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body whit" id="commentsModalBody">
+        <!-- Comments will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="cyber-btn" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content cyber-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="editProfileForm" action="/profile/update" method="POST">
+        <div class="modal-body whit">
+          <div class="mb-3">
+            <label for="editUsername" class="form-label whit">Username</label>
+            <input type="text" class="form-control cyber-input" id="editUsername" name="username" 
+                   value="<%= user.username %>" required>
+          </div>
+          <div class="mb-3">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" class="form-control cyber-input" id="editEmail" name="email" 
+                   value="<%= user.email %>" required>
+          </div>
+          <div class="mb-3">
+            <label for="editLinkedin" class="form-label whit">LinkedIn ID</label>
+            <input type="text" class="form-control cyber-input" id="editLinkedin" name="linkedinId" 
+                   value="<%= user.linkedinId || '' %>" placeholder="your-linkedin-id">
+            <small class="text">Just the ID part (e.g., "john-doe-123")</small>
+          </div>
+          <div class="mb-3">
+            <label for="editBio" class="form-label whit">Bio</label>
+            <textarea class="form-control cyber-input" id="editBio" name="bio" rows="3"
+                      maxlength="250"><%= user.bio || '' %></textarea>
+            <small class="text">Max 250 characters</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="cyber-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  // Initialize particle effects
+  function createParticles() {
+    document.querySelectorAll('.cyber-container, .timetable-section, .posts-section').forEach(container => {
+      const particleCount = 15;
+      const colors = ['#00d8ff', '#008cff', '#ffffff'];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 3 + 1;
+        const duration = Math.random() * 5 + 5;
+        const delay = Math.random() * 3;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Set styles
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.background = color;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        container.appendChild(particle);
+      }
+    });
+  }
+
+  // Initialize grid lines
+  function createGridLines() {
+    const container = document.body;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const spacing = 40;
+    
+    // Horizontal lines
+    for (let y = 0; y < height; y += spacing) {
+      const line = document.createElement('div');
+      line.className = 'grid-line horizontal';
+      line.style.top = `${y}px`;
+      container.appendChild(line);
+    }
+    
+    // Vertical lines
+    for (let x = 0; x < width; x += spacing) {
+      const line = document.createElement('div');
+      line.className = 'grid-line vertical';
+      line.style.left = `${x}px`;
+      container.appendChild(line);
+    }
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    createParticles();
+    createGridLines();
+    
+    // Profile photo upload
+   document.getElementById('photoInput').addEventListener('change', async function() {
+  console.log('File selected'); // Debug log
+  const form = document.getElementById('profilePhotoForm');
+  const formData = new FormData(form);
+  
+  try {
+    console.log('Sending upload request'); // Debug log
+    const response = await fetch('/profile/upload', {
+      method: 'POST',
+      body: formData
+      // Don't set Content-Type header - let browser set it with boundary
+    });
+    
+    const data = await response.json();
+    console.log('Upload response:', data); // Debug log
+    
+    if (data.success) {
+      document.getElementById('profileImage').src = data.profilePhoto;
+    } else {
+      alert(data.error || 'Failed to update profile photo');
+    }
+  } catch (error) {
+    console.error('Upload error:', error);
+    alert('An error occurred while uploading');
+  }
+});
+
+    // Follow requests button
+    document.getElementById('followRequestsBtn')?.addEventListener('click', function() {
+      const modal = new bootstrap.Modal(document.getElementById('followRequestsModal'));
+      modal.show();
+    });
+
+    // Accept/reject follow requests
+    document.querySelectorAll('.accept-request').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const userId = this.getAttribute('data-user-id');
+        
+        try {
+          const response = await fetch(`/users/${userId}/accept-follow`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            this.closest('.list-group-item').remove();
+          } else {
+            alert(result.error || 'Failed to accept request');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred');
+        }
+      });
+    });
+
+    document.querySelectorAll('.reject-request').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const userId = this.getAttribute('data-user-id');
+        
+        try {
+          const response = await fetch(`/users/${userId}/reject-follow`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            this.closest('.list-group-item').remove();
+          } else {
+            alert(result.error || 'Failed to reject request');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred');
+        }
+      });
+    });
+  });
+  // Like button functionality
+ // Like button functionality
+document.querySelectorAll('.like-btn').forEach(btn => {
+  btn.addEventListener('click', async function(e) {
+    e.preventDefault();
+    const postCard = this.closest('.post-card');
+    const postId = postCard.getAttribute('data-post-id');
+    
+    try {
+      const response = await fetch(`/posts/${postId}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        const likeCount = this.querySelector('span');
+        if (likeCount) {
+          likeCount.textContent = result.likesCount;
+        }
+        
+        if (result.action === 'liked') {
+          this.classList.add('liked');
+          this.querySelector('i').classList.add('fas');
+          this.querySelector('i').classList.remove('far');
+        } else {
+          this.classList.remove('liked');
+          this.querySelector('i').classList.add('far');
+          this.querySelector('i').classList.remove('fas');
+        }
+        
+        // Add animation
+        this.querySelector('i').classList.add('animate-like');
+        setTimeout(() => {
+          this.querySelector('i').classList.remove('animate-like');
+        }, 1000);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
+});
+// Delete post functionality
+document.querySelectorAll('.delete-post-btn').forEach(btn => {
+  btn.addEventListener('click', async function(e) {
+    e.preventDefault();
+    e.stopPropagation(); // Prevent triggering other click events
+    
+    const postCard = this.closest('.post-card');
+    const postId = postCard.getAttribute('data-post-id');
+    
+    // Confirm deletion
+    if (!confirm('Are you sure you want to delete this post?')) {
+      return;
+    }
+    
+    try {
+      const response = await fetch(`/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Remove post from DOM with animation
+        postCard.style.transform = 'scale(0)';
+        postCard.style.opacity = '0';
+        setTimeout(() => {
+          postCard.remove();
+        }, 300);
+      } else {
+        alert(result.error || 'Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while deleting the post');
+    }
+  });
+});
+
+// View all comments functionality
+// View all comments functionality
+// Update the comments rendering in your view-all click handler
+document.querySelectorAll('.view-all').forEach(btn => {
+  btn.addEventListener('click', async function() {
+    const postCard = this.closest('.post-card');
+    const postId = postCard.getAttribute('data-post-id');
+    const currentUserId = '<%= user._id %>'; // Pass current user ID from server
+    
+    try {
+      // Show loading state
+      document.getElementById('commentsModalBody').innerHTML = `
+        <div class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      `;
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('commentsModal'));
+      modal.show();
+      
+      // Fetch comments
+      const response = await fetch(`/posts/${postId}/comments`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      const comments = data.comments || [];
+      const postOwnerId = data.post?.user?._id;
+      
+      // Render comments
+      let commentsHtml = '';
+      if (comments.length > 0) {
+        commentsHtml = `
+          <div class="comment-timeline">
+            ${comments.map(comment => `
+              <div class="comment-timeline-item">
+                <div class="d-flex align-items-start mb-2">
+                  <img src="${comment.user?.profilePhoto || '/default-profile.png'}" 
+                       class="rounded-circle me-2" 
+                       style="width: 40px; height: 40px; object-fit: cover;">
+                  <div class="flex-grow-1">
+                    <strong>${comment.user?.username || 'Unknown'}</strong>
+                    <div class="comment-timeline-date">
+                      ${new Date(comment.createdAt).toLocaleString()}
+                    </div>
+                  </div>
+                  ${(currentUserId === comment.user?._id || currentUserId === postOwnerId) ? `
+                    <button class="btn btn-sm btn-danger delete-comment-btn" 
+                            data-comment-id="${comment._id}"
+                            title="Delete comment">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  ` : ''}
+                </div>
+                <div class="comment-timeline-content">
+                  <p class="mb-0">${comment.text}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        commentsHtml = '<p class="text-center">No comments yet</p>';
+      }
+      
+      document.getElementById('commentsModalBody').innerHTML = commentsHtml;
+      
+      // Add event listeners to delete buttons
+      document.querySelectorAll('.delete-comment-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+          const commentId = this.getAttribute('data-comment-id');
+          
+          if (!confirm('Are you sure you want to delete this comment?')) {
+            return;
+          }
+          
+          try {
+            const response = await fetch(`/posts/${postId}/comments/${commentId}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              // Remove the comment from the UI
+              this.closest('.comment-timeline-item').remove();
+              
+              // Update comment count in the post card
+              const commentCountElement = postCard.querySelector('.comment-btn span');
+              if (commentCountElement) {
+                const currentCount = parseInt(commentCountElement.textContent) || 0;
+                commentCountElement.textContent = currentCount - 1;
+              }
+            } else {
+              alert(result.error || 'Failed to delete comment');
+            }
+          } catch (error) {
+            console.error('Error deleting comment:', error);
+            alert('An error occurred while deleting the comment');
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Error loading comments:', error);
+      document.getElementById('commentsModalBody').innerHTML = `
+        <div class="alert alert-danger">Failed to load comments: ${error.message}</div>
+      `;
+    }
+  });
+});
+// Add animation for like button
+const animateLike = document.createElement('style');
+animateLike.innerHTML = `
+  @keyframes heartBeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+  }
+  .animate-like {
+    animation: heartBeat 1s;
+  }
+`;
+document.head.appendChild(animateLike);
+ // Change this in your frontend JavaScript:
+// Update the form submission handler
+const timetableUploadForm = document.getElementById('timetableUploadForm');
+if (timetableUploadForm) {
+  timetableUploadForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    try {
+      const response = await fetch('/profile/upload-timetable', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // Reload the page or update the UI
+        location.reload();
+      } else {
+        alert(result.error || 'Failed to upload timetable');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('An error occurred while uploading');
+    }
+  });
+}
+
+  // Delete timetable screenshot
+  const deleteScreenshotBtn = document.getElementById('deleteScreenshotBtn');
+  if (deleteScreenshotBtn) {
+    deleteScreenshotBtn.addEventListener('click', async function() {
+      if (!confirm('Are you sure you want to delete your timetable screenshot?')) {
+        return;
+      }
+      
+      try {
+        const response = await fetch('/profile/delete-timetable-screenshot', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          location.reload();
+        } else {
+          alert(result.error || 'Failed to delete timetable');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('An error occurred while deleting');
+      }
+    });
+  }
+</script>

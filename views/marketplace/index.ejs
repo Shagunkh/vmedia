@@ -1,0 +1,848 @@
+<%- include('../partials/header') %>
+
+<style>
+/* ========== MODERN VARIABLES ========== */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --accent: #f97316;
+    --dark: #0f172a;
+    --light: #f8fafc;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-800: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+/* ========== HERO BANNER - PREMIUM ========== */
+.vmall-hero {
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    margin: 20px 20px 40px 20px;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: var(--shadow-2xl);
+}
+
+.vmall-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.vmall-hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.vmall-banner {
+    padding: 60px 50px;
+    position: relative;
+    z-index: 2;
+}
+
+.banner-tag {
+    display: inline-block;
+    background: rgba(249,115,22,0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #f97316;
+    margin-bottom: 24px;
+    border: 1px solid rgba(249,115,22,0.3);
+    letter-spacing: 1px;
+}
+
+.banner-title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.banner-title span {
+    background: linear-gradient(135deg, #60a5fa, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.banner-subtitle {
+    font-size: 18px;
+    color: #94a3b8;
+    margin-bottom: 32px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-banner-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-banner-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37,99,235,0.4);
+    color: white;
+}
+
+.btn-banner-secondary {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-banner-secondary:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.banner-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 48px;
+}
+
+.stat-item {
+    text-align: left;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    display: block;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.banner-image {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45%;
+    max-width: 500px;
+}
+
+@media (max-width: 992px) {
+    .vmall-hero {
+        margin: 10px;
+        border-radius: 24px;
+    }
+    .vmall-banner {
+        padding: 40px 30px;
+    }
+    .banner-title {
+        font-size: 40px;
+    }
+    .banner-image {
+        display: none;
+    }
+    .banner-stats {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+/* ========== BROWSE SECTION ========== */
+.browse-section {
+    margin: 60px 20px 40px 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark);
+    position: relative;
+    padding-left: 20px;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 28px;
+    background: linear-gradient(135deg, #3b82f6, #f97316);
+    border-radius: 4px;
+}
+
+.section-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s ease;
+}
+
+.section-link:hover {
+    gap: 12px;
+    color: var(--primary-dark);
+}
+
+/* ========== FILTER BAR ========== */
+.filter-bar {
+    background: white;
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-weight: 600;
+    color: var(--gray-800);
+    font-size: 14px;
+}
+
+.filter-select {
+    padding: 8px 16px;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.price-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.price-input {
+    width: 100px;
+    padding: 8px 12px;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.filter-apply {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-apply:hover {
+    background: var(--primary-dark);
+}
+
+.sell-quick-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.sell-quick-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(249,115,22,0.3);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-group {
+        justify-content: space-between;
+    }
+}
+
+/* ========== PRODUCT GRID - IMPRESSIVE DESIGN ========== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+}
+
+.product-card-vmall {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--gray-200);
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.product-card-vmall:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-2xl);
+    border-color: transparent;
+}
+
+.product-card-vmall:hover .product-image-vmall img {
+    transform: scale(1.08);
+}
+
+.product-image-vmall {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--gray-100) 0%, #fff 100%);
+}
+
+.product-image-vmall img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-badge-vmall {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.product-wishlist {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.product-wishlist:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.product-wishlist i {
+    color: #ef4444;
+    font-size: 16px;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-title-vmall {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--dark);
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+
+.product-card-vmall:hover .product-title-vmall {
+    color: var(--primary);
+}
+
+.product-meta-vmall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.seller-vmall {
+    font-size: 12px;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.seller-vmall i {
+    font-size: 12px;
+    color: var(--primary);
+}
+
+.condition-vmall {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.condition-new {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.condition-like-new {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.condition-good {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.product-description {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price-section {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.product-price-vmall {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.view-details-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.product-card-vmall:hover .view-details-icon {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.view-details-icon i {
+    font-size: 14px;
+    color: var(--primary);
+}
+
+/* ========== ONGOING SECTION ========== */
+.ongoing-section {
+    margin: 40px 20px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 28px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ongoing-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(249,115,22,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.ongoing-content {
+    position: relative;
+    z-index: 2;
+}
+
+.ongoing-badge {
+    display: inline-block;
+    background: #f97316;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.ongoing-title {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #7c2d12;
+}
+
+.ongoing-text {
+    font-size: 16px;
+    color: #9a3412;
+    margin-bottom: 28px;
+    max-width: 500px;
+}
+
+.ongoing-btn {
+    background: #7c2d12;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.ongoing-btn:hover {
+    background: #9a3412;
+    transform: translateX(5px);
+    color: white;
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+    border-radius: 32px;
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.empty-icon i {
+    font-size: 48px;
+    color: white;
+}
+
+.empty-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gray-800);
+}
+
+.empty-text {
+    color: var(--gray-600);
+    margin-bottom: 32px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-card-vmall {
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.product-card-vmall:nth-child(1) { animation-delay: 0.05s; }
+.product-card-vmall:nth-child(2) { animation-delay: 0.1s; }
+.product-card-vmall:nth-child(3) { animation-delay: 0.15s; }
+.product-card-vmall:nth-child(4) { animation-delay: 0.2s; }
+.product-card-vmall:nth-child(5) { animation-delay: 0.25s; }
+.product-card-vmall:nth-child(6) { animation-delay: 0.3s; }
+</style>
+
+<!-- VMALL STYLE HERO BANNER -->
+<div class="vmall-hero">
+    <div class="vmall-banner">
+       
+        <h1 class="banner-title">
+            Buy & Sell <span>Student Essentials</span><br>
+            With Confidence
+        </h1>
+        <p class="banner-subtitle">
+            Join thousands of students buying and selling textbooks, electronics, 
+            furniture, and more. Safe, easy, and completely free.
+        </p>
+        <div class="banner-buttons">
+            <form action="/marketplace/search" method="GET" style="display: flex; gap: 8px;">
+                <input type="text" name="q" class="form-control" placeholder="Search products..." 
+                       value="<%= searchQuery %>" 
+                       style="padding: 14px 20px; border-radius: 60px; border: none; width: 280px; background: rgba(255,255,255,0.1); color: white;">
+                <button class="btn-banner-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+            <% if (currUser) { %>
+                <a href="/marketplace/add-product" class="btn-banner-secondary">
+                    <i class="fas fa-plus-circle"></i> Sell Now
+                </a>
+            <% } %>
+        </div>
+        
+    </div>
+    <div class="banner-image">
+        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="Shopping" style="width: 100%; opacity: 0.8;">
+    </div>
+</div>
+
+<!-- BROWSE SECTION -->
+<div class="browse-section">
+    <div class="section-header">
+        <h2 class="section-title">Browse Products</h2>
+        <a href="/marketplace" class="section-link">
+            View All <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-group">
+            <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
+            <form action="/marketplace" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <select name="category" class="filter-select">
+                    <option value="">All Categories</option>
+                    <% categories.forEach(cat => { %>
+                        <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
+                    <% }) %>
+                </select>
+                <div class="price-input-group">
+                    <input type="number" name="minPrice" class="price-input" placeholder="Min ₹" value="<%= filters.minPrice %>">
+                    <span>-</span>
+                    <input type="number" name="maxPrice" class="price-input" placeholder="Max ₹" value="<%= filters.maxPrice %>">
+                </div>
+                <select name="condition" class="filter-select">
+                    <option value="">Any Condition</option>
+                    <option value="New" <%= filters.condition === 'New' ? 'selected' : '' %>>New</option>
+                    <option value="Like New" <%= filters.condition === 'Like New' ? 'selected' : '' %>>Like New</option>
+                    <option value="Good" <%= filters.condition === 'Good' ? 'selected' : '' %>>Good</option>
+                    <option value="Fair" <%= filters.condition === 'Fair' ? 'selected' : '' %>>Fair</option>
+                </select>
+                <button type="submit" class="filter-apply">Apply</button>
+            </form>
+        </div>
+        <% if (currUser) { %>
+            <a href="/marketplace/add-product" class="sell-quick-btn">
+                <i class="fas fa-plus-circle"></i> Sell Item
+            </a>
+        <% } %>
+    </div>
+    
+    <!-- PRODUCTS GRID -->
+    <% if (products.length === 0) { %>
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <h3 class="empty-title">No products found</h3>
+            <p class="empty-text">
+                <% if (currUser) { %>
+                    Be the first to list an item and start selling!
+                <% } else { %>
+                    Login to start buying and selling on the marketplace.
+                <% } %>
+            </p>
+            <% if (currUser) { %>
+                <a href="/marketplace/add-product" class="btn-banner-primary" style="text-decoration: none;">
+                    <i class="fas fa-plus-circle"></i> Sell Your First Item
+                </a>
+            <% } else { %>
+                <a href="/users/login" class="btn-banner-primary" style="text-decoration: none;">
+                    <i class="fas fa-sign-in-alt"></i> Login to Start
+                </a>
+            <% } %>
+        </div>
+    <% } else { %>
+        <div class="products-grid">
+            <% products.forEach(product => { %>
+                <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
+                    <div class="product-image-vmall">
+                        <img src="<%= product.images[0] %>" alt="<%= product.title %>">
+                        <div class="product-badge-vmall">
+                            <%= product.category %>
+                        </div>
+                        <div class="product-wishlist" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlist(this, '<%= product._id %>')">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title-vmall"><%= product.title %></h3>
+                        <div class="product-meta-vmall">
+                            <span class="seller-vmall">
+                                <i class="fas fa-user-circle"></i> <%= product.seller.username %>
+                            </span>
+                            <span class="condition-vmall condition-<%= product.condition === 'New' ? 'new' : (product.condition === 'Like New' ? 'like-new' : 'good') %>">
+                                <%= product.condition %>
+                            </span>
+                        </div>
+                        <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
+                        <div class="price-section">
+                            <span class="product-price-vmall">₹<%= product.price %></span>
+                            <div class="view-details-icon">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+    <% } %>
+</div>
+
+<!-- ONGOING PROMO SECTION -->
+<div class="ongoing-section">
+    <div class="ongoing-content">
+        <div class="ongoing-badge">
+            🔥 LIMITED TIME OFFER
+        </div>
+        <h2 class="ongoing-title">
+            End of Semester Mega Sale!
+        </h2>
+        <p class="ongoing-text">
+            Get up to 50% off on textbooks, electronics, and more. 
+            Hurry, offers ending soon! Limited stock available.
+        </p>
+        <a href="/marketplace" class="ongoing-btn">
+            Shop Now <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+function toggleWishlist(element, productId) {
+    const icon = element.querySelector('i');
+    if (icon.classList.contains('far')) {
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = '#ef4444';
+        // Add to wishlist API call here
+        console.log('Added to wishlist:', productId);
+    } else {
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = '';
+        // Remove from wishlist API call here
+        console.log('Removed from wishlist:', productId);
+    }
+}
+</script>
+

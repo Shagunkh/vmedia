@@ -1,0 +1,1379 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  :root {
+    --neon-primary: #00d8ff;
+    --neon-secondary: #008cff;
+    --deep-space: #0a0a12;
+    --cosmic-gray: #1a1a2e;
+    --void-black: #050508;
+    --cyber-dark: #111;
+  }
+
+  /* Cosmic Background Animation */
+  @keyframes cosmicPulse {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.6; }
+  }
+
+  /* Floating Animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Gradient Flow Animation */
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Cyber Glow Effect */
+  @keyframes cyberGlow {
+    0% { opacity: 0.7; transform: scale(0.9); box-shadow: 0 0 10px var(--neon-primary); }
+    100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 20px var(--neon-primary); }
+  }
+
+  /* Grid Scan Animation */
+  @keyframes gridScan {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+  }
+
+  /* Particle Drift */
+  @keyframes particleDrift {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+  }
+
+  /* Holographic Flicker */
+  @keyframes hologramFlicker {
+    0%, 100% { opacity: 0.8; }
+    20%, 60% { opacity: 0.95; }
+    40%, 80% { opacity: 0.7; }
+  }
+
+  body {
+    background: var(--void-black);
+    color: #fff;
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: 
+      linear-gradient(rgba(0, 216, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 216, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridScan 60s linear infinite;
+  }
+   html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+/* Ensure no hidden elements are taking space */
+.hidden {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+  /* Cyberpunk Container */
+  .cyber-container {
+    background: rgba(10, 10, 18, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow:
+      0 0 40px rgba(0, 216, 255, 0.15),
+      0 15px 50px rgba(0, 0, 0, 0.6);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cyber-container:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow:
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Profile Image with Holographic Effect */
+  #profileImage {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary)) border-box;
+    box-shadow:
+      0 0 20px rgba(0, 216, 255, 0.3),
+      0 0 40px rgba(0, 140, 255, 0.2);
+    transition: all 0.5s ease;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  #profileImage:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 30px rgba(0, 216, 255, 0.5),
+      0 0 60px rgba(0, 140, 255, 0.3);
+    animation: none;
+  }
+
+  #profileImage::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+    background-size: 200% 200%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gradientFlow 4s ease infinite;
+  }
+
+  /* Cyberpunk Button */
+  .cyber-btn {
+    background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+    background-size: 200% 200%;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 4px 20px rgba(0, 216, 255, 0.4),
+      0 0 15px rgba(0, 140, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    animation: gradientFlow 4s ease infinite;
+    margin: 1rem 0;
+  }
+
+  .cyber-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 8px 35px rgba(0, 216, 255, 0.6),
+      0 0 25px rgba(0, 140, 255, 0.5);
+  }
+
+  .cyber-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.6s;
+  }
+
+  .cyber-btn:hover::before {
+    left: 100%;
+  }
+
+  /* Stats with Glow Effect */
+  .profile-stat {
+    text-align: center;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    position: relative;
+  }
+
+  .profile-stat:hover {
+    transform: translateY(-5px);
+    text-shadow: 0 0 10px var(--neon-primary);
+  }
+
+  .profile-stat h6 {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .profile-stat p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  .profile-stat p a {
+    color: var(--neon-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .profile-stat p a:hover {
+    text-shadow: 0 0 15px var(--neon-primary);
+  }
+
+  .profile-stat p a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--neon-primary);
+    transition: width 0.3s ease;
+  }
+
+  .profile-stat p a:hover::after {
+    width: 100%;
+  }
+
+  /* Username Text */
+  .username-text {
+    color: white;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+    position: relative;
+    display: inline-block;
+  }
+
+  .username-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+  }
+
+  .username-text:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Tagline */
+  .tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    position: relative;
+    animation: hologramFlicker 6s infinite;
+  }
+
+  .tagline::before,
+  .tagline::after {
+    content: '"';
+    color: var(--neon-primary);
+    font-size: 1.2rem;
+  }
+
+  /* Timetable Section */
+  .timetable-section {
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.4),
+      inset 0 0 15px rgba(0, 216, 255, 0.05);
+    transition: all 0.5s ease;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timetable-section:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Posts Section */
+  .posts-section {
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.4),
+      inset 0 0 15px rgba(0, 216, 255, 0.05);
+    transition: all 0.5s ease;
+    max-height: 900px;
+    overflow-y: auto;
+  }
+
+  .posts-section:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 
+      0 15px 50px rgba(0, 216, 255, 0.2),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+  }
+
+  /* Post Cards */
+  .post-card {
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 216, 255, 0.1);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+    border-color: rgba(0, 216, 255, 0.3);
+  }
+
+  .post-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+    transition: all 0.5s ease;
+  }
+
+  .post-card:hover img {
+    transform: scale(1.02);
+  }
+
+  .post-card .post-caption {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .post-card .post-date {
+    color: rgba(0, 216, 255, 0.7);
+    font-size: 0.8rem;
+    padding: 0 1rem 1rem;
+  }
+
+  /* Timetable Table */
+  .saved-timetable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: hologramFlicker 8s infinite;
+  }
+
+  .saved-timetable th, 
+  .saved-timetable td {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 216, 255, 0.1);
+    text-align: center;
+  }
+
+  .saved-timetable th {
+    background: rgba(0, 216, 255, 0.1);
+    color: var(--neon-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .saved-timetable td {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+  }
+
+  .saved-timetable .lunch {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  /* Modal Styles */
+  .cyber-modal .modal-content {
+    background: rgba(15, 15, 25, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: 0 0 50px rgba(0, 216, 255, 0.2);
+    animation: hologramFlicker 5s infinite;
+  }
+
+  .cyber-modal .modal-header {
+    border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .cyber-modal .modal-footer {
+    border-top: 1px solid rgba(0, 216, 255, 0.2);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .cyber-modal .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+  }
+
+  /* Form Inputs */
+  .cyber-input {
+    background: rgba(20, 20, 30, 0.8) !important;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+    color: white !important;
+    transition: all 0.3s ease;
+  }
+
+  .cyber-input:focus {
+    background: rgba(30, 30, 40, 0.9) !important;
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.3) !important;
+  }
+
+  /* Lab Slot Highlight */
+  .lab-slot.practical {
+    background: linear-gradient(135deg, rgba(248, 200, 220, 0.8), rgba(161, 0, 0, 0.8)) !important;
+    font-weight: 600;
+    color: white !important;
+    border: 1px solid rgba(248, 200, 220, 0.5) !important;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .container-fluid {
+      margin-top: 2rem;
+    }
+    
+    .profile-sidebar, 
+    .timetable-section, 
+    .posts-section {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    background: var(--neon-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleDrift linear infinite;
+    opacity: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--neon-primary), var(--neon-secondary));
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
+  }
+
+  /* Modal Enhancements */
+  .modal-content {
+    background: rgba(10, 10, 20, 0.95) !important;
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 216, 255, 0.35) !important;
+    box-shadow: 
+      0 0 60px rgba(0, 216, 255, 0.25),
+      inset 0 0 20px rgba(0, 216, 255, 0.1);
+    
+  }
+
+  .modal-header {
+    border-bottom: 1px solid rgba(0, 216, 255, 0.25) !important;
+    background: rgba(0, 216, 255, 0.08) !important;
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgba(0, 216, 255, 0.25) !important;
+    background: rgba(0, 216, 255, 0.08) !important;
+  }
+
+  /* Form Input Enhancements */
+  .form-control {
+    background: rgba(20, 20, 30, 0.9) !important;
+    border: 1px solid rgba(0, 216, 255, 0.35) !important;
+    color: white !important;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  .form-control:focus {
+    background: rgba(30, 30, 40, 0.95) !important;
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 15px rgba(0, 216, 255, 0.4) !important;
+    transform: scale(1.02);
+  }
+
+  /* Glitch Text Effect */
+  .glitch-text {
+    animation: glitch 1s linear infinite;
+  }
+
+  /* Particle Effects */
+  .particle {
+    position: absolute;
+    background: var(--neon-primary);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleDrift linear infinite;
+    opacity: 0;
+    filter: blur(1px);
+  }
+
+  .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      background: rgba(0, 216, 255, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg, 
+        var(--primary), 
+        var(--secondary), 
+        var(--tertiary)
+      );
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      color: white;
+      border-color: transparent;
+    }
+
+    .social-link:hover::before {
+      opacity: 0.7;
+    }
+
+    .social-link svg {
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-link:hover svg {
+      transform: scale(1.2);
+    }
+    .posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.post-card {
+  background: rgba(20, 20, 30, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 216, 255, 0.1);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 216, 255, 0.2);
+  border-color: rgba(0, 216, 255, 0.3);
+}
+
+.post-card img {
+  width: 100%;
+  height: 250px; /* Fixed height for images */
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+  transition: all 0.5s ease;
+}
+
+.post-card:hover img {
+  transform: scale(1.02);
+}
+
+.post-content {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-caption {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-date {
+  color: rgba(0, 216, 255, 0.7);
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .posts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .posts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .post-card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.timetable-container {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    border-radius: 12px;
+    background: rgba(15, 15, 25, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow: 
+      inset 0 0 15px rgba(0, 216, 255, 0.1),
+      0 0 30px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+  }
+
+  .saved-timetable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(20, 20, 30, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    animation: hologramFlicker 8s infinite;
+  }
+
+  .saved-timetable th, 
+  .saved-timetable td {
+    padding: 0.75rem 0.5rem;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .saved-timetable th {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.15), 
+      rgba(0, 140, 255, 0.1));
+    color: var(--neon-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+  }
+
+  .saved-timetable tr:hover td {
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .saved-timetable td {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    position: relative;
+  }
+
+  .saved-timetable td:not(.lunch):hover {
+    background: rgba(0, 216, 255, 0.1) !important;
+    transform: scale(1.02);
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(0, 216, 255, 0.2);
+  }
+
+  .saved-timetable .lunch {
+    background: linear-gradient(135deg, 
+      rgba(255, 215, 0, 0.15), 
+      rgba(255, 165, 0, 0.1)) !important;
+    color: #ffd700;
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+  }
+
+  .saved-timetable tr:nth-child(even) td:not(.lunch) {
+    background: rgba(25, 25, 35, 0.6);
+  }
+
+  /* Day Column Styling */
+  .saved-timetable tr td:first-child {
+    background: linear-gradient(135deg, 
+      rgba(0, 216, 255, 0.1), 
+      rgba(0, 140, 255, 0.05)) !important;
+    color: var(--neon-primary);
+    font-weight: 600;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+  }
+
+  /* Darker timetable cells */
+  .saved-timetable td {
+    background: rgba(10, 10, 15, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .saved-timetable tr:nth-child(even) td:not(.lunch) {
+    background: rgba(15, 15, 20, 0.9) !important;
+  }
+
+  .saved-timetable td:hover {
+    background: rgba(20, 20, 30, 0.95) !important;
+  }
+
+  /* Post Stats */
+  .post-stats {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0 1rem;
+  }
+
+  .post-stats i {
+    margin-right: 5px;
+  }
+
+  /* Comments Section */
+  .post-comments-section {
+    padding: 0 1rem;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .comment {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+  }
+
+  .comment strong {
+    color: var(--neon-primary);
+    margin-right: 8px;
+  }
+
+  .view-all-comments {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .view-all-comments a {
+    color: var(--neon-primary) !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-comments a:hover {
+    text-shadow: 0 0 8px rgba(0, 216, 255, 0.5);
+  }
+
+  /* Post Actions */
+  .post-actions {
+    display: flex;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid rgba(0, 216, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 216, 255, 0.1);
+    margin: 0.5rem 0;
+  }
+
+  .like-action, .comment-action {
+    margin-right: 1.5rem;
+  }
+
+  .like-btn, .comment-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+
+  .like-btn i, .comment-btn i {
+    margin-right: 5px;
+    font-size: 1.1rem;
+  }
+
+  .like-btn:hover, .comment-btn:hover {
+    color: var(--neon-primary);
+    transform: scale(1.05);
+  }
+
+  .like-btn.liked {
+    color: #ff0000;
+  }
+
+  .like-btn.liked i {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+
+  /* Comments Preview */
+  .comments-preview {
+    padding: 0 1rem;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+
+  .comment {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+  }
+
+  .comment strong {
+    color: var(--neon-primary);
+    margin-right: 8px;
+  }
+
+  .view-all {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .view-all:hover {
+    color: var(--neon-primary);
+  }
+
+  /* Hover effects for icons */
+  .like-btn i, .comment-btn i {
+    transition: all 0.3s ease;
+  }
+
+  .like-btn:hover i {
+    color: #ff0000;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+  }
+
+  .comment-btn:hover i {
+    color: var(--neon-primary);
+    text-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+  }
+
+  /* Remove extra space below posts section */
+  .posts-section {
+    margin-bottom: 0;
+    padding-bottom: 1rem; /* Add some padding at the bottom */
+  }
+
+  /* Ensure the posts grid doesn't create extra space */
+  .posts-grid {
+    margin-bottom: 0;
+  }
+
+  /* Make sure the container doesn't have extra padding/margin */
+  .container-fluid {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  /* Timeline styling for comments */
+  .comment-timeline {
+    position: relative;
+    padding-left: 30px;
+    margin: 20px 0;
+  }
+
+  .comment-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--neon-primary);
+    opacity: 0.5;
+  }
+
+  .comment-timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .comment-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--neon-secondary);
+    border: 2px solid var(--neon-primary);
+  }
+
+  .comment-timeline-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin-bottom: 5px;
+  }
+
+  .comment-timeline-content {
+    background: rgba(30, 30, 45, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--neon-primary);
+  }
+
+  .lunch {
+    background-color: #ffd700;
+  }
+
+  .whit {
+    color: white;
+  }
+  /* Update the lunch cell styling */
+.saved-timetable .lunch {
+  background-color: #ffd700 !important; /* Golden yellow color */
+  color: #000 !important; /* Black text for better contrast */
+  font-weight: 600;
+}
+
+/* For modal timetable */
+ .lunch {
+  background-color: #ffd700 !important;
+  color: #000 !important;
+  font-weight: 600;
+}
+  </style>
+<br>
+<div class="container-fluid mt-5 pt-4">
+  <div class="row">
+    <!-- Left Sidebar - Profile Info -->
+    <div class="col-md-3">
+      <div class="cyber-container p-4 text-center">
+        <!-- Profile Photo -->
+        <img id="profileImage" 
+             src="<%= user.profilePhoto || '/default-profile.png' %>" 
+             class="rounded-circle mb-4"
+             alt="<%= user.username %>'s profile photo"><br>
+
+        <!-- Username -->
+        <h3 class="username-text"><%= user.username %></h3>
+        
+        <% if (user.bio) { %>
+          <p class="tagline"><%= user.bio %></p>
+        <% } %>
+
+        <!-- Follow Button -->
+        <div class="mb-4">
+          <% if (currentUser && currentUser._id.equals(user._id)) { %>
+            <!-- This is your own profile -->
+          <% } else if (currentUser) { %>
+            <% if (currentUser.following.includes(user._id)) { %>
+              <button class="cyber-btn btn-danger" id="unfollowBtn" data-user-id="<%= user._id %>">
+                Take a Break
+              </button>
+            <% } else if (currentUser.sentFollowRequests.includes(user._id)) { %>
+              <button class="cyber-btn btn-secondary" disabled>
+                Hang Tight - Request Sent
+              </button>
+            <% } else { %>
+              <button class="cyber-btn" id="followBtn" data-user-id="<%= user._id %>">
+                Connect
+              </button>
+            <% } %>
+          <% } %>
+        </div>
+
+        <!-- Stats -->
+        <div class="d-flex justify-content-around mt-3">
+          <div class="profile-stat">
+            <h6>Fans</h6>
+            <p><%= user.followers.length %></p>
+          </div>
+          <div class="profile-stat">
+            <h6>Looped In</h6>
+            <p><%= user.following.length %></p>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links mt-3">
+          <% if (user.linkedinId) { %>
+            <a href="https://www.linkedin.com/in/<%= user.linkedinId %>" target="_blank" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              LinkedIn
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Column - Timetable -->
+    <div class="col-md-9">
+      <div class="timetable-section p-4 mb-4">
+        <h4 class="text-center mb-4" style="color: var(--neon-primary);">Timetable</h4>
+        
+        <% if (canViewPrivate || !user.privacy.showTimetable) { %>
+          <div class="mt-3 timetable-container">
+            <% if (user.timetableManual && Object.keys(user.timetableManual).length > 0) { 
+              const theorySlots = ["08:00-8:50", "09:00-9:50", "10:00-10:50", "11:00-11:50", "12:00-12:50", "14:00-14:50", "15:00-15:50", "16:00-16:50", "17:00-17:50", "18:00-18:50", "19:00-19:50"];
+              const labSlots = ["08:51-9:40", "09:51-10:40", "10:51-11:30", "11:40-12:30", "12:40-1:20", "14:51-3:40", "15:51-4:40", "16:51-5:30", "17:41-6:30", "18:31-7:20"];
+            %>
+              <table class="saved-timetable">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Day</th>
+                    <th colspan="11">Theory</th>
+                    <th rowspan="2" class="lunch">Lunch</th>
+                    <th colspan="10">Lab</th>
+                  </tr>
+                  <tr>
+                    <% theorySlots.forEach(time => { %>
+                      <th><%= time %></th>
+                    <% }) %>
+                    <% labSlots.forEach(time => { %>
+                      <th><%= time %></th>
+                    <% }) %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% Object.keys(user.timetableManual).forEach(day => { 
+                       const theory = user.timetableManual[day]?.theory || [];
+                       const lab = user.timetableManual[day]?.lab || [];
+                  %>
+                    <tr>
+                      <td><%= day %></td>
+                      <% theorySlots.forEach((_, i) => { %>
+                        <td><%= theory[i] || '' %></td>
+                      <% }) %>
+                      <td class="lunch">Lunch</td>
+                      <% labSlots.forEach((_, i) => { %>
+                        <td><%= lab[i] || '' %></td>
+                      <% }) %>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            <% } else if (user.timetableScreenshot) { %>
+              <div class="text-center">
+                <img src="<%= user.timetableScreenshot %>" class="img-fluid rounded" alt="Timetable Screenshot">
+              </div>
+            <% } else { %>
+              <p class="text-center text-muted mt-4"><%= user.username %> hasn't shared their timetable yet</p>
+            <% } %>
+          </div>
+        <% } else { %>
+          <div class="alert alert-info text-center">
+            Follow <%= user.username %> to view their timetable
+          </div>
+        <% } %>
+      </div>
+    </div>
+<br>
+    <!-- Right Column - Posts -->
+    <div class="col-md-12">
+      <div class="posts-section p-4">
+        <h5 class="mb-4" style="color: var(--neon-primary);">Recent Posts</h5>
+        
+        <% if (canViewPrivate || !user.privacy.showPosts) { %>
+          <div class="posts-grid">
+            <% if (posts.length > 0) { %>
+              <% posts.forEach(post => { %>
+                <div class="post-card">
+                  <% if (post.imageUrl) { %>
+                    <img src="<%= post.imageUrl %>" alt="Post" class="img-fluid">
+                  <% } %>
+                  <div class="p-3">
+                    <p class="post-caption"><%= post.caption || 'No caption' %></p>
+                    <p class="post-date">
+                      Posted on: <%= new Date(post.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                      }) %>
+                    </p>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <p class="text-center text-muted"><%= user.username %> hasn't posted anything yet</p>
+            <% } %>
+          </div>
+        <% } else { %>
+          <div class="alert alert-info text-center">
+            Follow <%= user.username %> to view their posts
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Follow button functionality
+  document.getElementById('followBtn')?.addEventListener('click', async function() {
+    const userId = this.getAttribute('data-user-id');
+    
+    try {
+      const response = await fetch(`/users/${userId}/request-follow`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        if (result.requiresApproval) {
+          this.textContent = 'Request Sent';
+          this.disabled = true;
+          this.classList.remove('btn-primary');
+          this.classList.add('btn-secondary');
+        } else {
+          // If no approval needed, change to unfollow button
+          this.textContent = 'Unfollow';
+          this.classList.remove('btn-primary');
+          this.classList.add('btn-danger');
+          this.id = 'unfollowBtn';
+          this.addEventListener('click', unfollowHandler);
+        }
+      } else {
+        alert(result.error || 'Failed to send follow request');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  });
+
+  // Unfollow button handler
+  document.getElementById('unfollowBtn')?.addEventListener('click', async function() {
+    const userId = this.getAttribute('data-user-id');
+    
+    try {
+      const response = await fetch(`/users/${userId}/follow`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        this.textContent = 'Follow';
+        this.classList.remove('btn-danger');
+        this.classList.add('btn-primary');
+        this.id = 'followBtn';
+        this.addEventListener('click', followHandler);
+      } else {
+        alert(result.error || 'Failed to unfollow');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  });
+
+  // Particle effects
+  function createParticles() {
+    document.querySelectorAll('.cyber-container, .timetable-section, .posts-section').forEach(container => {
+      const particleCount = 15;
+      const colors = ['#00d8ff', '#008cff', '#ffffff'];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 3 + 1;
+        const duration = Math.random() * 5 + 5;
+        const delay = Math.random() * 3;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Set styles
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.background = color;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        container.appendChild(particle);
+      }
+    });
+  }
+    async function followHandler() {
+    const userId = this.getAttribute('data-user-id');
+    
+    try {
+      const response = await fetch(`/users/${userId}/request-follow`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        if (result.requiresApproval) {
+          this.textContent = 'Request Sent';
+          this.disabled = true;
+          this.classList.remove('btn-primary');
+          this.classList.add('btn-secondary');
+        } else {
+          // If no approval needed, change to unfollow button
+          this.textContent = 'Unfollow';
+          this.classList.remove('btn-primary');
+          this.classList.add('btn-danger');
+          this.id = 'unfollowBtn';
+          this.removeEventListener('click', followHandler);
+          this.addEventListener('click', unfollowHandler);
+        }
+      } else {
+        alert(result.error || 'Failed to send follow request');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  }
+
+  // Define unfollow handler function
+  async function unfollowHandler() {
+    const userId = this.getAttribute('data-user-id');
+    
+    try {
+      const response = await fetch(`/users/${userId}/follow`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        this.textContent = 'Follow';
+        this.classList.remove('btn-danger');
+        this.classList.add('btn-primary');
+        this.id = 'followBtn';
+        this.removeEventListener('click', unfollowHandler);
+        this.addEventListener('click', followHandler);
+      } else {
+        alert(result.error || 'Failed to unfollow');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  }
+
+  // Particle effects
+  function createParticles() {
+    document.querySelectorAll('.cyber-container, .timetable-section, .posts-section').forEach(container => {
+      const particleCount = 15;
+      const colors = ['#00d8ff', '#008cff', '#ffffff'];
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 3 + 1;
+        const duration = Math.random() * 5 + 5;
+        const delay = Math.random() * 3;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Set styles
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.background = color;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        container.appendChild(particle);
+      }
+    });
+  }
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    createParticles();
+  });
+</script>

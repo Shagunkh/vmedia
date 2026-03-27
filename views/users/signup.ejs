@@ -1,0 +1,267 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  :root {
+    --primary-accent: #00d8ff;
+    --secondary-accent: #008cff;
+    --dark-bg: #0a0a12;
+    --darker-bg: #05050a;
+    --card-bg: rgba(20, 25, 40, 0.8);
+    --text-primary: #f0f8ff;
+    --text-secondary: #a0b8d0;
+    --success: #00ffaa;
+    --error: #ff4d7d;
+    --neon-glow: 0 0 15px rgba(0, 216, 255, 0.6);
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  /* Mobile-first container */
+  .signup-container {
+    width: 100%;
+    max-width: 420px; /* Optimal width for mobile forms */
+    background: black;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    backdrop-filter: blur(10px);
+    margin: 1rem;
+  }
+
+  h1 {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    background: rgba(10, 15, 30, 0.6);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+    background: #152228;
+    color: #f0f8ff;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+    color: #111;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 216, 255, 0.4);
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .login-link a {
+    color: var(--primary-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .error-message {
+    color: var(--error);
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* iPhone notch/punch-hole safe areas */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+  }
+
+  /* Landscape orientation adjustments */
+  @media screen and (orientation: landscape) and (max-height: 500px) {
+    body {
+      align-items: flex-start;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  /* Larger mobile devices */
+  @media (min-width: 400px) {
+    .signup-container {
+      padding: 2.5rem;
+    }
+  }
+
+  /* Tablets and small laptops */
+  @media (min-width: 768px) {
+    .signup-container {
+      max-width: 450px;
+      padding: 2.5rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  /* Fix for iOS form elements */
+  input, textarea, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  /* Autofill styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.6) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+  }
+  <style>
+  /* Update the form background to match body */
+  .signup-container {
+    background: var(--dark-bg); /* Changed from black to match body */
+    /* ... rest of the existing styles ... */
+  }
+
+  /* Update the input focus state */
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+    background: rgba(10, 15, 30, 0.8); /* Darker than default but not white */
+    color: #f0f8ff;
+  }
+
+  /* Ensure autofill matches our theme */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary) !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(10, 15, 30, 0.8) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    border: 1px solid rgba(0, 216, 255, 0.3) !important;
+  }
+</style>
+</style>
+
+<div class="signup-container">
+  <h1>Sign Up</h1>
+  <form action="/users/signup" method="POST">
+    <div class="form-group">
+      <label for="username" class="form-label">Username</label>
+      <input name="username" id="username" type="text" class="form-control" required>
+      <div id="username-error" class="error-message">Try adding numbers, etc. to your username</div>
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="form-label">VIT Email</label>
+      <input name="email" id="email" type="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">Password</label>
+      <input name="password" id="password" type="password" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Sign Up</button>
+  </form>
+  
+  <div class="login-link">
+    <p>Already have an account? <a href="/users/login">Login</a></p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Form submission handling
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Creating account...';
+      
+      // Optional: Add a spinner here if desired
+      // submitBtn.innerHTML = '<span class="spinner"></span> Creating account...';
+    });
+    
+    // Input focus effects
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.style.borderColor = 'var(--primary-accent)';
+        this.parentNode.querySelector('.form-label').style.color = 'var(--primary-accent)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.style.borderColor = 'rgba(0, 216, 255, 0.3)';
+        this.parentNode.querySelector('.form-label').style.color = 'var(--text-secondary)';
+      });
+    });
+  });
+</script>

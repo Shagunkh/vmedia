@@ -1,0 +1,817 @@
+<style>
+  .navbar {
+    background-color: #000 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 1000;
+  }
+
+  /* Dropdown on hover for Bootstrap 5 */
+  @media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+      background-color: #000;
+      color: white;
+      opacity: 1;
+    }
+    .dropdown-menu .dropdown-item {
+      color: #fff !important;
+      background-color: #222 !important;
+      font-weight: 500;
+    }
+    .dropdown-menu .dropdown-item:hover, 
+    .dropdown-menu .dropdown-item:focus {
+      background-color: #3498db !important;
+      color: #fff !important;
+    }
+    .shagun {
+      color: white;
+    }
+  }
+
+  /* Search bar styling */
+  .search-container {
+    flex-grow: 1;
+    max-width: 500px;
+    margin: 0 20px;
+    position: relative;
+  }
+  
+  .search-input {
+    width: 100%;
+    background-color: #222;
+    border: 1px solid #444;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #00d8ff;
+    box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.25);
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #1a1a1a;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1001;
+    display: none;
+  }
+  
+  .search-result-item {
+    padding: 10px 15px;
+    color: white;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-result-item:hover {
+    background-color: #333;
+  }
+  
+  .search-result-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+
+  /* Make sure dropdown menu and items stay dark */
+  .dropdown-menu {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  /* For individual items inside the dropdown */
+  .dropdown-menu .dropdown-item {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+
+  /* Fix white background on hover or focus */
+  .dropdown-menu .dropdown-item:hover,
+  .dropdown-menu .dropdown-item:focus {
+    background-color: #333 !important;
+    color: #fff;
+  }
+  
+  .vmedia-gradient {
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+body {
+  padding-top: 70px; /* Match navbar height */
+}
+ .navbar {
+    background-color: #000 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+  }
+
+  /* Gradient Accents */
+  .navbar-nav .nav-link {
+    position: relative;
+    color: #fff !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    transition: width 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover::after,
+  .navbar-nav .nav-link.active::after {
+    width: 70%;
+  }
+
+  /* Search Bar - Enhanced */
+  .search-container {
+    flex-grow: 1;
+    max-width: 500px;
+    margin: 0 20px;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    background-color: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #00d8ff;
+    box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.25);
+    background-color: rgba(40, 40, 40, 0.9);
+  }
+
+  /* Search Results - Premium Look */
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(20, 20, 20, 0.98);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1001;
+    display: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+  }
+
+  .search-result-item {
+    padding: 12px 20px;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .search-result-item:hover {
+    background: linear-gradient(90deg, rgba(0, 216, 255, 0.1), rgba(0, 140, 255, 0.1));
+    padding-left: 25px;
+  }
+
+  /* Dropdown Menus - Premium Style */
+  .dropdown-menu {
+    background-color: rgba(20, 20, 20, 0.98);
+    color: #fff;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .dropdown-item {
+    color: #fff !important;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-item:hover, 
+  .dropdown-item:focus {
+    background: linear-gradient(90deg, rgba(0, 216, 255, 0.2), rgba(0, 140, 255, 0.2)) !important;
+  }
+
+  /* Notification Badge */
+  .badge {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
+
+  /* Profile Image */
+  .rounded-circle {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover .rounded-circle {
+    border-color: rgba(0, 216, 255, 0.5);
+  }
+
+  /* Keep original VMedia logo style */
+  .vmedia-gradient {
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      background-color: rgba(0, 0, 0, 0.95);
+      padding: 15px;
+      border-radius: 0 0 10px 10px;
+      border: 1px solid rgba(0, 216, 255, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    .search-container {
+      margin: 10px 0;
+      max-width: 100%;
+    }
+  }
+
+  /* Body adjustment for fixed navbar */
+  body {
+    padding-top: 70px;
+  }
+  .sear {
+    flex-grow: 1;
+    max-width: 500px;
+    
+  }
+  
+  /* Input Group Styles */
+  .input-group {
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .input-group:focus-within {
+    box-shadow: 0 2px 15px rgba(0, 216, 255, 0.2);
+  }
+  
+  /* Search Input Styles */
+  .search-input {
+    background-color: rgba(30, 30, 30, 0.9);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    background-color: rgba(40, 40, 40, 0.95);
+    box-shadow: none;
+  }
+  
+  /* Search Button Styles */
+  .btn-search {
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    border: none;
+    color: white;
+    padding: 0 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-search:hover {
+    background: linear-gradient(90deg, #00c8ff, #007cff);
+    transform: scale(1.05);
+  }
+  /* Dropdown Positioning Fix */
+.dropdown-menu-constrained {
+  position: absolute;
+  right: 0;
+  left: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 8px !important;
+  transform: none !important;
+  top: 100% !important;
+  will-change: transform;
+  min-width: 200px;
+}
+
+/* Profile image styling */
+.profile-img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border: 4px solid rgba(0, 126, 149, 0.3);
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover .profile-img {
+  border-color: rgba(0, 216, 255, 0.7);
+}
+
+/* Ensure dropdown stays within viewport */
+@media (max-width: 576px) {
+  .dropdown-menu-constrained {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    max-width: none;
+  }
+}
+.search-result-item {
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+
+.no-results {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.search-results {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Features Dropdown Menu Styling */
+.navbar-dark .dropdown-menu {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(0, 216, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0;
+  min-width: 250px;
+}
+
+.dropdown-item, 
+.dropdown-menu li a {
+  color: white !important;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease;
+  display: block;
+  text-decoration: none !important;
+}
+
+.dropdown-item:hover, 
+.dropdown-menu li:hover a {
+  background-color: rgba(0, 216, 255, 0.1) !important;
+  color: #00d8ff !important;
+}
+
+/* Remove default list styling */
+.dropdown-menu {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Divider styling */
+.dropdown-divider {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+/* Active link styling */
+.dropdown-menu li a.active {
+  background-color: rgba(0, 216, 255, 0.2) !important;
+  color: #00d8ff !important;
+}
+
+/* Dropdown item spacing */
+.dropdown-menu li {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .dropdown-menu {
+    background-color: rgba(30, 30, 30, 0.95);
+    border: none;
+    box-shadow: none;
+  }
+  
+  .dropdown-item, 
+  .dropdown-menu li a {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Fix for nav-link inside dropdown */
+.dropdown-menu .nav-link {
+  padding: 0.5rem 1.5rem !important;
+  color: white !important;
+}
+
+.dropdown-menu .nav-link:hover {
+  color: #00d8ff !important;
+  background-color: transparent !important;
+}
+  /* Search Container */
+.search-container {
+    flex-grow: 1;
+    max-width: 700px;
+    margin: 0 60px;
+    position: relative;
+    height: 50px;
+    margin-left:2rem;
+}
+
+/* Input Group - Remove all white backgrounds */
+.input-group {
+    background-color: transparent !important;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+/* Search Input */
+.search-input {
+    width: 100%;
+    background-color: #111 !important; /* Dark background */
+    border: 1px solid #333 !important;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 25px 0 0 25px !important; /* Match button */
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    background-color: #111 !important;
+    border-color: #00d8ff !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 216, 255, 0.25) !important;
+    color: white !important;
+}
+
+/* Search Button */
+.btn-search {
+    background: linear-gradient(90deg, #00d8ff, #008cff) !important;
+    border: none !important;
+    color: white !important;
+    padding: 0 20px;
+    border-radius: 0 25px 25px 0 !important;
+    transition: all 0.3s;
+}
+
+.btn-search:hover {
+    background: linear-gradient(90deg, #00c8ff, #007cff) !important;
+}
+
+/* Search Results */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #000 !important; /* Pure black */
+    border: 1px solid #333 !important;
+    border-top: none !important;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1001;
+    display: none;
+}
+
+/* Result Items */
+.search-result-item {
+    background-color: #000 !important;
+    color: white !important;
+    border-bottom: 1px solid #333 !important;
+    padding: 12px 15px;
+    transition: all 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #111 !important;
+}
+
+/* No Results Message */
+.no-results {
+    color: #aaa !important;
+    background-color: #000 !important;
+}
+
+/* Loading State */
+.list-group-item {
+    background-color: #000 !important;
+    color: white !important;
+}
+html, body {
+  height: 100%;
+  overflow-y: scroll; /* keep scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand px-3 vmedia-gradient" href="/home">VALL</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <!-- Remove dropdown-toggle class and add custom styling -->
+          <a class="nav-link shagun position-relative pe-4" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Features
+            <!-- Custom dropdown indicator (optional) -->
+            <span class="position-absolute end-0 top-50 translate-middle-y">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="transition: transform 0.2s;">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+              </svg>
+            </span>
+          </a>
+         <ul class="dropdown-menu" aria-labelledby="featuresDropdown">
+             <li><a href="/cgpa" style="color: white; text-decoration: none;">CGPA/GPA Calculator</a></li>
+              <li><a href="/vride" style="color: white; text-decoration: none;">V-Ride</a></li>
+             <li><a href="/tasks" style="color:white; text-decoration:none;">Smart Study Planner</a></li>
+             <li><a href="/quiz" style="color:white; text-decoration:none;">Flashcards & Quizlets</a></li>
+            <li><a href="/add-drop/page" style="color:white; text-decoration:none;">Add & Drop</a></li>
+             <li><a href="/api/rooms" style="color:white; text-decoration:none;">Roommate Finder</a></li>
+             <li><a href="/confessions" style="color: white; text-decoration: none;">Confessions Wall</a></li>
+             <li><a href="/lost-and-found" style="color: white; text-decoration: none;">Lost & Found Board</a></li>
+
+             <li><a href="/ffcs" style="color: white; text-decoration: none;">FFCS Planner</a></li>
+             <li><a href="/faculty" style="color: white; text-decoration: none;">Faculty Review</a></li>
+             
+               <a href="/api/pyq" class="nav-link">
+                 Previous Year Papers
+               </a>
+             </li>
+             <li><a href="/collab"  style="color: white; text-decoration: none;">Collab Requests </a></li>
+          </ul>
+        </li>&nbsp;
+        <li class="nav-item"><a class="nav-link " href="/">Home</a></li>
+      </ul>
+      
+      
+      <!-- Enhanced Search Bar -->
+      <div class="search-container sear position-relative mx-2">
+        <div class="input-group">
+          <input class="form-control search-input" type="search" placeholder="Search users..." id="searchInput">
+          <button class="btn btn-search" type="button" id="searchButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="search-results" id="searchResults">
+          <ul class="list-group search-results-list" id="resultsList">
+            <!-- Results will appear here -->
+          </ul>
+        </div>
+      </div>
+      
+      <ul class="navbar-nav ms-auto">
+        <!-- Notification bell icon (no dropdown) -->
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="/notifications">
+            <i class="bi bi-bell-fill"></i>
+            <% if (notifications && notifications.length > 0) { %>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <%= notifications.length %>
+                <span class="visually-hidden">unread notifications</span>
+              </span>
+            <% } %>
+          </a>
+        </li>
+        
+        <a class="nav-link" href="/aboutus">
+          About
+        </a>
+        
+        <!-- Profile section -->
+        <% if (currUser) { %>
+          <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">
+              <img src="<%= currUser.profilePhoto || '/default-profile.png' %>" 
+                   alt="Profile" 
+                   class="rounded-circle profile-img"
+                   style="width: 30px; height: 30px; object-fit: cover;">
+            </a>
+          </li>
+        <% } else { %>
+          <li class="nav-item"><a class="nav-link active" href="/users/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/users/signup">Sign Up</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    navbarToggler.addEventListener('click', function() {
+        navbarCollapse.classList.toggle('show');
+    });
+    
+    // Close when clicking outside or on nav links
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.navbar') && navbarCollapse.classList.contains('show')) {
+            navbarCollapse.classList.remove('show');
+        }
+    });
+    // Check if we're on the main page (adjust this condition as needed)
+    const isMainPage = window.location.pathname === '/' || 
+                      window.location.pathname.includes('main') ||
+                      document.body.classList.contains('main-page');
+    
+    // Get the search container element
+    const searchContainer = document.querySelector('.search-container');
+    
+    if (!isMainPage) {
+        // Completely hide the search bar if not on main page
+        if (searchContainer) {
+            searchContainer.style.display = 'none';
+        }
+        return;
+    }
+
+    // Only proceed with search functionality if on main page
+    if (searchContainer) {
+        searchContainer.style.display = 'block'; // Ensure it's visible
+    }
+
+    // Get DOM elements
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const resultsList = document.getElementById('resultsList');
+    
+    // Return if elements don't exist
+    if (!searchInput || !searchResults || !resultsList) return;
+
+    // Debounce function to limit API calls
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func.apply(this, args), delay);
+        };
+    };
+
+    // Display search results
+    const displayResults = (users, query) => {
+        resultsList.innerHTML = '';
+        
+        if (users.length === 0) {
+            resultsList.innerHTML = `
+                <li class="list-group-item no-results">
+                    No users found for "${query}"
+                </li>
+            `;
+        } else {
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item search-result-item';
+                li.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <img src="${user.profilePhoto || '/default-profile.png'}" 
+                             alt="${user.username}"
+                             class="rounded-circle me-3"
+                             width="32"
+                             height="32"
+                             onerror="this.src='/default-profile.png'">
+                        <span>${user.username}</span>
+                    </div>
+                `;
+                li.addEventListener('click', () => {
+                    window.location.href = `/users/${user.username}`;
+                });
+                resultsList.appendChild(li);
+            });
+        }
+        searchResults.style.display = 'block';
+    };
+
+    // Perform search
+    const performSearch = async (query) => {
+        if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        try {
+            // Show loading state
+            resultsList.innerHTML = '<li class="list-group-item">Searching...</li>';
+            searchResults.style.display = 'block';
+
+            const response = await fetch(`/users/search?q=${encodeURIComponent(query)}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const users = await response.json();
+            displayResults(users, query);
+        } catch (error) {
+            console.error('Search failed:', error);
+            resultsList.innerHTML = `
+                <li class="list-group-item text-danger">
+                    Search failed. Please try again.
+                </li>
+            `;
+            searchResults.style.display = 'block';
+        }
+    };
+
+    // Debounced search handler
+    const debouncedSearch = debounce(performSearch, 300);
+
+    // Event listeners
+    searchInput.addEventListener('input', (e) => {
+        debouncedSearch(e.target.value.trim());
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container') && 
+            !e.target.closest('#searchResults')) {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Handle Enter key
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch(searchInput.value.trim());
+        }
+    });
+});
+</script>

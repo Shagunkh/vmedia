@@ -1,0 +1,678 @@
+<%- include('../partials/header') %>
+
+<style>
+/* ========== PREMIUM VARIABLES ========== */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --secondary: #7c3aed;
+    --accent: #f97316;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --dark: #0f172a;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* ========== PAGE CONTAINER ========== */
+.products-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ========== HEADER SECTION ========== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-left h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0 0 8px 0;
+}
+
+.header-left p {
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.header-stats {
+    display: flex;
+    gap: 24px;
+    background: var(--gray-50);
+    padding: 12px 24px;
+    border-radius: 60px;
+}
+
+.stat-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-badge i {
+    color: var(--primary);
+}
+
+.stat-badge span:first-child {
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.stat-badge span:last-child {
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.add-product-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.add-product-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    color: white;
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--gray-50);
+    border-radius: 32px;
+    animation: fadeIn 0.5s ease;
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.empty-icon i {
+    font-size: 48px;
+    color: white;
+}
+
+.empty-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gray-800);
+}
+
+.empty-text {
+    color: var(--gray-600);
+    margin-bottom: 32px;
+}
+
+.empty-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 12px 32px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.empty-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    color: white;
+}
+
+/* ========== PRODUCT GRID ========== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+/* ========== PRODUCT CARD ========== */
+.product-card-modern {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--gray-200);
+    position: relative;
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.product-card-modern:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: transparent;
+}
+
+.product-card-modern:nth-child(1) { animation-delay: 0.05s; }
+.product-card-modern:nth-child(2) { animation-delay: 0.1s; }
+.product-card-modern:nth-child(3) { animation-delay: 0.15s; }
+.product-card-modern:nth-child(4) { animation-delay: 0.2s; }
+.product-card-modern:nth-child(5) { animation-delay: 0.25s; }
+.product-card-modern:nth-child(6) { animation-delay: 0.3s; }
+
+/* Image Container */
+.card-image {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: var(--gray-100);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card-modern:hover .card-image img {
+    transform: scale(1.08);
+}
+
+/* Status Badge */
+.status-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+}
+
+.status-available {
+    background: rgba(16, 185, 129, 0.9);
+    color: white;
+}
+
+.status-sold {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+}
+
+.status-reserved {
+    background: rgba(245, 158, 11, 0.9);
+    color: white;
+}
+
+/* Category Badge */
+.category-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    color: white;
+    z-index: 2;
+}
+
+/* Card Content */
+.card-content {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.product-description {
+    font-size: 14px;
+    color: var(--gray-600);
+    margin-bottom: 16px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.product-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.condition-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-weight: 600;
+}
+
+.condition-new { background: #d1fae5; color: #065f46; }
+.condition-like-new { background: #d9f99d; color: #3f6212; }
+.condition-good { background: #fed7aa; color: #9b2c1d; }
+.condition-fair { background: #fef3c7; color: #92400e; }
+
+/* Product Meta */
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--gray-600);
+}
+
+.meta-item i {
+    font-size: 12px;
+    color: var(--primary);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-view {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.btn-view:hover {
+    background: var(--gray-200);
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    background: var(--warning);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Delete Confirmation Toast */
+.delete-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 24px;
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid var(--danger);
+}
+
+.delete-toast i {
+    font-size: 20px;
+    color: var(--danger);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .products-page {
+        padding: 20px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .header-stats {
+        justify-content: center;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .action-buttons {
+        flex-wrap: wrap;
+    }
+    
+    .btn-action {
+        flex: auto;
+        min-width: calc(33.33% - 7px);
+    }
+}
+</style>
+
+<div class="products-page">
+    <!-- Header -->
+    <div class="page-header">
+        <div class="header-left">
+            <h1>My Products</h1>
+            <p>Manage your listings and track sales</p>
+        </div>
+        
+        <div class="header-stats">
+            <div class="stat-badge">
+                <i class="fas fa-box"></i>
+                <span>Total:</span>
+                <span><%= products.length %></span>
+            </div>
+            <div class="stat-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Available:</span>
+                <span><%= products.filter(p => p.status === 'available').length %></span>
+            </div>
+            <div class="stat-badge">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Sold:</span>
+                <span><%= products.filter(p => p.status === 'sold').length %></span>
+            </div>
+        </div>
+        
+        <a href="/marketplace/add-product" class="add-product-btn">
+            <i class="fas fa-plus-circle"></i> Add New Product
+        </a>
+    </div>
+    
+    <!-- Products Grid or Empty State -->
+    <% if (products.length === 0) { %>
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <h3 class="empty-title">No products listed yet</h3>
+            <p class="empty-text">Start selling your items and reach thousands of students on campus!</p>
+            <a href="/marketplace/add-product" class="empty-btn">
+                <i class="fas fa-plus-circle"></i> Sell Your First Item
+            </a>
+        </div>
+    <% } else { %>
+        <div class="products-grid">
+            <% products.forEach(product => { 
+                const statusClass = product.status === 'available' ? 'status-available' : 
+                                   (product.status === 'sold' ? 'status-sold' : 'status-reserved');
+                const conditionClass = product.condition === 'New' ? 'condition-new' :
+                                      (product.condition === 'Like New' ? 'condition-like-new' :
+                                      (product.condition === 'Good' ? 'condition-good' : 'condition-fair'));
+            %>
+                <div class="product-card-modern" data-product-id="<%= product._id %>">
+                    <div class="card-image">
+                        <img src="<%= product.images[0] %>" alt="<%= product.title %>">
+                        <div class="status-badge <%= statusClass %>">
+                            <i class="fas <%= product.status === 'available' ? 'fa-check-circle' : (product.status === 'sold' ? 'fa-shopping-cart' : 'fa-clock') %>"></i>
+                            <%= product.status.toUpperCase() %>
+                        </div>
+                        <div class="category-badge">
+                            <i class="fas fa-tag"></i> <%= product.category %>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <h3 class="product-title"><%= product.title %></h3>
+                        <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
+                        
+                        <div class="price-section">
+                            <span class="product-price">₹<%= product.price %></span>
+                            <span class="condition-tag <%= conditionClass %>"><%= product.condition %></span>
+                        </div>
+                        
+                        <div class="product-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Listed: <%= new Date(product.createdAt).toLocaleDateString() %></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-eye"></i>
+                                <span><%= product.views %> views</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-heart"></i>
+                                <span><%= product.interestedBuyers ? product.interestedBuyers.length : 0 %> interested</span>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <a href="/marketplace/product/<%= product._id %>" class="btn-action btn-view">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="/marketplace/edit-product/<%= product._id %>" class="btn-action btn-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <button onclick="deleteProduct('<%= product._id %>', '<%= product.title %>')" class="btn-action btn-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>
+
+<script>
+function deleteProduct(productId, productTitle) {
+    if (confirm(`Are you sure you want to delete "${productTitle}"? This action cannot be undone.`)) {
+        const deleteBtn = event.target.closest('.btn-delete');
+        if (deleteBtn) {
+            deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+            deleteBtn.disabled = true;
+        }
+        
+        fetch(`/marketplace/product/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success || response.ok) {
+                // Show success toast
+                showToast('Product deleted successfully!', 'success');
+                // Remove the product card with animation
+                const productCard = document.querySelector(`.product-card-modern[data-product-id="${productId}"]`);
+                if (productCard) {
+                    productCard.style.animation = 'fadeOut 0.3s ease forwards';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 300);
+                } else {
+                    window.location.reload();
+                }
+            } else {
+                showToast('Error deleting product', 'error');
+                if (deleteBtn) {
+                    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
+                    deleteBtn.disabled = false;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Error deleting product', 'error');
+            if (deleteBtn) {
+                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
+                deleteBtn.disabled = false;
+            }
+        });
+    }
+}
+
+function showToast(message, type) {
+    const toast = document.createElement('div');
+    toast.className = 'delete-toast';
+    toast.style.animation = 'slideInRight 0.3s ease';
+    
+    const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+    const color = type === 'success' ? '#10b981' : '#ef4444';
+    
+    toast.innerHTML = `
+        <i class="fas ${icon}" style="color: ${color};"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.3s ease forwards';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Add fadeOut animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    }
+`;
+document.head.appendChild(style);
+</script>
+

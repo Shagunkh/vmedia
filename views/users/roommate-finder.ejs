@@ -1,0 +1,1635 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Base Styles with Smooth Scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Hero Section with Particle Background */
+  .hero-section {
+    position: relative;
+    padding: 8rem 0;
+    background: radial-gradient(ellipse at center, rgba(0,140,255,0.1) 0%, rgba(0,0,0,0) 70%);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0,216,255,0.1);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center; /* Center hero content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Animated Gradient Title */
+  .hero-title {
+    font-size: 5.5rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 4px 20px rgba(0,216,255,0.3);
+    animation: gradient 3s linear infinite, float 6s ease-in-out infinite;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Animated Subtitle */
+  .hero-subtitle {
+    font-size: 1.8rem;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    background: linear-gradient(90deg, #ffffff, #a0a0a0, #ffffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient 5s linear infinite;
+    position: relative;
+  }
+
+  .hero-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    border-radius: 3px;
+    animation: widthPulse 3s ease-in-out infinite;
+  }
+
+  /* Premium Card Design with Glass Morphism */
+  .room-card {
+    background: rgba(7, 39, 54, 0.7);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    margin-bottom: 2rem; /* Vertical spacing between cards */
+    transform: translateY(50px);
+    opacity: 0;
+    animation: cardEntrance 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    position: relative;
+    z-index: 1;
+    margin:auto;
+    margin-bottom: 2rem;
+  }
+
+  .room-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    z-index: 2;
+  }
+
+  .room-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 12px 40px rgba(0, 140, 255, 0.4);
+    border: 1px solid rgba(0, 216, 255, 0.3);
+  }
+
+  /* Card Content Styling */
+  .card-body {
+    padding: 2rem;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .card-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .room-card:hover .card-title::after {
+    width: 100%;
+  }
+
+  .card-text {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  /* Member Slots with Hover Effects */
+  .member-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 1.5rem 0;
+  }
+
+  .member-slot {
+    position: relative;
+    width: 60px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+  }
+
+  .member-slot:hover {
+    transform: translateY(-5px) scale(1.1);
+  }
+
+  .member-slot img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    object-fit: cover;
+  }
+
+  .member-slot:hover img {
+    border-color: #00d8ff;
+    box-shadow: 0 0 20px rgba(0, 216, 255, 0.6);
+  }
+
+  .member-slot .member-label {
+    font-size: 0.7rem;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .member-slot:hover .member-label {
+    color: #00d8ff;
+  }
+
+  .empty-slot {
+    width: 50px;
+    height: 50px;
+    border: 2px dashed rgba(0, 216, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 216, 255, 0.7);
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .empty-slot:hover {
+    border-color: #00d8ff;
+    background: rgba(0, 216, 255, 0.1);
+    color: #00d8ff;
+  }
+
+  /* Premium Buttons with Glow Effect */
+  .btn-premium {
+    background: linear-gradient(135deg, #00d8ff, #008cff);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #000;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 140, 255, 0.4);
+    z-index: 1;
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 140, 255, 0.6);
+    color: #000;
+  }
+
+  .btn-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.7s ease;
+    z-index: -1;
+  }
+
+  .btn-premium:hover::before {
+    left: 100%;
+  }
+
+  /* Section Headings */
+  .section-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .section-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    border-radius: 3px;
+    animation: widthPulse 3s ease-in-out infinite;
+  }
+
+  /* Modal Enhancements */
+  .modal-premium {
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-premium .modal-header {
+    border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+  }
+
+  .modal-premium .modal-title {
+    color: #00d8ff;
+    font-weight: 700;
+  }
+
+  /* Input Styling */
+  .form-control-premium {
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+  }
+
+  .form-control-premium:focus {
+    background: rgba(40, 40, 40, 0.8);
+    border-color: #00d8ff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 216, 255, 0.25);
+    color: #fff;
+  }
+
+  /* Placeholder text color */
+  .form-control-premium::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  /* Animations */
+  @keyframes gradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  @keyframes cardEntrance {
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes widthPulse {
+    0%, 100% { width: 100px; }
+    50% { width: 150px; }
+  }
+
+  /* Particle Background */
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    background: rgba(0, 216, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+    
+    .section-heading {
+      font-size: 2rem;
+    }
+  }
+  .room-card {
+  margin-bottom: 2rem;
+   /* Vertical spacing between cards */
+}
+#rooms-container {
+  row-gap: 2rem; /* This adds vertical space between rows */
+}
+
+.room-card {
+  margin-bottom: 0; /* Remove the individual card margin since we're using row-gap */
+  height: 100%; /* Ensure all cards have equal height */
+}
+:root {
+  --gradient-primary: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
+  --gradient-primary-animated: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff, #00d8ff, #008cff, #00d8ff);
+  --color-primary: #00d8ff;
+  --color-secondary: #008cff;
+  --color-dark: #0a0a12;
+  --color-darker: #050508;
+  --color-darkest: #020204;
+}
+
+/* Base hero section styles */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--color-darkest);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding-top: 80px;
+}
+
+/* Animated background gradient */
+.hero-bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary-animated);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Particle network animation */
+.particle-network-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.5;
+}
+
+/* Glowing orbs decoration */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  z-index: 3;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--color-primary);
+  top: -100px;
+  left: -100px;
+  animation: float 12s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  background: var(--color-secondary);
+  bottom: -50px;
+  right: 20%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.orb-3 {
+  width: 150px;
+  height: 150px;
+  background: white;
+  top: 40%;
+  right: -50px;
+  animation: float 10s ease-in-out infinite 2s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, 30px) rotate(5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Hero content layout */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.hero-text-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Animated title */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+ 
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, #fff, #c2e9fb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.title-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.title-word-1 {
+  animation: titleWordIn 0.8s ease-out 0.1s forwards;
+}
+
+.title-word-2 {
+  animation: titleWordIn 0.8s ease-out 0.3s forwards;
+}
+
+.title-word-3 {
+  animation: titleWordIn 0.8s ease-out 0.5s forwards;
+}
+
+.title-word-4 {
+  animation: titleWordIn 0.8s ease-out 0.7s forwards;
+  position: relative;
+}
+
+.title-word-4::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  background-size: 200% auto;
+  border-radius: 2px;
+  animation: underlineGrow 0.8s ease-out 1.2s forwards, gradientSlide 3s ease infinite;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+@keyframes titleWordIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gradientSlide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animated subtitle */
+.subtitle-letters {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: subtitleIn 1s ease-out 1s forwards;
+}
+
+@keyframes subtitleIn {
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
+}
+
+/* Button styles with hover effects */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-left: 90px;
+}
+
+.btn {
+  position: relative;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.btn-premium {
+  background: var(--gradient-primary);
+  background-size: 200% auto;
+  color: var(--color-darkest);
+  box-shadow: 0 4px 15px rgba(0, 216, 255, 0.4);
+  animation: gradientSlide 3s ease infinite;
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.btn-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.btn:hover .btn-hover-effect {
+  transform: translateY(0);
+}
+
+.btn-outline-light:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
+}
+
+.btn-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 216, 255, 0.6);
+}
+
+/* 3D room illustration */
+.hero-illustration {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  perspective: 1000px;
+  animation: fadeInRight 1s ease-out 0.3s both;
+}
+
+.room-3d {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  transform-style: preserve-3d;
+  animation: floatRoom 8s ease-in-out infinite;
+}
+
+@keyframes floatRoom {
+  0%, 100% { transform: rotateY(0deg) translateY(0); }
+  50% { transform: rotateY(5deg) translateY(-20px); }
+}
+
+.wall {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.wall-left {
+  width: 50px;
+  height: 200px;
+  left: 0;
+  bottom: 0;
+  transform-origin: left;
+  transform: rotateY(90deg);
+}
+
+.wall-back {
+  width: 300px;
+  height: 200px;
+  left: 50px;
+  bottom: 0;
+}
+
+.wall-right {
+  width: 50px;
+  height: 200px;
+  left: 350px;
+  bottom: 0;
+  transform-origin: right;
+  transform: rotateY(-90deg);
+}
+
+.floor {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  transform-origin: bottom;
+  transform: rotateX(90deg);
+}
+
+.roomie {
+  position: absolute;
+  width: 40px;
+  height: 80px;
+  border-radius: 20px;
+  bottom: 0;
+  background: var(--gradient-primary);
+  animation: roomieFloat 4s ease-in-out infinite;
+}
+
+.roomie-1 {
+  left: 100px;
+  animation-delay: 0s;
+}
+
+.roomie-2 {
+  left: 200px;
+  animation-delay: 0.5s;
+}
+
+@keyframes roomieFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(0px); }
+}
+
+.furniture, .decor {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.desk {
+  width: 80px;
+  height: 50px;
+  bottom: 20px;
+  left: 150px;
+}
+
+.bed {
+  width: 120px;
+  height: 70px;
+  bottom: 20px;
+  right: 50px;
+}
+
+.plant {
+  width: 20px;
+  height: 40px;
+  bottom: 20px;
+  left: 80px;
+  background: var(--color-primary);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: fadeIn 1s ease-out 1.5s both;
+}
+
+.mouse {
+  width: 25px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 13px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.wheel {
+  width: 4px;
+  height: 8px;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 2s ease infinite;
+}
+
+.arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(45deg);
+  left: 50%;
+  margin-left: -4px;
+  opacity: 0;
+}
+
+.arrow-1 {
+  top: 12px;
+  animation: scrollArrow 2s ease infinite;
+}
+
+.arrow-2 {
+  top: 16px;
+  animation: scrollArrow 2s ease infinite 0.2s;
+}
+
+.arrow-3 {
+  top: 20px;
+  animation: scrollArrow 2s ease infinite 0.4s;
+}
+
+@keyframes scrollWheel {
+  0%, 30% { 
+    top: 6px;
+    opacity: 1;
+  }
+  80%, 100% { 
+    top: 20px;
+    opacity: 0;
+  }
+}
+
+@keyframes scrollArrow {
+  0%, 50% { 
+    opacity: 0;
+    transform: rotate(45deg) translate(0, 0);
+  }
+  60% { 
+    opacity: 0.5;
+  }
+  100% { 
+    opacity: 0;
+    transform: rotate(45deg) translate(-5px, -5px);
+  }
+}
+
+/* Entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-text-wrapper {
+    max-width: 100%;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+    margin-left: -1rem;
+  }
+  
+  .hero-title::after {
+    left: 50%;
+   
+    animation: underlineGrow 0.8s ease-out 1.2s forwards, gradientSlide 3s ease infinite;
+  }
+  
+  .hero-illustration {
+    margin-top: 50px;
+  }
+}
+.crisp-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #00d8ff, #008cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
+  margin: 0;
+}
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-text-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Remove all underlines and decorative lines */
+  .hero-title::after,
+  .hero-subtitle::after,
+  .title-word-4::after {
+    display: none !important;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-content {
+      padding: 1rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .hero-title {
+      margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+<br><br><br>
+<!-- Hero Section with Particles -->
+<section class="hero-section">
+  <!-- Animated gradient background -->
+  <div class="hero-bg-animation"></div>
+  
+  <!-- Floating particles container -->
+  <div class="particle-network-animation" id="particles-js"></div>
+  
+  <!-- Glowing orb decorators -->
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+  
+  <!-- Main content with animated entrance -->
+  <div class="container hero-content">
+    <div class="hero-text-wrapper">
+      <h1 class=" crisp-title">
+        <span class="title-word title-word-1 crisp-title">Find</span>
+        <span class="title-word title-word-2 crisp-title">Your</span>
+        <span class="title-word title-word-3 crisp-title">Perfect</span>
+        <span class="title-word title-word-4 crisp-title">Roomie</span>
+      </h1>
+      <BR><BR><BR>
+      <p class="hero-subtitle">
+        <span >Connect with like-minded students and create lasting memories</span>
+      </p>
+      
+      <div class="hero-buttons">
+        <button class="btn btn-premium" onclick="showCreateRoomModal()">
+          <i class="bi bi-plus-circle me-2"></i>
+          <span>Create a Room</span>
+          <div class="btn-hover-effect"></div>
+        </button>
+        
+        <a href="#rooms" class="btn btn-outline-light">
+          <i class="bi bi-search me-2"></i>
+          <span>Browse Rooms</span>
+          <div class="btn-hover-effect"></div>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Floating 3D room illustration -->
+    <div class="hero-illustration">
+      <div class="room-3d">
+        <div class="wall wall-left"></div>
+        <div class="wall wall-back"></div>
+        <div class="wall wall-right"></div>
+        <div class="floor"></div>
+        <div class="roomie roomie-1"></div>
+        <div class="roomie roomie-2"></div>
+        <div class="furniture desk"></div>
+        <div class="furniture bed"></div>
+        <div class="decor plant"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Animated scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <div class="arrow arrow-1"></div>
+    <div class="arrow arrow-2"></div>
+    <div class="arrow arrow-3"></div>
+  </div>
+</section>
+<!-- Rooms Section -->
+<section class="py-5 position-relative" id="rooms">
+  <div class="container">
+    <h2 class="section-heading">Available Rooms</h2>
+    <div class="d-flex justify-content-center gap-3 mb-4">
+      <button class="btn btn-outline-primary filter-btn" data-gender="all">
+        <i class="bi bi-people-fill me-2"></i>All Rooms
+      </button>
+      <button class="btn btn-outline-primary filter-btn" data-gender="Male">
+        <i class="bi bi-gender-male me-2"></i>Male
+      </button>
+      <button class="btn btn-outline-primary filter-btn" data-gender="Female">
+        <i class="bi bi-gender-female me-2"></i>Female
+      </button>
+    </div>
+    
+    <div id="rooms-container" class="row g-4">
+      <% rooms.forEach((room, index) => { %>
+        <div class="col-md-6 col-lg-4" >
+          <div class="room-card card h-100" data-hostel="<%= room.hostel %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= room.name %></h5>
+              <p class="card-text">
+               <strong><i class="bi bi-book me-2"></i>Course:</strong> <%= room.course %>, Year <%= room.year %><br>
+        <strong><i class="bi bi-building me-2"></i>Hostel:</strong> <%= room.hostel %><br>
+        <strong><i class="bi bi-heart me-2"></i>Interests:</strong> <%= room.interests.join(', ') || 'None' %><br>
+        <strong><i class="bi bi-people me-2"></i>Size:</strong> <%= room.size %>
+              </p>
+              
+              <div class="mb-4">
+                <strong style="color: #ffffff; justify-content: center;"><i class="bi bi-person-lines-fill me-2"></i>Members:</strong>
+                <div class="member-slots-container mt-3">
+                  <div class="member-slot">
+                    <img src="<%= room.creator.profilePhoto || '/images/default-profile.png' %>" 
+                         alt="Creator">
+                    <div class="member-label">Creator</div>
+                  </div>
+                  
+                  <% for (let i = 0; i < room.size - 1; i++) { %>
+                    <% const member = room.members[i]; %>
+                    <div class="member-slot">
+                      <% if (member) { %>
+                        <img src="<%= member.user.profilePhoto || '/images/default-profile.png' %>" 
+                             alt="Member">
+                        <div class="member-label">
+                          <%= member.status === 'pending' ? 'Pending' : 'Member' %>
+                        </div>
+                      <% } else { %>
+                        <div class="empty-slot">
+                          <span>+</span>
+                        </div>
+                      <% } %>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+              
+              <%
+                const isCreator = room.creator._id.equals(user._id);
+                const isMember = room.members.some(m => m.user._id.equals(user._id));
+                const isAcceptedMember = isMember && room.members.find(m => m.user._id.equals(user._id))?.status === 'accepted';
+                const canAccessChat = isCreator || isAcceptedMember;
+              %>
+              
+              <% if (room.isFull && canAccessChat) { %>
+                <button class="btn btn-premium w-100 mt-2" 
+                        onclick="openGroupChat('<%= room._id %>', '<%= room.name %>')">
+                  <i class="bi bi-chat-left-text me-2"></i>Open Chat
+                </button>
+              <% } else if (room.isFull) { %>
+                <button class="btn btn-secondary w-100 mt-2" disabled>
+                  <i class="bi bi-lock me-2"></i>Room Full
+                </button>
+              <% } else if (isCreator) { %>
+                <% let hasPending = false; %>
+                <% room.members.forEach(member => { %>
+                  <% if (member.status === 'pending') { %>
+                    <% hasPending = true; %>
+                    <button class="btn btn-sm btn-success me-2 mb-2" 
+                            onclick="acceptMember('<%= room._id %>', '<%= member.user._id %>')">
+                      <i class="bi bi-check-circle me-1"></i>Accept <%= member.user.email %>
+                    </button>
+                  <% } %>
+                <% }); %>
+                <% if (!hasPending) { %>
+                  <div class="text-center py-2">
+                    <div class="spinner-border text-primary spinner-border-sm" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="ms-2" style="color: #ffffff;">Waiting for members...</span>
+                  </div>
+                <% } %>
+              <% } else if (isMember) { %>
+                <button class="btn btn-outline-light w-100 mt-2" disabled>
+                  <i class="bi bi-check-circle me-2"></i>Already Joined
+                </button>
+              <% } else { %>
+                <button class="btn btn-premium w-100 mt-2" 
+                        onclick="joinRoom('<%= room._id %>')">
+                  <i class="bi bi-door-open me-2"></i>Join Room
+                </button>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- Modals -->
+<div id="create-room-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-premium">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-plus-circle me-2"></i>Create a Room</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="create-room-form">
+          <div class="mb-4">
+            <label class="form-label">Room Name</label>
+            <input type="text" class="form-control form-control-premium" name="name" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Room Size</label>
+            <select class="form-select form-control-premium" name="size" required>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Course</label>
+            <input type="text" class="form-control form-control-premium" name="course" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Year</label>
+            <input type="number" class="form-control form-control-premium" name="year" required min="1" max="5">
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Hostel</label>
+            <select class="form-select form-control-premium" name="hostel" required>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+</select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Interests (comma separated)</label>
+            <input type="text" class="form-control form-control-premium" name="interests">
+          </div>
+          <div class="mb-4">
+            <label class="form-label">WhatsApp Number</label>
+            <input type="tel" class="form-control form-control-premium" name="whatsappNumber" required>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-premium px-4">
+              <i class="bi bi-plus-circle me-2"></i>Create Room
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Group Chat Modal -->
+<div id="group-chat-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-premium">
+      <div class="modal-header">
+        <h5 class="modal-title" id="chat-room-name"><i class="bi bi-chat-left-text me-2"></i>Group Chat</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="height: 60vh; overflow-y: auto;">
+        <div id="chat-messages" class="chat-container"></div>
+      </div>
+      <div class="modal-footer">
+        <form id="send-message-form" class="w-100">
+          <div class="input-group">
+            <input type="text" class="form-control form-control-premium" placeholder="Type your message..." id="message-input" required>
+            <button class="btn btn-premium" type="submit">
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/roommate-finder.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.filter-btn[data-gender="all"]').click();
+    const particlesContainer = document.getElementById('particles-js');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random size between 2px and 6px
+      const size = Math.random() * 4 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Random position
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      
+      // Random animation
+      const duration = Math.random() * 20 + 10;
+      const delay = Math.random() * 5;
+      particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+      
+      particlesContainer.appendChild(particle);
+    }
+
+     if (typeof particlesJS !== 'undefined') {
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#00d8ff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#00d8ff",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": true,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 0.5
+            }
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  }
+  
+  // Animate subtitle letters one by one
+  const subtitle = document.querySelector('.subtitle-letters');
+  if (subtitle) {
+    const text = subtitle.textContent;
+    subtitle.textContent = '';
+    
+    for (let i = 0; i < text.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = text[i];
+      span.style.opacity = '0';
+      span.style.transform = 'translateY(20px)';
+      span.style.display = 'inline-block';
+      span.style.animation = `letterFadeIn 0.5s ease-out ${0.1 + i * 0.03}s forwards`;
+      subtitle.appendChild(span);
+    }
+    
+    // Add the animation to the style sheet
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes letterFadeIn {
+        to {
+          opacity: 0.9;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const createRoomModal = new bootstrap.Modal(document.getElementById('create-room-modal'));
+  const groupChatModal = new bootstrap.Modal(document.getElementById('group-chat-modal'));
+  let currentRoomId = null;
+
+
+  // Send message form
+  document.getElementById('send-message-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const messageInput = document.getElementById('message-input');
+    const content = messageInput.value.trim();
+    
+    if (!content) return;
+    
+    try {
+      const response = await fetch(`/api/rooms/${currentRoomId}/chat/message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content })
+      });
+      
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Failed to send message');
+      
+      messageInput.value = '';
+      loadChat(currentRoomId);
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const gender = this.dataset.gender;
+    
+    // Update active button styling
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('btn-premium');
+      b.classList.add('btn-outline-primary');
+    });
+    
+    this.classList.remove('btn-outline-primary');
+    this.classList.add('btn-premium');
+    
+    // Filter rooms
+    document.querySelectorAll('.room-card').forEach(card => {
+      if (gender === 'all') {
+        card.style.display = 'block';
+      } else {
+        const roomHostel = card.dataset.hostel; // Get the hostel value
+        card.style.display = roomHostel === gender ? 'block' : 'none';
+      }
+    });
+  });
+});
+  // Open group chat with authorization check
+  window.openGroupChat = async (roomId, roomName) => {
+    try {
+      const response = await fetch(`/api/rooms/${roomId}/chat`);
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Not authorized to access this chat');
+      }
+      
+      currentRoomId = roomId;
+      document.getElementById('chat-room-name').textContent = `Group Chat - ${roomName}`;
+      loadChat(roomId);
+      groupChatModal.show();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // Load chat messages
+  async function loadChat(roomId) {
+    try {
+      const response = await fetch(`/api/rooms/${roomId}/chat`);
+      if (!response.ok) throw new Error('Failed to load chat');
+      
+      const result = await response.json();
+      renderChatMessages(result.messages);
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  }
+   document.getElementById('create-room-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+  
+  // Client-side validation
+  const userGender = '<%= user.gender %>'.toLowerCase(); // From template
+  if (data.hostel.toLowerCase() !== userGender) {
+    alert(`You can only create ${userGender} hostel rooms`);
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/rooms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to create room');
+    }
+    
+    createRoomModal.hide();
+    e.target.reset();
+    window.location.reload();
+  } catch (err) {
+    alert(err.message);
+  }
+});
+  // Render chat messages
+  function renderChatMessages(messages) {
+    const container = document.getElementById('chat-messages');
+    container.innerHTML = '';
+    
+    messages.forEach(msg => {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'mb-3';
+      
+      messageDiv.innerHTML = `
+        <div class="d-flex align-items-center mb-1">
+          <img src="${msg.sender.profilePhoto || '/images/default-profile.png'}" 
+               alt="${msg.sender.email}" class="rounded-circle me-2" width="30" height="30">
+          <strong>${msg.sender.email}</strong>
+          <small class=" ms-2">
+            ${new Date(msg.timestamp).toLocaleTimeString()}
+          </small>
+        </div>
+        <div class="ms-4">${msg.content}</div>
+      `;
+      
+      container.appendChild(messageDiv);
+    });
+    
+    container.scrollTop = container.scrollHeight;
+  }
+
+  // Other functions (joinRoom, acceptMember, etc.) remain the same
+window.joinRoom = async (roomId) => {
+  try {
+    // First get room details to check gender
+    const roomResponse = await fetch(`/api/rooms/${roomId}`);
+    const roomResult = await roomResponse.json();
+    
+    if (!roomResponse.ok) {
+      throw new Error(roomResult.error || 'Failed to get room details');
+    }
+    
+    const room = roomResult.room; // Access the room data from the response
+    
+    // Check if user can join this room
+    const userGender = '<%= user.gender %>'.toLowerCase(); // From template
+    const roomHostel = room.hostel ? room.hostel.toLowerCase() : null;
+    
+    if (!roomHostel) {
+      throw new Error('This room has invalid hostel information');
+    }
+    
+    if (roomHostel !== userGender) {
+      throw new Error(`You can only join ${room.hostel} hostel rooms`);
+    }
+    
+    // Proceed with joining
+    const joinResponse = await fetch(`/api/rooms/${roomId}/join`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    const result = await joinResponse.json();
+    if (!joinResponse.ok) throw new Error(result.error || 'Failed to join room');
+    
+    window.location.reload();
+  } catch (err) {
+    alert(err.message);
+    console.error('Join room error:', err);
+  }
+};
+
+  window.acceptMember = async (roomId, userId) => {
+    try {
+      const response = await fetch(`/api/rooms/${roomId}/accept/${userId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Failed to accept member');
+      window.location.reload();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  window.showCreateRoomModal = () => createRoomModal.show();
+});
+  </script>

@@ -1,0 +1,921 @@
+<% layout("/layouts/boilerplate") %>
+  <style>
+  :root {
+  --primary: #00d8ff;
+  --secondary: #008cff;
+  --dark-bg: #0a0e17;
+  --darker-bg: #050a14;
+  --card-bg: rgba(9, 10, 12, 0.8);
+  --accent: #ff79c6;
+  --success: #50fa7b;
+  --text: #e2f3ff;
+  --text-muted: #5d7a9d;
+  --border: rgba(0, 216, 255, 0.2);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--dark-bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 216, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 140, 255, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+  transform-origin: left;
+  transform: scaleX(0.7);
+}
+
+/* Layout */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 3rem auto;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+.box {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 140, 255, 0.2);
+  border-color: rgba(0, 216, 255, 0.4);
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* Form Elements */
+.subject-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+input[type="number"],
+select {
+  padding: 0.8rem 1rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(26, 34, 56, 0.5);
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.2);
+  background: rgba(26, 34, 56, 0.8);
+}
+
+input[type="number"]::placeholder {
+  color: var(--text-muted);
+}
+
+/* Buttons */
+button {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--darker-bg);
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 216, 255, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 216, 255, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button svg {
+  transition: transform 0.3s ease;
+}
+
+button:hover svg {
+  transform: scale(1.1);
+}
+
+.add-btn {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  margin-top: 0.5rem;
+  width: 100%;
+  box-shadow: none;
+}
+
+.add-btn:hover {
+  background: rgba(0, 216, 255, 0.1);
+  color: var(--text);
+}
+
+/* Results */
+.result {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(68, 71, 90, 0.3);
+  border-radius: 10px;
+  border-left: 4px solid var(--primary);
+  animation: fadeIn 0.5s ease;
+  backdrop-filter: blur(5px);
+}
+
+.result strong {
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Special Elements */
+.highlight {
+  animation: pulse 2s infinite ease-in-out;
+  position: relative;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 10px;
+  border: 2px solid var(--primary);
+  animation: pulse 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Intro Section */
+.intro-container {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 2rem;
+  position: relative;
+}
+
+.tagline {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--text);
+  margin: 1rem 0;
+  opacity: 0;
+  animation: fadeIn 1s forwards 1s;
+}
+
+.circuit-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.05;
+  background-image: 
+    linear-gradient(var(--primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.gradient-orb {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 216, 255, 0.2) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  animation: float 15s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 50px) scale(1.1); }
+  100% { transform: translate(-50px, -50px) scale(0.9); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .box {
+    padding: 1.5rem;
+  }
+  
+  .intro-container {
+    padding: 1rem;
+  }
+  
+  .subject-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  input[type="number"], select {
+    width: 100%;
+  }
+}
+
+/* Tooltip Styles */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--darker-bg);
+  color: var(--text);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  opacity: 0;
+  animation: confetti-fall 3s ease-in forwards;
+  z-index: 1000;
+}
+.intro-container {
+  position: relative;
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, #0a0a12 100%);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 10px 30px rgba(0, 140, 255, 0.2);
+}
+
+.intro-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(0, 216, 255, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 70% 70%, rgba(0, 140, 255, 0.1) 0%, transparent 25%);
+  animation: particleMove 20s linear infinite;
+  z-index: 0;
+}
+
+.intro-container h1 {
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0, 216, 255, 0.3);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  position: relative;
+  animation: 
+    cosmicGradient 8s ease infinite,
+    textGlow 3s ease-in-out infinite alternate,
+    floatTitle 6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.tagline {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin: 0.5rem auto;
+  background: linear-gradient(90deg, #b0b8cc, #f0f4ff, #b0b8cc);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.9;
+  animation: 
+    cosmicFadeIn 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) both,
+    subtlePulse 4s ease-in-out infinite,
+    cosmicGradient 12s linear infinite;
+  text-shadow: 0 2px 10px rgba(0, 140, 255, 0.2);
+  position: relative;
+  padding: 0.5rem 1rem;
+  z-index: 2;
+}
+
+.back-btn {
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(0, 216, 255, 0.1);
+  border: 1px solid rgba(0, 216, 255, 0.3);
+  color: #f0f4ff;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+  position: relative;
+  backdrop-filter: blur(5px);
+}
+
+.back-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(0, 216, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 140, 255, 0.3);
+}
+
+.back-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+/* Animations */
+@keyframes cosmicGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 15px rgba(0, 216, 255, 0.3); }
+  100% { text-shadow: 0 0 25px rgba(0, 216, 255, 0.5); }
+}
+
+@keyframes floatTitle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes cosmicFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 0.9; transform: translateY(0); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes particleMove {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-5%, 5%); }
+  50% { transform: translate(5%, -5%); }
+  75% { transform: translate(-5%, -5%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .intro-container h1 {
+    font-size: 3.5rem;
+  }
+  .tagline {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-container h1 {
+    font-size: 2.5rem;
+  }
+  .tagline {
+    font-size: 1.1rem;
+  }
+  .back-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+.gpa-container {
+  background: linear-gradient(135deg, #050a14 0%, #020510 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 216, 255, 0.2);
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.gpa-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 30%, rgba(0, 216, 255, 0.1) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.gpa-result-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gpa-display {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.gpa-label {
+  display: block;
+  font-size: 1.2rem;
+  color: rgba(230, 247, 255, 0.8);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gpa-value {
+  font-size: 5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00d8ff, #008cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gpa-details {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.detail-item {
+  text-align: center;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.9rem;
+  color: rgba(138, 157, 184, 0.8);
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e6f7ff;
+}
+
+/* Celebration effect for high GPA */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.celebration .confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(45deg, #00d8ff, #ff2d75, #00e676, #ffeb3b);
+  opacity: 0;
+  z-index: 10;
+  animation: confetti-fall 3s ease-in forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gpa-value {
+    font-size: 4rem;
+  }
+  
+  .gpa-details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+/* Add these media queries at the end of your CSS */
+
+  </style>
+
+<body>
+<br><br>
+<div class="circuit-grid"></div>
+    <div class="gradient-orb" style="top: -100px; left: -100px;"></div>
+    <div class="gradient-orb" style="bottom: -100px; right: -100px;"></div>
+
+    <div class="intro-container">
+        <h1 style="font-size: 7rem;">VIT GPA & CGPA CALCULATOR</h1>
+        <p class="tagline">Crunch Numbers, Not Your Grades!</p>
+        <p class="tagline">Precision Powered for VITians</p>
+        
+        <button class="back-btn" onclick="window.location.href='/'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+            Back to Home
+        </button>
+    </div>
+
+<div class="container">
+  <!-- GPA Section -->
+  <div class="box" id="gpa-box">
+    <h2>GPA Calculator</h2>
+    <div id="gpa-subjects">
+      <div class="subject-row">
+        <input type="number" placeholder="Credit" min="1" class="credit">
+        <select class="grade">
+          <option value="10">S </option>
+          <option value="9">A </option>
+          <option value="8">B </option>
+          <option value="7">C </option>
+          <option value="6">D </option>
+          <option value="5">E </option>
+          <option value="0">F </option>
+        </select>
+      </div>
+    </div>
+    <button class="add-btn" onclick="addGpaSubject()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+      Add Subject
+    </button>
+    <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="calculateGPA()" class="highlight">
+      Calculate GPA
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-left: 8px;">
+        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+        <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8z"/>
+      </svg>
+    </button>
+    <div class="result" id="gpa-result"></div>
+  </div>
+
+  <!-- CGPA Section -->
+  <div class="box" id="cgpa-box">
+    <h2>CGPA Calculator (Semester-wise)</h2>
+    <div id="cgpa-semesters">
+      <div class="subject-row">
+        <input type="number" placeholder="GPA" min="0" step="0.01" class="sem-gpa">
+        <input type="number" placeholder="Credits" min="1" class="sem-credits">
+      </div>
+    </div>
+    <button class="add-btn" onclick="addCgpaSemester()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+      Add Semester
+    </button>
+     <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="calculateCGPA()" class="highlight">
+      Calculate CGPA
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-left: 8px;">
+        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+        <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8z"/>
+      </svg>
+    </button>
+    <div class="result" id="cgpa-result"></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // GPA Section
+  document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('show');
+        });
+    }
+});
+  function addGpaSubject() {
+    const row = document.createElement("div");
+    row.className = "subject-row";
+    row.innerHTML = `
+      <input type="number" placeholder="Credit" min="1" class="credit">
+      <select class="grade">
+        <option value="10">S </option>
+        <option value="9">A </option>
+        <option value="8">B </option>
+        <option value="7">C </option>
+        <option value="6">D</option>
+        <option value="5">E </option>
+        <option value="0">F </option>
+      </select>`;
+    document.getElementById("gpa-subjects").appendChild(row);
+    row.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function calculateGPA() {
+    const creditInputs = document.querySelectorAll("#gpa-subjects .credit");
+    const gradeSelects = document.querySelectorAll("#gpa-subjects .grade");
+
+    let totalCredits = 0;
+    let totalPoints = 0;
+    let validEntries = 0;
+
+    for (let i = 0; i < creditInputs.length; i++) {
+      const credit = parseFloat(creditInputs[i].value);
+      const gradePoint = parseFloat(gradeSelects[i].value);
+      if (!isNaN(credit)) {
+        totalCredits += credit;
+        totalPoints += credit * (isNaN(gradePoint) ? 0 : gradePoint);
+        validEntries++;
+      }
+    }
+
+    if (validEntries === 0 || totalCredits === 0) {
+      document.getElementById("gpa-result").innerHTML = "❌ Please enter valid data for at least one subject.";
+      return;
+    }
+
+    const gpa = (totalPoints / totalCredits).toFixed(2);
+    document.getElementById("gpa-result").innerHTML = `
+      <strong>GPA:</strong> ${gpa}<br>
+       <strong>Total Credits:</strong> ${totalCredits}<br>
+       <strong>Subjects Calculated:</strong> ${validEntries}
+    `;
+    
+    if (gpa >= 9.0) {
+      celebrate("gpa-box");
+    }
+  }
+
+  // CGPA Section
+  function addCgpaSemester() {
+    const row = document.createElement("div");
+    row.className = "subject-row";
+    row.innerHTML = `
+      <input type="number" placeholder="GPA" min="0" step="0.01" class="sem-gpa">
+      <input type="number" placeholder="Credits" min="1" class="sem-credits">`;
+    document.getElementById("cgpa-semesters").appendChild(row);
+    row.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function calculateCGPA() {
+    const gpas = document.querySelectorAll(".sem-gpa");
+    const credits = document.querySelectorAll(".sem-credits");
+
+    let totalCredits = 0;
+    let weightedPoints = 0;
+    let validSemesters = 0;
+
+    for (let i = 0; i < gpas.length; i++) {
+      const gpa = parseFloat(gpas[i].value);
+      const credit = parseFloat(credits[i].value);
+      if (!isNaN(gpa) && !isNaN(credit)) {
+        weightedPoints += gpa * credit;
+        totalCredits += credit;
+        validSemesters++;
+      }
+    }
+
+    if (validSemesters === 0 || totalCredits === 0) {
+      document.getElementById("cgpa-result").innerHTML = "❌ Please enter valid data for at least one semester.";
+      return;
+    }
+
+    const cgpa = (weightedPoints / totalCredits).toFixed(2);
+    document.getElementById("cgpa-result").innerHTML = `
+      📈 <strong>CGPA:</strong> ${cgpa}<br>
+      📚 <strong>Total Credits:</strong> ${totalCredits}<br>
+      🎓 <strong>Semesters Calculated:</strong> ${validSemesters}
+    `;
+
+    if (cgpa >= 9.0) {
+      celebrate("cgpa-box");
+    }
+  }
+
+  // Celebration effect
+  function celebrate(elementId) {
+    const element = document.getElementById(elementId);
+    element.classList.add("highlight");
+
+    for (let i = 0; i < 30; i++) {
+      const confetti = document.createElement("div");
+      confetti.style.position = "absolute";
+      confetti.style.width = "8px";
+      confetti.style.height = "8px";
+      confetti.style.backgroundColor = getRandomColor();
+      confetti.style.borderRadius = "50%";
+      confetti.style.left = Math.random() * 100 + "%";
+      confetti.style.top = "-10px";
+      confetti.style.opacity = "0.8";
+      confetti.style.animation = `fall ${Math.random() * 2 + 1}s linear forwards`;
+
+      element.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 2000);
+    }
+
+    setTimeout(() => {
+      element.classList.remove("highlight");
+    }, 2000);
+  }
+
+  function getRandomColor() {
+    const colors = ["#8be9fd", "#50fa7b", "#ffb86c", "#ff79c6", "#bd93f9"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  // Add initial CSS for confetti animation
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes fall {
+      to {
+        transform: translateY(calc(100% + 20px)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  // Add this to your existing JavaScript
+function setupMobileView() {
+  if (window.innerWidth < 768) {
+    // Make grade dropdowns more compact
+    document.querySelectorAll('.grade').forEach(select => {
+      select.innerHTML = `
+        <option value="10">S</option>
+        <option value="9">A</option>
+        <option value="8">B</option>
+        <option value="7">C</option>
+        <option value="6">D</option>
+        <option value="5">E</option>
+        <option value="0">F</option>
+      `;
+    });
+
+    // Add touch feedback for buttons
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('touchstart', () => {
+        btn.style.transform = 'scale(0.98)';
+      });
+      btn.addEventListener('touchend', () => {
+        btn.style.transform = '';
+      });
+    });
+  }
+}
+
+// Call this on load and resize
+window.addEventListener('load', setupMobileView);
+window.addEventListener('resize', setupMobileView);
+</script>
+
+
+</body>
+</body>

@@ -1,0 +1,821 @@
+<% layout('/layouts/boilerplate') %>
+<style>
+  :root {
+    --primary: #4895ef;
+    --secondary: #4361ee;
+    --accent: #4cc9f0;
+    --light: #f1f1f1;
+    --dark: #000000;
+    --success: #80ffdb;
+    --danger: #ff6b6b;
+    --warning: #f8961e;
+    --info: #7209b7;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000000;
+    color: var(--light);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #272727;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  h1 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+  }
+
+  h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  form {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0;
+    background-color: #333;
+    color: var(--light);
+    border: 2px solid #444;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  input:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+    outline: none;
+  }
+
+  button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 10px 5px;
+  }
+
+  button:hover {
+    background-color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+  }
+
+  button[type="button"] {
+    background-color: var(--accent);
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  #subjects {
+    margin: 1.5rem 0;
+  }
+
+  #subjects > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #1e1e1e;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  #subjects > div:hover {
+    background: #333;
+    transform: translateX(5px);
+  }
+
+  .plan-container {
+    margin-top: 3rem;
+  }
+
+  .plan-card {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+    border-left: 5px solid var(--primary);
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .plan-card h2 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .plan-card h2::before {
+    content: '📅';
+    margin-right: 10px;
+  }
+
+  .session {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #000000;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .session:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .session-info {
+    flex: 1;
+  }
+
+  .session-info strong {
+    color: var(--primary);
+    font-size: 1.1rem;
+  }
+
+  .session-status {
+    display: flex;
+    align-items: center;
+  }
+
+  .session-status form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .status-pending {
+    color: var(--warning);
+  }
+
+  .status-done {
+    color: var(--success);
+  }
+
+  .status-missed {
+    color: var(--danger);
+  }
+
+  @media (max-width: 768px) {
+    #subjects > div {
+      grid-template-columns: 1fr;
+    }
+
+    .session {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .session-status form {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .content-container {
+    margin-top: 80px; /* Adjust if navbar overlaps */
+    padding: 20px;
+    text-align: center;
+  }
+  html, body {
+    height: 100%;
+    overflow-y: auto;
+  }
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
+  .red-border {
+    border: 3px solid red;
+  }
+
+  .black-border {
+    border: 3px solid black;
+  }
+  .delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .delete-btn:hover {
+    transform: scale(1.2);
+    color: #ff4d4d;
+  }
+
+  .subject-distribution {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .subject-distribution th, 
+    .subject-distribution td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    .subject-distribution th {
+      background-color: #f2f2f2;
+    }
+    
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .time-slot {
+      border-left: 4px solid #4CAF50;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    
+    .slot-time {
+      font-weight: bold;
+      color: #555;
+    }
+    .dark-theme {
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark-theme h4 {
+      color: #ffffff;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .dark-theme .time-slot {
+      background-color: #1a1a1a;
+      border-left: 4px solid #4CAF50;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .dark-theme .slot-time,
+    .dark-theme .slot-subject,
+    .dark-theme .slot-topic,
+    .dark-theme .slot-duration {
+      color: #ffffff;
+    }
+
+    .dark-theme .slot-subject strong {
+      color: #4CAF50;
+    }
+
+    .dark-theme p {
+      color: #aaaaaa;
+    }
+
+    /* Rest of your existing CSS */
+    .no-plans {
+      text-align: center;
+      margin: 40px 0;
+      color: #666;
+      font-style: italic;
+    }
+    
+    .subject-distribution {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .subject-distribution th, 
+    .subject-distribution td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    .subject-distribution th {
+      background-color: #f2f2f2;
+    }
+    
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .break-slot {
+    border-left-color: #FFA500 !important;
+    background-color: #2a2a2a !important;
+  }
+
+  .break-slot .slot-description {
+    color: #FFA500;
+    font-weight: bold;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .subject-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .subject-input {
+      grid-template-columns: 1fr;
+    }
+  }
+  .schedule-container {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 15px; /* Space for scrollbar */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    .schedule-scroll {
+      display: inline-flex;
+      gap: 20px;
+      min-width: 100%;
+    }
+
+    .day-card {
+      min-width: 300px;
+      flex-shrink: 0;
+    }
+
+    /* Keep your existing dark-theme styles */
+    .dark-theme {
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Rest of your existing CSS */
+    .time-slot {
+      border-left: 4px solid #4CAF50;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #1a1a1a;
+    }
+
+    .break-slot {
+      border-left-color: #FFA500 !important;
+      background-color: #2a2a2a !important;
+    }
+    .subject-table-header {
+    background-color: #1f1f1f; /* dark gray for a softer alternative to pure black */
+    color: #ffffff;
+    text-align: left;
+  }
+
+  .subject-table-header th {
+    padding: 10px 15px;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+  }
+  :root {
+      --primary: #00d8ff;       /* Updated to match gradient start */
+      --secondary: #008cff;     /* Updated to match gradient end */
+      --dark-bg: #0a0e17;      /* Darkened background for better contrast */
+      --darker-bg: #050a14;    /* Even darker for accents */
+      --card-bg: #1a2238;      /* Blue-tinged dark cards */
+      --accent: #47c2ff;       /* Kept for contrast */
+      --success: #50fa7b;      /* Kept for success messages */
+      --text: #e2f3ff;         /* Light blue-tinged text */
+      --text-muted: #5d7a9d;   /* Muted blue-gray */
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 216, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 140, 255, 0.1) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* New styles for time range inputs */
+    .time-range-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .time-range-label {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 768px) {
+      .time-range-group {
+        grid-template-columns: 1fr;
+      }
+      .time-range-label {
+        grid-column: span 1;
+      }
+    }
+</style>
+
+<div class="content-container">
+  <h1>📘 Smart Study Planner</h1>
+
+  <form action="/planner/create" method="POST">
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" required>
+    </div>
+
+    <div class="form-group">
+      <label class="time-range-label">Daily Available Time:</label>
+      <div class="time-range-group">
+        <div>
+          <label for="startTime">Start Time:</label>
+          <input type="time" id="startTime" name="startTime" value="09:00" required>
+        </div>
+        <div>
+          <label for="endTime">End Time:</label>
+          <input type="time" id="endTime" name="endTime" value="17:00" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="breakDuration">Break Duration (minutes):</label>
+      <input type="number" id="breakDuration" name="breakDuration" min="5" max="60" value="15" required>
+    </div>
+
+    <div class="form-group">
+      <label for="studySessionLength">Study Session Length (minutes):</label>
+      <input type="number" id="studySessionLength" name="studySessionLength" min="25" max="120" value="50" required>
+    </div>
+
+    <div id="subjects">
+      <h3>Subjects</h3>
+      <div class="subject-input">
+        <input type="text" name="subjects[0][name]" placeholder="Subject" required>
+        <input type="text" name="subjects[0][topic]" placeholder="Topic" required>
+        <input type="number" name="subjects[0][difficulty]" min="1" max="5" placeholder="Difficulty (1-5)" required>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" onclick="addSubject()">+ Add Subject</button>
+      <button type="submit">Generate Plan</button>
+    </div>
+  </form>
+
+  <% if (plans && plans.length > 0) { %>
+    <div class="plan-container">
+      <% plans.forEach(plan => { %>
+        <div class="plan-card">
+          <h2>Study Plan from <%= plan.startDate.toDateString() %> to <%= plan.endDate.toDateString() %></h2>
+          <p class="plan-summary">
+            <strong>Study Window:</strong> <%= plan.startTime %> to <%= plan.endTime %> |
+            <strong>Total Study Days:</strong> <%= plan.totalDays %> |
+            <strong>Daily Hours:</strong> <%= plan.dailyHours %> |
+            <strong>Total Hours:</strong> <%= plan.totalHours %>
+          </p>
+
+          <% if (plan.subjectAllocations && plan.subjectAllocations.length > 0) { %>
+            <h3>Subject Distribution</h3>
+            <table class="subject-distribution">
+              <thead class="subject-table-header">
+                <tr>
+                  <th style="background-color: #000000; color: white;">Subject</th>
+                  <th style="background-color: #000000; color: white;">Difficulty</th>
+                  <th style="background-color: #000000; color: white;">Allocated Hours</th>
+                  <th style="background-color: #000000; color: white;">Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% plan.subjectAllocations.forEach(subj => { %>
+                  <tr>
+                    <td><%= subj.name || 'N/A' %></td>
+                    <td><%= subj.difficulty || 'N/A' %></td>
+                    <td><%= subj.hours || 'N/A' %> hours</td>
+                    <td><%= subj.percentage || 'N/A' %>%</td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <p>No subject allocations available</p>
+          <% } %>
+
+          <% if (plan.dailySchedules && plan.dailySchedules.length > 0) { %>
+            <h3>Daily Schedule</h3>
+            <div class="schedule-container">
+              <div class="schedule-scroll">
+                <% plan.dailySchedules.forEach((day, index) => { %>
+                  <div class="day-card dark-theme">
+                    <h4>Day <%= index + 1 %>: <%= day.date ? new Date(day.date).toDateString() : 'N/A' %></h4>
+                    <% if (day.sessions && day.sessions.length > 0) { %>
+                      <div class="time-slots">
+                        <% day.sessions.forEach(session => { %>
+                          <div class="time-slot <%= session.type === 'break' ? 'break-slot' : '' %>">
+                            <div class="slot-time"><%= session.startTime %> - <%= session.endTime %></div>
+                            <% if (session.type === 'break') { %>
+                              <div class="slot-description">☕ <%= session.description %></div>
+                              <div class="slot-duration"><%= session.duration %> minutes break</div>
+                            <% } else { %>
+                              <div class="slot-subject"><strong><%= session.subject %></strong></div>
+                              <div class="slot-topic"><%= session.topic %></div>
+                              <div class="slot-duration"><%= session.duration %> minutes study</div>
+                            <% } %>
+                          </div>
+                        <% }) %>
+                      </div>
+                    <% } else { %>
+                      <p>No sessions scheduled for this day</p>
+                    <% } %>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  // Subject management
+  let subjectIndex = 1;
+  function addSubject() {
+    const div = document.createElement('div');
+    div.className = 'subject-input';
+    div.innerHTML = `
+      <input type="text" name="subjects[${subjectIndex}][name]" placeholder="Subject" required>
+      <input type="text" name="subjects[${subjectIndex}][topic]" placeholder="Topic" required>
+      <input type="number" name="subjects[${subjectIndex}][difficulty]" min="1" max="5" placeholder="Difficulty (1-5)" required>
+    `;
+    document.getElementById('subjects').appendChild(div);
+    subjectIndex++;
+    
+    // Add animation to new subject
+    div.style.opacity = '0';
+    div.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      div.style.transition = 'all 0.3s ease';
+      div.style.opacity = '1';
+      div.style.transform = 'translateY(0)';
+    }, 10);
+  }
+
+  // Example backend calculation (Node.js) - Corrected logic
+  function generatePlan(data) {
+    // Calculate total study days
+    const startDate = new Date(data.startDate);
+    const endDate = new Date(data.endDate);
+    const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+    
+    // Calculate available minutes per day from time window
+    const [startHour, startMinute] = data.startTime.split(':').map(Number);
+    const [endHour, endMinute] = data.endTime.split(':').map(Number);
+    
+    let totalMinutesPerDay = (endHour * 60 + endMinute) - (startHour * 60 + startMinute);
+    if (totalMinutesPerDay < 0) totalMinutesPerDay += 24 * 60; // Handle overnight
+    
+    // Calculate available study minutes (accounting for breaks)
+    const studySessionLength = parseInt(data.studySessionLength);
+    const breakDuration = parseInt(data.breakDuration);
+    
+    // Calculate how many full study sessions fit in the available time
+    const sessionsPerDay = Math.floor(totalMinutesPerDay / (studySessionLength + breakDuration));
+    const actualStudyMinutesPerDay = sessionsPerDay * studySessionLength;
+    
+    // Calculate subject hours based on difficulty
+    const totalDifficulty = data.subjects.reduce((sum, subj) => sum + parseInt(subj.difficulty), 0);
+    const subjectAllocations = data.subjects.map(subj => {
+      const difficulty = parseInt(subj.difficulty);
+      const minutes = (difficulty / totalDifficulty) * actualStudyMinutesPerDay * totalDays;
+      return {
+        name: subj.name,
+        topic: subj.topic,
+        difficulty: difficulty,
+        minutes: minutes,
+        hours: (minutes / 60).toFixed(1),
+        percentage: Math.round((difficulty / totalDifficulty) * 100 * 10) / 10
+      };
+    });
+    
+    // Generate daily schedules
+    const dailySchedules = [];
+    for (let i = 0; i < totalDays; i++) {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      
+      // Generate sessions for this day
+      const sessions = [];
+      let currentHour = startHour;
+      let currentMinute = startMinute;
+      let sessionCount = 0;
+      
+      while (sessionCount < sessionsPerDay) {
+        // Study session
+        const sessionStart = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+        
+        // Calculate end time
+        let endHour = currentHour;
+        let endMinute = currentMinute + studySessionLength;
+        while (endMinute >= 60) {
+          endHour++;
+          endMinute -= 60;
+        }
+        const sessionEnd = `${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}`;
+        
+        // Assign subject (round-robin distribution weighted by difficulty)
+        const subjectIndex = i % data.subjects.length;
+        const subject = data.subjects[subjectIndex];
+        
+        sessions.push({
+          type: 'study',
+          startTime: sessionStart,
+          endTime: sessionEnd,
+          duration: studySessionLength,
+          subject: subject.name,
+          topic: subject.topic,
+          difficulty: subject.difficulty
+        });
+        
+        // Update current time
+        currentHour = endHour;
+        currentMinute = endMinute;
+        
+        // Break (except after last session)
+        if (sessionCount < sessionsPerDay - 1) {
+          const breakStart = sessionEnd;
+          
+          // Calculate break end time
+          endMinute = currentMinute + breakDuration;
+          while (endMinute >= 60) {
+            endHour++;
+            endMinute -= 60;
+          }
+          const breakEnd = `${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}`;
+          
+          sessions.push({
+            type: 'break',
+            startTime: breakStart,
+            endTime: breakEnd,
+            duration: breakDuration,
+            description: 'Short Break'
+          });
+          
+          currentHour = endHour;
+          currentMinute = endMinute;
+        }
+        
+        sessionCount++;
+      }
+      
+      dailySchedules.push({
+        date: date.toISOString().split('T')[0],
+        dayNumber: i + 1,
+        sessions
+      });
+    }
+    
+    return {
+      startDate: startDate.toISOString().split('T')[0],
+      endDate: endDate.toISOString().split('T')[0],
+      startTime: data.startTime,
+      endTime: data.endTime,
+      totalDays,
+      dailyStudyMinutes: actualStudyMinutesPerDay,
+      dailyStudyHours: (actualStudyMinutesPerDay / 60).toFixed(1),
+      totalStudyMinutes: actualStudyMinutesPerDay * totalDays,
+      totalStudyHours: (actualStudyMinutesPerDay * totalDays / 60).toFixed(1),
+      studySessionLength,
+      breakDuration,
+      subjectAllocations,
+      dailySchedules
+    };
+  }
+
+  // Form submission handling
+  document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Collect form data
+    const formData = {
+      startDate: document.getElementById('startDate').value,
+      endDate: document.getElementById('endDate').value,
+      startTime: document.getElementById('startTime').value,
+      endTime: document.getElementById('endTime').value,
+      breakDuration: document.getElementById('breakDuration').value,
+      studySessionLength: document.getElementById('studySessionLength').value,
+      subjects: Array.from(document.querySelectorAll('.subject-input')).map((div, index) => ({
+        name: div.querySelector(`input[name="subjects[${index}][name]"]`).value,
+        topic: div.querySelector(`input[name="subjects[${index}][topic]"]`).value,
+        difficulty: div.querySelector(`input[name="subjects[${index}][difficulty]"]`).value
+      }))
+    };
+    
+    // Generate plan (in a real app, this would be sent to the server)
+    const studyPlan = generatePlan(formData);
+    console.log('Generated Study Plan:', studyPlan);
+    
+    // In a real application, you would send this to your server
+    // fetch('/planner/create', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formData)
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   // Handle response and display the plan
+    // });
+    
+    // For demo purposes, we'll just show an alert
+    alert('Study plan generated successfully! Check the console for details.');
+  });
+</script>

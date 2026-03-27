@@ -1,0 +1,1404 @@
+<% layout("/layouts/boilerplate") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Review System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(90deg, #00d8ff, #008cff);
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d8ff;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 216, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 140, 255, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            animation: fadeInDown 0.8s both;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        /* Tab System */
+        .tab-container {
+            display: flex;
+            margin-bottom: 2rem;
+            background: var(--darker-bg);
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.6s both 0.2s;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .tab.active {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab.active::before {
+            opacity: 1;
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--accent);
+        }
+
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+           
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.6s both;
+            transition: var(--transition);
+            background-color: #0a0a0a;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeInUp 0.6s both 0.3s;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s both;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+           
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.3s both 0.1s;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* Form Elements */
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+            border-radius: none;
+           
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+          
+            
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.2);
+            background: rgba(0, 216, 255, 0.05);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        button {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 216, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #008cff, #00d8ff);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 216, 255, 0.4);
+        }
+
+        button:hover::before {
+            opacity: 1;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* Search Results */
+        #search-results {
+            margin-top: 1.5rem;
+            animation: fadeIn 0.6s both;
+        }
+
+        .faculty-list {
+            list-style: none;
+        }
+
+        .faculty-item {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .faculty-item:hover {
+            background: rgba(0, 216, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Status Messages */
+        .error {
+            color: #ff6b6b;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ff6b6b;
+            animation: shakeX 0.5s;
+        }
+
+        .success {
+            color: #6bff6b;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #6bff6b;
+            animation: fadeIn 0.6s;
+        }
+
+        /* Review Cards */
+        .review-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            animation: fadeIn 0.6s both;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-left-color: var(--accent);
+        }
+
+        .rating {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stars {
+            color: gold;
+            margin-right: 0.5rem;
+        }
+
+        .review-text {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Average Rating Display */
+        .average-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 216, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .average-rating-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 1rem;
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 216, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        .search-container{
+            height: 200px;
+            background-color: #0a0a0a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                
+            }
+            
+            .tab-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+        #search-results{
+            margin-top: 140px;
+        }
+        #reviews-container{
+            margin-top: 140px;
+        }
+         .title-animation {
+    font-size: 8rem;
+    text-align: center;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    perspective: 1000px;
+  }
+  
+  .title-animation span {
+    display: block;
+    line-height: 1;
+    position: relative;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Gradient Title Animation */
+  .title-gradient {
+    background: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradientFlow 8s linear infinite,
+               float 6s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(0, 216, 255, 0.3);
+  }
+  
+  @keyframes gradientFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  
+  /* 3D Stroke Title Animation */
+  .title-stroke {
+    color: transparent;
+    -webkit-text-stroke: 2px #00d8ff;
+    animation: strokePulse 4s ease-in-out infinite alternate,
+               rotate3d 12s linear infinite;
+    transform-style: preserve-3d;
+  }
+  
+  @keyframes strokePulse {
+    0% { 
+      -webkit-text-stroke-width: 2px;
+      opacity: 0.8;
+    }
+    100% { 
+      -webkit-text-stroke-width: 4px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes rotate3d {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    25% { transform: rotateX(10deg) rotateY(10deg); }
+    50% { transform: rotateX(0deg) rotateY(20deg); }
+    75% { transform: rotateX(-10deg) rotateY(10deg); }
+    100% { transform: rotateX(0deg) rotateY(0deg); }
+  }
+  
+  /* Glitch Effect Title Animation */
+  .title-glitch {
+    color: white;
+    position: relative;
+    animation: glitch-anim 5s infinite;
+  }
+  
+  .title-glitch::before,
+  .title-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+  }
+  
+  .title-glitch::before {
+    left: 3px;
+    text-shadow: -3px 0 #ff00c1;
+    clip: rect(44px, 850px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  
+  .title-glitch::after {
+    left: -3px;
+    text-shadow: -3px 0 #00fff9;
+    clip: rect(44px, 850px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    10% { clip: rect(112px, 9999px, 76px, 0); }
+    20% { clip: rect(85px, 9999px, 77px, 0); }
+    30% { clip: rect(27px, 9999px, 97px, 0); }
+    40% { clip: rect(64px, 9999px, 98px, 0); }
+    50% { clip: rect(61px, 9999px, 85px, 0); }
+    60% { clip: rect(99px, 9999px, 114px, 0); }
+    70% { clip: rect(34px, 9999px, 115px, 0); }
+    80% { clip: rect(98px, 9999px, 129px, 0); }
+    90% { clip: rect(43px, 9999px, 96px, 0); }
+    100% { clip: rect(82px, 9999px, 64px, 0); }
+  }
+  
+  @keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 119px, 0); }
+    10% { clip: rect(79px, 9999px, 66px, 0); }
+    20% { clip: rect(101px, 9999px, 114px, 0); }
+    30% { clip: rect(110px, 9999px, 89px, 0); }
+    40% { clip: rect(85px, 9999px, 91px, 0); }
+    50% { clip: rect(106px, 9999px, 99px, 0); }
+    60% { clip: rect(112px, 9999px, 98px, 0); }
+    70% { clip: rect(108px, 9999px, 122px, 0); }
+    80% { clip: rect(68px, 9999px, 113px, 0); }
+    90% { clip: rect(95px, 9999px, 102px, 0); }
+    100% { clip: rect(89px, 9999px, 133px, 0); }
+  }
+  
+  /* Floating Animation */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  /* Particle Background Effect */
+  .title-animation::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+      rgba(0, 216, 255, 0.1) 0%, 
+      transparent 70%);
+    z-index: -1;
+    animation: pulse 8s ease infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(0.8); opacity: 0.5; }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .title-animation {
+      font-size: 6rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .title-animation {
+      font-size: 4rem;
+      flex-direction: column;
+    }
+    
+    .title-stroke {
+      -webkit-text-stroke-width: 1px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title-animation {
+      font-size: 3rem;
+    }
+  }
+  .input-group {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: none;
+    
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: rgba(30, 30, 30, 0.5);
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+  }
+
+  .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .search-input:focus {
+    background: rgba(40, 40, 40, 0.7);
+  }
+
+  .input-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .input-border::before,
+  .input-border::after {
+    content: '';
+    position: absolute;
+   
+    background: linear-gradient(45deg, 
+      #00d8ff, #008cff, #00d8ff, #008cff);
+    background-size: 400% 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    left: -2px;
+    top: -2px;
+    z-index: -1;
+    animation: gradientBorder 4s ease infinite;
+  }
+
+  .input-border::after {
+    filter: blur(10px);
+    opacity: 0.7;
+  }
+
+  @keyframes gradientBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Hover and Focus Effects */
+  .input-group:hover .input-border::before {
+    animation-duration: 2s;
+  }
+
+  .search-input:focus ~ .input-border::before {
+    animation-duration: 1.5s;
+    background: linear-gradient(45deg, 
+      #00ff88, #00d8ff, #00ff88, #00d8ff);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .search-input {
+      padding: 1rem 1.2rem;
+      font-size: 1rem;
+    }
+  }
+
+   .tab {
+            flex: 1;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .tab.active {
+            color: white;
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(0, 216, 255, 0.5);
+        }
+
+        .tab.active::before {
+            opacity: 0.2;
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--accent);
+            text-shadow: 0 0 5px rgba(0, 216, 255, 0.3);
+        }
+        :root {
+            --primary-gradient: linear-gradient(90deg, #00d8ff, #008cff);
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d8ff;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Enhanced Background with Animated Grid */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(18, 18, 18, 0.9), rgba(10, 10, 10, 0.95)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23000d8ff" stroke-width="0.5" opacity="0.2"/></svg>');
+            background-size: 50px 50px;
+            z-index: -2;
+            animation: gridScroll 100s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
+        }
+
+        /* Floating Gradient Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+            z-index: -1;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #00d8ff, transparent 70%);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #008cff, transparent 70%);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #00d8ff, transparent 70%);
+            top: 60%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, 50px); }
+            50% { transform: translate(0, 100px); }
+            75% { transform: translate(-50px, 50px); }
+        }
+
+        /* Cyberpunk Title Animation */
+        .cyber-title {
+            font-size: 5rem;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            background: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+            animation: 
+                titleGlow 3s ease-in-out infinite alternate,
+                gradientFlow 8s linear infinite;
+            font-weight: 800;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 216, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(0, 216, 255, 0.8), 
+                             0 0 30px rgba(0, 140, 255, 0.5); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .cyber-title::before,
+        .cyber-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            filter: blur(5px);
+            animation: gradientPulse 4s ease infinite;
+        }
+
+        .cyber-title::before {
+            left: 25%;
+            width: 20%;
+            transform: translateX(-50%);
+        }
+
+        .cyber-title::after {
+            right: 25%;
+            width: 20%;
+            transform: translateX(50%);
+        }
+
+        @keyframes gradientPulse {
+            0% { opacity: 0.5; width: 20%; }
+            50% { opacity: 1; width: 25%; }
+            100% { opacity: 0.5; width: 20%; }
+        }
+
+        /* Rest of your existing CSS remains exactly the same */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+    .yoyo{
+        border-radius: 0px;
+       
+        height: 80px;
+    }
+    #rating{
+        background-color: #0a0a0a;
+    }
+
+    </style>
+</head>
+<body>
+  
+   <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    
+    <div class="particles" id="particles"></div>
+    <br><br><br>
+    <div class="container">
+        
+        <h1 style="font-size: 6rem;" class="animate__animated animate__fadeInDown">Faculty Review System</h1>
+       
+    <div class="note-icon">📢</div>
+    <div class="note-content">
+        <h3>Help Your Fellow Students!</h3>
+        <p>Please take a moment to add reviews for faculty from your <strong>previous semesters</strong>. 
+        Your honest feedback helps others make informed decisions and improves teaching quality.</p>
+       
+    
+</div>
+        <div class="tab-container">
+            <button class="tab active" onclick="openTab('submit-review')">Submit a Review</button>
+            <button class="tab" onclick="openTab('browse-reviews')">Browse Reviews</button>
+        </div>
+        
+        <!-- Submit Review Section -->
+        <div id="submit-review" class="content-section active">
+            <h2>Submit a Faculty Review</h2>
+            
+            <div class="search-container">
+                <h3>Search Faculty</h3>
+                <div class="input-group yoyo">
+  <input type="text" id="faculty-search" placeholder="Enter faculty name..." class="search-input">
+  <span class="input-border"></span>
+</div>
+                <button onclick="searchFaculty()">Search</button>
+                <div id="search-results"></div>
+                  <br><br>
+            </div>
+        </div>
+        
+        <!-- Browse Reviews Section -->
+        <div id="browse-reviews" class="content-section">
+            <h2>Browse Faculty Reviews</h2>
+            
+            <div class="search-container">
+                <h3>Search Faculty Reviews</h3>
+                <div class="input-group yoyo">
+                    <input type="text" id="browse-search" placeholder="Enter faculty name...">
+                </div>
+                <button onclick="searchFacultyReviews()">Search</button>
+            </div>
+            
+            <div id="reviews-container"></div>
+              <br><br>  <br><br>
+        </div>
+    </div>
+  
+    <!-- Faculty Registration Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register New Faculty</h3>
+                <button class="modal-close" onclick="closeModal('register-modal')">&times;</button>
+            </div>
+            <div id="register-error" class="error" style="display: none;"></div>
+               <label for="faculty-name">Full Name</label>
+            <div class="input-group yoyo">
+             
+                <input type="text" id="faculty-name" placeholder="Dr. John Smith" required>
+            </div>
+             <label for="faculty-department">Department</label>
+            <div class="input-group yoyo">
+               
+                <input type="text" id="faculty-department" placeholder="Computer Science" required>
+            </div>
+           
+           
+            <button onclick="registerFaculty()">Register Faculty</button>
+        </div>
+    </div>
+    
+    <!-- Review Submission Modal -->
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Write Your Review</h3>
+                <button class="modal-close" onclick="closeModal('review-modal')">&times;</button>
+            </div>
+            <div id="review-error" class="error" style="display: none;"></div>
+            <input type="hidden" id="selected-faculty-id">
+            <div class="input">
+                <label for="rating">Rating</label>
+                <select id="rating" required>
+                    <option value="">Select rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+            </div>
+            <div class="">
+                <label for="review-text">Your Review</label>
+                <textarea id="review-text" placeholder="Share your experience..." rows="5" required></textarea>
+            </div>
+            <button onclick="submitReview()">Submit Review</button>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Success!</h3>
+                <button class="modal-close" onclick="closeModal('success-modal')">&times;</button>
+            </div>
+            <div id="success-message" class="success"></div>
+            <button onclick="closeModal('success-modal')">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                const opacity = Math.random() * 0.5 + 0.1;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = opacity;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+
+        // Tab navigation
+        function openTab(tabName) {
+            const tabs = document.getElementsByClassName('tab');
+            const contents = document.getElementsByClassName('content-section');
+            
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        // Faculty search for review submission
+        async function searchFaculty() {
+    const query = document.getElementById('faculty-search').value.trim();
+    const resultsDiv = document.getElementById('search-results');
+    
+    if (!query) {
+        showError(resultsDiv, 'Please enter a faculty name to search');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        resultsDiv.innerHTML = '<p>Searching...</p>';
+        
+        const response = await fetch(`/faculty/search?q=${encodeURIComponent(query)}`);
+        const facultyList = await response.json();
+        
+        if (facultyList.error) {
+            showError(resultsDiv, facultyList.error);
+            return;
+        }
+        
+        let html = '';
+        
+        if (facultyList.length === 0) {
+            html = `
+                <p>No faculty found matching "${query}"</p>
+                <button onclick="openRegisterModal('${query}')" class="glow">Register New Faculty</button>
+            `;
+        } else {
+            html = `
+                <h4>Search Results:</h4>
+                <ul class="faculty-list">
+                    ${facultyList.map(faculty => `
+                        <li class="faculty-item" onclick="selectFaculty('${faculty._id}', '${faculty.name}')">
+                            <strong>${faculty.name}</strong> - ${faculty.department}
+                        </li>
+                    `).join('')}
+                </ul>
+                <div style="margin-top: 20px;">
+                    <p>Not who you're looking for?</p>
+                    <button onclick="openRegisterModal('${query}')" class="glow">Register New Faculty</button>
+                </div>
+            `;
+        }
+        
+        resultsDiv.innerHTML = html;
+    } catch (error) {
+        console.error('Search error:', error);
+        showError(resultsDiv, 'Error searching for faculty. Please try again.');
+    }
+}
+        function openRegisterModal(name) {
+    document.getElementById('faculty-name').value = name;
+    openModal('register-modal');
+}
+        
+        // Select a faculty for review
+        function selectFaculty(facultyId, facultyName) {
+            document.getElementById('selected-faculty-id').value = facultyId;
+            document.getElementById('search-results').innerHTML = `
+                <div class="success animate__animated animate__fadeIn">
+                    <p>Reviewing: <strong>${facultyName}</strong></p>
+                    <button onclick="openModal('review-modal')">Write Review</button>
+                </div>
+            `;
+            
+            // Reset form
+            document.getElementById('rating').value = '';
+            document.getElementById('review-text').value = '';
+            document.getElementById('review-error').style.display = 'none';
+        }
+        
+        // Register new faculty
+        async function registerFaculty() {
+    const name = document.getElementById('faculty-name').value.trim();
+    const department = document.getElementById('faculty-department').value.trim();
+    const errorDiv = document.getElementById('register-error');
+    
+    if (!name || !department) {
+        showError(errorDiv, 'Name and department are required');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        errorDiv.style.display = 'none';
+        const button = event.currentTarget;
+        button.disabled = true;
+        button.innerHTML = 'Registering...';
+        
+        const response = await fetch('/faculty', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, department })
+        });
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            showError(errorDiv, result.error);
+            button.disabled = false;
+            button.innerHTML = 'Register Faculty';
+            return;
+        }
+        
+        // Faculty registered successfully
+        closeModal('register-modal');
+        document.getElementById('selected-faculty-id').value = result._id;
+        document.getElementById('search-results').innerHTML = `
+            <div class="success animate__animated animate__fadeIn">
+                <p>Faculty registered successfully!</p>
+                <button onclick="openModal('review-modal')">Write Review</button>
+            </div>
+        `;
+        
+        // Reset the form
+        document.getElementById('faculty-name').value = '';
+        document.getElementById('faculty-department').value = '';
+        
+        button.disabled = false;
+        button.innerHTML = 'Register Faculty';
+    } catch (error) {
+        console.error('Registration error:', error);
+        showError(errorDiv, 'Error registering faculty. Please try again.');
+        const button = event.currentTarget;
+        button.disabled = false;
+        button.innerHTML = 'Register Faculty';
+    }
+}
+        
+        // Submit review
+        async function submitReview() {
+            const facultyId = document.getElementById('selected-faculty-id').value;
+            const rating = document.getElementById('rating').value;
+            const reviewText = document.getElementById('review-text').value.trim();
+            const errorDiv = document.getElementById('review-error');
+            
+            if (!facultyId || !rating || !reviewText) {
+                showError(errorDiv, 'All fields are required');
+                return;
+            }
+            
+            try {
+                // Show loading state
+                errorDiv.style.display = 'none';
+                const button = event.currentTarget;
+                button.disabled = true;
+                button.innerHTML = 'Submitting...';
+                
+                const response = await fetch('/faculty/facultyReviews', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        facultyId,
+                        rating,
+                        reviewText
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.error) {
+                    showError(errorDiv, result.error);
+                    button.disabled = false;
+                    button.innerHTML = 'Submit Review';
+                    return;
+                }
+                
+                // Review submitted successfully
+                closeModal('review-modal');
+                document.getElementById('success-message').innerHTML = `
+                    <p>Thank you! Your review has been submitted successfully.</p>
+                `;
+                openModal('success-modal');
+                
+                button.disabled = false;
+                button.innerHTML = 'Submit Review';
+            } catch (error) {
+                console.error('Review submission error:', error);
+                showError(errorDiv, 'Error submitting review. Please try again.');
+                const button = event.currentTarget;
+                button.disabled = false;
+                button.innerHTML = 'Submit Review';
+            }
+        }
+        
+        // Search faculty reviews for browsing
+        async function searchFacultyReviews() {
+            const query = document.getElementById('browse-search').value.trim();
+            const reviewsContainer = document.getElementById('reviews-container');
+            
+            if (!query) {
+                showError(reviewsContainer, 'Please enter a faculty name to search');
+                return;
+            }
+            
+            try {
+                // Show loading state
+                reviewsContainer.innerHTML = '<p>Searching for reviews...</p>';
+                
+                // First search for faculty
+                const facultyResponse = await fetch(`/faculty/search?q=${encodeURIComponent(query)}`);
+                const facultyList = await facultyResponse.json();
+                
+                if (facultyList.error) {
+                    showError(reviewsContainer, facultyList.error);
+                    return;
+                }
+                
+                if (facultyList.length === 0) {
+                    reviewsContainer.innerHTML = '<p>No faculty found with that name.</p>';
+                    return;
+                }
+                
+                // For simplicity, just get reviews for the first match
+                const faculty = facultyList[0];
+                const reviewsResponse = await fetch(`/faculty/${faculty._id}/reviews`);
+                const reviews = await reviewsResponse.json();
+                
+                if (reviews.error) {
+                    showError(reviewsContainer, reviews.error);
+                    return;
+                }
+                
+                if (reviews.length === 0) {
+                    reviewsContainer.innerHTML = `
+                        <h3>${faculty.name} (${faculty.department})</h3>
+                        <p>No reviews yet for this faculty.</p>
+                    `;
+                    return;
+                }
+                
+                let html = `<h3>${faculty.name} (${faculty.department})</h3>`;
+                
+                // Calculate average rating
+                const avgRating = calculateAverageRating(reviews);
+                html += `
+                    <div class="average-rating animate__animated animate__fadeIn">
+                        <div class="average-rating-value">${avgRating}</div>
+                        <div>
+                            <div>Average Rating</div>
+                            <div>${generateStars(avgRating)}</div>
+                        </div>
+                    </div>
+                `;
+                
+                reviews.forEach(review => {
+                    html += `
+                        <div class="review-card animate__animated animate__fadeIn">
+                            <div class="rating">
+                                <span class="stars">${generateStars(review.rating)}</span>
+                                ${review.rating}/5
+                            </div>
+                            <p class="review-text">${review.reviewText}</p>
+                            <div class="review-date">${new Date(review.createdAt).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}</div>
+                        </div>
+                    `;
+                });
+                
+                reviewsContainer.innerHTML = html;
+            } catch (error) {
+                console.error('Browse reviews error:', error);
+                showError(reviewsContainer, 'Error loading reviews. Please try again.');
+            }
+        }
+        
+        // Helper function to show error messages
+        function showError(element, message) {
+            element.innerHTML = `<div class="error animate__animated animate__shakeX">${message}</div>`;
+        }
+        
+        // Calculate average rating
+        function calculateAverageRating(reviews) {
+            if (reviews.length === 0) return 0;
+            const sum = reviews.reduce((total, review) => total + review.rating, 0);
+            return (sum / reviews.length).toFixed(1);
+        }
+        
+        // Generate star rating display
+        function generateStars(rating) {
+            const fullStars = '★'.repeat(Math.floor(rating));
+            const emptyStars = '☆'.repeat(5 - Math.ceil(rating));
+            return fullStars + (rating % 1 >= 0.5 && rating < 5 ? '½' : '') + emptyStars;
+        }
+    </script>
+</body>
+</html>

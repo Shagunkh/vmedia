@@ -1,0 +1,166 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="container my-4">
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0"><i class="fas fa-search mr-2"></i>Search for Rides</h3>
+        </div>
+        <div class="card-body">
+            <form action="/vride/search" method="GET" id="searchForm">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="searchFrom"><i class="fas fa-map-marker-alt mr-1"></i> From</label>
+                        <input type="text" class="form-control" id="searchFrom" name="from" 
+                               value="<%= searchParams.from || '' %>" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="searchTo"><i class="fas fa-map-marker-alt mr-1"></i> To</label>
+                        <input type="text" class="form-control" id="searchTo" name="to" 
+                               value="<%= searchParams.to || '' %>" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="searchDate"><i class="far fa-calendar-alt mr-1"></i> Date</label>
+                        <input type="date" class="form-control" id="searchDate" name="date" 
+                               value="<%= searchParams.date || '' %>" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="searchTime"><i class="far fa-clock mr-1"></i> Time</label>
+                        <input type="time" class="form-control" id="searchTime" name="time" 
+                               value="<%= searchParams.time || '' %>">
+                    </div>
+                    <div class="form-group col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-search mr-1"></i> Search
+                        </button>
+                    </div>
+                </div>
+                <% if (searchParams.time) { %>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="nearbyCheckbox" name="nearby" 
+                                   <%= nearby ? 'checked' : '' %> value="true">
+                            <label class="form-check-label" for="nearbyCheckbox">
+                                Show rides with nearby times (±2 hours)
+                            </label>
+                        </div>
+                    </div>
+                <% } %>
+            </form>
+        </div>
+    </div>
+    <% if (rides.length > 0) { %>
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0">
+                    <%= rides.length %> Ride<%= rides.length === 1 ? '' : 's' %> Found
+                    <% if (nearby) { %>
+                        <span class="badge badge-light ml-2">Nearby Times</span>
+                    <% } %>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <% rides.forEach(ride => { %>
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <%= ride.from %> <i class="fas fa-arrow-right mx-2"></i> <%= ride.to %>
+                                        <% if (ride.time === searchParams.time) { %>
+                                            <span class="badge badge-success float-right">Exact Time</span>
+                                        <% } %>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <strong><i class="far fa-calendar-alt"></i> Date:</strong> 
+                                        <%= ride.date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong><i class="far fa-clock"></i> Time:</strong> 
+                                        <%= ride.time %>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong><i class="fas fa-users"></i> Seats:</strong> 
+                                        <span class="<%= ride.seatsAvailable > 0 ? 'text-success' : 'text-danger' %>">
+                                            <%= ride.seatsAvailable %>/<%= ride.totalSeats %> available
+                                        </span>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong><i class="fas fa-rupee-sign"></i> Fare:</strong> 
+                                        ₹<%= ride.perPersonFare %> per person (Total: ₹<%= ride.totalFare %>)
+                                    </p>
+                                    <p class="card-text">
+                                        <strong><i class="fas fa-user"></i> Creator:</strong> 
+                                        <%= ride.creator.username %>
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <% if (ride.seatsAvailable > 0) { %>
+                                        <button class="btn btn-primary btn-block" data-toggle="modal" 
+                                                data-target="#joinModal-<%= ride._id %>">
+                                            <i class="fas fa-user-plus mr-1"></i> Join Ride
+                                        </button>
+                                    <% } else { %>
+                                        <button class="btn btn-secondary btn-block" disabled>
+                                            <i class="fas fa-times-circle mr-1"></i> Ride Full
+                                        </button>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Join Modal -->
+                        <div class="modal fade" id="joinModal-<%= ride._id %>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Join Ride</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/vride/<%= ride._id %>/join" method="POST">
+                                        <div class="modal-body">
+                                            <p>You're joining a ride from <strong><%= ride.from %></strong> to <strong><%= ride.to %></strong> on <strong><%= ride.date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) %></strong> at <strong><%= ride.time %></strong>.</p>
+                                            <p>Fare per person: <strong>₹<%= ride.perPersonFare %></strong></p>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label for="joinMobile-<%= ride._id %>">Your Mobile Number</label>
+                                                <input type="tel" class="form-control" id="joinMobile-<%= ride._id %>" 
+                                                       name="mobileNumber" pattern="[0-9]{10}" required
+                                                       placeholder="10-digit number for contact">
+                                            </div>
+                                            <div class="alert alert-info">
+                                                <small>
+                                                    <i class="fas fa-info-circle"></i> Your contact details will be shared with the ride creator.
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times mr-1"></i> Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check mr-1"></i> Confirm Join
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    <% } else if (searchParams.from && searchParams.to && searchParams.date) { %>
+        <div class="alert alert-info">
+            <h4 class="alert-heading">No rides found</h4>
+            <p>No rides match your search criteria. Try adjusting your search or create a new ride.</p>
+            <hr>
+            <a href="/vride/new" class="btn btn-info">
+                <i class="fas fa-plus-circle mr-1"></i> Create a New Ride
+            </a>
+        </div>
+    <% } %>
+</div>

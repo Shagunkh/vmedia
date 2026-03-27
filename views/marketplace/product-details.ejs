@@ -1,0 +1,1424 @@
+<%- include('../partials/header') %>
+
+<style>
+/* ========== MODERN VARIABLES ========== */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #7c3aed;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --dark: #111827;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* ========== MAIN CONTAINER ========== */
+.product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ========== BACK BUTTON ========== */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    color: var(--primary);
+    transform: translateX(-4px);
+}
+
+/* ========== PRODUCT GRID ========== */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+/* ========== GALLERY SECTION ========== */
+.gallery {
+    position: sticky;
+    top: 20px;
+}
+
+.main-image-container {
+    background: var(--gray-50);
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+    transform: scale(1.05);
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+}
+
+.thumbnail-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.thumbnail-container::-webkit-scrollbar-track {
+    background: var(--gray-200);
+    border-radius: 10px;
+}
+
+.thumbnail-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.thumbnail.active {
+    border-color: var(--primary);
+    opacity: 1;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* ========== PRODUCT INFO ========== */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.product-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+    margin: 0;
+}
+
+.price-section {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.price-unit {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-500);
+}
+
+/* ========== DESCRIPTION SECTION ========== */
+.description-section {
+    border-top: 1px solid var(--gray-200);
+    padding-top: 24px;
+}
+
+.description-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 12px;
+}
+
+.description-text {
+    color: var(--gray-600);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ========== DETAILS GRID ========== */
+.details-grid {
+    background: var(--gray-50);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.details-grid h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: var(--gray-600);
+}
+
+.detail-value {
+    font-weight: 500;
+    color: var(--gray-800);
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.store-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.store-name {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+/* ========== ACTION BUTTONS ========== */
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    flex: 1;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+    flex: 1;
+    background: transparent;
+    border: 2px solid var(--gray-200);
+    color: var(--gray-700);
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    flex: 1;
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========== CONTACT MODAL STYLES ========== */
+.contact-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-content {
+    background: white;
+    border-radius: 28px;
+    max-width: 450px;
+    width: 90%;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.contact-modal-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-modal-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+}
+
+.contact-modal-body {
+    padding: 24px;
+}
+
+.contact-info-card {
+    background: var(--gray-50);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-item i {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.contact-item div {
+    flex: 1;
+}
+
+.contact-item strong {
+    display: block;
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-item p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray-800);
+}
+
+.contact-warning {
+    background: #fef3c7;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.contact-warning i {
+    font-size: 24px;
+    color: #f59e0b;
+}
+
+.contact-warning p {
+    margin: 0;
+    font-size: 13px;
+    color: #92400e;
+    line-height: 1.4;
+}
+
+.copy-btn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.copy-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ========== ALERT ========== */
+.alert-custom {
+    background: #fef3c7;
+    border-left: 4px solid var(--warning);
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #92400e;
+}
+
+/* ========== REVIEWS SECTION ========== */
+.reviews-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 4px;
+}
+
+.star-filled {
+    color: #f59e0b;
+}
+
+.star-half {
+    color: #f59e0b;
+}
+
+.star-empty {
+    color: #d1d5db;
+}
+
+.rating-distribution {
+    background: var(--gray-50);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.distribution-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.distribution-label {
+    width: 40px;
+    font-size: 14px;
+}
+
+.distribution-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.distribution-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b, #f97316);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.distribution-count {
+    width: 50px;
+    font-size: 13px;
+    color: var(--gray-600);
+}
+
+/* Review Card */
+.review-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--gray-200);
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reviewer-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.reviewer-details {
+    flex: 1;
+}
+
+.reviewer-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.review-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+.review-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.review-date {
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+.verified-badge {
+    font-size: 11px;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.review-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 16px 0 8px 0;
+    color: var(--gray-800);
+}
+
+.review-text {
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.review-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.helpful-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-600);
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.helpful-btn:hover {
+    color: var(--primary);
+}
+
+/* Seller Reply */
+.seller-reply {
+    background: var(--gray-50);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.reply-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.reply-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.reply-date {
+    font-size: 11px;
+    color: var(--gray-500);
+}
+
+.reply-text {
+    font-size: 14px;
+    color: var(--gray-700);
+    margin: 0;
+}
+
+/* Reply Form */
+.reply-form {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.reply-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.reply-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* Review Modal */
+.review-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.review-modal-content {
+    background: white;
+    border-radius: 28px;
+    max-width: 500px;
+    width: 90%;
+    padding: 32px;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--gray-500);
+}
+
+.star-rating-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.star-rating-input i {
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #d1d5db;
+}
+
+.star-rating-input i:hover,
+.star-rating-input i.active {
+    transform: scale(1.1);
+    color: #f59e0b;
+}
+
+/* Empty Reviews */
+.empty-reviews {
+    text-align: center;
+    padding: 60px;
+    background: var(--gray-50);
+    border-radius: 20px;
+}
+
+.empty-reviews i {
+    font-size: 48px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+}
+
+/* Mobile Responsive for Reviews */
+@media (max-width: 768px) {
+    .review-card {
+        padding: 16px;
+    }
+    
+    .reviewer-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .review-title {
+        font-size: 16px;
+    }
+    
+    .rating-distribution {
+        padding: 16px;
+    }
+    
+    .empty-reviews {
+        padding: 40px 20px;
+    }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ========== MOBILE RESPONSIVE FIX ========== */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .gallery {
+        position: relative;
+        top: 0;
+        width: 100%;
+    }
+    
+    .main-image-container {
+        aspect-ratio: 1;
+        min-height: auto;
+        max-height: 400px;
+    }
+    
+    .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .thumbnail-container {
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .product-info {
+        margin-top: 0;
+        padding: 0;
+    }
+    
+    .product-title {
+        font-size: 24px;
+    }
+    
+    .price {
+        font-size: 28px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .action-buttons button,
+    .action-buttons a {
+        width: 100%;
+    }
+    
+    .details-grid {
+        padding: 16px;
+    }
+    
+    .contact-item {
+        gap: 12px;
+    }
+    
+    .contact-item i {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+    
+    .contact-item p {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .gallery {
+        top: 20px;
+    }
+    
+    .product-grid {
+        gap: 32px;
+    }
+    
+    .product-title {
+        font-size: 28px;
+    }
+}
+</style>
+
+<div class="product-container">
+    <!-- Back Button -->
+    <a href="/marketplace" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Store
+    </a>
+    
+    <div class="product-grid">
+        <!-- Gallery -->
+        <div class="gallery">
+            <div class="main-image-container">
+                <img id="mainImage" src="<%= product.images[0] %>" class="main-image" alt="<%= product.title %>">
+            </div>
+            <div class="thumbnail-container">
+                <% product.images.forEach((image, index) => { %>
+                    <img src="<%= image %>" class="thumbnail <%= index === 0 ? 'active' : '' %>" 
+                         onclick="changeImage(this, '<%= image %>')">
+                <% }) %>
+            </div>
+        </div>
+        
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1 class="product-title"><%= product.title %></h1>
+            
+            <div class="price-section">
+                <span class="price">₹<%= product.price %></span>
+                <span class="price-unit">/ item</span>
+            </div>
+            
+            <!-- Description -->
+            <div class="description-section">
+                <h3>Description</h3>
+                <p class="description-text"><%= product.description %></p>
+            </div>
+            
+            <!-- Product Details -->
+            <div class="details-grid">
+                <h3>Product Details</h3>
+                <div class="detail-row">
+                    <span class="detail-label">Category</span>
+                    <span class="detail-value"><%= product.category.toLowerCase() %></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Condition</span>
+                    <span class="detail-value"><%= product.condition %></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Store</span>
+                    <div class="store-info">
+                        <div class="store-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <span class="store-name"><%= product.seller.username %></span>
+                    </div>
+                </div>
+                <% if (product.tags && product.tags.length > 0) { %>
+                    <div class="detail-row">
+                        <span class="detail-label">Tags</span>
+                        <span class="detail-value">
+                            <% product.tags.forEach(tag => { %>
+                                <span class="badge bg-light me-1">#<%= tag %></span>
+                            <% }) %>
+                        </span>
+                    </div>
+                <% } %>
+            </div>
+            
+            <!-- Action Buttons -->
+            <% if (currUser) { %>
+                <% if (product.seller._id.toString() === currUser._id.toString()) { %>
+                    <div class="action-buttons">
+                        <a href="/marketplace/edit-product/<%= product._id %>" class="btn-outline">
+                            <i class="fas fa-edit"></i> Edit Product
+                        </a>
+                        <% if (product.status === 'available' && interestedBuyers && interestedBuyers.length > 0) { %>
+                            <form action="/marketplace/product/<%= product._id %>/mark-sold" method="POST" style="flex: 1;">
+                                <select name="buyerId" class="form-select mb-2" required style="border-radius: 12px;">
+                                    <option value="">Select buyer</option>
+                                    <% interestedBuyers.forEach(buyer => { %>
+                                        <option value="<%= buyer._id %>"><%= buyer.username %></option>
+                                    <% }) %>
+                                </select>
+                                <button type="submit" class="btn-success w-100">
+                                    <i class="fas fa-check-circle"></i> Mark as Sold
+                                </button>
+                            </form>
+                        <% } %>
+                    </div>
+                    
+                    <% if (interestedBuyers && interestedBuyers.length > 0) { %>
+                        <div class="interested-section" style="margin-top: 24px;">
+                            <div class="interested-title" style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">
+                                <i class="fas fa-users"></i> Interested Buyers
+                                <span class="badge bg-primary"><%= interestedBuyers.length %></span>
+                            </div>
+                            <% interestedBuyers.forEach(buyer => { %>
+                                <div class="buyer-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--gray-50); border-radius: 12px; margin-bottom: 8px;">
+                                    <span class="buyer-name"><%= buyer.username %></span>
+                                    <button class="chat-small-btn open-chat-btn"
+                                            data-room-id="<%= buyer.chatRoomId %>"
+                                            data-product-id="<%= product._id %>"
+                                            data-product-title="<%= product.title %>"
+                                            data-other-user-id="<%= buyer._id %>"
+                                            data-other-user-name="<%= buyer.username %>"
+                                            style="background: var(--primary); border: none; padding: 6px 16px; border-radius: 40px; color: white; font-size: 13px; cursor: pointer;">
+                                        <i class="fas fa-comments"></i> Chat
+                                    </button>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                    
+                <% } else if (product.status === 'available') { %>
+                    <div class="action-buttons">
+                        <% if (!hasInterested) { %>
+                            <form action="/marketplace/product/<%= product._id %>/interest" method="POST" style="flex: 1;">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-heart"></i> I'm Interested
+                                </button>
+                            </form>
+                        <% } else { %>
+                            <button class="btn-success" disabled>
+                                <i class="fas fa-check"></i> Interest Shown!
+                            </button>
+                            
+                            <button class="btn-outline" onclick="showContactModal()">
+                                <i class="fas fa-phone-alt"></i> Contact Seller
+                            </button>
+                        <% } %>
+                        
+                        <% if (existingChatRoom) { %>
+                            <button class="btn-outline open-chat-btn"
+                                    data-room-id="<%= existingChatRoom %>"
+                                    data-product-id="<%= product._id %>"
+                                    data-product-title="<%= product.title %>"
+                                    data-other-user-id="<%= product.seller._id %>"
+                                    data-other-user-name="<%= product.seller.username %>">
+                                <i class="fas fa-comments"></i> Chat with Seller
+                            </button>
+                        <% } %>
+                    </div>
+                    
+                    <div class="alert-custom">
+                        <i class="fas fa-truck"></i>
+                        <span>Delivery available on campus. Meet at safe locations. Security deposit may apply.</span>
+                    </div>
+                <% } else { %>
+                    <div class="alert alert-secondary text-center" style="border-radius: 16px;">
+                        <i class="fas fa-shopping-cart fa-2x mb-2 d-block"></i>
+                        <strong>This item has been sold!</strong>
+                        <p class="mb-0 mt-2">Check out similar products below.</p>
+                    </div>
+                <% } %>
+            <% } else { %>
+    <div class="action-buttons">
+        <a href="/users/login?returnTo=<%= encodeURIComponent(returnTo || '/marketplace/product/' + product._id) %>" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Login to Show Interest
+        </a>
+    </div>
+    <div class="alert-custom">
+        <i class="fas fa-lock"></i>
+        <span>Please login to contact the seller and view more details.</span>
+    </div>
+<% } %>
+        </div>
+    </div>
+    
+    <!-- Contact Seller Modal -->
+    <div id="contactModal" class="contact-modal" style="display: none;">
+        <div class="contact-modal-content">
+            <div class="contact-modal-header">
+                <h3><i class="fas fa-user-circle"></i> Seller Contact Information</h3>
+                <button class="close-modal" onclick="closeContactModal()">&times;</button>
+            </div>
+            <div class="contact-modal-body">
+                <div class="contact-info-card">
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <strong>Name</strong>
+                            <p><%= product.seller.username %></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Mobile Number</strong>
+                            <p><%= product.sellerPhone || 'Not provided' %></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p><%= product.sellerEmail || product.seller.email %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>Always meet in a safe, public location. Verify the product before paying. Never share sensitive personal information.</p>
+                </div>
+                <button class="copy-btn" onclick="copyPhoneNumber()">
+                    <i class="fas fa-copy"></i> Copy Phone Number
+                </button>
+            </div>
+        </div>
+    </div>
+    
+      <!-- Reviews Section - SINGLE VERSION (KEEP ONLY THIS) -->
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <div>
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--dark);">Customer Reviews</h2>
+                <div class="rating-summary">
+                    <div class="rating-stars">
+                        <% for(let i = 1; i <= 5; i++) { 
+                            const avgRating = product.averageRating || 0;
+                        %>
+                            <% if (i <= Math.round(avgRating)) { %>
+                                <i class="fas fa-star star-filled"></i>
+                            <% } else if (i - 0.5 <= avgRating) { %>
+                                <i class="fas fa-star-half-alt star-half"></i>
+                            <% } else { %>
+                                <i class="far fa-star star-empty"></i>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <span style="font-size: 18px; font-weight: 600;"><%= product.averageRating ? product.averageRating.toFixed(1) : '0.0' %></span>
+                    <span style="color: var(--gray-600);">(<%= product.totalReviews || 0 %> reviews)</span>
+                </div>
+            </div>
+            <% if (currUser && product.seller && product.seller._id.toString() !== currUser._id.toString()) { 
+                const hasReviewed = product.reviews && product.reviews.some(r => r.user && r.user._id && r.user._id.toString() === currUser._id.toString());
+            %>
+                <% if (!hasReviewed) { %>
+                    <button class="btn-primary" onclick="openReviewModal()" style="padding: 12px 24px;">
+                        <i class="fas fa-star"></i> Write a Review
+                    </button>
+                <% } %>
+            <% } %>
+        </div>
+        
+        <!-- Rating Distribution -->
+        <% if (product.totalReviews > 0) { %>
+            <div class="rating-distribution">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 20px;">Rating Distribution</h3>
+                <% for(let i = 5; i >= 1; i--) { %>
+                    <div class="distribution-bar">
+                        <span class="distribution-label"><%= i %> ★</span>
+                        <div class="distribution-bar-bg">
+                            <div class="distribution-bar-fill" style="width: <%= product.ratingDistribution && product.totalReviews ? (product.ratingDistribution[i] / product.totalReviews * 100) : 0 %>%"></div>
+                        </div>
+                        <span class="distribution-count"><%= product.ratingDistribution ? (product.ratingDistribution[i] || 0) : 0 %></span>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+        
+        <!-- Reviews List -->
+        <div class="reviews-list">
+            <% if (product.reviews && product.reviews.length > 0) { %>
+                <% product.reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(review => { %>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <%= (review.user && review.user.username) ? review.user.username.charAt(0).toUpperCase() : 'U' %>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name"><%= (review.user && review.user.username) ? review.user.username : 'Anonymous' %></div>
+                                    <div class="review-meta">
+                                        <div class="review-stars">
+                                            <% for(let i = 1; i <= 5; i++) { %>
+                                                <i class="fas fa-star" style="color: <%= i <= (review.rating || 0) ? '#f59e0b' : '#e5e7eb' %>; font-size: 12px;"></i>
+                                            <% } %>
+                                        </div>
+                                        <span class="review-date"><%= review.createdAt ? new Date(review.createdAt).toLocaleDateString() : 'Unknown date' %></span>
+                                        <% if (review.isVerifiedPurchase) { %>
+                                            <span class="verified-badge">Verified Purchase</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="helpful-btn" onclick="markHelpful('<%= review._id %>')">
+                                <i class="fas fa-thumbs-up"></i> Helpful (<%= review.helpful ? review.helpful.length : 0 %>)
+                            </button>
+                        </div>
+                        
+                        <% if (review.title) { %>
+                            <h4 class="review-title"><%= review.title %></h4>
+                        <% } %>
+                        <p class="review-text"><%= review.review || '' %></p>
+                        
+                        <!-- Seller Reply -->
+                        <% if (review.replies && review.replies.length > 0) { %>
+                            <div class="seller-reply">
+                                <div class="reply-header">
+                                    <i class="fas fa-store" style="color: var(--primary);"></i>
+                                    <span class="reply-name">Seller Response</span>
+                                    <span class="reply-date"><%= review.replies[0].createdAt ? new Date(review.replies[0].createdAt).toLocaleDateString() : 'Unknown date' %></span>
+                                </div>
+                                <p class="reply-text"><%= review.replies[0].comment || '' %></p>
+                            </div>
+                        <% } %>
+                        
+                        <!-- Reply Form (for seller) -->
+                        <% if (currUser && product.seller && product.seller._id.toString() === currUser._id.toString()) { %>
+                            <form action="/marketplace/product/<%= product._id %>/review/<%= review._id %>/reply" method="POST" class="reply-form">
+                                <input type="text" name="comment" class="reply-input" placeholder="Reply to this review..." required>
+                                <button type="submit" class="btn-outline" style="padding: 10px 20px;">Reply</button>
+                            </form>
+                        <% } %>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="empty-reviews">
+                    <i class="fas fa-star"></i>
+                    <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">No reviews yet</h3>
+                    <p style="color: var(--gray-600);">Be the first to review this product!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>  
+
+<!-- Review Modal -->
+<div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+        <div class="modal-header">
+            <h3>Write a Review</h3>
+            <button class="close-modal-btn" onclick="closeReviewModal()">&times;</button>
+        </div>
+        <form action="/marketplace/product/<%= product._id %>/review" method="POST">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 12px; font-weight: 600;">Your Rating *</label>
+                <div class="star-rating-input">
+                    <i class="far fa-star" data-rating="1" onclick="setRating(1)"></i>
+                    <i class="far fa-star" data-rating="2" onclick="setRating(2)"></i>
+                    <i class="far fa-star" data-rating="3" onclick="setRating(3)"></i>
+                    <i class="far fa-star" data-rating="4" onclick="setRating(4)"></i>
+                    <i class="far fa-star" data-rating="5" onclick="setRating(5)"></i>
+                </div>
+                <input type="hidden" name="rating" id="ratingValue" required>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Review Title (Optional)</label>
+                <input type="text" name="title" class="form-control" placeholder="Summarize your experience" style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: 12px;">
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Your Review *</label>
+                <textarea name="review" rows="4" class="form-control" placeholder="What did you like or dislike about this product?" required style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: 12px;"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 14px;">Submit Review</button>
+        </form>
+    </div>
+</div>
+
+<script>
+let selectedRating = 0;
+
+function changeImage(element, src) {
+    document.getElementById('mainImage').src = src;
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    element.classList.add('active');
+}
+
+function showContactModal() {
+    const modal = document.getElementById('contactModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeContactModal() {
+    const modal = document.getElementById('contactModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function copyPhoneNumber() {
+    const phoneNumber = '<%= product.sellerPhone || "" %>';
+    if (phoneNumber) {
+        navigator.clipboard.writeText(phoneNumber).then(() => {
+            alert('Phone number copied to clipboard!');
+        });
+    } else {
+        alert('Phone number not available');
+    }
+}
+
+function openReviewModal() {
+    document.getElementById('reviewModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeReviewModal() {
+    document.getElementById('reviewModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function setRating(rating) {
+    selectedRating = rating;
+    document.getElementById('ratingValue').value = rating;
+    
+    const stars = document.querySelectorAll('.star-rating-input i');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.className = 'fas fa-star active';
+        } else {
+            star.className = 'far fa-star';
+        }
+    });
+}
+
+function markHelpful(reviewId) {
+    fetch(`/marketplace/product/<%= product._id %>/review/${reviewId}/helpful`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    })
+    .catch(err => console.error('Error:', err));
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const contactModal = document.getElementById('contactModal');
+    const reviewModal = document.getElementById('reviewModal');
+    if (event.target === contactModal) {
+        closeContactModal();
+    }
+    if (event.target === reviewModal) {
+        closeReviewModal();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const chatButtons = document.querySelectorAll('.open-chat-btn');
+    chatButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const data = this.dataset;
+            if (window.chatPopup && data.roomId) {
+                window.chatPopup.openChat({
+                    roomId: data.roomId,
+                    productId: data.productId,
+                    productTitle: data.productTitle,
+                    otherUserId: data.otherUserId,
+                    otherUserName: data.otherUserName
+                });
+            }
+        });
+    });
+});
+</script>
+
