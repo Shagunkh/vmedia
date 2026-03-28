@@ -20,12 +20,16 @@ router.post("/signup", wrapAsync(async (req, res, next) => {
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
         
-        // Send welcome email
-        await sendWelcomeEmail(email, username);
+        // Send welcome email in the background - don't await
+        // This won't block the registration flow
+        sendWelcomeEmail(email, username).catch(err => {
+            console.error('Failed to send welcome email:', err);
+            // Don't expose email error to user
+        });
         
         req.login(registeredUser, (err) => {
             if (err) return next(err);
-            // Redirect to returnTo or complete profile
+            // Redirect immediately without waiting for email
             const redirectUrl = returnTo || '/users/complete-profile';
             res.redirect(redirectUrl);
         });

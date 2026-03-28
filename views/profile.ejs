@@ -486,6 +486,7 @@
     .timetable-section, 
     .posts-section {
       margin-bottom: 1.5rem;
+      margin-top: 2 rem;
     }
   }
 
@@ -1263,7 +1264,141 @@
 .comment-timeline-item:hover .delete-comment-btn {
   opacity: 1;
 }
- 
+ /* ========== FIX SCROLLING ON PROFILE PAGE ========== */
+
+/* Ensure body and html can scroll */
+html, body {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+/* Make container fluid scrollable */
+.container-fluid {
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+
+/* Ensure all main sections don't block scrolling */
+.row {
+  overflow: visible;
+}
+
+.col-md-3, .col-md-9, .col-md-12 {
+  overflow: visible;
+}
+
+/* Cyber container shouldn't restrict scrolling */
+.cyber-container {
+  overflow: visible;
+  height: auto;
+}
+
+/* Timetable section scrolls internally but doesn't block page scroll */
+.timetable-section {
+  overflow: visible;
+  height: auto;
+  max-height: none;
+}
+
+/* Posts section scrolls internally but doesn't block page scroll */
+.posts-section {
+  overflow: visible;
+  height: auto;
+  max-height: none;
+}
+
+/* Ensure posts grid is scrollable within its container if needed, but not blocking page */
+.posts-grid {
+  overflow-y: visible;
+  height: auto;
+  max-height: none;
+}
+
+/* Make sure modals don't interfere with scrolling */
+.modal-open {
+  overflow-y: auto !important;
+  padding-right: 0 !important;
+}
+
+.modal-open .container-fluid {
+  overflow: visible;
+}
+
+/* Fix any position fixed or sticky that might block scrolling */
+.navbar-fixed-top, .fixed-top {
+  position: fixed;
+}
+
+/* Ensure no element has overflow hidden that blocks scrolling */
+* {
+  max-height: none !important;
+}
+
+/* Specific fix for profile page */
+body.profile-page, body[class*="profile"] {
+  overflow-y: auto !important;
+  height: auto !important;
+}
+
+/* Remove any max-height restrictions on main containers */
+main, .main-content, #main-content {
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+/* ========== HIDE SCROLLBAR BUT KEEP SCROLLING ========== */
+
+/* Hide scrollbar for all browsers */
+html, body {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+/* Chrome, Safari, Opera */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.container-fluid::-webkit-scrollbar,
+.cyber-container::-webkit-scrollbar,
+.posts-section::-webkit-scrollbar,
+.timetable-container::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Hide scrollbar for all containers while keeping scroll */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Ensure modals also don't show scrollbars */
+.modal-content,
+.modal-body,
+.modal-dialog {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.modal-content::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.modal-dialog::-webkit-scrollbar {
+  display: none !important;
+}
 </style>
 <br>
 <div class="container-fluid mt-5 pt-4">

@@ -168,20 +168,20 @@
         max-width: 500px;
     }
     
-    /* Features Grid */
+    /* Features Grid - Two Columns */
     .promo-features {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
         margin-bottom: 32px;
     }
     
     .feature-item {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         background: rgba(255, 255, 255, 0.03);
-        padding: 10px 18px;
+        padding: 10px 16px;
         border-radius: 40px;
         border: 1px solid rgba(255, 255, 255, 0.05);
         transition: all 0.3s ease;
@@ -196,6 +196,7 @@
     .feature-item i {
         color: #00d8ff;
         font-size: 14px;
+        width: 24px;
     }
     
     .feature-item span {
@@ -370,6 +371,7 @@
         }
         
         .promo-features {
+            grid-template-columns: repeat(2, 1fr);
             justify-content: center;
         }
         
@@ -384,6 +386,10 @@
             border-radius: 32px;
         }
         
+        .promo-content {
+            padding: 30px 24px;
+        }
+        
         .promo-title {
             font-size: 32px;
         }
@@ -392,8 +398,18 @@
             font-size: 14px;
         }
         
+        .promo-features {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
         .feature-item {
-            padding: 6px 12px;
+            padding: 8px 12px;
+        }
+        
+        .feature-item i {
+            font-size: 12px;
+            width: 20px;
         }
         
         .feature-item span {
@@ -405,22 +421,54 @@
         }
     }
     
+    @media (max-width: 550px) {
+        .promo-features {
+            grid-template-columns: 1fr;
+        }
+        
+        .feature-item {
+            justify-content: center;
+        }
+    }
+    
     @media (max-width: 480px) {
+        .vall-promo {
+            margin: 20px 10px;
+            border-radius: 28px;
+        }
+        
+        .promo-content {
+            padding: 24px 20px;
+        }
+        
         .promo-title {
             font-size: 28px;
         }
         
-        .promo-features {
-            gap: 10px;
+        .promo-description {
+            font-size: 13px;
         }
         
         .feature-item {
-            padding: 5px 10px;
+            padding: 6px 10px;
+        }
+        
+        .feature-item i {
+            font-size: 10px;
+            width: 18px;
+        }
+        
+        .feature-item span {
+            font-size: 10px;
         }
         
         .promo-cta {
-            padding: 12px 28px;
-            font-size: 14px;
+            padding: 10px 24px;
+            font-size: 13px;
+        }
+        
+        .stat-3d-number {
+            font-size: 28px;
         }
     }
     @media (max-width: 768px) {
@@ -686,29 +734,76 @@
             </p>
             
             <div class="promo-features">
+                <!-- Row 1 -->
                 <div class="feature-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>CGPA Calculator</span>
+                    <i class="fas fa-store"></i>
+                    <span>VMALL (Buy & Sell)</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Add/Drop Subjects</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-car"></i>
+                    <span>Pool Cab</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-calculator"></i>
+                    <span>CGPA/GPA Calculator</span>
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="feature-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Study Planner</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Flashcards & Quizlet</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-home"></i>
+                    <span>Roommate Finder</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Confessions Wall</span>
+                </div>
+                
+                <!-- Row 3 -->
+                <div class="feature-item">
+                    <i class="fas fa-search"></i>
+                    <span>Lost & Found Board</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-random"></i>
+                    <span>Random Chat</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>FFCS Planner</span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-chalkboard-teacher"></i>
-                    <span>Faculty Reviews</span>
+                    <span>Faculty Review</span>
+                </div>
+                
+                <!-- Row 4 -->
+                <div class="feature-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Previous Year Papers</span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-users"></i>
                     <span>Collab Requests</span>
                 </div>
                 <div class="feature-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Smart Planner</span>
+                    <i class="fas fa-chart-line"></i>
+                    <span>Performance Analytics</span>
                 </div>
                 <div class="feature-item">
-                    <i class="fas fa-comment-dots"></i>
-                    <span>Confessions Wall</span>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-home"></i>
-                    <span>Roommate Finder</span>
+                    <i class="fas fa-bell"></i>
+                    <span>Smart Notifications</span>
                 </div>
             </div>
             
@@ -724,7 +819,7 @@
                     <span class="stat-3d-label">Active VITians</span>
                 </div>
                 <div class="stat-3d-item">
-                    <span class="stat-3d-number" id="featureCount">15+</span>
+                    <span class="stat-3d-number" id="featureCount">18+</span>
                     <span class="stat-3d-label">Powerful Features</span>
                 </div>
                 <div class="stat-3d-item">
@@ -752,7 +847,9 @@
         const container = document.getElementById('promoParticles');
         if (!container) return;
         
-        for (let i = 0; i < 60; i++) {
+        const particleCount = window.innerWidth < 768 ? 30 : 60;
+        
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
@@ -771,7 +868,6 @@
         const userCountEl = document.getElementById('userCount');
         if (!userCountEl) return;
         
-        // If you have an API endpoint for user count, fetch it
         fetch('/home/api/users/count')
             .then(response => response.json())
             .then(data => {
@@ -796,6 +892,19 @@
                 console.log('User count API not available, using static count');
             });
     }
+    
+    // Recreate particles on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const container = document.getElementById('promoParticles');
+            if (container) {
+                container.innerHTML = '';
+                createParticles();
+            }
+        }, 250);
+    });
     
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {

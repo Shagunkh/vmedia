@@ -449,7 +449,7 @@ router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
             
             await product.save();
             
-            // Send emails
+            // Prepare email data
             const buyer = {
                 _id: req.user._id,
                 username: req.user.username,
@@ -462,8 +462,15 @@ router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
                 email: product.seller.email
             };
             
-            await emailService.sendInterestEmailToSeller(product, buyer, seller);
-            await emailService.sendBuyerConfirmationEmail(product, buyer, seller);
+            // Send emails in the background - don't await
+            // This won't block the response
+            Promise.all([
+                emailService.sendInterestEmailToSeller(product, buyer, seller),
+                emailService.sendBuyerConfirmationEmail(product, buyer, seller)
+            ]).catch(err => {
+                console.error('Failed to send interest emails:', err);
+                // Don't expose email error to user
+            });
             
             const io = req.app.get('io');
             if (io) {

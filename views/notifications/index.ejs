@@ -4,6 +4,9 @@
     html, body {
         background-color: #0a0a0a;
         color: #fff;
+        min-height: 100vh;
+        overflow-y: auto !important;
+        height: auto;
     }
 
     /* Cosmic gradient animation for the background */
@@ -40,7 +43,7 @@
         margin: 2rem auto;
         padding: 2rem;
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         background: radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%);
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -64,6 +67,7 @@
         animation: cosmicBackground 20s infinite linear;
         z-index: 0;
         pointer-events: none;
+        border-radius: 20px;
     }
 
     /* Header with holographic effect */
@@ -74,6 +78,8 @@
         margin-bottom: 2rem;
         position: relative;
         z-index: 1;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .notification-header h2 {
@@ -89,25 +95,7 @@
         display: inline-block;
     }
 
-    .notification-header h2::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #00d8ff, transparent);
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
-    }
-
-    .notification-header:hover h2::after {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-
-    /* Futuristic button with animated gradient */
+    /* Futuristic button */
     .mark-all-read-btn {
         background: linear-gradient(90deg, #00d8ff, #008cff, #00d8ff);
         background-size: 200% 200%;
@@ -143,26 +131,27 @@
     .mark-all-read-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 30px rgba(0, 216, 255, 0.6);
-        animation: glowPulse 1.5s infinite, gradientPulse 3s ease infinite;
+        animation: glowPulse 1.5s infinite;
     }
 
     .mark-all-read-btn:hover::before {
         left: 100%;
     }
 
-    /* Notification list with depth effect */
+    /* Notification list */
     .notification-list {
         display: grid;
         gap: 1.5rem;
         position: relative;
         z-index: 1;
+        max-height: none;
+        overflow: visible;
     }
 
     /* Holographic notification cards */
     .notification-item {
         display: flex;
         padding: 1.8rem;
-       
         background: rgba(15, 15, 15, 0.7);
         backdrop-filter: blur(12px);
         transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -170,9 +159,10 @@
         overflow: hidden;
         border: 1px solid rgba(0, 216, 255, 0.1);
         box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+        border-radius: 16px;
+        cursor: pointer;
     }
 
-    /* Holographic edge glow */
     .notification-item::before {
         content: '';
         position: absolute;
@@ -190,7 +180,6 @@
         opacity: 1;
     }
 
-    /* Particle effects for unread notifications */
     .notification-item.unread::after {
         content: '';
         position: absolute;
@@ -202,18 +191,16 @@
         border-radius: 50%;
         box-shadow: 0 0 15px #00d8ff, 0 0 30px #00d8ff;
         animation: float 3s ease-in-out infinite;
-        z-index: 1000;
+        z-index: 10;
     }
 
-    /* Avatar with animated border */
     .notification-avatar {
         width: 60px;
         height: 60px;
         border-radius: 50%;
         margin-right: 1.5rem;
         object-fit: cover;
-        border: 2px solid transparent;
-        background: linear-gradient(45deg, #00d8ff, #008cff) border-box;
+        border: 2px solid rgba(0, 216, 255, 0.5);
         box-shadow: 0 0 15px rgba(0, 216, 255, 0.3);
         transition: all 0.5s ease;
         flex-shrink: 0;
@@ -221,32 +208,11 @@
         z-index: 1;
     }
 
-    .notification-avatar::before {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: -3px;
-        right: -3px;
-        bottom: -3px;
-        border-radius: 50%;
-        background: linear-gradient(45deg, #00d8ff, #008cff, #00d8ff);
-        background-size: 200% 200%;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        animation: gradientPulse 4s ease infinite;
-    }
-
     .notification-item:hover .notification-avatar {
         transform: scale(1.1);
         box-shadow: 0 0 25px rgba(0, 216, 255, 0.6);
     }
 
-    .notification-item:hover .notification-avatar::before {
-        opacity: 1;
-    }
-
-    /* Content styling */
     .notification-content {
         flex: 1;
         position: relative;
@@ -254,26 +220,24 @@
 
     .notification-message {
         margin-bottom: 0.8rem;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        font-size: 1rem;
+        line-height: 1.5;
         color: #fff;
         font-weight: 400;
-        position: relative;
     }
 
     .notification-message strong {
         color: #00d8ff;
-        font-weight: 500;
+        font-weight: 600;
         text-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
     }
 
     .notification-time {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.8rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        font-family: 'Courier New', monospace;
     }
 
     .notification-time::before {
@@ -286,42 +250,23 @@
         box-shadow: 0 0 5px #00d8ff;
     }
 
-    /* Post preview with hover effect */
     .notification-post-preview {
-        width: 90px;
-        height: 90px;
-        border-radius: 10px;
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
         object-fit: cover;
-        margin-left: 1.5rem;
+        margin-left: 1rem;
         border: 1px solid rgba(0, 216, 255, 0.2);
-        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        transition: all 0.5s ease;
         flex-shrink: 0;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .notification-post-preview::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(0, 216, 255, 0.2), transparent);
-        opacity: 0;
-        transition: opacity 0.4s ease;
     }
 
     .notification-item:hover .notification-post-preview {
-        transform: scale(1.08) rotate(2deg);
+        transform: scale(1.05);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 
-    .notification-item:hover .notification-post-preview::before {
-        opacity: 1;
-    }
-
-    /* Empty state with cosmic design */
+    /* Empty state */
     .empty-state {
         text-align: center;
         padding: 4rem 2rem;
@@ -347,22 +292,20 @@
     }
 
     .empty-state i {
-        font-size: 4.5rem;
-        margin-bottom: 1.5rem;
+        font-size: 4rem;
+        margin-bottom: 1rem;
         background: linear-gradient(90deg, #00d8ff, #008cff);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         display: inline-block;
         animation: float 5s ease-in-out infinite;
-        filter: drop-shadow(0 0 10px rgba(0, 216, 255, 0.5));
     }
 
     .empty-state h3 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         color: #fff;
         margin-bottom: 0.8rem;
-        text-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
     }
 
     .empty-state p {
@@ -370,47 +313,9 @@
         max-width: 400px;
         margin: 0 auto;
         line-height: 1.6;
-        font-size: 1.1rem;
     }
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-        .notifications-container {
-            padding: 1.5rem;
-            margin: 1rem;
-            border-radius: 15px;
-        }
-
-        .notification-item {
-            flex-direction: column;
-            padding: 1.5rem;
-        }
-
-        .notification-avatar {
-            margin-right: 0;
-            margin-bottom: 1.2rem;
-            width: 70px;
-            height: 70px;
-        }
-
-        .notification-post-preview {
-            margin-left: 0;
-            margin-top: 1.2rem;
-            width: 100%;
-            height: 150px;
-        }
-
-        .notification-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .notification-header h2 {
-            font-size: 1.8rem;
-        }
-    }
-     .particles {
+    .particles {
         position: absolute;
         top: 0;
         left: 0;
@@ -419,6 +324,7 @@
         pointer-events: none;
         z-index: 0;
         overflow: hidden;
+        border-radius: 16px;
     }
 
     .particle {
@@ -430,67 +336,142 @@
         animation: particleMove 1.5s ease-out forwards;
         box-shadow: 0 0 5px #00d8ff;
     }
+
+    @media (max-width: 768px) {
+        .notifications-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .notification-item {
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 1rem;
+        }
+
+        .notification-avatar {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .notification-post-preview {
+            width: 60px;
+            height: 60px;
+        }
+
+        .notification-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .mark-all-read-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+    }
+    
+    @media (max-width: 550px) {
+        .notification-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .notification-avatar {
+            margin-bottom: 0.8rem;
+        }
+        
+        .notification-post-preview {
+            margin-top: 0.8rem;
+            width: 100%;
+            height: 120px;
+        }
+        
+        .notification-content {
+            width: 100%;
+        }
+        
+        .notification-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
 </style>
-<br><br>
+
 <div class="notifications-container">
     <div class="notification-header">
         <h2>Notifications</h2>
-        <% if (notifications.length > 0) { %>
+        <% if (notifications && notifications.length > 0) { %>
             <button class="mark-all-read-btn" id="markAllReadBtn">
                 Mark All as Read
             </button>
         <% } %>
     </div>
     
-    <% if (notifications.length > 0) { %>
-        <% notifications.forEach(notification => { %>
-            <div class="notification-item <%= notification.isRead ? '' : 'unread' %>">
-                <!-- Debug output (remove in production) -->
-                <% console.log('Notification:', notification) %>
-                
-                <img src="<%= notification.sender?.profilePhoto || '/images/default-avatar.png' %>" 
-                     class="notification-avatar" 
-                     alt="<%= notification.sender?.username || 'User' %>">
-                
-                <div class="notification-content">
-                    <div class="notification-message">
-                        <!-- Fallback message if notification.message is empty -->
-                        <%= notification.message || 
-                            `${notification.sender?.username || 'Someone'} performed an action` %>
-                    </div>
+    <div class="notification-list">
+        <% if (notifications && notifications.length > 0) { %>
+            <% notifications.forEach(notification => { %>
+                <div class="notification-item <%= notification.isRead ? '' : 'unread' %>" 
+                     data-notification-id="<%= notification._id %>"
+                     onclick="handleNotificationClick('<%= notification._id %>', '<%= notification.link || "#" %>')">
+                    <img src="<%= notification.sender?.profilePhoto || '/images/default-avatar.png' %>" 
+                         class="notification-avatar" 
+                         alt="<%= notification.sender?.username || 'User' %>"
+                         onerror="this.src='/images/default-avatar.png'">
                     
-                    <div class="notification-time">
-                        <%= new Date(notification.createdAt).toLocaleString() %>
-                    </div>
-                    
-                    <!-- Show action button for relevant notification types -->
-                    <% if (notification.relatedPost) { %>
-                        <div class="notification-actions">
-                            
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            <strong><%= notification.sender?.username || 'Someone' %></strong> 
+                            <%= notification.message || 'performed an action' %>
                         </div>
+                        
+                        <div class="notification-time">
+                            <%= new Date(notification.createdAt).toLocaleString() %>
+                        </div>
+                    </div>
+                    
+                    <% if (notification.relatedPost && notification.relatedPost.imageUrl) { %>
+                        <img src="<%= notification.relatedPost.imageUrl %>" 
+                             class="notification-post-preview" 
+                             alt="Post preview"
+                             onerror="this.style.display='none'">
                     <% } %>
                 </div>
-                
-                <!-- Show post preview if available -->
-                <% if (notification.relatedPost?.imageUrl) { %>
-                    <img src="<%= notification.relatedPost.imageUrl %>" 
-                         class="notification-post-preview" 
-                         alt="Post preview">
-                <% } %>
+            <% }) %>
+        <% } else { %>
+            <div class="empty-state">
+                <i class="bi bi-bell"></i>
+                <h3>No notifications yet</h3>
+                <p>When you get notifications, they'll appear here</p>
             </div>
-        <% }) %>
-    <% } else { %>
-        <div class="empty-state">
-            <i class="bi bi-bell"></i>
-            <h3>No notifications yet</h3>
-            <p>When you get notifications, they'll appear here</p>
-        </div>
-    <% } %>
+        <% } %>
+    </div>
 </div>
 
 <script>
-    // Mark all notifications as read
-   document.getElementById('markAllReadBtn')?.addEventListener('click', async () => {
+    function handleNotificationClick(notificationId, link) {
+        fetch(`/notifications/${notificationId}/mark-read`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            if (link && link !== '#') {
+                window.location.href = link;
+            }
+        }).catch(err => {
+            console.error('Error marking notification as read:', err);
+            if (link && link !== '#') {
+                window.location.href = link;
+            }
+        });
+    }
+    
+    document.getElementById('markAllReadBtn')?.addEventListener('click', async () => {
         try {
             const response = await fetch('/notifications/mark-all-read', {
                 method: 'POST',
@@ -502,57 +483,53 @@
             const result = await response.json();
             
             if (result.success) {
-                // Remove unread styling from all notifications
                 document.querySelectorAll('.notification-item.unread').forEach(item => {
                     item.classList.remove('unread');
                 });
+                location.reload();
             }
         } catch (error) {
             console.error('Error marking all as read:', error);
         }
     });
-    // Handle notification clicks
+    
     document.querySelectorAll('.notification-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            // Don't navigate if user clicked on a button inside the notification
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-                return;
-            }
-            
-            // Navigate based on notification type
-            // You can add more specific navigation logic here
-            window.location.href = '/notifications';
-        });
-    });
-     document.querySelectorAll('.notification-item').forEach(item => {
-        // Add particles on hover
+        let timeout;
+        
         item.addEventListener('mouseenter', function() {
-            if (this.querySelector('.particles')) return;
-            
-            const particles = document.createElement('div');
-            particles.className = 'particles';
-            this.appendChild(particles);
-            
-            // Create 5 particles
-            for (let i = 0; i < 5; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
-                particle.style.setProperty('--ty', `${Math.random() * 100 - 50}px`);
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 0.5}s`;
-                particles.appendChild(particle);
-            }
+            timeout = setTimeout(() => {
+                if (this.querySelector('.particles')) return;
+                
+                const particles = document.createElement('div');
+                particles.className = 'particles';
+                this.appendChild(particles);
+                particles.style.position = 'absolute';
+                particles.style.top = '0';
+                particles.style.left = '0';
+                particles.style.width = '100%';
+                particles.style.height = '100%';
+                particles.style.pointerEvents = 'none';
+                
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.setProperty('--tx', `${Math.random() * 80 - 40}px`);
+                    particle.style.setProperty('--ty', `${Math.random() * 80 - 40}px`);
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.animationDelay = `${Math.random() * 0.5}s`;
+                    particles.appendChild(particle);
+                }
+            }, 100);
         });
         
-        // Clean up particles when mouse leaves
         item.addEventListener('mouseleave', function() {
+            clearTimeout(timeout);
             const particles = this.querySelector('.particles');
             if (particles) {
                 setTimeout(() => {
                     particles.remove();
-                }, 1000);
+                }, 800);
             }
         });
     });

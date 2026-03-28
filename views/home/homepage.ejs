@@ -62,6 +62,17 @@
             100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
         }
         
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         /* Navigation - Premium Glass Morphism */
         .nav-container {
             position: fixed;
@@ -95,7 +106,6 @@
             background-clip: text;
             color: transparent;
             position: relative;
-         
         }
         
         .logo-nav::after {
@@ -241,18 +251,6 @@
             animation: particleMove linear infinite;
         }
         
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.15;
-            z-index: 0;
-            mix-blend-mode: screen;
-        }
-        
         .hero-content {
             position: relative;
             z-index: 1;
@@ -380,7 +378,172 @@
             animation: float 1.5s ease-in-out infinite;
         }
         
-        /* Features Section - Holographic Cards */
+        /* VMALL Promo Banner */
+        .vmall-promo {
+            margin: 80px 20px;
+            background: linear-gradient(135deg, #0a0a1a, #050510);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .vmall-promo:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 216, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 140, 255, 0.2);
+        }
+        
+        .vmall-promo-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .vmall-promo-left {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .vmall-promo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 216, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 216, 255, 0.3);
+        }
+        
+        .vmall-promo-badge i {
+            color: var(--primary);
+            font-size: 12px;
+        }
+        
+        .vmall-promo-badge span {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .vmall-promo-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .vmall-promo-title span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .vmall-promo-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        
+        .vmall-promo-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .vmall-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .vmall-feature i {
+            color: var(--primary);
+        }
+        
+        .vmall-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient);
+            padding: 14px 32px;
+            border-radius: 50px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .vmall-cta:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(0, 216, 255, 0.5);
+        }
+        
+        .vmall-promo-right {
+            background: rgba(10, 10, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px;
+            min-width: 280px;
+            border: 1px solid rgba(0, 216, 255, 0.2);
+        }
+        
+        .vmall-stats {
+            text-align: center;
+        }
+        
+        .vmall-stat {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .vmall-stat:hover {
+            background: rgba(0, 216, 255, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .vmall-stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+        
+        .vmall-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .vmall-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 216, 255, 0.3), transparent);
+            margin: 20px 0;
+        }
+        
+        /* Features Section */
         .features {
             padding: 10rem 0;
             position: relative;
@@ -432,14 +595,14 @@
             overflow-x: auto;
             gap: 2rem;
             padding: 2rem;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .horizontal-scroll-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            display: none;
         }
         
         .feature-card {
@@ -506,27 +669,12 @@
             text-align: center;
         }
         
-        /* Stats Section - Animated Counters */
+        /* Stats Section */
         .stats {
             padding: 10rem 2rem;
             background: linear-gradient(to bottom, var(--dark), var(--dark-gray));
             position: relative;
             overflow: hidden;
-        }
-        
-        .stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Q50,80 0,100 Z" fill="rgba(0,216,255,0.03)"/></svg>');
-            background-size: 100% auto;
-            background-repeat: no-repeat;
-            background-position: bottom;
-            opacity: 0.5;
-            pointer-events: none;
         }
         
         .stats-grid {
@@ -575,23 +723,12 @@
             letter-spacing: 2px;
         }
         
-        /* Testimonials - 3D Card Effect */
+        /* Testimonials */
         .testimonials {
             padding: 10rem 2rem;
             background: var(--dark);
             position: relative;
             perspective: 1000px;
-        }
-        
-        .testimonials::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0, 216, 255, 0.05) 0%, transparent 70%);
-            pointer-events: none;
         }
         
         .testimonial-card {
@@ -672,7 +809,7 @@
             font-size: 1rem;
         }
         
-        /* Footer - Futuristic Design */
+        /* Footer */
         footer {
             padding: 8rem 2rem 3rem;
             background: linear-gradient(to bottom, var(--dark-gray), #000);
@@ -820,48 +957,6 @@
             width: 100%;
         }
         
-        .footer-newsletter {
-            text-align: center;
-        }
-        
-        .footer-newsletter input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 5px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-newsletter input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 10px rgba(0, 216, 255, 0.2);
-        }
-        
-        .footer-newsletter button {
-            width: 100%;
-            padding: 15px;
-            border-radius: 5px;
-            border: none;
-            background: var(--gradient);
-            color: var(--text);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            background-size: 200% auto;
-            animation: gradientFlow 3s infinite linear;
-        }
-        
-        .footer-newsletter button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 140, 255, 0.3);
-        }
-        
         .copyright {
             text-align: center;
             margin-top: 6rem;
@@ -883,7 +978,7 @@
             background: var(--gradient);
         }
         
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 992px) {
             .nav-links {
                 display: none;
@@ -897,20 +992,23 @@
                 font-size: 2rem;
             }
             
-            .subtagline {
-                font-size: 1.1rem;
+            .vmall-promo-title {
+                font-size: 36px;
             }
             
-            .section-title {
-                font-size: 3rem;
+            .vmall-promo-content {
+                padding: 40px;
+                flex-direction: column;
+                text-align: center;
             }
             
-            .stat-number {
-                font-size: 3.5rem;
+            .vmall-promo-desc {
+                margin-left: auto;
+                margin-right: auto;
             }
             
-            .testimonial-text {
-                font-size: 1.4rem;
+            .vmall-promo-features {
+                justify-content: center;
             }
         }
         
@@ -932,37 +1030,15 @@
                 gap: 15px;
             }
             
-            .section-title {
-                font-size: 2.5rem;
+            .vmall-promo-title {
+                font-size: 28px;
             }
             
-            .stat-item {
-                min-width: 150px;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
-            
-            .feature-card {
-                padding: 2rem;
-            }
-            
-            .testimonial-card {
-                padding: 2rem;
-            }
-            
-            .testimonial-text {
-                font-size: 1.2rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
+            .vmall-promo-content {
+                padding: 30px;
             }
         }
         
-   
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -977,7 +1053,6 @@
             border-radius: 10px;
         }
         
-      
         [data-animate] {
             opacity: 0;
             transform: translateY(30px);
@@ -988,69 +1063,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
-     
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-        .delay-4 { transition-delay: 0.4s; }
-        .delay-5 { transition-delay: 0.5s; }
-        .intro-bg-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  z-index: -1; /* behind the loader block */
-  pointer-events: none; /* so clicks go through video */
-}
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* 🟡 Adjust opacity here */
-  z-index: 0;
-}
- /* --- INTRO SECTION --- */
-    #intro {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 1s ease;
-      z-index: 2;
-    }
-
-
-
-    .loader-container {
-      font-size: 4rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-    }
-
- .v-symbol {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards, softGlow 3s ease-in-out infinite alternate;
-  animation-delay: 0.5s;
-  font-weight: bold;
-  background: linear-gradient(90deg, #00d8ff, #008cff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:
-    0 0 6px rgba(0, 136, 255, 1),
-    0 0 12px rgba(0, 136, 255, 1);
-}
-
-
     </style>
 </head>
 <body>
@@ -1058,29 +1070,26 @@
 <div id="main">
     <nav class="nav-container">
         <a href="#" class="logo-nav">VALL</a>
-        &nbsp;
         
         <div class="nav-links">
             <a href="#features" class="nav-link">Features</a>
             <a href="#stats" class="nav-link">Stats</a>
             <a href="#testimonials" class="nav-link">Testimonials</a>
             <a href="/aboutus" class="nav-link">About</a>
+            <a href="/marketplace" class="nav-link">Marketplace</a>
         </div>
         
-       <div class="auth-buttons">
-  <% if (user) { %>
-    <a href="/" class="auth-btn login-btn">Home</a>
-  <% } else { %>
-    <a href="/users/login" class="auth-btn login-btn">Login</a>
-    <a href="/users/signup" class="auth-btn signup-btn">Sign Up</a>
-  <% } %>
-</div>
+        <div class="auth-buttons">
+            <% if (user) { %>
+                <a href="/" class="auth-btn login-btn">Home</a>
+            <% } else { %>
+                <a href="/users/login" class="auth-btn login-btn">Login</a>
+                <a href="/users/signup" class="auth-btn signup-btn">Sign Up</a>
+            <% } %>
+        </div>
     </nav>
     
- 
     <section class="hero" id="home">
-       
-       
         <div class="hero-content animate-fade" style="animation-delay: 0.3s;">
             <h1 class="logo">VALL</h1>
             <h2 class="tagline">The VITian Ecosystem</h2>
@@ -1097,7 +1106,54 @@
         </a>
     </section>
     
-
+    <!-- VMALL PROMO BANNER -->
+    <div class="vmall-promo" onclick="window.location.href='/marketplace'">
+        <div class="vmall-promo-content">
+            <div class="vmall-promo-left">
+                <div class="vmall-promo-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span>CAMPUS MARKETPLACE</span>
+                </div>
+                
+                <h2 class="vmall-promo-title">
+                    Buy & Sell <span>Student Essentials</span><br>
+                    With Confidence
+                </h2>
+                
+                <p class="vmall-promo-desc">
+                    Join thousands of students buying and selling textbooks, electronics, furniture, and more. Safe, easy, and completely free.
+                </p>
+                
+                <div class="vmall-promo-features">
+                    <div class="vmall-feature">
+                        <i class="fas fa-tag"></i>
+                        <span>Best Prices</span>
+                    </div>
+                    <div class="vmall-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Safe Transactions</span>
+                    </div>
+                    <div class="vmall-feature">
+                        <i class="fas fa-comments"></i>
+                        <span>Real-time Chat</span>
+                    </div>
+                    <div class="vmall-feature">
+                        <i class="fas fa-truck"></i>
+                        <span>Campus Delivery</span>
+                    </div>
+                </div>
+                
+                <a href="/marketplace" class="vmall-cta">
+                    Explore Marketplace <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="vmall-promo-right">
+               
+            </div>
+        </div>
+    </div>
+    
     <section class="features" id="features">
         <h2 class="section-title animate-fade" style="animation-delay: 0.2s;">Everything you need. All in one place.</h2>
         
@@ -1174,41 +1230,37 @@
                 <p>Find project partners, study groups, or research collaborators across different disciplines.</p>
             </div>
             
-           
-            <div class="feature-card animate-fade" style="animation-delay: 0.8s;">
+            <div class="feature-card animate-fade" style="animation-delay: 1.2s;">
                 <div class="feature-icon">
-                    <i class="fas fa-comment-dots"></i>
+                    <i class="fas fa-file-alt"></i>
                 </div>
                 <h3>Previous Year Papers</h3>
-                <p>Anonymous sharing with sentiment analysis and community support.</p>
+                <p>Access previous year question papers and study materials shared by seniors to ace your exams.</p>
             </div>
         </div>
     </section>
     
-   
-     <section class="stats" id="stats">
-      <div class="stats-grid">
-       <div class="stat-item animate-fade" style="animation-delay: 0.3s;">
-  <div class="stat-number" id="user-count">5,000+</div>
-  <div class="stat-label">Active Users</div>
-</div>
-        <div class="stat-item animate-fade" style="animation-delay: 0.4s;">
-          <div class="stat-number">95%</div>
-          <div class="stat-label">Satisfaction Rate</div>
+    <section class="stats" id="stats">
+        <div class="stats-grid">
+            <div class="stat-item animate-fade" style="animation-delay: 0.3s;">
+                <div class="stat-number" id="user-count">5,000+</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-item animate-fade" style="animation-delay: 0.4s;">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item animate-fade" style="animation-delay: 0.5s;">
+                <div class="stat-number" id="view-count">1M+</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+            <div class="stat-item animate-fade" style="animation-delay: 0.6s;">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
         </div>
-        <div class="stat-item animate-fade" style="animation-delay: 0.5s;">
-  <div class="stat-number" id="view-count">1M+</div>
-  <div class="stat-label">Total Views</div>
-</div>
-        <div class="stat-item animate-fade" style="animation-delay: 0.6s;">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Support</div>
-        </div>
-      </div>
     </section>
-
     
-
     <section class="testimonials" id="testimonials">
         <h2 class="section-title animate-fade" style="animation-delay: 0.2s;">What VITians Say</h2>
         
@@ -1224,167 +1276,130 @@
         </div>
     </section>
     
-
     <footer>
-      <div class="footer-content">
-        <div class="footer-about">
-          <div class="footer-logo">VALL</div>
-          <p>The ultimate digital ecosystem designed exclusively for VIT students.</p>
-          <div class="social-links">
-          
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-          </div>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">VALL</div>
+                <p>The ultimate digital ecosystem designed exclusively for VIT students.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="/marketplace">Marketplace</a></li>
+                    <li><a href="/aboutus">About Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="/tasks">Study Materials</a></li>
+                    <li><a href="/api/pyq">Previous Year Papers</a></li>
+                    <li><a href="/faculty">Faculty Reviews</a></li>
+                    <li><a href="/cgpa">CGPA Calculator</a></li>
+                    <li><a href="/lost-and-found">Lost & Found</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div class="footer-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
+        
+        <div class="copyright">
+            <p>&copy; 2025 VMedia. All rights reserved. Designed for VITians, by VITians.</p>
         </div>
-
-        <div class="footer-links">
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="/tasks">Study Materials</a></li>
-            <li><a href="/api/pyq">Previous Year Papers</a></li>
-            <li><a href="/faculty">Faculty Reviews</a></li>
-            <li><a href="/cgpa">Campus Map</a></li>
-            <li><a href="/lost-and-found">Event Calendar</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="copyright">
-        <p>&copy; 2025 VMedia. All rights reserved. Designed for VITians, by VITians.</p>
-      </div>
     </footer>
 </div>
-    <script>
-        
-        const animateElements = document.querySelectorAll('.animate-fade');
 
+<script>
+    const animateElements = document.querySelectorAll('.animate-fade');
+    
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
     }, { threshold: 0.1 });
-
+    
     animateElements.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'all 0.6s ease';
-      observer.observe(el);
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
     });
-    //end 
-
-    const fullWords = ["Victory", "VITian", "Venture", "Vision", "Virtue", "Velocity", "Versatile"];
-    const suffixEl = document.getElementById("suffix");
-    const tagline = document.getElementById("tagline");
-    const tickSound = document.getElementById("tick-sound");
-    const intro = document.getElementById("intro");
-    const main = document.getElementById("main");
-
-    let index = 1;
-    let count = 0;
-    const max = fullWords.length;
-    let intervalId;
-
-    function updateSuffix() {
-      suffixEl.classList.remove("fade-in");
-      suffixEl.classList.add("fade-out");
-
-      setTimeout(() => {
-        if (count >= max) {
-          suffixEl.textContent = "ALL";
-          suffixEl.classList.add("glow");
-          clearInterval(intervalId);
-
-          tickSound.play();
-          tagline.textContent = "VIT for ALL";
-          tagline.classList.add("show");
-
-          // Wait and then show main site
-          setTimeout(() => {
-            intro.style.opacity = 0;
-            setTimeout(() => {
-              intro.style.display = "none";
-              main.style.display = "block";
-            }, 1000); // matches transition
-          }, 2000); // after tagline
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav-container');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
         } else {
-          const word = fullWords[index % fullWords.length];
-          suffixEl.textContent = word.substring(1);
-          index++;
-          count++;
+            nav.classList.remove('scrolled');
         }
-
-        suffixEl.classList.remove("fade-out");
-        suffixEl.classList.add("fade-in");
-      }, 100);
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Particle effect
+    function createParticles() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDuration = 5 + Math.random() * 5 + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+            particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+            hero.appendChild(particle);
+        }
     }
-
-    setTimeout(() => {
-      document.getElementById("v-symbol").style.opacity = 1;
-      suffixEl.classList.add("fade-in");
-      intervalId = setInterval(updateSuffix, 500);
-    }, 500);
-
+    
+    createParticles();
+    
+    // Fetch user count
     window.addEventListener('DOMContentLoaded', () => {
-    fetch('/home/api/users/count')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('user-count').textContent = 
-          data.count.toLocaleString();
-      })
-      .catch(err => {
-        console.error('Error fetching user count:', err);
-        // Keep the default "5,000+" if there's an error
-      });
-  });
-  // Update the user count if it was passed from the server
- window.addEventListener('DOMContentLoaded', () => {
-    // Track the view
-    fetch('/home/api/views/increment')
-      .then(response => response.json())
-      .then(data => {
-        // Update the view count display
-        if (data.total) {
-          document.getElementById('view-count').textContent = 
-            data.total >= 1000000 ? 
-            `${(data.total/1000000).toFixed(1)}M+` : 
-            data.total.toLocaleString();
-        }
-      })
-      .catch(err => {
-        console.error('Error tracking view:', err);
-      });
-
-    // Also fetch the total views separately (in case increment fails)
-    fetch('/home/api/views/total')
-      .then(response => response.json())
-      .then(data => {
-        if (data.total) {
-          document.getElementById('view-count').textContent = 
-            data.total >= 1000000 ? 
-            `${(data.total/1000000).toFixed(1)}M+` : 
-            data.total.toLocaleString();
-        }
-      })
-      .catch(err => {
-        console.error('Error getting total views:', err);
-      });
-  });
-  // A
-    </script>
+        fetch('/home/api/users/count')
+            .then(response => response.json())
+            .then(data => {
+                const userCountEl = document.getElementById('user-count');
+                if (userCountEl && data.count) {
+                    userCountEl.textContent = data.count.toLocaleString() + '+';
+                }
+            })
+            .catch(err => console.error('Error fetching user count:', err));
+        
+        fetch('/home/api/views/total')
+            .then(response => response.json())
+            .then(data => {
+                const viewCountEl = document.getElementById('view-count');
+                if (viewCountEl && data.total) {
+                    viewCountEl.textContent = data.total >= 1000000 ? 
+                        `${(data.total/1000000).toFixed(1)}M+` : 
+                        data.total.toLocaleString();
+                }
+            })
+            .catch(err => console.error('Error getting total views:', err));
+    });
+</script>
 </body>
 </html>

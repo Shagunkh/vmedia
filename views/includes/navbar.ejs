@@ -1,817 +1,1005 @@
 <style>
-  .navbar {
-    background-color: #000 !important;
+  /* ========== VALL THEME NAVBAR - REFINED ========== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --vall-cyan: #00d8ff;
+    --vall-cyan-dark: #00b8e6;
+    --vall-cyan-glow: 0 0 10px rgba(0, 216, 255, 0.3);
+    --vall-bg-dark: #0a0a1a;
+    --vall-bg-darker: #050510;
+    --vall-text: #e2e8f0;
+    --vall-text-muted: #94a3b8;
+    --vall-card-bg: rgba(15, 23, 42, 0.95);
+  }
+
+  /* Navbar Container */
+  .vall-navbar {
+    background: linear-gradient(135deg, #0a0a1a 0%, #050510 100%);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 70px;
     z-index: 1000;
-  }
-
-  /* Dropdown on hover for Bootstrap 5 */
-  @media (min-width: 992px) {
-    .navbar .dropdown:hover .dropdown-menu {
-      display: block;
-      margin-top: 0;
-      background-color: #000;
-      color: white;
-      opacity: 1;
-    }
-    .dropdown-menu .dropdown-item {
-      color: #fff !important;
-      background-color: #222 !important;
-      font-weight: 500;
-    }
-    .dropdown-menu .dropdown-item:hover, 
-    .dropdown-menu .dropdown-item:focus {
-      background-color: #3498db !important;
-      color: #fff !important;
-    }
-    .shagun {
-      color: white;
-    }
-  }
-
-  /* Search bar styling */
-  .search-container {
-    flex-grow: 1;
-    max-width: 500px;
-    margin: 0 20px;
-    position: relative;
-  }
-  
-  .search-input {
-    width: 100%;
-    background-color: #222;
-    border: 1px solid #444;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    transition: all 0.3s;
-  }
-  
-  .search-input:focus {
-    outline: none;
-    border-color: #00d8ff;
-    box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.25);
-  }
-  
-  .search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #1a1a1a;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 1001;
-    display: none;
-  }
-  
-  .search-result-item {
-    padding: 10px 15px;
-    color: white;
-    border-bottom: 1px solid #333;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-result-item:hover {
-    background-color: #333;
-  }
-  
-  .search-result-item img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
-  }
-
-  /* Make sure dropdown menu and items stay dark */
-  .dropdown-menu {
-    background-color: #1a1a1a;
-    color: #fff;
-    border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  }
-
-  /* For individual items inside the dropdown */
-  .dropdown-menu .dropdown-item {
-    background-color: #1a1a1a;
-    color: #fff;
-  }
-
-  /* Fix white background on hover or focus */
-  .dropdown-menu .dropdown-item:hover,
-  .dropdown-menu .dropdown-item:focus {
-    background-color: #333 !important;
-    color: #fff;
-  }
-  
-  .vmedia-gradient {
-    font-weight: 700;
-    font-size: 2rem;
-    background: linear-gradient(90deg, #00d8ff, #008cff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-body {
-  padding-top: 70px; /* Match navbar height */
-}
- .navbar {
-    background-color: #000 !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid rgba(0, 216, 255, 0.2);
   }
 
-  /* Gradient Accents */
-  .navbar-nav .nav-link {
-    position: relative;
-    color: #fff !important;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #00d8ff, #008cff);
-    transition: width 0.3s ease;
-  }
-
-  .navbar-nav .nav-link:hover::after,
-  .navbar-nav .nav-link.active::after {
-    width: 70%;
-  }
-
-  /* Search Bar - Enhanced */
-  .search-container {
-    flex-grow: 1;
-    max-width: 500px;
-    margin: 0 20px;
-    position: relative;
-  }
-
-  .search-input {
-    width: 100%;
-    background-color: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(0, 216, 255, 0.3);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    transition: all 0.3s;
-  }
-
-  .search-input:focus {
-    outline: none;
-    border-color: #00d8ff;
-    box-shadow: 0 0 0 2px rgba(0, 216, 255, 0.25);
-    background-color: rgba(40, 40, 40, 0.9);
-  }
-
-  /* Search Results - Premium Look */
-  .search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: rgba(20, 20, 20, 0.98);
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    max-height: 400px;
-    overflow-y: auto;
-    z-index: 1001;
-    display: none;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 216, 255, 0.2);
-  }
-
-  .search-result-item {
-    padding: 12px 20px;
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    cursor: pointer;
+  .vall-navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
     display: flex;
     align-items: center;
-    transition: all 0.2s ease;
+    justify-content: space-between;
+    padding: 0 24px;
+    gap: 20px;
   }
 
-  .search-result-item:hover {
-    background: linear-gradient(90deg, rgba(0, 216, 255, 0.1), rgba(0, 140, 255, 0.1));
-    padding-left: 25px;
-  }
-
-  /* Dropdown Menus - Premium Style */
-  .dropdown-menu {
-    background-color: rgba(20, 20, 20, 0.98);
-    color: #fff;
-    border: 1px solid rgba(0, 216, 255, 0.2);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .dropdown-item {
-    color: #fff !important;
-    padding: 10px 20px;
-    transition: all 0.2s ease;
-  }
-
-  .dropdown-item:hover, 
-  .dropdown-item:focus {
-    background: linear-gradient(90deg, rgba(0, 216, 255, 0.2), rgba(0, 140, 255, 0.2)) !important;
-  }
-
-  /* Notification Badge */
-  .badge {
-    font-size: 0.65rem;
-    padding: 3px 6px;
-  }
-
-  /* Profile Image */
-  .rounded-circle {
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  .nav-link:hover .rounded-circle {
-    border-color: rgba(0, 216, 255, 0.5);
-  }
-
-  /* Keep original VMedia logo style */
-  .vmedia-gradient {
-    font-weight: 700;
-    font-size: 2rem;
-    background: linear-gradient(90deg, #00d8ff, #008cff);
+  /* Logo */
+  .vall-logo {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00d8ff, #008cff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 2px 10px rgba(0, 216, 255, 0.3);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 991.98px) {
-    .navbar-collapse {
-      background-color: rgba(0, 0, 0, 0.95);
-      padding: 15px;
-      border-radius: 0 0 10px 10px;
-      border: 1px solid rgba(0, 216, 255, 0.2);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  .vall-logo:hover {
+    transform: scale(1.02);
+    text-shadow: 0 0 15px rgba(0, 216, 255, 0.4);
+  }
+
+  /* Desktop Navigation */
+  .vall-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  /* Dropdown */
+  .vall-dropdown {
+    position: relative;
+  }
+
+  .vall-dropdown-btn {
+    background: transparent;
+    border: none;
+    color: var(--vall-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+
+  .vall-dropdown-btn:hover {
+    color: var(--vall-cyan);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .vall-dropdown-arrow {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .vall-dropdown.active .vall-dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .vall-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: var(--vall-card-bg);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1001;
+  }
+
+  .vall-dropdown.active .vall-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .vall-dropdown-item {
+    display: block;
+    padding: 10px 18px;
+    color: var(--vall-text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .vall-dropdown-item:hover {
+    background: rgba(0, 216, 255, 0.1);
+    color: var(--vall-cyan);
+    padding-left: 24px;
+  }
+
+  .vall-dropdown-divider {
+    height: 1px;
+    background: rgba(0, 216, 255, 0.1);
+    margin: 8px 0;
+  }
+
+  /* Nav Link */
+  .vall-nav-link {
+    color: var(--vall-text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+
+  .vall-nav-link:hover {
+    color: var(--vall-cyan);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  /* Search Container */
+  .vall-search {
+    flex: 1;
+    max-width: 450px;
+    position: relative;
+  }
+
+  @media (max-width: 992px) {
+    .vall-search {
+      max-width: 100%;
+      margin: 15px 0;
+    }
+  }
+
+  .vall-search-form {
+    display: flex;
+    width: 100%;
+  }
+
+  .vall-search-input {
+    flex: 1;
+    padding: 8px 16px;
+    background: rgba(20, 20, 30, 0.8);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 40px 0 0 40px;
+    color: var(--vall-text);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .vall-search-input:focus {
+    border-color: var(--vall-cyan);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .vall-search-input::placeholder {
+    color: var(--vall-text-muted);
+  }
+
+  .vall-search-btn {
+    padding: 0 20px;
+    background: linear-gradient(135deg, var(--vall-cyan), #008cff);
+    border: none;
+    border-radius: 0 40px 40px 0;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .vall-search-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+  }
+
+  /* Search Results - Dark Theme */
+  .vall-search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--vall-card-bg);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-height: 350px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1002;
+    backdrop-filter: blur(10px);
+  }
+
+  .vall-search-result {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .vall-search-result:hover {
+    background: rgba(0, 216, 255, 0.1);
+    padding-left: 20px;
+  }
+
+  /* Letter Avatar */
+  .vall-search-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--vall-cyan), #008cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .vall-search-result img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .vall-search-result span {
+    color: var(--vall-text);
+    font-size: 14px;
+  }
+
+  .vall-search-no-results {
+    padding: 16px;
+    color: var(--vall-text-muted);
+    text-align: center;
+    font-size: 13px;
+  }
+
+  /* Right Section */
+  .vall-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Notification */
+  .vall-notification {
+    position: relative;
+    padding: 8px;
+    color: var(--vall-text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+
+  .vall-notification:hover {
+    color: var(--vall-cyan);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .vall-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ef4444;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 50%;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  /* Profile */
+  .vall-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px 4px 4px;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+
+  .vall-profile:hover {
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .vall-profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(0, 216, 255, 0.3);
+  }
+
+  .vall-profile-letter {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--vall-cyan), #008cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .vall-profile-name {
+    color: var(--vall-text);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Mobile Toggle */
+  .vall-mobile-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(0, 216, 255, 0.3);
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .vall-mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--vall-cyan);
+    margin: 4px 0;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile Menu */
+  .vall-mobile-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #0f0f1a, #0a0a1a);
+    border-bottom: 1px solid rgba(0, 216, 255, 0.2);
+    padding: 20px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .vall-mobile-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .vall-mobile-link {
+    display: block;
+    padding: 12px 0;
+    color: var(--vall-text);
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .vall-mobile-dropdown {
+    margin: 8px 0;
+  }
+
+  .vall-mobile-dropdown-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--vall-text);
+    font-size: 15px;
+    padding: 12px 0;
+    cursor: pointer;
+  }
+
+  .vall-mobile-dropdown-menu {
+    padding-left: 16px;
+    display: none;
+  }
+
+  .vall-mobile-dropdown-menu.active {
+    display: block;
+  }
+
+  .vall-mobile-dropdown-item {
+    display: block;
+    padding: 10px 0;
+    color: var(--vall-text-muted);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .vall-nav-links {
+      display: none;
     }
     
-    .search-container {
-      margin: 10px 0;
-      max-width: 100%;
+    .vall-search {
+      display: none;
+    }
+    
+    .vall-mobile-toggle {
+      display: block;
+    }
+    
+    .vall-nav-right {
+      gap: 12px;
+    }
+    
+    .vall-profile-name {
+      display: none;
+    }
+    
+    .vall-mobile-menu .vall-search {
+      display: block;
+      margin: 15px 0;
     }
   }
 
-  /* Body adjustment for fixed navbar */
+  @media (max-width: 576px) {
+    .vall-navbar-container {
+      padding: 0 16px;
+    }
+    
+    .vall-logo {
+      font-size: 24px;
+    }
+    
+    .vall-profile-img,
+    .vall-profile-letter {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+    }
+  }
+
+  /* Body Padding */
   body {
     padding-top: 70px;
   }
-  .sear {
-    flex-grow: 1;
-    max-width: 500px;
+
+  /* Mobile Dropdown Fix - Make them scrollable */
+  @media (max-width: 992px) {
+    .vall-dropdown .vall-dropdown-menu {
+      position: fixed;
+      top: auto;
+      bottom: auto;
+      left: 10px;
+      right: 10px;
+      width: calc(100% - 20px);
+      max-width: none;
+      max-height: 60vh;
+      overflow-y: auto;
+      z-index: 2000;
+    }
     
+    #profileDropdown .vall-dropdown-menu {
+      top: auto;
+      bottom: 80px;
+      left: 10px;
+      right: 10px;
+    }
+    
+    .vall-notification-dropdown {
+      position: fixed;
+      top: 70px;
+      left: 10px;
+      right: 10px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #0f0f1a, #0a0a1a);
+      border: 1px solid rgba(0, 216, 255, 0.2);
+      border-radius: 12px;
+      padding: 10px 0;
+      z-index: 2000;
+    }
+    
+    .vall-dropdown-item {
+      padding: 14px 18px;
+      font-size: 15px;
+    }
+    
+    .vall-dropdown-menu {
+      z-index: 2000;
+    }
+    
+    .vall-notification {
+      position: relative;
+      cursor: pointer;
+    }
   }
   
-  /* Input Group Styles */
-  .input-group {
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+  @media (max-width: 576px) {
+    #profileDropdown .vall-dropdown-menu {
+      bottom: 70px;
+    }
+    
+    .vall-dropdown-item {
+      padding: 12px 16px;
+      font-size: 14px;
+    }
   }
   
-  .input-group:focus-within {
-    box-shadow: 0 2px 15px rgba(0, 216, 255, 0.2);
+  .vall-dropdown-menu {
+    scroll-behavior: smooth;
   }
   
-  /* Search Input Styles */
-  .search-input {
-    background-color: rgba(30, 30, 30, 0.9);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
+  .vall-dropdown-menu::-webkit-scrollbar {
+    width: 4px;
   }
   
-  .search-input:focus {
-    background-color: rgba(40, 40, 40, 0.95);
-    box-shadow: none;
+  .vall-dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
   }
   
-  /* Search Button Styles */
-  .btn-search {
-    background: linear-gradient(90deg, #00d8ff, #008cff);
-    border: none;
-    color: white;
-    padding: 0 20px;
-    transition: all 0.3s ease;
+  .vall-dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--vall-cyan);
+    border-radius: 4px;
   }
-  
-  .btn-search:hover {
-    background: linear-gradient(90deg, #00c8ff, #007cff);
-    transform: scale(1.05);
-  }
-  /* Dropdown Positioning Fix */
-.dropdown-menu-constrained {
-  position: absolute;
-  right: 0;
-  left: auto;
-  max-height: 80vh;
-  overflow-y: auto;
-  margin-top: 8px !important;
-  transform: none !important;
-  top: 100% !important;
-  will-change: transform;
-  min-width: 200px;
-}
-
-/* Profile image styling */
-.profile-img {
-  width: 35px;
-  height: 35px;
-  object-fit: cover;
-  border: 4px solid rgba(0, 126, 149, 0.3);
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover .profile-img {
-  border-color: rgba(0, 216, 255, 0.7);
-}
-
-/* Ensure dropdown stays within viewport */
-@media (max-width: 576px) {
-  .dropdown-menu-constrained {
+  @media (max-width: 992px) {
+  #profileDropdown .vall-dropdown-menu {
     position: fixed;
+    top: 70px;   /* below navbar */
+    bottom: auto;
     left: 10px;
     right: 10px;
-    width: calc(100% - 20px);
-    max-width: none;
+    margin-right: 10px;
   }
-}
-.search-result-item {
-    transition: background-color 0.2s ease;
-}
-
-.search-result-item:hover {
-    background-color: #f8f9fa;
-}
-
-.no-results {
-    color: #6c757d;
-    font-style: italic;
-}
-
-.search-results {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-/* Features Dropdown Menu Styling */
-.navbar-dark .dropdown-menu {
-  background-color: #1a1a1a;
-  border: 1px solid rgba(0, 216, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 0;
-  min-width: 250px;
-}
-
-.dropdown-item, 
-.dropdown-menu li a {
-  color: white !important;
-  padding: 0.5rem 1.5rem;
-  transition: all 0.2s ease;
-  display: block;
-  text-decoration: none !important;
-}
-
-.dropdown-item:hover, 
-.dropdown-menu li:hover a {
-  background-color: rgba(0, 216, 255, 0.1) !important;
-  color: #00d8ff !important;
-}
-
-/* Remove default list styling */
-.dropdown-menu {
-  list-style: none;
-  padding-left: 0;
-}
-
-/* Divider styling */
-.dropdown-divider {
-  border-color: rgba(255, 255, 255, 0.1);
-  margin: 0.5rem 0;
-}
-
-/* Active link styling */
-.dropdown-menu li a.active {
-  background-color: rgba(0, 216, 255, 0.2) !important;
-  color: #00d8ff !important;
-}
-
-/* Dropdown item spacing */
-.dropdown-menu li {
-  margin: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 991.98px) {
-  .dropdown-menu {
-    background-color: rgba(30, 30, 30, 0.95);
-    border: none;
-    box-shadow: none;
-  }
-  
-  .dropdown-item, 
-  .dropdown-menu li a {
-    padding: 0.75rem 1.5rem;
-  }
-}
-
-/* Fix for nav-link inside dropdown */
-.dropdown-menu .nav-link {
-  padding: 0.5rem 1.5rem !important;
-  color: white !important;
-}
-
-.dropdown-menu .nav-link:hover {
-  color: #00d8ff !important;
-  background-color: transparent !important;
-}
-  /* Search Container */
-.search-container {
-    flex-grow: 1;
-    max-width: 700px;
-    margin: 0 60px;
-    position: relative;
-    height: 50px;
-    margin-left:2rem;
-}
-
-/* Input Group - Remove all white backgrounds */
-.input-group {
-    background-color: transparent !important;
-    border-radius: 25px;
-    overflow: hidden;
-}
-
-/* Search Input */
-.search-input {
-    width: 100%;
-    background-color: #111 !important; /* Dark background */
-    border: 1px solid #333 !important;
-    color: white !important;
-    padding: 10px 20px;
-    border-radius: 25px 0 0 25px !important; /* Match button */
-    transition: all 0.3s;
-}
-
-.search-input:focus {
-    background-color: #111 !important;
-    border-color: #00d8ff !important;
-    box-shadow: 0 0 0 0.25rem rgba(0, 216, 255, 0.25) !important;
-    color: white !important;
-}
-
-/* Search Button */
-.btn-search {
-    background: linear-gradient(90deg, #00d8ff, #008cff) !important;
-    border: none !important;
-    color: white !important;
-    padding: 0 20px;
-    border-radius: 0 25px 25px 0 !important;
-    transition: all 0.3s;
-}
-
-.btn-search:hover {
-    background: linear-gradient(90deg, #00c8ff, #007cff) !important;
-}
-
-/* Search Results */
-.search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #000 !important; /* Pure black */
-    border: 1px solid #333 !important;
-    border-top: none !important;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 1001;
-    display: none;
-}
-
-/* Result Items */
-.search-result-item {
-    background-color: #000 !important;
-    color: white !important;
-    border-bottom: 1px solid #333 !important;
-    padding: 12px 15px;
-    transition: all 0.2s;
-}
-
-.search-result-item:hover {
-    background-color: #111 !important;
-}
-
-/* No Results Message */
-.no-results {
-    color: #aaa !important;
-    background-color: #000 !important;
-}
-
-/* Loading State */
-.list-group-item {
-    background-color: #000 !important;
-    color: white !important;
 }
 html, body {
   height: 100%;
-  overflow-y: scroll; /* keep scrolling */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  margin: 0;
-  padding: 0;
+  overflow-x: hidden;  /* only block horizontal scroll */
+  overflow-y: auto;    /* allow vertical scroll */
 }
+@media (max-width: 992px) {
+  .vall-dropdown-menu {
+    position: absolute; /* instead of fixed */
+  }
+}
+/* Search Container - Centered */
+  .vall-search {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+    margin: 0 auto;
+  }
 
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
+  @media (max-width: 992px) {
+    .vall-search {
+      max-width: 100%;
+      margin: 15px 0;
+    }
+  }
+
+  .vall-search-form {
+    display: flex;
+    width: 100%;
+  }
+
+  .vall-search-input {
+    flex: 1;
+    padding: 8px 16px;
+    background: rgba(20, 20, 30, 0.8);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 40px 0 0 40px;
+    color: var(--vall-text);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .vall-search-input:focus {
+    border-color: var(--vall-cyan);
+    background: rgba(0, 216, 255, 0.05);
+  }
+
+  .vall-search-input::placeholder {
+    color: var(--vall-text-muted);
+  }
+
+  .vall-search-btn {
+    padding: 0 20px;
+    background: linear-gradient(135deg, var(--vall-cyan), #008cff);
+    border: none;
+    border-radius: 0 40px 40px 0;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .vall-search-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 216, 255, 0.3);
+  }
+
+  /* Search Results */
+  .vall-search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--vall-card-bg);
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-height: 350px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1002;
+    backdrop-filter: blur(10px);
+  }
+
+  .vall-search-result {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .vall-search-result:hover {
+    background: rgba(0, 216, 255, 0.1);
+    padding-left: 20px;
+  }
+
+  .vall-search-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--vall-cyan), #008cff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .vall-search-result img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .vall-search-result span {
+    color: var(--vall-text);
+    font-size: 14px;
+  }
+
+  .vall-search-no-results {
+    padding: 16px;
+    color: var(--vall-text-muted);
+    text-align: center;
+    font-size: 13px;
+  }
 
 
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand px-3 vmedia-gradient" href="/home">VALL</a>
+<nav class="vall-navbar">
+  <div class="vall-navbar-container">
+    <a href="/home" class="vall-logo">VALL</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item dropdown">
-          <!-- Remove dropdown-toggle class and add custom styling -->
-          <a class="nav-link shagun position-relative pe-4" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Features
-            <!-- Custom dropdown indicator (optional) -->
-            <span class="position-absolute end-0 top-50 translate-middle-y">
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="transition: transform 0.2s;">
-                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </span>
-          </a>
-         <ul class="dropdown-menu" aria-labelledby="featuresDropdown">
-             <li><a href="/cgpa" style="color: white; text-decoration: none;">CGPA/GPA Calculator</a></li>
-              <li><a href="/vride" style="color: white; text-decoration: none;">V-Ride</a></li>
-             <li><a href="/tasks" style="color:white; text-decoration:none;">Smart Study Planner</a></li>
-             <li><a href="/quiz" style="color:white; text-decoration:none;">Flashcards & Quizlets</a></li>
-            <li><a href="/add-drop/page" style="color:white; text-decoration:none;">Add & Drop</a></li>
-             <li><a href="/api/rooms" style="color:white; text-decoration:none;">Roommate Finder</a></li>
-             <li><a href="/confessions" style="color: white; text-decoration: none;">Confessions Wall</a></li>
-             <li><a href="/lost-and-found" style="color: white; text-decoration: none;">Lost & Found Board</a></li>
-
-             <li><a href="/ffcs" style="color: white; text-decoration: none;">FFCS Planner</a></li>
-             <li><a href="/faculty" style="color: white; text-decoration: none;">Faculty Review</a></li>
-             
-               <a href="/api/pyq" class="nav-link">
-                 Previous Year Papers
-               </a>
-             </li>
-             <li><a href="/collab"  style="color: white; text-decoration: none;">Collab Requests </a></li>
-          </ul>
-        </li>&nbsp;
-        <li class="nav-item"><a class="nav-link " href="/">Home</a></li>
-      </ul>
-      
-      
-      <!-- Enhanced Search Bar -->
-      <div class="search-container sear position-relative mx-2">
-        <div class="input-group">
-          <input class="form-control search-input" type="search" placeholder="Search users..." id="searchInput">
-          <button class="btn btn-search" type="button" id="searchButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>
-          </button>
-        </div>
-        <div class="search-results" id="searchResults">
-          <ul class="list-group search-results-list" id="resultsList">
-            <!-- Results will appear here -->
-          </ul>
+    <div class="vall-nav-links">
+      <div class="vall-dropdown" id="featuresDropdown">
+        <button class="vall-dropdown-btn" onclick="toggleDropdown('featuresDropdown')">
+          Features
+          <span class="vall-dropdown-arrow">▼</span>
+        </button>
+        <div class="vall-dropdown-menu">
+          <a href="/cgpa" class="vall-dropdown-item">CGPA/GPA Calculator</a>
+          <a href="/vride" class="vall-dropdown-item">V-Ride</a>
+          <a href="/tasks" class="vall-dropdown-item">Smart Study Planner</a>
+          <a href="/quiz" class="vall-dropdown-item">Flashcards & Quizlets</a>
+          <a href="/add-drop/page" class="vall-dropdown-item">Add & Drop</a>
+          <a href="/api/rooms" class="vall-dropdown-item">Roommate Finder</a>
+          <a href="/confessions" class="vall-dropdown-item">Confessions Wall</a>
+          <a href="/lost-and-found" class="vall-dropdown-item">Lost & Found Board</a>
+          <a href="/ffcs" class="vall-dropdown-item">FFCS Planner</a>
+          <a href="/faculty" class="vall-dropdown-item">Faculty Review</a>
+          <a href="/api/pyq" class="vall-dropdown-item">Previous Year Papers</a>
+          <a href="/collab" class="vall-dropdown-item">Collab Requests</a>
         </div>
       </div>
       
-      <ul class="navbar-nav ms-auto">
-        <!-- Notification bell icon (no dropdown) -->
-        <li class="nav-item">
-          <a class="nav-link position-relative" href="/notifications">
-            <i class="bi bi-bell-fill"></i>
-            <% if (notifications && notifications.length > 0) { %>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <%= notifications.length %>
-                <span class="visually-hidden">unread notifications</span>
-              </span>
-            <% } %>
-          </a>
-        </li>
-        
-        <a class="nav-link" href="/aboutus">
-          About
-        </a>
-        
-        <!-- Profile section -->
-        <% if (currUser) { %>
-          <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile">
-              <img src="<%= currUser.profilePhoto || '/default-profile.png' %>" 
-                   alt="Profile" 
-                   class="rounded-circle profile-img"
-                   style="width: 30px; height: 30px; object-fit: cover;">
-            </a>
-          </li>
-        <% } else { %>
-          <li class="nav-item"><a class="nav-link active" href="/users/login">Login</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/users/signup">Sign Up</a></li>
-        <% } %>
-      </ul>
+      <a href="/" class="vall-nav-link">Home</a>
+      <a href="/aboutus" class="vall-nav-link">About</a>
     </div>
+
+    <div class="vall-search">
+      <div class="vall-search-form">
+        <input type="text" class="vall-search-input" placeholder="Search users..." id="searchInput">
+        <button class="vall-search-btn" id="searchBtn">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="vall-search-results" id="searchResults"></div>
+    </div>
+
+    <div class="vall-nav-right">
+      <a href="/notifications" class="vall-notification">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.503-1.491-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917z"/>
+        </svg>
+        <% if (typeof notifications !== 'undefined' && notifications && notifications.length > 0) { %>
+          <span class="vall-badge"><%= notifications.length %></span>
+        <% } %>
+      </a>
+
+      <% if (typeof currUser !== 'undefined' && currUser) { %>
+        <div class="vall-dropdown" id="profileDropdown">
+          <button class="vall-profile" onclick="toggleDropdown('profileDropdown')">
+            <% if (currUser.profilePhoto) { %>
+              <img src="<%= currUser.profilePhoto %>" alt="Profile" class="vall-profile-img">
+            <% } else { %>
+              <div class="vall-profile-letter"><%= currUser.username.charAt(0).toUpperCase() %></div>
+            <% } %>
+            <span class="vall-profile-name"><%= currUser.username %></span>
+          </button>
+          <div class="vall-dropdown-menu" style="right: 0; left: auto;">
+            <a href="/profile" class="vall-dropdown-item">My Profile</a>
+            <a href="/marketplace/my-products" class="vall-dropdown-item">My Products</a>
+            <a href="/marketplace/orders" class="vall-dropdown-item">My Orders</a>
+            <div class="vall-dropdown-divider"></div>
+            <a href="/users/logout" class="vall-dropdown-item">Logout</a>
+          </div>
+        </div>
+      <% } else { %>
+        <a href="/users/login" class="vall-nav-link">Login</a>
+        <a href="/users/signup" class="vall-nav-link">Sign Up</a>
+      <% } %>
+    </div>
+
+    <button class="vall-mobile-toggle" id="mobileToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="vall-mobile-menu" id="mobileMenu">
+    <div class="vall-search" style="display: block;">
+      <div class="vall-search-form">
+        <input type="text" class="vall-search-input" placeholder="Search users..." id="mobileSearchInput">
+        <button class="vall-search-btn" id="mobileSearchBtn">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="vall-search-results" id="mobileSearchResults"></div>
+    </div>
+    
+    <div class="vall-mobile-dropdown">
+      <button class="vall-mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+        Features
+        <span>▼</span>
+      </button>
+      <div class="vall-mobile-dropdown-menu">
+        <a href="/cgpa" class="vall-mobile-dropdown-item">CGPA/GPA Calculator</a>
+        <a href="/vride" class="vall-mobile-dropdown-item">V-Ride</a>
+        <a href="/tasks" class="vall-mobile-dropdown-item">Smart Study Planner</a>
+        <a href="/quiz" class="vall-mobile-dropdown-item">Flashcards & Quizlets</a>
+        <a href="/add-drop/page" class="vall-mobile-dropdown-item">Add & Drop</a>
+        <a href="/api/rooms" class="vall-mobile-dropdown-item">Roommate Finder</a>
+        <a href="/confessions" class="vall-mobile-dropdown-item">Confessions Wall</a>
+        <a href="/lost-and-found" class="vall-mobile-dropdown-item">Lost & Found Board</a>
+        <a href="/ffcs" class="vall-mobile-dropdown-item">FFCS Planner</a>
+        <a href="/faculty" class="vall-mobile-dropdown-item">Faculty Review</a>
+        <a href="/api/pyq" class="vall-mobile-dropdown-item">Previous Year Papers</a>
+        <a href="/collab" class="vall-mobile-dropdown-item">Collab Requests</a>
+      </div>
+    </div>
+    
+    <a href="/" class="vall-mobile-link">Home</a>
+    <a href="/aboutus" class="vall-mobile-link">About</a>
+    
+    <% if (typeof currUser !== 'undefined' && currUser) { %>
+      <a href="/profile" class="vall-mobile-link">My Profile</a>
+      <a href="/marketplace/my-products" class="vall-mobile-link">My Products</a>
+      <a href="/marketplace/orders" class="vall-mobile-link">My Orders</a>
+      <a href="/users/logout" class="vall-mobile-link">Logout</a>
+    <% } else { %>
+      <a href="/users/login" class="vall-mobile-link">Login</a>
+      <a href="/users/signup" class="vall-mobile-link">Sign Up</a>
+    <% } %>
   </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    
-    navbarToggler.addEventListener('click', function() {
-        navbarCollapse.classList.toggle('show');
+function getUserInitial(user) {
+  return user.username ? user.username.charAt(0).toUpperCase() : '?';
+}
+
+function toggleDropdown(id) {
+  const dropdown = document.getElementById(id);
+  dropdown.classList.toggle('active');
+  
+  document.querySelectorAll('.vall-dropdown').forEach(d => {
+    if (d.id !== id) d.classList.remove('active');
+  });
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.vall-dropdown')) {
+    document.querySelectorAll('.vall-dropdown').forEach(d => {
+      d.classList.remove('active');
     });
-    
-    // Close when clicking outside or on nav links
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar') && navbarCollapse.classList.contains('show')) {
-            navbarCollapse.classList.remove('show');
-        }
-    });
-    // Check if we're on the main page (adjust this condition as needed)
-    const isMainPage = window.location.pathname === '/' || 
-                      window.location.pathname.includes('main') ||
-                      document.body.classList.contains('main-page');
-    
-    // Get the search container element
-    const searchContainer = document.querySelector('.search-container');
-    
-    if (!isMainPage) {
-        // Completely hide the search bar if not on main page
-        if (searchContainer) {
-            searchContainer.style.display = 'none';
-        }
-        return;
-    }
-
-    // Only proceed with search functionality if on main page
-    if (searchContainer) {
-        searchContainer.style.display = 'block'; // Ensure it's visible
-    }
-
-    // Get DOM elements
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    const resultsList = document.getElementById('resultsList');
-    
-    // Return if elements don't exist
-    if (!searchInput || !searchResults || !resultsList) return;
-
-    // Debounce function to limit API calls
-    const debounce = (func, delay) => {
-        let timeoutId;
-        return (...args) => {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => func.apply(this, args), delay);
-        };
-    };
-
-    // Display search results
-    const displayResults = (users, query) => {
-        resultsList.innerHTML = '';
-        
-        if (users.length === 0) {
-            resultsList.innerHTML = `
-                <li class="list-group-item no-results">
-                    No users found for "${query}"
-                </li>
-            `;
-        } else {
-            users.forEach(user => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item search-result-item';
-                li.innerHTML = `
-                    <div class="d-flex align-items-center">
-                        <img src="${user.profilePhoto || '/default-profile.png'}" 
-                             alt="${user.username}"
-                             class="rounded-circle me-3"
-                             width="32"
-                             height="32"
-                             onerror="this.src='/default-profile.png'">
-                        <span>${user.username}</span>
-                    </div>
-                `;
-                li.addEventListener('click', () => {
-                    window.location.href = `/users/${user.username}`;
-                });
-                resultsList.appendChild(li);
-            });
-        }
-        searchResults.style.display = 'block';
-    };
-
-    // Perform search
-    const performSearch = async (query) => {
-        if (query.length < 2) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        try {
-            // Show loading state
-            resultsList.innerHTML = '<li class="list-group-item">Searching...</li>';
-            searchResults.style.display = 'block';
-
-            const response = await fetch(`/users/search?q=${encodeURIComponent(query)}`);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const users = await response.json();
-            displayResults(users, query);
-        } catch (error) {
-            console.error('Search failed:', error);
-            resultsList.innerHTML = `
-                <li class="list-group-item text-danger">
-                    Search failed. Please try again.
-                </li>
-            `;
-            searchResults.style.display = 'block';
-        }
-    };
-
-    // Debounced search handler
-    const debouncedSearch = debounce(performSearch, 300);
-
-    // Event listeners
-    searchInput.addEventListener('input', (e) => {
-        debouncedSearch(e.target.value.trim());
-    });
-
-    // Hide results when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-container') && 
-            !e.target.closest('#searchResults')) {
-            searchResults.style.display = 'none';
-        }
-    });
-
-    // Handle Enter key
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            performSearch(searchInput.value.trim());
-        }
-    });
+  }
 });
+
+const mobileToggle = document.getElementById('mobileToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileToggle && mobileMenu) {
+  mobileToggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('active');
+  });
+}
+
+function toggleMobileDropdown(btn) {
+  const menu = btn.nextElementSibling;
+  menu.classList.toggle('active');
+  const arrow = btn.querySelector('span:last-child');
+  if (menu.classList.contains('active')) {
+    arrow.style.transform = 'rotate(180deg)';
+  } else {
+    arrow.style.transform = 'rotate(0deg)';
+  }
+}
+
+const isMainPage = window.location.pathname === '/' || 
+                  window.location.pathname === '/home' ||
+                  document.body.classList.contains('main-page');
+
+if (!isMainPage) {
+  const searchContainers = document.querySelectorAll('.vall-search');
+  searchContainers.forEach(container => {
+    container.style.display = 'none';
+  });
+}
+
+function setupSearch(searchInputId, resultsId, searchBtnId) {
+  const searchInput = document.getElementById(searchInputId);
+  const searchResults = document.getElementById(resultsId);
+  const searchBtn = document.getElementById(searchBtnId);
+  
+  if (!searchInput || !searchResults) return;
+  
+  let timeoutId;
+  
+  const performSearch = async (query) => {
+    if (query.length < 2) {
+      searchResults.style.display = 'none';
+      return;
+    }
+    
+    try {
+      searchResults.innerHTML = '<div class="vall-search-no-results">Searching...</div>';
+      searchResults.style.display = 'block';
+      
+      const response = await fetch(`/users/search?q=${encodeURIComponent(query)}`);
+      const users = await response.json();
+      
+      if (users.length === 0) {
+        searchResults.innerHTML = `<div class="vall-search-no-results">No users found for "${query}"</div>`;
+      } else {
+        searchResults.innerHTML = '';
+        users.forEach(user => {
+          const div = document.createElement('div');
+          div.className = 'vall-search-result';
+          
+          if (user.profilePhoto && user.profilePhoto !== '/default-profile.png') {
+            div.innerHTML = `
+              <img src="${user.profilePhoto}" onerror="this.onerror=null; this.style.display='none'; this.parentElement.querySelector('.search-avatar-fallback').style.display='flex';">
+              <div class="vall-search-avatar search-avatar-fallback" style="display: none;">${getUserInitial(user)}</div>
+              <span>${user.username}</span>
+            `;
+          } else {
+            div.innerHTML = `
+              <div class="vall-search-avatar">${getUserInitial(user)}</div>
+              <span>${user.username}</span>
+            `;
+          }
+          
+          div.onclick = () => window.location.href = `/users/${user.username}`;
+          searchResults.appendChild(div);
+        });
+      }
+    } catch (error) {
+      console.error('Search failed:', error);
+      searchResults.innerHTML = '<div class="vall-search-no-results">Search failed. Please try again.</div>';
+    }
+  };
+  
+  const debouncedSearch = (query) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => performSearch(query), 300);
+  };
+  
+  searchInput.addEventListener('input', (e) => {
+    debouncedSearch(e.target.value.trim());
+  });
+  
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      performSearch(searchInput.value.trim());
+    }
+  });
+  
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+      performSearch(searchInput.value.trim());
+    });
+  }
+  
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.vall-search')) {
+      searchResults.style.display = 'none';
+    }
+  });
+}
+
+setupSearch('searchInput', 'searchResults', 'searchBtn');
+setupSearch('mobileSearchInput', 'mobileSearchResults', 'mobileSearchBtn');
 </script>
