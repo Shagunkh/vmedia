@@ -483,7 +483,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); }
                                 <span style="font-size:12px;">Removed</span>
                             </div>
                         <% } else { %>
-                            <img src="<%= transaction.product.images && transaction.product.images.length > 0 ? transaction.product.images[0] : '/images/placeholder.png' %>"
+                            <img src="<%= (transaction.product.images && transaction.product.images.length > 0) ? (transaction.product.images[0].url || transaction.product.images[0]) : '/images/placeholder.png' %>"
                                  alt="<%= transaction.product.title %>">
                         <% } %>
                     </div>

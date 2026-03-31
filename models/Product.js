@@ -114,7 +114,8 @@ const productSchema = new mongoose.Schema({
         trim: true
     }],
     images: [{
-        type: String
+        url: String,
+        public_id: String
     }],
     condition: {
         type: String,

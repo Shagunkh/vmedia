@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 const Product = require('../models/Product');
 const Transaction = require('../models/Transaction');
 const ChatMessage = require('../models/ChatMessage');
 const User = require('../models/user');
 const emailService = require('../utils/emailService');
+const { storage, cloudinary } = require("../cloudConfig");
 
 // Helper function to generate consistent chat room ID (sorted IDs)
 function generateChatRoomId(productId, user1Id, user2Id) {
@@ -23,21 +23,6 @@ const isLoggedIn = (req, res, next) => {
     }
     next();
 };
-
-// Configure multer for image upload
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const dir = './public/uploads/products';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-        cb(null, dir);
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
-});
 
 const upload = multer({ 
     storage: storage,
@@ -298,7 +283,10 @@ router.post('/add-product', isLoggedIn, upload.array('images', 5), async (req, r
         const { title, description, price, category, condition, tags, sellerPhone, sellerEmail } = req.body;
         
         const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
-        const images = req.files ? req.files.map(file => `/uploads/products/${file.filename}`) : [];
+        const images = req.files ? req.files.map(file => ({
+            url: file.path,
+            public_id: file.filename
+        })) : [];
         
         if (images.length === 0) {
             req.flash('error', 'Please upload at least one image');
@@ -384,7 +372,10 @@ router.put('/edit-product/:id', isLoggedIn, upload.array('images', 5), async (re
         product.sellerEmail = sellerEmail;
         
         if (req.files && req.files.length > 0) {
-            const newImages = req.files.map(file => `/uploads/products/${file.filename}`);
+            const newImages = req.files.map(file => ({
+                url: file.path,
+                public_id: file.filename
+            }));
             product.images = [...product.images, ...newImages];
         }
         
@@ -410,6 +401,15 @@ router.delete('/product/:id', isLoggedIn, async (req, res) => {
         
         if (product.seller.toString() !== req.user._id.toString()) {
             return res.status(403).json({ error: 'You can only delete your own products' });
+        }
+        
+        // Delete images from Cloudinary
+        if (product.images && product.images.length > 0) {
+            for (const image of product.images) {
+                if (image.public_id) {
+                    await cloudinary.uploader.destroy(image.public_id);
+                }
+            }
         }
         
         await Product.findByIdAndDelete(req.params.id);

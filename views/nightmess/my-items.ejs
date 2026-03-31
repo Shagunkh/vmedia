@@ -613,7 +613,7 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
 
                     <!-- Image Area -->
                     <div class="stall-image">
-                        <img src="<%= item.images && item.images.length > 0 ? item.images[0] : '/images/placeholder.png' %>"
+                        <img src="<%= (item.images && item.images.length > 0) ? (item.images[0].url || item.images[0]) : '/images/placeholder.png' %>"
                              alt="<%= item.vendorName %>">
 
                         <div class="stall-overlay">

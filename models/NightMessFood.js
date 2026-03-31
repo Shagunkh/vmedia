@@ -75,7 +75,8 @@ const nightMessFoodSchema = new mongoose.Schema({
     },
     menuItems: [menuItemSchema],
     images: [{
-        type: String
+        url: String,
+        public_id: String
     }],
     status: {
         type: String,

@@ -420,7 +420,7 @@
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="food-image">
-                <img id="mainImage" src="<%= item.images[0] %>" alt="<%= item.vendorName %>">
+                <img id="mainImage" src="<%= (item.images && item.images.length > 0) ? (item.images[0].url || item.images[0]) : '/images/placeholder.png' %>" alt="<%= item.vendorName %>">
             </div>
             <div class="thumbnail-container mt-3 d-flex gap-2">
                 <% item.images.forEach((image, index) => { %>
@@ -664,7 +664,7 @@
                 <% similarItems.forEach(similar => { %>
                     <a href="/nightmess/item/<%= similar._id %>" class="similar-card">
                         <div class="similar-image">
-                            <img src="<%= similar.images[0] %>" alt="<%= similar.vendorName %>">
+                            <img src="<%= (similar.images && similar.images.length > 0) ? (similar.images[0].url || similar.images[0]) : '/images/placeholder.png' %>" alt="<%= similar.vendorName %>">
                         </div>
                         <div class="similar-info">
                             <div class="similar-name"><%= similar.vendorName %></div>

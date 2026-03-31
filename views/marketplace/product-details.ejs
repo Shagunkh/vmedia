@@ -790,12 +790,12 @@
         <!-- Gallery -->
         <div class="gallery">
             <div class="main-image-container">
-                <img id="mainImage" src="<%= product.images[0] %>" class="main-image" alt="<%= product.title %>">
+                <img id="mainImage" src="<%= (product.images && product.images.length > 0) ? (product.images[0].url || product.images[0]) : '/images/placeholder.png' %>" class="main-image" alt="<%= product.title %>">
             </div>
             <div class="thumbnail-container">
                 <% product.images.forEach((image, index) => { %>
-                    <img src="<%= image %>" class="thumbnail <%= index === 0 ? 'active' : '' %>" 
-                         onclick="changeImage(this, '<%= image %>')">
+                    <img src="<%= image.url || image %>" class="thumbnail <%= index === 0 ? 'active' : '' %>" 
+                         onclick="changeImage(this, '<%= image.url || image %>')">
                 <% }) %>
             </div>
         </div>
