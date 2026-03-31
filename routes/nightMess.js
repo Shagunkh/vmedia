@@ -14,9 +14,22 @@ function generateChatRoomId(itemId, user1Id, user2Id) {
     return `nightmess_${itemId}_${ids[0]}_${ids[1]}`;
 }
 
-// Check if night mess is open (10:30 PM to 3:00 AM)
+// Check if night mess is open (10:25 PM to 3:00 AM IST)
 function isNightMessOpen() {
-    return true;
+    // Get current time in IST (UTC+5:30)
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const istTime = new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000 + istOffset);
+
+    const hours = istTime.getHours();
+    const minutes = istTime.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+
+    // Open: 22:25 (1345 mins) to 23:59, and 00:00 to 03:00 (180 mins)
+    const openStart = 22 * 60 + 25; // 22:25
+    const openEnd   =  3 * 60 + 0;  // 03:00
+
+    return totalMinutes >= openStart || totalMinutes < openEnd;
 }
 
 // Authentication middleware
