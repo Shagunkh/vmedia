@@ -551,6 +551,85 @@
         from { opacity: 0; transform: scale(0.9); }
         to { opacity: 1; transform: scale(1); }
     }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 768px) {
+        .edit-container {
+            margin: 20px auto;
+            padding: 0 12px;
+        }
+
+        .card-header-premium {
+            padding: 30px 20px 45px 20px;
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 16px;
+        }
+
+        .header-icon i {
+            font-size: 28px;
+        }
+
+        .card-header-premium h2 {
+            font-size: 24px;
+        }
+
+        .card-body-premium {
+            padding: 24px 20px;
+        }
+
+        .premium-card {
+            border-radius: 20px;
+        }
+
+        .block-buttons-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 8px;
+        }
+
+        .block-option label {
+            width: 100%;
+            height: 45px;
+            font-size: 16px;
+        }
+
+        .menu-item-fields {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .btn-update {
+            padding: 14px;
+            font-size: 15px;
+        }
+
+        .btn-cancel {
+            padding: 12px;
+            font-size: 15px;
+        }
+
+        .image-upload-area {
+            padding: 25px 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hostel-type-options {
+            flex-direction: column;
+        }
+
+        .hostel-type-option {
+            width: 100%;
+        }
+        
+        .hostel-type-option label {
+            padding: 10px;
+        }
+    }
 </style>
 
 <div class="edit-container">

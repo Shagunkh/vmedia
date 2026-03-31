@@ -1,4 +1,12 @@
 <%- include('../partials/header') %>
+<% 
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const currentTotalMinutes = hours * 60 + minutes;
+  // 10:20 PM is 22:20 = 1340 mins. 3:00 AM is 180 mins.
+  const isNightMessActive = (currentTotalMinutes >= 1340 || currentTotalMinutes <= 180);
+%>
 
     <style>
         /* ========== MODERN VARIABLES ========== */
@@ -1617,6 +1625,31 @@
                 width: 100%;
             }
         }
+
+        /* Sold Overlay Styles */
+        .product-card-vmall.is-sold {
+            opacity: 0.9;
+        }
+        
+        .sold-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 8px 24px;
+            font-weight: 800;
+            font-size: 18px;
+            text-transform: uppercase;
+            border: 2px solid white;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            letter-spacing: 1px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
     </style>
 
     <div class="vmall-premium-hero">
@@ -1741,9 +1774,12 @@
                 <% } else { %>
                     <div class="products-grid">
                         <% products.forEach(product=> { %>
-                            <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
+                            <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall <%= product.status === 'sold' ? 'is-sold' : '' %>">
                                 <div class="product-image-vmall">
                                     <img src="<%= (product.images && product.images.length > 0) ? (product.images[0].url || product.images[0]) : '/images/placeholder.png' %>" alt="<%= product.title %>">
+                                    <% if (product.status === 'sold') { %>
+                                        <div class="sold-overlay">SOLD</div>
+                                    <% } %>
                                     <div class="product-badge-vmall">
                                         <%= product.category %>
                                     </div>
@@ -1782,9 +1818,22 @@
                     <h2 style="color: white; font-size: 32px; font-weight: 800; margin-bottom: 12px;">🌙 Late Night Food
                     </h2>
                     <p style="color: rgba(255,255,255,0.9); font-size: 16px; max-width: 500px;">Order delicious food
-                        from your favorite vendors. Available 10:30 PM - 3:00 AM</p>
+                        from your favorite vendors. Available 10:20 PM - 3:00 AM</p>
                 </div>
             </div>
+
+            <% if (!isNightMessActive) { %>
+                <div class="nightmess-closed-notice" style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(249, 115, 22, 0.3); border-radius: 20px; padding: 60px 20px; text-align: center; margin-bottom: 32px;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">😴</div>
+                    <h3 style="font-size: 24px; font-weight: 700; color: #1f2937; margin-bottom: 12px;">Late Night Food is Currently Unavailable</h3>
+                    <p style="color: #6b7280; font-size: 16px; max-width: 500px; margin: 0 auto;">
+                        Our food stalls operate specifically for your late-night cravings.
+                        <br><br>
+                        <strong style="color: #ea580c; font-size: 18px;">Available only between 10:20 P.M. to 3:00 A.M.</strong>
+                    </p>
+                </div>
+            <% } else { %>
+
 
             <div class="block-search-section" style="margin-bottom: 32px;">
                 <div class="block-search-card"
@@ -1864,7 +1913,7 @@
                     <p>Loading food stalls...</p>
                 </div>
             </div>
-        </div>
+        <% } %>
     </div>
 
     <%- include('../partials/vall-promo-banner') %>
@@ -1962,7 +2011,7 @@
             <div class="empty-state">
                 <div class="empty-icon"><i class="fas fa-clock"></i></div>
                 <h3>Night Mess is Closed</h3>
-                <p>Open from 10:30 PM to 3:00 AM. Come back later for delicious food!</p>
+                <p>Open from 10:20 PM to 3:00 AM. Come back later for delicious food!</p>
             </div>
         `;
                     return;

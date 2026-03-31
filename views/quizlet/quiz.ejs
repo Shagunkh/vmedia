@@ -701,38 +701,82 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .cosmic-header {
+                padding: 3rem 1.5rem;
+            }
+
             .cosmic-title {
                 font-size: 2.5rem;
             }
             
             .cosmic-tagline {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                padding: 0 1rem;
             }
             
+            .cosmic-subjects {
+                padding: 1.5rem 1rem;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .cosmic-card {
-                padding: 2rem;
+                padding: 1.8rem;
             }
             
             .cosmic-modal-content {
-                padding: 2rem 1.5rem;
+                padding: 1.5rem;
                 width: 95%;
+                margin: 10px;
+                max-height: 95vh;
+            }
+
+            .cosmic-modal-title {
+                font-size: 1.8rem;
             }
             
             .cosmic-options-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
+            .cosmic-quiz-header {
+                padding: 1rem;
+            }
+
+            .cosmic-quiz-title {
+                font-size: 1.2rem;
+            }
+
             .cosmic-question-container {
                 padding: 2rem 1rem;
             }
             
             .cosmic-question {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 padding: 1.2rem;
+                line-height: 1.5;
+            }
+
+            .cosmic-option-item {
+                padding: 1rem;
+            }
+
+            .cosmic-option-item:hover, .cosmic-option-item.selected {
+                transform: translateX(5px);
             }
             
             .cosmic-results-container {
-                padding: 2rem 1.5rem;
+                padding: 1.5rem;
+                width: 100%;
+            }
+
+            .cosmic-results-title {
+                font-size: 1.8rem;
+            }
+
+            .cosmic-score {
+                font-size: 2.5rem;
             }
         }
 
@@ -742,16 +786,25 @@
             }
             
             .cosmic-header {
-                padding: 3rem 1rem;
+                padding: 2.5rem 1rem;
             }
             
             .cosmic-navigation {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.8rem;
+                margin-top: 2rem;
             }
             
             .cosmic-btn {
                 width: 100%;
+                padding: 0.8rem;
+            }
+
+            .cosmic-close-btn {
+                top: 0.8rem;
+                right: 0.8rem;
+                width: 35px;
+                height: 35px;
             }
         }
 

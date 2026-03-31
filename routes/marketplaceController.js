@@ -42,7 +42,7 @@ const upload = multer({
 router.get('/', async (req, res) => {
     try {
         const { category, minPrice, maxPrice, condition, search } = req.query;
-        let filter = { status: 'available' };
+        let filter = { status: { $in: ['available', 'sold'] } };
         
         if (category && category !== '') filter.category = category;
         if (condition && condition !== '') filter.condition = condition;
