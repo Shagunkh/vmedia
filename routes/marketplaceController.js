@@ -53,7 +53,7 @@ const upload = multer({
 
 // ============ PUBLIC ROUTES ============
 
-// Get all available products
+// Get all available products - UPDATED with total sales
 router.get('/', async (req, res) => {
     try {
         const { category, minPrice, maxPrice, condition, search } = req.query;
@@ -79,6 +79,11 @@ router.get('/', async (req, res) => {
         const products = await Product.find(filter)
             .populate('seller', 'username profilePhoto email')
             .sort({ createdAt: -1 });
+        
+        // Calculate total sales from all sold products
+        const allSoldProducts = await Product.find({ status: 'sold' });
+        const totalSales = allSoldProducts.reduce((sum, product) => sum + product.price, 0);
+        const totalItemsSold = allSoldProducts.length;
             
         const categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Stationery', 'Sports', 'Others'];
         
@@ -87,7 +92,9 @@ router.get('/', async (req, res) => {
             categories,
             filters: req.query,
             currUser: req.user,
-            searchQuery: search || ''
+            searchQuery: search || '',
+            totalSales: totalSales,
+            totalItemsSold: totalItemsSold
         });
     } catch (error) {
         console.error(error);
@@ -136,6 +143,8 @@ router.get('/product/:id', async (req, res) => {
         let hasInterested = false;
         let transaction = null;
         let existingChatRoom = null;
+        let userConfirmed = false;
+        let dealStatus = product.dealStatus;
         
         if (req.user) {
             hasInterested = product.interestedBuyers.some(
@@ -157,6 +166,11 @@ router.get('/product/:id', async (req, res) => {
                     status: 'completed'
                 });
             }
+            
+            // Check if user already confirmed the deal
+            userConfirmed = product.dealConfirmations.some(
+                conf => conf.user.toString() === req.user._id.toString()
+            );
         }
         
         let interestedBuyers = [];
@@ -193,7 +207,9 @@ router.get('/product/:id', async (req, res) => {
             existingChatRoom,
             currUser: req.user,
             searchQuery: req.query.search || '',
-            returnTo: returnTo  // Add this
+            returnTo: returnTo,
+            userConfirmed: userConfirmed,
+            dealStatus: dealStatus
         });
     } catch (error) {
         console.error(error);
@@ -204,8 +220,6 @@ router.get('/product/:id', async (req, res) => {
 
 // ============ PROTECTED ROUTES ============
 
-// My products
-// My products - Updated to include night mess items
 // My products - Updated with earnings data
 router.get('/my-products', isLoggedIn, async (req, res) => {
     try {
@@ -249,7 +263,6 @@ router.get('/my-products', isLoggedIn, async (req, res) => {
         res.redirect('/');
     }
 });
-
 
 // My orders
 router.get('/orders', isLoggedIn, async (req, res) => {
@@ -408,7 +421,7 @@ router.delete('/product/:id', isLoggedIn, async (req, res) => {
     }
 });
 
-// Show interest and create/join chat
+// Show interest and create/join chat - UPDATED with interestCreatedAt
 router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
@@ -432,6 +445,11 @@ router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
         
         if (!alreadyInterested) {
             product.interestedBuyers.push({ user: req.user._id });
+            
+            // Set interest creation timestamp for deal tracking
+            if (!product.interestCreatedAt) {
+                product.interestCreatedAt = new Date();
+            }
             
             chatRoomId = generateChatRoomId(product._id, req.user._id, product.seller._id);
             
@@ -462,14 +480,12 @@ router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
                 email: product.seller.email
             };
             
-            // Send emails in the background - don't await
-            // This won't block the response
+            // Send emails in the background
             Promise.all([
                 emailService.sendInterestEmailToSeller(product, buyer, seller),
                 emailService.sendBuyerConfirmationEmail(product, buyer, seller)
             ]).catch(err => {
                 console.error('Failed to send interest emails:', err);
-                // Don't expose email error to user
             });
             
             const io = req.app.get('io');
@@ -501,6 +517,266 @@ router.post('/product/:id/interest', isLoggedIn, async (req, res) => {
         res.redirect(`/marketplace/product/${req.params.id}`);
     }
 });
+
+// ============ DEAL CONFIRMATION ROUTES ============
+
+// Deal confirmation route
+router.post('/product/:id/deal-confirm', isLoggedIn, async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        
+        if (product.status === 'sold') {
+            return res.status(400).json({ error: 'This product is already sold' });
+        }
+        
+        // Determine role
+        let role;
+        const userIdStr = req.user._id.toString();
+        if (product.seller.toString() === userIdStr) {
+            role = 'seller';
+        } else if (product.interestedBuyers.some(b => b.user.toString() === userIdStr)) {
+            role = 'buyer';
+        } else {
+            return res.status(403).json({ error: 'You are not involved in this deal' });
+        }
+        
+        // The seller can optionally specify which buyer they are confirming with
+        const buyerId = req.body.buyerId || null;
+        
+        const result = await product.addDealConfirmation(req.user._id, role, buyerId);
+        
+        if (result.queued) {
+            // Buyer was queued because deal is locked with someone else
+            return res.json({
+                success: false,
+                queued: true,
+                message: result.message,
+                sellerPhone: result.sellerPhone,
+                sellerEmail: result.sellerEmail
+            });
+        }
+        
+        if (result.success) {
+            const io = req.app.get('io');
+            
+            // Notify the other party that a confirmation happened
+            if (result.bothConfirmed) {
+                // Notify both parties
+                const seller = await User.findById(product.seller);
+                const buyerUser = await User.findById(product.buyer);
+                
+                if (io) {
+                    io.to(`user_${product.seller}`).emit('deal-confirmation', {
+                        productId: product._id,
+                        productTitle: product.title,
+                        dealStatus: result.dealStatus,
+                        confirmedBy: req.user.username,
+                        bothConfirmed: true
+                    });
+                    io.to(`user_${product.buyer}`).emit('deal-confirmation', {
+                        productId: product._id,
+                        productTitle: product.title,
+                        dealStatus: result.dealStatus,
+                        confirmedBy: req.user.username,
+                        bothConfirmed: true
+                    });
+                    // Notify queued buyers that the product is sold
+                    product.queuedBuyers.forEach(qb => {
+                        io.to(`user_${qb.user}`).emit('deal-sold', {
+                            productId: product._id,
+                            productTitle: product.title
+                        });
+                    });
+                }
+                
+                if (seller && buyerUser) {
+                    emailService.sendAutoSoldNotification(product, seller, buyerUser).catch(err => {
+                        console.error('Failed to send sold notification:', err);
+                    });
+                }
+            } else {
+                // Notify the other confirmed party
+                const otherUser = role === 'buyer' ? product.seller : product.pendingDealWith;
+                if (io && otherUser) {
+                    io.to(`user_${otherUser}`).emit('deal-confirmation', {
+                        productId: product._id,
+                        productTitle: product.title,
+                        dealStatus: result.dealStatus,
+                        confirmedBy: req.user.username,
+                        bothConfirmed: false
+                    });
+                }
+            }
+            
+            res.json({ 
+                success: true, 
+                dealStatus: result.dealStatus,
+                bothConfirmed: result.bothConfirmed,
+                message: result.bothConfirmed ? 'Deal confirmed! Item marked as sold.' : 'Confirmation recorded. Waiting for other party.'
+            });
+        } else {
+            res.json({ success: false, message: result.message });
+        }
+    } catch (error) {
+        console.error('Error confirming deal:', error);
+        res.status(500).json({ error: 'Error confirming deal' });
+    }
+});
+
+// Cancel a deal — accessible by seller or the pending buyer
+router.post('/product/:id/deal-cancel', isLoggedIn, async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        
+        const result = await product.cancelDeal(req.user._id);
+        
+        if (result.success) {
+            const io = req.app.get('io');
+            
+            // Notify the other party (cancelled with)
+            if (io && result.cancelledWith) {
+                io.to(`user_${result.cancelledWith}`).emit('deal-cancelled', {
+                    productId: product._id,
+                    productTitle: product.title,
+                    cancelledBy: req.user.username
+                });
+                io.to(`user_${product.seller}`).emit('deal-cancelled', {
+                    productId: product._id,
+                    productTitle: product.title,
+                    cancelledBy: req.user.username
+                });
+            }
+            
+            // Notify all queued buyers that the product is now available
+            if (io && result.queuedBuyers && result.queuedBuyers.length > 0) {
+                result.queuedBuyers.forEach(qb => {
+                    io.to(`user_${qb.user}`).emit('product-available-again', {
+                        productId: product._id,
+                        productTitle: product.title,
+                        message: `Good news! The product "${product.title}" you were waiting for is now available again.`
+                    });
+                });
+            }
+            
+            res.json({ success: true, message: 'Deal cancelled successfully.' });
+        } else {
+            res.json({ success: false, message: result.message });
+        }
+    } catch (error) {
+        console.error('Error cancelling deal:', error);
+        res.status(500).json({ error: 'Error cancelling deal' });
+    }
+});
+
+// Revert / remove interest
+router.post('/product/:id/interest-revert', isLoggedIn, async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        
+        const userIdStr = req.user._id.toString();
+        
+        // Cannot revert if product is already sold
+        if (product.status === 'sold') {
+            return res.status(400).json({ error: 'Cannot revert interest after product is sold.' });
+        }
+        
+        // Check buyer is actually interested
+        const isInterested = product.interestedBuyers.some(i => i.user && i.user.toString() === userIdStr);
+        if (!isInterested) {
+            return res.status(400).json({ error: 'You have not shown interest in this product.' });
+        }
+        
+        // If this buyer is the pending deal buyer, cancel the deal first
+        const isPendingBuyer = product.pendingDealWith && product.pendingDealWith.toString() === userIdStr;
+        let cancelResult = null;
+        if (isPendingBuyer) {
+            cancelResult = await product.cancelDeal(req.user._id);
+            // After cancel, re-fetch to work on latest
+        }
+        
+        // Remove from interestedBuyers
+        product.interestedBuyers = product.interestedBuyers.filter(i => i.user && i.user.toString() !== userIdStr);
+        // Remove from queuedBuyers if there
+        product.queuedBuyers = product.queuedBuyers.filter(q => q.user && q.user.toString() !== userIdStr);
+        await product.save();
+        
+        const io = req.app.get('io');
+        // If their cancellation freed up a deal, notify queued buyers
+        if (isPendingBuyer && cancelResult && cancelResult.success && io) {
+            cancelResult.queuedBuyers.forEach(qb => {
+                if (qb.user.toString() !== userIdStr) {
+                    io.to(`user_${qb.user}`).emit('product-available-again', {
+                        productId: product._id,
+                        productTitle: product.title,
+                        message: `Good news! The product "${product.title}" you were waiting for is now available again.`
+                    });
+                }
+            });
+            // Notify seller
+            io.to(`user_${product.seller}`).emit('deal-cancelled', {
+                productId: product._id,
+                productTitle: product.title,
+                cancelledBy: req.user.username
+            });
+        }
+        
+        res.json({ success: true, message: 'Interest removed successfully.' });
+    } catch (error) {
+        console.error('Error reverting interest:', error);
+        res.status(500).json({ error: 'Error reverting interest' });
+    }
+});
+
+// Get deal status
+router.get('/product/:id/deal-status', isLoggedIn, async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        
+        const userIdStr = req.user._id.toString();
+        const userConfirmed = product.dealConfirmations.some(conf => conf.user.toString() === userIdStr);
+        const isQueued = product.queuedBuyers.some(q => q.user.toString() === userIdStr);
+        const isBlocked = product.pendingDealWith &&
+            product.pendingDealWith.toString() !== userIdStr &&
+            product.seller.toString() !== userIdStr;
+        const isPendingBuyer = product.pendingDealWith &&
+            product.pendingDealWith.toString() === userIdStr;
+        
+        res.json({
+            dealStatus: product.dealStatus,
+            status: product.status,
+            userConfirmed,
+            bothConfirmed: product.dealStatus === 'both_confirmed',
+            autoMarkSoldAt: product.autoMarkSoldAt,
+            interestCreatedAt: product.interestCreatedAt,
+            isQueued,
+            isBlocked,
+            isPendingBuyer,
+            sellerPhone: product.sellerPhone,
+            sellerEmail: product.sellerEmail
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error fetching deal status' });
+    }
+});
+
+// ============ EXISTING CHAT ROUTES ============
 
 // Get chat messages for a product
 router.get('/chat/:productId/:otherUserId', isLoggedIn, async (req, res) => {
@@ -552,10 +828,21 @@ router.get('/chat/:productId/:otherUserId', isLoggedIn, async (req, res) => {
             await product.save();
         }
         
+        // Include deal status in chat response
+        const dealStatus = {
+            dealStatus: product.dealStatus,
+            bothConfirmed: product.dealConfirmations.length === 2,
+            userConfirmed: product.dealConfirmations.some(
+                conf => conf.user.toString() === req.user._id.toString()
+            ),
+            autoMarkSoldAt: product.autoMarkSoldAt
+        };
+        
         res.json({ 
             messages: messages || [], 
             roomId: consistentRoomId,
-            success: true 
+            success: true,
+            dealStatus: dealStatus
         });
     } catch (error) {
         console.error('Error fetching messages:', error);
@@ -563,7 +850,7 @@ router.get('/chat/:productId/:otherUserId', isLoggedIn, async (req, res) => {
     }
 });
 
-// Send chat message - FIXED (Single broadcast)
+// Send chat message
 router.post('/chat/send', isLoggedIn, async (req, res) => {
     try {
         const { productId, receiverId, message, roomId } = req.body;
@@ -613,14 +900,12 @@ router.post('/chat/send', isLoggedIn, async (req, res) => {
                 createdAt: savedMessage.createdAt,
                 roomId: roomId,
                 productId: productId,
-                productTitle: product.title
+                productTitle: product.title,
+                dealStatus: product.dealStatus
             };
             
-            // Broadcast to everyone in the room (including sender)
-            // This ensures both users get the message
             io.to(roomId).emit('receive-chat-message', messageData);
             
-            // Notify receiver individually
             io.to(`user_${receiverId}`).emit('chat-notification', {
                 productId,
                 productTitle: product.title,
@@ -632,7 +917,6 @@ router.post('/chat/send', isLoggedIn, async (req, res) => {
             });
         }
         
-        // Return the saved message without emitting again
         res.json({ 
             success: true, 
             message: savedMessage
@@ -643,9 +927,10 @@ router.post('/chat/send', isLoggedIn, async (req, res) => {
     }
 });
 
-// Get all active chats for user
+// Get all active chats for user (combined)
 router.get('/my-chats', isLoggedIn, async (req, res) => {
     try {
+        // Get product chats
         const productsAsSeller = await Product.find({ seller: req.user._id })
             .populate('chatRooms.user', 'username profilePhoto');
         
@@ -655,6 +940,7 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
         
         const allChats = [];
         
+        // Process product seller chats
         for (const product of productsAsSeller) {
             if (product.chatRooms && product.chatRooms.length > 0) {
                 for (const chat of product.chatRooms) {
@@ -669,13 +955,16 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                             lastMessage: chat.lastMessage || 'No messages yet',
                             lastMessageTime: chat.lastMessageTime,
                             unreadCount: chat.unreadCount,
-                            role: 'seller'
+                            role: 'seller',
+                            type: 'product',
+                            dealStatus: product.dealStatus
                         });
                     }
                 }
             }
         }
         
+        // Process product buyer chats
         for (const product of productsAsBuyer) {
             if (product.chatRooms && product.chatRooms.length > 0) {
                 const chat = product.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
@@ -690,12 +979,71 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                         lastMessage: chat.lastMessage || 'No messages yet',
                         lastMessageTime: chat.lastMessageTime,
                         unreadCount: chat.unreadCount,
-                        role: 'buyer'
+                        role: 'buyer',
+                        type: 'product',
+                        dealStatus: product.dealStatus
                     });
                 }
             }
         }
         
+        // Get night mess food chats
+        const NightMessFood = require('../models/NightMessFood');
+        const itemsAsVendor = await NightMessFood.find({ vendor: req.user._id })
+            .populate('chatRooms.user', 'username profilePhoto');
+        
+        const itemsAsBuyer = await NightMessFood.find({
+            'chatRooms.user': req.user._id
+        }).populate('vendor', 'username profilePhoto');
+        
+        // Process night mess vendor chats
+        for (const item of itemsAsVendor) {
+            if (item.chatRooms && item.chatRooms.length > 0) {
+                for (const chat of item.chatRooms) {
+                    if (chat.user) {
+                        allChats.push({
+                            productId: item._id,
+                            productTitle: item.vendorName,
+                            productImage: item.images[0],
+                            otherUserId: chat.user._id,
+                            otherUserName: chat.user.username,
+                            roomId: chat.roomId,
+                            lastMessage: chat.lastMessage || 'No messages yet',
+                            lastMessageTime: chat.lastMessageTime,
+                            unreadCount: chat.unreadCount,
+                            role: 'vendor',
+                            type: 'nightmess',
+                            dealStatus: item.dealStatus
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Process night mess buyer chats
+        for (const item of itemsAsBuyer) {
+            if (item.chatRooms && item.chatRooms.length > 0) {
+                const chat = item.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
+                if (chat) {
+                    allChats.push({
+                        productId: item._id,
+                        productTitle: item.vendorName,
+                        productImage: item.images[0],
+                        otherUserId: item.vendor._id,
+                        otherUserName: item.vendor.username,
+                        roomId: chat.roomId,
+                        lastMessage: chat.lastMessage || 'No messages yet',
+                        lastMessageTime: chat.lastMessageTime,
+                        unreadCount: chat.unreadCount,
+                        role: 'buyer',
+                        type: 'nightmess',
+                        dealStatus: item.dealStatus
+                    });
+                }
+            }
+        }
+        
+        // Sort by last message time
         allChats.sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime));
         
         res.render('marketplace/my-chats', { 
@@ -710,8 +1058,7 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
     }
 });
 
-
-// Mark as sold
+// Mark as sold (legacy - kept for compatibility)
 router.post('/product/:id/mark-sold', isLoggedIn, async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
@@ -947,134 +1294,6 @@ router.post('/product/:id/review/:reviewId/reply', isLoggedIn, async (req, res) 
     }
 });
 
-// Get all active chats for user (combined)
-router.get('/my-chats', isLoggedIn, async (req, res) => {
-    try {
-        // Get product chats
-        const productsAsSeller = await Product.find({ seller: req.user._id })
-            .populate('chatRooms.user', 'username profilePhoto');
-        
-        const productsAsBuyer = await Product.find({
-            'chatRooms.user': req.user._id
-        }).populate('seller', 'username profilePhoto');
-        
-        const allChats = [];
-        
-        // Process product seller chats
-        for (const product of productsAsSeller) {
-            if (product.chatRooms && product.chatRooms.length > 0) {
-                for (const chat of product.chatRooms) {
-                    if (chat.user) {
-                        allChats.push({
-                            productId: product._id,
-                            productTitle: product.title,
-                            productImage: product.images[0],
-                            otherUserId: chat.user._id,
-                            otherUserName: chat.user.username,
-                            roomId: chat.roomId,
-                            lastMessage: chat.lastMessage || 'No messages yet',
-                            lastMessageTime: chat.lastMessageTime,
-                            unreadCount: chat.unreadCount,
-                            role: 'seller',
-                            type: 'product'
-                        });
-                    }
-                }
-            }
-        }
-        
-        // Process product buyer chats
-        for (const product of productsAsBuyer) {
-            if (product.chatRooms && product.chatRooms.length > 0) {
-                const chat = product.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
-                if (chat) {
-                    allChats.push({
-                        productId: product._id,
-                        productTitle: product.title,
-                        productImage: product.images[0],
-                        otherUserId: product.seller._id,
-                        otherUserName: product.seller.username,
-                        roomId: chat.roomId,
-                        lastMessage: chat.lastMessage || 'No messages yet',
-                        lastMessageTime: chat.lastMessageTime,
-                        unreadCount: chat.unreadCount,
-                        role: 'buyer',
-                        type: 'product'
-                    });
-                }
-            }
-        }
-        
-        // Get night mess food chats
-        const NightMessFood = require('../models/NightMessFood');
-        const itemsAsVendor = await NightMessFood.find({ vendor: req.user._id })
-            .populate('chatRooms.user', 'username profilePhoto');
-        
-        const itemsAsBuyer = await NightMessFood.find({
-            'chatRooms.user': req.user._id
-        }).populate('vendor', 'username profilePhoto');
-        
-        // Process night mess vendor chats
-        for (const item of itemsAsVendor) {
-            if (item.chatRooms && item.chatRooms.length > 0) {
-                for (const chat of item.chatRooms) {
-                    if (chat.user) {
-                        allChats.push({
-                            productId: item._id,
-                            productTitle: item.title,
-                            productImage: item.images[0],
-                            otherUserId: chat.user._id,
-                            otherUserName: chat.user.username,
-                            roomId: chat.roomId,
-                            lastMessage: chat.lastMessage || 'No messages yet',
-                            lastMessageTime: chat.lastMessageTime,
-                            unreadCount: chat.unreadCount,
-                            role: 'vendor',
-                            type: 'nightmess'
-                        });
-                    }
-                }
-            }
-        }
-        
-        // Process night mess buyer chats
-        for (const item of itemsAsBuyer) {
-            if (item.chatRooms && item.chatRooms.length > 0) {
-                const chat = item.chatRooms.find(room => room.user && room.user.toString() === req.user._id.toString());
-                if (chat) {
-                    allChats.push({
-                        productId: item._id,
-                        productTitle: item.title,
-                        productImage: item.images[0],
-                        otherUserId: item.vendor._id,
-                        otherUserName: item.vendor.username,
-                        roomId: chat.roomId,
-                        lastMessage: chat.lastMessage || 'No messages yet',
-                        lastMessageTime: chat.lastMessageTime,
-                        unreadCount: chat.unreadCount,
-                        role: 'buyer',
-                        type: 'nightmess'
-                    });
-                }
-            }
-        }
-        
-        // Sort by last message time
-        allChats.sort((a, b) => new Date(b.lastMessageTime) - new Date(a.lastMessageTime));
-        
-        res.render('marketplace/my-chats', { 
-            chats: allChats,
-            currUser: req.user,
-            searchQuery: ''
-        });
-    } catch (error) {
-        console.error(error);
-        req.flash('error', 'Error loading chats');
-        res.redirect('/');
-    }
-});
-// Add this to marketplaceController.js
-// Toggle visibility for product
 // Toggle visibility for product
 router.put('/product/:id/visibility', isLoggedIn, async (req, res) => {
     try {
@@ -1089,7 +1308,6 @@ router.put('/product/:id/visibility', isLoggedIn, async (req, res) => {
             return res.status(403).json({ error: 'Unauthorized - You can only edit your own products' });
         }
         
-        // Update status - 'available' means visible, 'hidden' means not visible
         product.status = status;
         await product.save();
         

@@ -100,20 +100,6 @@
     scrollbar-width: thin;
 }
 
-.thumbnail-container::-webkit-scrollbar {
-    height: 4px;
-}
-
-.thumbnail-container::-webkit-scrollbar-track {
-    background: var(--gray-200);
-    border-radius: 10px;
-}
-
-.thumbnail-container::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 10px;
-}
-
 .thumbnail {
     width: 80px;
     height: 80px;
@@ -129,11 +115,6 @@
 .thumbnail.active {
     border-color: var(--primary);
     opacity: 1;
-}
-
-.thumbnail:hover {
-    opacity: 1;
-    transform: scale(1.05);
 }
 
 /* ========== PRODUCT INFO ========== */
@@ -164,10 +145,39 @@
     color: var(--primary);
 }
 
-.price-unit {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--gray-500);
+/* Deal Status Badge */
+.deal-status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 12px;
+}
+
+.deal-status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.deal-status-buyer-confirmed {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.deal-status-seller-confirmed {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.deal-status-both-confirmed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.deal-status-sold {
+    background: #fee2e2;
+    color: #991b1b;
 }
 
 /* ========== DESCRIPTION SECTION ========== */
@@ -240,11 +250,6 @@
     align-items: center;
     justify-content: center;
     color: white;
-}
-
-.store-name {
-    font-weight: 600;
-    color: var(--gray-800);
 }
 
 /* ========== ACTION BUTTONS ========== */
@@ -323,6 +328,56 @@
     box-shadow: var(--shadow-md);
 }
 
+.btn-warning {
+    flex: 1;
+    background: var(--warning);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========== DEAL CONFIRMATION BUTTON ========== */
+.deal-confirm-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.deal-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.deal-confirm-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* ========== CONTACT MODAL STYLES ========== */
 .contact-modal {
     position: fixed;
@@ -369,12 +424,6 @@
     color: white;
     font-size: 28px;
     cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1;
-}
-
-.close-modal:hover {
-    transform: scale(1.1);
 }
 
 .contact-modal-body {
@@ -412,26 +461,6 @@
     color: var(--primary);
 }
 
-.contact-item div {
-    flex: 1;
-}
-
-.contact-item strong {
-    display: block;
-    font-size: 12px;
-    color: var(--gray-600);
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.contact-item p {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--gray-800);
-}
-
 .contact-warning {
     background: #fef3c7;
     border-radius: 16px;
@@ -440,18 +469,6 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
-}
-
-.contact-warning i {
-    font-size: 24px;
-    color: #f59e0b;
-}
-
-.contact-warning p {
-    margin: 0;
-    font-size: 13px;
-    color: #92400e;
-    line-height: 1.4;
 }
 
 .copy-btn {
@@ -463,31 +480,10 @@
     border-radius: 40px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-size: 14px;
-}
-
-.copy-btn:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
-/* ========== ALERT ========== */
-.alert-custom {
-    background: #fef3c7;
-    border-left: 4px solid var(--warning);
-    padding: 16px;
-    border-radius: 12px;
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    color: #92400e;
 }
 
 /* ========== REVIEWS SECTION ========== */
@@ -522,14 +518,6 @@
     color: #f59e0b;
 }
 
-.star-half {
-    color: #f59e0b;
-}
-
-.star-empty {
-    color: #d1d5db;
-}
-
 .rating-distribution {
     background: var(--gray-50);
     border-radius: 20px;
@@ -544,11 +532,6 @@
     margin-bottom: 12px;
 }
 
-.distribution-label {
-    width: 40px;
-    font-size: 14px;
-}
-
 .distribution-bar-bg {
     flex: 1;
     height: 8px;
@@ -561,16 +544,8 @@
     height: 100%;
     background: linear-gradient(90deg, #f59e0b, #f97316);
     border-radius: 4px;
-    transition: width 0.3s ease;
 }
 
-.distribution-count {
-    width: 50px;
-    font-size: 13px;
-    color: var(--gray-600);
-}
-
-/* Review Card */
 .review-card {
     background: white;
     border-radius: 20px;
@@ -612,10 +587,6 @@
     font-size: 18px;
 }
 
-.reviewer-details {
-    flex: 1;
-}
-
 .reviewer-name {
     font-size: 16px;
     font-weight: 600;
@@ -648,23 +619,10 @@
     border-radius: 20px;
 }
 
-.review-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 16px 0 8px 0;
-    color: var(--gray-800);
-}
-
 .review-text {
     color: var(--gray-700);
     line-height: 1.6;
     margin-bottom: 16px;
-}
-
-.review-actions {
-    display: flex;
-    gap: 16px;
-    margin-top: 12px;
 }
 
 .helpful-btn {
@@ -683,59 +641,17 @@
     color: var(--primary);
 }
 
-/* Seller Reply */
-.seller-reply {
+.empty-reviews {
+    text-align: center;
+    padding: 60px;
     background: var(--gray-50);
-    border-radius: 16px;
-    padding: 16px;
-    margin-top: 16px;
+    border-radius: 20px;
 }
 
-.reply-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.reply-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gray-700);
-}
-
-.reply-date {
-    font-size: 11px;
-    color: var(--gray-500);
-}
-
-.reply-text {
-    font-size: 14px;
-    color: var(--gray-700);
-    margin: 0;
-}
-
-/* Reply Form */
-.reply-form {
-    margin-top: 16px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.reply-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--gray-200);
-    border-radius: 12px;
-    font-size: 14px;
-    transition: all 0.2s;
-}
-
-.reply-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+.empty-reviews i {
+    font-size: 48px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
 }
 
 /* Review Modal */
@@ -751,7 +667,6 @@
     align-items: center;
     justify-content: center;
     z-index: 2000;
-    animation: fadeIn 0.3s ease;
 }
 
 .review-modal-content {
@@ -760,7 +675,6 @@
     max-width: 500px;
     width: 90%;
     padding: 32px;
-    animation: slideUp 0.3s ease;
 }
 
 .modal-header {
@@ -803,46 +717,7 @@
     color: #f59e0b;
 }
 
-/* Empty Reviews */
-.empty-reviews {
-    text-align: center;
-    padding: 60px;
-    background: var(--gray-50);
-    border-radius: 20px;
-}
-
-.empty-reviews i {
-    font-size: 48px;
-    color: var(--gray-400);
-    margin-bottom: 16px;
-}
-
-/* Mobile Responsive for Reviews */
-@media (max-width: 768px) {
-    .review-card {
-        padding: 16px;
-    }
-    
-    .reviewer-avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-    }
-    
-    .review-title {
-        font-size: 16px;
-    }
-    
-    .rating-distribution {
-        padding: 16px;
-    }
-    
-    .empty-reviews {
-        padding: 40px 20px;
-    }
-}
-
-/* ========== ANIMATIONS ========== */
+/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -859,48 +734,11 @@
     }
 }
 
-.product-container {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* ========== MOBILE RESPONSIVE FIX ========== */
+/* Mobile Responsive */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
         gap: 24px;
-    }
-    
-    .gallery {
-        position: relative;
-        top: 0;
-        width: 100%;
-    }
-    
-    .main-image-container {
-        aspect-ratio: 1;
-        min-height: auto;
-        max-height: 400px;
-    }
-    
-    .main-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-    
-    .thumbnail-container {
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .thumbnail {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .product-info {
-        margin-top: 0;
-        padding: 0;
     }
     
     .product-title {
@@ -921,36 +759,23 @@
         width: 100%;
     }
     
-    .details-grid {
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .review-card {
         padding: 16px;
     }
     
-    .contact-item {
-        gap: 12px;
-    }
-    
-    .contact-item i {
-        width: 32px;
-        height: 32px;
+    .reviewer-avatar {
+        width: 40px;
+        height: 40px;
         font-size: 14px;
     }
     
-    .contact-item p {
-        font-size: 14px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .gallery {
-        top: 20px;
-    }
-    
-    .product-grid {
-        gap: 32px;
-    }
-    
-    .product-title {
-        font-size: 28px;
+    .empty-reviews {
+        padding: 40px 20px;
     }
 }
 </style>
@@ -977,7 +802,18 @@
         
         <!-- Product Info -->
         <div class="product-info">
-            <h1 class="product-title"><%= product.title %></h1>
+            <h1 class="product-title">
+                <%= product.title %>
+                <% if (dealStatus && dealStatus !== 'pending') { %>
+                    <span class="deal-status-badge deal-status-<%= dealStatus === 'both_confirmed' || dealStatus === 'sold' ? 'both-confirmed' : dealStatus %>">
+                        <% if (dealStatus === 'buyer_confirmed') { %>Buyer Confirmed
+                        <% } else if (dealStatus === 'seller_confirmed') { %>Seller Confirmed
+                        <% } else if (dealStatus === 'both_confirmed' || dealStatus === 'sold') { %>Deal Confirmed!
+                        <% } else if (dealStatus === 'expired') { %>Expired
+                        <% } %>
+                    </span>
+                <% } %>
+            </h1>
             
             <div class="price-section">
                 <span class="price">₹<%= product.price %></span>
@@ -1025,10 +861,12 @@
             <!-- Action Buttons -->
             <% if (currUser) { %>
                 <% if (product.seller._id.toString() === currUser._id.toString()) { %>
+                    <!-- Seller View -->
                     <div class="action-buttons">
                         <a href="/marketplace/edit-product/<%= product._id %>" class="btn-outline">
                             <i class="fas fa-edit"></i> Edit Product
                         </a>
+                        
                         <% if (product.status === 'available' && interestedBuyers && interestedBuyers.length > 0) { %>
                             <form action="/marketplace/product/<%= product._id %>/mark-sold" method="POST" style="flex: 1;">
                                 <select name="buyerId" class="form-select mb-2" required style="border-radius: 12px;">
@@ -1044,6 +882,40 @@
                         <% } %>
                     </div>
                     
+                    <!-- Deal Status for Seller -->
+                    <% const sellerIsPendingConfirmed = dealStatus === 'buyer_confirmed'; %>
+                    <% const sellerHasConfirmed = dealStatus === 'seller_confirmed' || dealStatus === 'both_confirmed'; %>
+                    <% if (dealStatus === 'buyer_confirmed') { %>
+                        <div class="action-buttons">
+                            <button class="deal-confirm-btn" onclick="confirmDeal()">
+                                <i class="fas fa-handshake"></i> Confirm Deal
+                            </button>
+                            <button class="deal-confirm-btn" onclick="cancelDeal()" style="background:linear-gradient(135deg,#ef4444,#dc2626);">
+                                <i class="fas fa-times-circle"></i> Cancel Deal
+                            </button>
+                        </div>
+                        <div class="alert alert-info text-center" style="border-radius: 16px;">
+                            <i class="fas fa-clock"></i> Buyer has confirmed the deal. Confirm to complete the transaction, or cancel if you no longer want to sell.
+                        </div>
+                    <% } else if (dealStatus === 'seller_confirmed') { %>
+                        <div class="action-buttons">
+                            <button class="deal-confirm-btn" disabled>
+                                <i class="fas fa-clock"></i> Waiting for Buyer Confirmation
+                            </button>
+                            <button class="deal-confirm-btn" onclick="cancelDeal()" style="background:linear-gradient(135deg,#ef4444,#dc2626);">
+                                <i class="fas fa-times-circle"></i> Cancel Deal
+                            </button>
+                        </div>
+                        <div class="alert alert-warning text-center" style="border-radius: 16px;">
+                            <i class="fas fa-hourglass-half"></i> You have confirmed. Waiting for the buyer to confirm.
+                        </div>
+                    <% } else if (dealStatus === 'both_confirmed') { %>
+                        <div class="alert alert-success text-center" style="border-radius: 16px;">
+                            <i class="fas fa-check-circle"></i> Deal confirmed! Item has been marked as sold.
+                        </div>
+                    <% } %>
+                    
+                    <!-- Interested Buyers List -->
                     <% if (interestedBuyers && interestedBuyers.length > 0) { %>
                         <div class="interested-section" style="margin-top: 24px;">
                             <div class="interested-title" style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">
@@ -1068,14 +940,17 @@
                     <% } %>
                     
                 <% } else if (product.status === 'available') { %>
-                    <div class="action-buttons">
-                        <% if (!hasInterested) { %>
+                    <!-- Buyer View -->
+                    <% if (!hasInterested) { %>
+                        <div class="action-buttons">
                             <form action="/marketplace/product/<%= product._id %>/interest" method="POST" style="flex: 1;">
                                 <button type="submit" class="btn-primary">
                                     <i class="fas fa-heart"></i> I'm Interested
                                 </button>
                             </form>
-                        <% } else { %>
+                        </div>
+                    <% } else { %>
+                        <div class="action-buttons">
                             <button class="btn-success" disabled>
                                 <i class="fas fa-check"></i> Interest Shown!
                             </button>
@@ -1083,19 +958,78 @@
                             <button class="btn-outline" onclick="showContactModal()">
                                 <i class="fas fa-phone-alt"></i> Contact Seller
                             </button>
-                        <% } %>
+
+                            <button class="btn-outline" onclick="revertInterest()" style="border-color:#ef4444;color:#ef4444;" title="Remove your interest">
+                                <i class="fas fa-times"></i> Remove Interest
+                            </button>
+                        </div>
                         
                         <% if (existingChatRoom) { %>
-                            <button class="btn-outline open-chat-btn"
-                                    data-room-id="<%= existingChatRoom %>"
-                                    data-product-id="<%= product._id %>"
-                                    data-product-title="<%= product.title %>"
-                                    data-other-user-id="<%= product.seller._id %>"
-                                    data-other-user-name="<%= product.seller.username %>">
-                                <i class="fas fa-comments"></i> Chat with Seller
-                            </button>
+                            <div class="action-buttons">
+                                <button class="btn-outline open-chat-btn"
+                                        data-room-id="<%= existingChatRoom %>"
+                                        data-product-id="<%= product._id %>"
+                                        data-product-title="<%= product.title %>"
+                                        data-other-user-id="<%= product.seller._id %>"
+                                        data-other-user-name="<%= product.seller.username %>">
+                                    <i class="fas fa-comments"></i> Chat with Seller
+                                </button>
+                            </div>
                         <% } %>
-                    </div>
+                        
+                        <!-- Deal Confirmation for Buyer -->
+                        <% if (userConfirmed) { %>
+                            <!-- User already confirmed — show cancel option -->
+                            <div class="action-buttons">
+                                <button class="deal-confirm-btn" disabled>
+                                    <i class="fas fa-clock"></i>
+                                    <% if (dealStatus === 'buyer_confirmed') { %>Waiting for Seller Confirmation
+                                    <% } else if (dealStatus === 'seller_confirmed') { %>Seller Confirmed — Waiting for You!
+                                    <% } else { %>Confirmation Recorded<% } %>
+                                </button>
+                                <button class="deal-confirm-btn" onclick="cancelDeal()" style="background:linear-gradient(135deg,#ef4444,#dc2626);">
+                                    <i class="fas fa-times-circle"></i> Cancel Deal
+                                </button>
+                            </div>
+                            <div class="alert alert-warning text-center" style="border-radius: 16px;">
+                                <i class="fas fa-hourglass-half"></i> You have confirmed this deal. Waiting for the seller to confirm.
+                            </div>
+                        <% } else if (dealStatus === 'pending') { %>
+                            <div class="action-buttons">
+                                <button class="deal-confirm-btn" onclick="confirmDeal()">
+                                    <i class="fas fa-handshake"></i> Confirm Deal
+                                </button>
+                            </div>
+                        <% } else if (dealStatus === 'seller_confirmed') { %>
+                            <!-- Seller confirmed first — this buyer can confirm -->
+                            <div class="action-buttons">
+                                <button class="deal-confirm-btn" onclick="confirmDeal()">
+                                    <i class="fas fa-handshake"></i> Confirm Deal
+                                </button>
+                            </div>
+                            <div class="alert alert-info text-center" style="border-radius: 16px;">
+                                <i class="fas fa-bell"></i> Seller has confirmed! Confirm to complete the deal.
+                            </div>
+                        <% } else if (dealStatus === 'buyer_confirmed') { %>
+                            <!-- Another buyer confirmed — this buyer is blocked/queued -->
+                            <div class="action-buttons">
+                                <button class="deal-confirm-btn" onclick="confirmDeal()" title="Click to join the queue">
+                                    <i class="fas fa-list-ol"></i> Join Queue
+                                </button>
+                            </div>
+                            <div class="alert alert-warning text-center" style="border-radius: 16px; background:#fef3c7;border:1px solid #f59e0b;">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>Deal in progress with another buyer.</strong> Click "Join Queue" to be notified if the deal falls through. Contact the seller directly to confirm availability:
+                                <div style="margin-top:8px;">
+                                    <% if (product.sellerPhone) { %><strong><i class="fas fa-phone"></i> <%= product.sellerPhone %></strong><% } %>
+                                    <% if (product.sellerEmail) { %> | <strong><i class="fas fa-envelope"></i> <%= product.sellerEmail %></strong><% } %>
+                                </div>
+                            </div>
+                        <% } else if (dealStatus === 'both_confirmed') { %>
+                            <div class="alert alert-secondary text-center" style="border-radius: 16px;">
+                                <i class="fas fa-lock"></i> This item has been sold to another buyer.
+                            </div>
+                        <% } %>
+                    <% } %>
                     
                     <div class="alert-custom">
                         <i class="fas fa-truck"></i>
@@ -1109,16 +1043,16 @@
                     </div>
                 <% } %>
             <% } else { %>
-    <div class="action-buttons">
-        <a href="/users/login?returnTo=<%= encodeURIComponent(returnTo || '/marketplace/product/' + product._id) %>" class="btn-primary">
-            <i class="fas fa-sign-in-alt"></i> Login to Show Interest
-        </a>
-    </div>
-    <div class="alert-custom">
-        <i class="fas fa-lock"></i>
-        <span>Please login to contact the seller and view more details.</span>
-    </div>
-<% } %>
+                <div class="action-buttons">
+                    <a href="/users/login?returnTo=<%= encodeURIComponent(returnTo || '/marketplace/product/' + product._id) %>" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login to Show Interest
+                    </a>
+                </div>
+                <div class="alert-custom">
+                    <i class="fas fa-lock"></i>
+                    <span>Please login to contact the seller and view more details.</span>
+                </div>
+            <% } %>
         </div>
     </div>
     
@@ -1164,7 +1098,7 @@
         </div>
     </div>
     
-      <!-- Reviews Section - SINGLE VERSION (KEEP ONLY THIS) -->
+    <!-- Reviews Section -->
     <div class="reviews-section">
         <div class="reviews-header">
             <div>
@@ -1263,8 +1197,8 @@
                         
                         <!-- Reply Form (for seller) -->
                         <% if (currUser && product.seller && product.seller._id.toString() === currUser._id.toString()) { %>
-                            <form action="/marketplace/product/<%= product._id %>/review/<%= review._id %>/reply" method="POST" class="reply-form">
-                                <input type="text" name="comment" class="reply-input" placeholder="Reply to this review..." required>
+                            <form action="/marketplace/product/<%= product._id %>/review/<%= review._id %>/reply" method="POST" class="reply-form" style="margin-top: 16px; display: flex; gap: 12px;">
+                                <input type="text" name="comment" class="reply-input" placeholder="Reply to this review..." required style="flex: 1; padding: 10px 14px; border: 1px solid var(--gray-200); border-radius: 12px;">
                                 <button type="submit" class="btn-outline" style="padding: 10px 20px;">Reply</button>
                             </form>
                         <% } %>
@@ -1278,7 +1212,8 @@
                 </div>
             <% } %>
         </div>
-    </div>  
+    </div>
+</div>
 
 <!-- Review Modal -->
 <div id="reviewModal" class="review-modal">
@@ -1390,6 +1325,82 @@ function markHelpful(reviewId) {
     .catch(err => console.error('Error:', err));
 }
 
+function confirmDeal() {
+    vmConfirm({
+        title: 'Confirm This Deal',
+        message: 'Are you ready to confirm this deal? Once confirmed, the other party will be notified.',
+        confirmText: 'Yes, Confirm Deal',
+        cancelText: 'Not Yet',
+        variant: 'success',
+        onConfirm() {
+            console.log('Confirming deal for product:', '<%= product._id %>');
+            fetch(`/marketplace/product/<%= product._id %>/deal-confirm`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ buyerId: '<%= product.seller._id %>' })
+            })
+            .then(r => { if (!r.ok) return r.json().then(e => { throw new Error(e.error || e.message || 'Failed'); }); return r.json(); })
+            .then(data => {
+                if (data.queued) {
+                    alert(data.message + (data.sellerPhone ? `\n\n📞 ${data.sellerPhone}` : ''));
+                    window.location.reload();
+                } else if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to confirm deal');
+                }
+            })
+            .catch(err => alert('Error: ' + err.message));
+        }
+    });
+}
+
+function cancelDeal() {
+    vmConfirm({
+        title: 'Cancel This Deal',
+        message: 'Are you sure you want to cancel? Queued buyers will be notified that this product is available again.',
+        confirmText: 'Yes, Cancel Deal',
+        cancelText: 'Keep Deal',
+        variant: 'warning',
+        onConfirm() {
+            fetch(`/marketplace/product/<%= product._id %>/deal-cancel`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (!data.success) alert(data.message || 'Failed to cancel deal');
+                window.location.reload();
+            })
+            .catch(err => alert('Error cancelling deal: ' + err.message));
+        }
+    });
+}
+
+function revertInterest() {
+    vmConfirm({
+        title: 'Remove Your Interest',
+        message: 'This will remove your interest in this product. If you have a pending deal, it will also be cancelled.',
+        confirmText: 'Yes, Remove',
+        cancelText: 'Keep Interest',
+        variant: 'warning',
+        onConfirm() {
+            fetch(`/marketplace/product/<%= product._id %>/interest-revert`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (!data.success) alert(data.message || 'Failed to remove interest');
+                window.location.reload();
+            })
+            .catch(err => alert('Error: ' + err.message));
+        }
+    });
+}
+
 // Close modals when clicking outside
 window.onclick = function(event) {
     const contactModal = document.getElementById('contactModal');
@@ -1421,4 +1432,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-

@@ -60,10 +60,16 @@
     border: 1px solid #e5e7eb;
 }
 
-.price {
-    font-size: 36px;
-    font-weight: 800;
+.vendor-name {
+    font-size: 20px;
+    font-weight: 700;
     color: #f97316;
+    margin-bottom: 8px;
+}
+
+.vendor-name i {
+    font-size: 18px;
+    margin-right: 8px;
 }
 
 .block-badge {
@@ -73,6 +79,109 @@
     padding: 8px 16px;
     border-radius: 40px;
     font-weight: 600;
+}
+
+.hostel-type-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.hostel-type-badge.men {
+    background: #00d8ff;
+    color: white;
+}
+
+.hostel-type-badge.women {
+    background: #ff69b4;
+    color: white;
+}
+
+/* Deal Status Badge */
+.deal-status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.deal-status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.deal-status-buyer-confirmed {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.deal-status-vendor-confirmed {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.deal-status-both-confirmed {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* Menu Items Section */
+.menu-items-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.menu-items-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-items-title i {
+    color: #f97316;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.menu-item-card {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.menu-item-card:hover {
+    border-color: #f97316;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.menu-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.menu-item-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f97316;
 }
 
 .btn-orange {
@@ -125,6 +234,48 @@
 .btn-success:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+}
+
+.deal-confirm-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.deal-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+.deal-confirm-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .time-alert {
@@ -246,25 +397,30 @@
         padding: 20px;
     }
     
-    .price {
-        font-size: 28px;
-    }
-    
     .action-buttons {
         flex-direction: column;
+    }
+    
+    .hostel-type-badge {
+        display: inline-block;
+        margin-top: 8px;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
 
 <div class="food-detail-container">
-    <a href="/marketplace" class="back-button" onclick="switchToMarketplace()">
-        <i class="fas fa-arrow-left"></i> Back to Marketplace
+    <a href="/nightmess" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Night Mess
     </a>
     
     <div class="row mt-4">
         <div class="col-md-6">
             <div class="food-image">
-                <img id="mainImage" src="<%= item.images[0] %>" alt="<%= item.title %>">
+                <img id="mainImage" src="<%= item.images[0] %>" alt="<%= item.vendorName %>">
             </div>
             <div class="thumbnail-container mt-3 d-flex gap-2">
                 <% item.images.forEach((image, index) => { %>
@@ -276,18 +432,35 @@
         
         <div class="col-md-6">
             <div class="info-card">
-                <h1 class="mb-3"><%= item.title %></h1>
+                <!-- Vendor Name -->
+                <div class="vendor-name">
+                    <i class="fas fa-store"></i> <%= item.vendorName %>
+                    <% if (dealStatus && dealStatus !== 'pending') { %>
+                        <span class="deal-status-badge deal-status-<%= dealStatus === 'both_confirmed' || dealStatus === 'sold' ? 'both-confirmed' : dealStatus %>">
+                            <% if (dealStatus === 'buyer_confirmed') { %>Buyer Confirmed
+                            <% } else if (dealStatus === 'vendor_confirmed') { %>Vendor Confirmed
+                            <% } else if (dealStatus === 'both_confirmed' || dealStatus === 'sold') { %>Deal Confirmed!
+                            <% } else if (dealStatus === 'expired') { %>Expired
+                            <% } %>
+                        </span>
+                    <% } %>
+                </div>
                 
                 <div class="mb-3">
                     <span class="block-badge">Block <%= item.hostelBlock %></span>
                     <span class="badge bg-info ms-2"><%= item.category %></span>
                     <span class="badge bg-<%= item.status === 'available' ? 'success' : 'danger' %> ms-2">
-                        <%= item.status.toUpperCase() %>
+                        <%= item.status === 'available' ? 'OPEN' : (item.status === 'sold_out' ? 'CLOSED' : item.status.toUpperCase()) %>
                     </span>
-                </div>
-                
-                <div class="price mb-3">
-                    <%= item.price > 0 ? '₹' + item.price : 'Price Varies' %>
+                    <% if (item.hostelType) { %>
+                        <span class="hostel-type-badge <%= item.hostelType %>">
+                            <% if (item.hostelType === 'men') { %>
+                                <i class="fas fa-mars"></i> Men's Only
+                            <% } else if (item.hostelType === 'women') { %>
+                                <i class="fas fa-venus"></i> Women's Only
+                            <% } %>
+                        </span>
+                    <% } %>
                 </div>
                 
                 <div class="mb-4">
@@ -303,17 +476,19 @@
                     </div>
                 </div>
                 
-                <div class="mb-4">
-                    <h6>Description</h6>
-                    <p class="text-muted"><%= item.description %></p>
-                </div>
-                
-                <% if (item.tags && item.tags.length > 0) { %>
-                    <div class="mb-4">
-                        <h6>Tags</h6>
-                        <div>
-                            <% item.tags.forEach(tag => { %>
-                                <span class="badge bg-light text-dark me-1">#<%= tag %></span>
+                <!-- Menu Items Section -->
+                <% if (item.menuItems && item.menuItems.length > 0) { %>
+                    <div class="menu-items-section">
+                        <div class="menu-items-title">
+                            <i class="fas fa-utensils"></i>
+                            <span>Menu</span>
+                        </div>
+                        <div class="menu-grid">
+                            <% item.menuItems.forEach(menuItem => { %>
+                                <div class="menu-item-card">
+                                    <div class="menu-item-name"><%= menuItem.itemName %></div>
+                                    <div class="menu-item-price">₹<%= menuItem.price %></div>
+                                </div>
                             <% }) %>
                         </div>
                     </div>
@@ -339,7 +514,7 @@
                             </button>
                         <% } else if (item.status === 'sold_out') { %>
                             <div class="alert alert-secondary text-center w-100">
-                                <i class="fas fa-shopping-cart"></i> This item has been sold!
+                                <i class="fas fa-shopping-cart"></i> This vendor is currently closed
                             </div>
                         <% } %>
                         
@@ -348,21 +523,55 @@
                             <button class="btn-outline w-100 open-chat-btn"
                                     data-room-id="<%= existingChatRoom %>"
                                     data-product-id="<%= item._id %>"
-                                    data-product-title="<%= item.title %>"
+                                    data-product-title="<%= item.vendorName %>"
                                     data-other-user-id="<%= item.vendor._id %>"
                                     data-other-user-name="<%= item.vendor.username %>">
                                 <i class="fas fa-comments"></i> Chat with Vendor
                             </button>
                         <% } %>
                     </div>
+                    
+                    <!-- Deal Confirmation for Buyer -->
+                    <% if (hasInterested && item.status === 'available') { %>
+                        <% if (dealStatus === 'pending') { %>
+                            <div class="action-buttons" style="margin-top: 12px;">
+                                <button class="deal-confirm-btn w-100" onclick="confirmDeal()">
+                                    <i class="fas fa-handshake"></i> Confirm Deal
+                                </button>
+                            </div>
+                        <% } else if (dealStatus === 'buyer_confirmed') { %>
+                            <div class="action-buttons" style="margin-top: 12px;">
+                                <button class="deal-confirm-btn w-100" disabled>
+                                    <i class="fas fa-clock"></i> Waiting for Vendor Confirmation
+                                </button>
+                            </div>
+                            <div class="alert alert-warning text-center mt-3" style="border-radius: 16px;">
+                                <i class="fas fa-hourglass-half"></i> You have confirmed. Waiting for the vendor to confirm.
+                            </div>
+                        <% } else if (dealStatus === 'vendor_confirmed') { %>
+                            <div class="action-buttons" style="margin-top: 12px;">
+                                <button class="deal-confirm-btn w-100" onclick="confirmDeal()">
+                                    <i class="fas fa-handshake"></i> Confirm Deal
+                                </button>
+                            </div>
+                            <div class="alert alert-info text-center mt-3" style="border-radius: 16px;">
+                                <i class="fas fa-bell"></i> Vendor has confirmed! Confirm to complete the deal.
+                            </div>
+                        <% } else if (dealStatus === 'both_confirmed') { %>
+                            <div class="alert alert-success text-center mt-3" style="border-radius: 16px;">
+                                <i class="fas fa-check-circle"></i> Deal confirmed! This stall has been marked as closed.
+                            </div>
+                        <% } %>
+                    <% } %>
+                    
                 <% } else if (currUser && item.vendor._id.toString() === currUser._id.toString()) { %>
                     <!-- Seller View -->
                     <div class="seller-controls">
-                        <h4><i class="fas fa-store"></i> Manage Your Item</h4>
+                        <h4><i class="fas fa-store"></i> Manage Your Food Stall</h4>
                         
                         <div class="action-buttons">
                             <a href="/nightmess/edit-item/<%= item._id %>" class="btn-orange w-100">
-                                <i class="fas fa-edit"></i> Edit Item
+                                <i class="fas fa-edit"></i> Edit Menu
                             </a>
                             
                             <!-- Mark as Sold Button - Only show if available and has interested buyers -->
@@ -375,7 +584,7 @@
                                         <% }) %>
                                     </select>
                                     <button type="submit" class="btn-success w-100">
-                                        <i class="fas fa-check-circle"></i> Mark as Sold
+                                        <i class="fas fa-check-circle"></i> Mark as Closed
                                     </button>
                                 </form>
                             <% } else if (item.status === 'available') { %>
@@ -385,6 +594,31 @@
                             <% } %>
                         </div>
                     </div>
+                    
+                    <!-- Deal Status for Seller -->
+                    <% if (dealStatus === 'buyer_confirmed') { %>
+                        <div class="action-buttons" style="margin-top: 12px;">
+                            <button class="deal-confirm-btn w-100" onclick="confirmDeal()">
+                                <i class="fas fa-handshake"></i> Confirm Deal
+                            </button>
+                        </div>
+                        <div class="alert alert-info text-center mt-3" style="border-radius: 16px;">
+                            <i class="fas fa-bell"></i> Buyer has confirmed the deal. Confirm to complete the transaction.
+                        </div>
+                    <% } else if (dealStatus === 'vendor_confirmed') { %>
+                        <div class="action-buttons" style="margin-top: 12px;">
+                            <button class="deal-confirm-btn w-100" disabled>
+                                <i class="fas fa-clock"></i> Waiting for Buyer Confirmation
+                            </button>
+                        </div>
+                        <div class="alert alert-warning text-center mt-3" style="border-radius: 16px;">
+                            <i class="fas fa-hourglass-half"></i> You have confirmed. Waiting for the buyer to confirm.
+                        </div>
+                    <% } else if (dealStatus === 'both_confirmed') { %>
+                        <div class="alert alert-success text-center mt-3" style="border-radius: 16px;">
+                            <i class="fas fa-check-circle"></i> Deal confirmed! This stall has been marked as closed.
+                        </div>
+                    <% } %>
                     
                     <!-- Show Interested Buyers List -->
                     <% if (interestedBuyersWithChat && interestedBuyersWithChat.length > 0) { %>
@@ -403,7 +637,7 @@
                                     <button class="btn btn-sm btn-primary open-chat-btn"
                                             data-room-id="<%= buyer.chatRoomId %>"
                                             data-product-id="<%= item._id %>"
-                                            data-product-title="<%= item.title %>"
+                                            data-product-title="<%= item.vendorName %>"
                                             data-other-user-id="<%= buyer.user._id %>"
                                             data-other-user-name="<%= buyer.user.username %>">
                                         <i class="fas fa-comments"></i> Chat
@@ -425,16 +659,16 @@
     
     <% if (similarItems && similarItems.length > 0) { %>
         <div class="similar-section">
-            <h2 class="mb-4">Similar Items in Block <%= item.hostelBlock %></h2>
+            <h2 class="mb-4">Similar Stalls in Block <%= item.hostelBlock %></h2>
             <div class="similar-grid">
                 <% similarItems.forEach(similar => { %>
                     <a href="/nightmess/item/<%= similar._id %>" class="similar-card">
                         <div class="similar-image">
-                            <img src="<%= similar.images[0] %>" alt="<%= similar.title %>">
+                            <img src="<%= similar.images[0] %>" alt="<%= similar.vendorName %>">
                         </div>
                         <div class="similar-info">
-                            <div class="similar-name"><%= similar.title %></div>
-                            <div class="similar-price"><%= similar.price > 0 ? '₹' + similar.price : 'Price Varies' %></div>
+                            <div class="similar-name"><%= similar.vendorName %></div>
+                            <div class="similar-price"><%= similar.menuItems && similar.menuItems.length > 0 ? similar.menuItems.length + ' items' : 'No menu' %></div>
                         </div>
                     </a>
                 <% }) %>
@@ -452,8 +686,34 @@ function changeImage(element, src) {
     element.classList.add('active');
 }
 
-function switchToMarketplace() {
+function switchToNightMess() {
     sessionStorage.setItem('activeTab', 'nightmess');
+}
+
+function confirmDeal() {
+    vmConfirm({
+        title: 'Confirm This Deal',
+        message: 'Are you ready to confirm this deal with this food stall? The other party will be notified.',
+        confirmText: 'Yes, Confirm',
+        cancelText: 'Not Yet',
+        variant: 'success',
+        onConfirm() {
+            fetch(`/nightmess/item/<%= item._id %>/deal-confirm`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to confirm deal');
+                }
+            })
+            .catch(err => alert('Error confirming deal. Please try again.'));
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

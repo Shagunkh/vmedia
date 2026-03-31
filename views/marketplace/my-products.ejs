@@ -1,124 +1,244 @@
 <%- include('../partials/header') %>
 
 <style>
-/* ========== PREMIUM VARIABLES ========== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ========== TOKENS ========== */
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1e40af;
-    --primary-light: #3b82f6;
-    --secondary: #7c3aed;
-    --accent: #f97316;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --dark: #0f172a;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --primary:       #008cff;
+    --primary-dark:  #0070d6;
+    --primary-light: #00d8ff;
+    --accent:        #f97316;
+    --accent-dark:   #ea580c;
+    --success:       #10b981;
+    --warning:       #f59e0b;
+    --danger:        #ef4444;
+    --dark:          #0f172a;
+    --gray-50:       #f9fafb;
+    --gray-100:      #f3f4f6;
+    --gray-200:      #e5e7eb;
+    --gray-300:      #d1d5db;
+    --gray-600:      #4b5563;
+    --gray-700:      #374151;
+    --gray-800:      #1f2937;
+    --card-shadow:   0 4px 24px rgba(0,140,255,0.07);
+    --card-shadow-h: 0 20px 56px rgba(0,140,255,0.18);
 }
 
-/* ========== PAGE CONTAINER ========== */
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f0f8ff; }
+
+/* ========== PAGE ========== */
 .products-page {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 0 20px 80px;
 }
 
-/* ========== HEADER SECTION ========== */
+/* ========== HERO HEADER ========== */
 .page-header {
+    background: linear-gradient(135deg, #00d8ff 0%, #008cff 60%, #0070d6 100%);
+    border-radius: 0 0 32px 32px;
+    padding: 40px 48px 44px;
+    margin-bottom: 40px;
+    margin-left: -20px;
+    margin-right: -20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
 }
 
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 25%;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.header-left { z-index: 1; }
+
 .header-left h1 {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--dark);
-    margin: 0 0 8px 0;
+    font-size: 34px;
+    font-weight: 900;
+    color: white;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
 }
 
 .header-left p {
-    color: var(--gray-600);
+    color: rgba(255,255,255,0.72);
     margin: 0;
+    font-size: 15px;
 }
 
+/* ========== STAT BADGES ========== */
 .header-stats {
     display: flex;
-    gap: 24px;
-    background: var(--gray-50);
-    padding: 12px 24px;
-    border-radius: 60px;
+    gap: 14px;
     flex-wrap: wrap;
+    z-index: 1;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
 }
 
 .stat-badge {
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 16px;
+    padding: 14px 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    min-width: 88px;
 }
 
 .stat-badge i {
-    color: var(--primary);
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 2px;
 }
 
-.stat-badge span:first-child {
-    font-weight: 600;
-    color: var(--gray-700);
+.stat-badge span:first-of-type {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.stat-badge span:last-child {
-    font-weight: 800;
-    color: var(--primary);
-}
-
-/* Track Purchase Button */
-.track-purchase-btn {
-    background: linear-gradient(135deg, #10b981, #059669);
+.stat-badge span:last-of-type {
+    font-size: 22px;
+    font-weight: 900;
     color: white;
-    padding: 12px 28px;
-    border-radius: 60px;
-    text-decoration: none;
-    font-weight: 600;
+    line-height: 1;
+}
+
+/* ========== BACK BUTTON ========== */
+.back-nav {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-back-market {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
+}
+
+.btn-back-market:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ========== HEADER ACTION BUTTONS ========== */
+.track-purchase-btn {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: white;
+    padding: 11px 22px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.22s;
     cursor: pointer;
-    border: none;
 }
 
 .track-purchase-btn:hover {
+    background: rgba(255,255,255,0.28);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-/* Earnings Modal */
+.add-product-btn {
+    background: white;
+    color: #008cff;
+    padding: 11px 22px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.22s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.add-product-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    color: #0070d6;
+}
+
+.add-nightmess-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 11px 22px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.22s;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.3);
+}
+
+.add-nightmess-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(249,115,22,0.4);
+    color: white;
+}
+
+/* ========== EARNINGS MODAL ========== */
 .earnings-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(15,23,42,0.6);
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2000;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.25s ease;
 }
 
 .earnings-modal-content {
@@ -127,631 +247,651 @@
     max-width: 500px;
     width: 90%;
     overflow: hidden;
-    animation: slideUp 0.3s ease;
+    animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.22);
 }
 
 .earnings-modal-header {
     background: linear-gradient(135deg, #10b981, #059669);
-    padding: 24px;
+    padding: 28px 32px;
     text-align: center;
 }
 
 .earnings-modal-header h2 {
     color: white;
     margin: 0;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.earnings-modal-body {
-    padding: 32px;
-}
+.earnings-modal-body { padding: 32px; }
 
 .earnings-total {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     padding-bottom: 24px;
-    border-bottom: 2px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
 }
 
 .earnings-amount {
-    font-size: 48px;
-    font-weight: 800;
+    font-size: 52px;
+    font-weight: 900;
     color: #10b981;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    letter-spacing: -2px;
 }
 
-.earnings-label {
-    font-size: 14px;
-    color: var(--gray-600);
-}
+.earnings-label { font-size: 13px; color: var(--gray-600); font-weight: 500; }
 
-.earnings-breakdown {
-    margin-bottom: 24px;
-}
+.earnings-breakdown { margin-bottom: 20px; }
 
 .breakdown-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
+    padding: 11px 0;
     border-bottom: 1px solid var(--gray-100);
 }
 
-.breakdown-label {
-    font-weight: 500;
-    color: var(--gray-700);
-}
-
-.breakdown-value {
-    font-weight: 600;
-    color: var(--gray-800);
-}
+.breakdown-label { font-weight: 500; color: var(--gray-700); font-size: 14px; }
+.breakdown-value { font-weight: 700; color: var(--gray-800); font-size: 14px; }
 
 .earnings-note {
     background: #fef3c7;
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 12px 16px;
     font-size: 12px;
     color: #92400e;
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    border-left: 3px solid #f59e0b;
 }
 
 .close-modal-btn {
     width: 100%;
     background: var(--gray-100);
     border: none;
-    padding: 12px;
+    padding: 13px;
     border-radius: 40px;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
+    color: var(--gray-700);
 }
 
-.close-modal-btn:hover {
-    background: var(--gray-200);
-}
+.close-modal-btn:hover { background: var(--gray-200); }
 
-.add-product-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 12px 28px;
-    border-radius: 60px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-}
-
-.add-product-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-    color: white;
-}
-
-.add-nightmess-btn {
-    background: linear-gradient(135deg, #f97316, #ea580c);
-    color: white;
-    padding: 12px 28px;
-    border-radius: 60px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-}
-
-.add-nightmess-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(249,115,22,0.3);
-    color: white;
-}
-
-/* Tab Styles */
+/* ========== TABS ========== */
 .tab-container {
     margin-bottom: 32px;
     border-bottom: 2px solid var(--gray-200);
 }
 
-.tab-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
+.tab-buttons { display: flex; gap: 4px; flex-wrap: wrap; }
 
 .tab-btn {
-    padding: 12px 28px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 13px 30px;
+    font-size: 15px;
+    font-weight: 700;
     background: transparent;
     border: none;
     color: var(--gray-600);
     cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 40px;
+    transition: all 0.25s;
+    border-radius: 12px 12px 0 0;
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.tab-btn:hover {
-    color: var(--primary);
-    background: rgba(37, 99, 235, 0.05);
-}
-
-.tab-btn.active {
-    color: var(--primary);
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.05));
-}
+.tab-btn:hover { color: #008cff; background: rgba(0,140,255,0.06); }
+.tab-btn.active { color: #008cff; background: rgba(0,140,255,0.07); }
 
 .tab-btn.active::after {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    border-radius: 2px;
+    bottom: -2px; left: 0; right: 0;
+    height: 2.5px;
+    background: linear-gradient(90deg, #00d8ff, #008cff);
+    border-radius: 2px 2px 0 0;
 }
 
-.tab-content {
-    display: none;
-    animation: fadeIn 0.3s ease;
-}
+.tab-content { display: none; animation: fadeIn 0.3s ease; }
+.tab-content.active { display: block; }
 
-.tab-content.active {
-    display: block;
-}
-
-/* Empty State */
+/* ========== EMPTY STATE ========== */
 .empty-state {
     text-align: center;
     padding: 80px 40px;
-    background: var(--gray-50);
-    border-radius: 32px;
-    animation: fadeIn 0.5s ease;
+    background: white;
+    border-radius: 28px;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--card-shadow);
 }
 
 .empty-icon {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%);
+    width: 100px; height: 100px;
+    background: linear-gradient(135deg, #00d8ff, #008cff);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+    box-shadow: 0 16px 40px rgba(0,140,255,0.28);
 }
 
-.empty-icon i {
-    font-size: 48px;
+.empty-icon i { font-size: 44px; color: white; }
+.empty-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; color: var(--gray-800); }
+.empty-text  { color: var(--gray-600); margin-bottom: 28px; font-size: 15px; }
+
+.empty-btn {
+    background: linear-gradient(135deg, #00d8ff, #008cff);
+    color: white;
+    padding: 13px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+    box-shadow: 0 8px 24px rgba(0,140,255,0.3);
+}
+
+.empty-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0,140,255,0.4);
     color: white;
 }
 
-.empty-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--gray-800);
-}
-
-.empty-text {
-    color: var(--gray-600);
-    margin-bottom: 32px;
-}
-
-/* Product Grid */
+/* ========== PRODUCT GRID ========== */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
 }
 
-/* Product Card */
+/* ========== PRODUCT CARD ========== */
 .product-card-modern {
     background: white;
-    border-radius: 24px;
+    border-radius: 22px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.38s cubic-bezier(0.4,0,0.2,1);
     border: 1px solid var(--gray-200);
     position: relative;
-    animation: fadeInUp 0.5s ease-out backwards;
+    animation: fadeInUp 0.5s ease-out both;
+    box-shadow: var(--card-shadow);
 }
 
 .product-card-modern:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-    border-color: transparent;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 56px rgba(0,140,255,0.18);
+    border-color: #00d8ff;
 }
 
 .card-image {
     position: relative;
-    height: 240px;
+    height: 220px;
     overflow: hidden;
     background: var(--gray-100);
 }
 
 .card-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card-modern:hover .card-image img { transform: scale(1.07); }
+
+/* ─── Overlay badges ─── */
+.status-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    padding: 5px 13px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-available { background: rgba(16,185,129,0.92); color: white; }
+.status-sold      { background: rgba(239,68,68,0.92);  color: white; }
+.status-reserved  { background: rgba(245,158,11,0.92); color: white; }
+.status-hidden    { background: rgba(107,114,128,0.9); color: white; }
+
+/* Visibility toggle pill */
+.visibility-toggle {
+    position: absolute;
+    top: 14px; left: 14px;
+    z-index: 2;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    border-radius: 30px;
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 36px; height: 18px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input { opacity:0; width:0; height:0; }
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #6b7280;
+    border-radius: 18px;
+    transition: 0.3s;
+}
+
+.toggle-slider:before {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    left: 3px; bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .toggle-slider { background: #10b981; }
+input:checked + .toggle-slider:before { transform: translateX(18px); }
+
+.toggle-label { font-size: 10px; color: white; font-weight: 700; }
+
+/* Category badge */
+.category-badge {
+    position: absolute;
+    bottom: 14px; left: 14px;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(8px);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Night mess badge */
+.nightmess-badge {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    position: absolute;
+    top: 16px; left: 80px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    z-index: 2;
+}
+
+/* ─── Card body ─── */
+.card-content { padding: 20px 22px 18px; }
+
+.product-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 6px;
+    line-height: 1.35;
+}
+
+.product-description {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 14px;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.menu-preview {
+    font-size: 13px; color: #6b7280; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+
+.menu-preview-item {
+    background: #fff3e8; color: #ea580c; border: 1px solid #fed7aa;
+    padding: 2px 9px; border-radius: 100px; font-size: 11px; font-weight: 600;
+}
+
+.menu-count {
+    font-size: 12px; color: #f97316; font-weight: 600; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 5px;
+}
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.product-price {
+    font-size: 26px; font-weight: 900; color: var(--primary); letter-spacing: -0.5px;
+}
+
+.condition-tag {
+    font-size: 11px; padding: 4px 11px; border-radius: 100px; font-weight: 700;
+}
+
+.condition-new      { background: #d1fae5; color: #065f46; }
+.condition-like-new { background: #d9f99d; color: #3f6212; }
+.condition-good     { background: #fed7aa; color: #92400e; }
+.condition-fair     { background: #fef3c7; color: #78350f; }
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.meta-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--gray-600); font-weight: 500;
+}
+
+.meta-item i { font-size: 10px; color: var(--primary); }
+
+.action-buttons { display: flex; gap: 8px; }
+
+.btn-action {
+    flex: 1; padding: 10px 6px; border-radius: 11px;
+    font-size: 12px; font-weight: 700; text-align: center; text-decoration: none;
+    transition: all 0.2s; cursor: pointer; border: none;
+    display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+}
+
+.btn-action:hover { transform: translateY(-2px); }
+.btn-view    { background: var(--gray-100); color: var(--gray-700); }
+.btn-view:hover  { background: var(--gray-200); }
+.btn-edit    { background: #fef3c7; color: #92400e; }
+.btn-edit:hover  { background: #fde68a; }
+.btn-delete  { background: #fee2e2; color: #991b1b; }
+.btn-delete:hover { background: #fecaca; }
+
+/* ========== TOAST ========== */
+.delete-toast {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 24px;
+    box-shadow: 0 20px 48px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease;
+    border-left: 4px solid var(--success);
+    min-width: 240px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gray-800);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity:0; }
+    to   { opacity:1; }
+}
+
+@keyframes slideInRight {
+    from { opacity:0; transform:translateX(80px); }
+    to   { opacity:1; transform:translateX(0); }
+}
+
+@keyframes slideOutRight {
+    from { opacity:1; transform:translateX(0); }
+    to   { opacity:0; transform:translateX(80px); }
+}
+
+@keyframes slideUp {
+    from { opacity:0; transform:translateY(40px) scale(0.97); }
+    to   { opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* ====== NIGHT MESS STALL CARDS (matching /nightmess/my-items) ====== */
+.stall-card {
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    animation: fadeInUp 0.4s ease both;
+    position: relative;
+}
+
+.stall-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(249,115,22,0.18);
+    border-color: #f97316;
+}
+
+.stall-image {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+    background: var(--gray-100);
+}
+
+.stall-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
 }
 
-.product-card-modern:hover .card-image img {
-    transform: scale(1.08);
+.stall-card:hover .stall-image img {
+    transform: scale(1.07);
 }
 
-/* Status Badge */
-.status-badge {
+.stall-overlay { position: absolute; inset: 0; pointer-events: none; }
+
+.badge-topleft {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    backdrop-filter: blur(8px);
-    z-index: 2;
+    top: 14px; left: 14px;
+    display: flex; align-items: center; gap: 8px;
+    pointer-events: all;
 }
 
-.status-available {
-    background: rgba(16, 185, 129, 0.9);
-    color: white;
+.badge-topright { position: absolute; top: 14px; right: 14px; }
+.badge-bottomleft { position: absolute; bottom: 14px; left: 14px; }
+
+.vis-pill {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    border-radius: 30px;
+    padding: 6px 12px;
+    display: flex; align-items: center; gap: 8px;
 }
 
-.status-sold {
-    background: rgba(239, 68, 68, 0.9);
-    color: white;
-}
-
-.status-reserved {
-    background: rgba(245, 158, 11, 0.9);
-    color: white;
-}
-
-.status-hidden {
-    background: rgba(107, 114, 128, 0.9);
-    color: white;
-}
-
-/* Visibility Toggle */
-.visibility-toggle {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 2;
-}
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-input:checked + .toggle-slider {
-    background-color: #10b981;
-}
-
-input:checked + .toggle-slider:before {
-    transform: translateX(26px);
-}
-
-.toggle-label {
-    font-size: 10px;
-    margin-left: 8px;
-    color: white;
-    font-weight: 600;
-}
-
-/* Category Badge */
-.category-badge {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    padding: 4px 12px;
+.status-pill {
+    padding: 5px 12px;
     border-radius: 100px;
     font-size: 11px;
-    font-weight: 500;
-    color: white;
-    z-index: 2;
-}
-
-/* Card Content */
-.card-content {
-    padding: 20px;
-}
-
-.product-title {
-    font-size: 18px;
     font-weight: 700;
-    color: var(--gray-800);
-    margin-bottom: 8px;
-    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 5px;
+    backdrop-filter: blur(8px);
 }
 
-.product-description {
-    font-size: 14px;
-    color: var(--gray-600);
-    margin-bottom: 16px;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+.status-pill.nm-open   { background: rgba(16,185,129,0.9); color: white; }
+.status-pill.nm-closed { background: rgba(239,68,68,0.9);  color: white; }
+.status-pill.nm-hidden { background: rgba(107,114,128,0.85); color: white; }
 
-.price-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--gray-200);
-}
-
-.product-price {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.condition-tag {
-    font-size: 12px;
-    padding: 4px 10px;
+.hostel-pill {
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    color: white;
+    padding: 4px 12px;
     border-radius: 100px;
-    font-weight: 600;
-}
-
-.condition-new { background: #d1fae5; color: #065f46; }
-.condition-like-new { background: #d9f99d; color: #3f6212; }
-.condition-good { background: #fed7aa; color: #9b2c1d; }
-.condition-fair { background: #fef3c7; color: #92400e; }
-
-/* Product Meta */
-.product-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--gray-600);
-}
-
-.meta-item i {
-    font-size: 12px;
-    color: var(--primary);
-}
-
-/* Action Buttons */
-.action-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-action {
-    flex: 1;
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.btn-view {
-    background: var(--gray-100);
-    color: var(--gray-700);
-}
-
-.btn-view:hover {
-    background: var(--gray-200);
-    transform: translateY(-2px);
-}
-
-.btn-edit {
-    background: var(--warning);
-    color: white;
-}
-
-.btn-edit:hover {
-    background: #d97706;
-    transform: translateY(-2px);
-}
-
-.btn-delete {
-    background: var(--danger);
-    color: white;
-}
-
-.btn-delete:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-}
-
-/* Night Mess Badge */
-.nightmess-badge {
-    background: linear-gradient(135deg, #f97316, #ea580c);
-    position: absolute;
-    top: 16px;
-    left: 80px;
-    padding: 4px 10px;
-    border-radius: 20px;
     font-size: 10px;
     font-weight: 600;
-    color: white;
-    z-index: 2;
+    display: inline-flex; align-items: center; gap: 5px;
 }
 
-/* Toast */
-.delete-toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: white;
-    border-radius: 16px;
-    padding: 16px 24px;
-    box-shadow: var(--shadow-xl);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    z-index: 1000;
-    animation: slideInRight 0.3s ease;
-    border-left: 4px solid var(--danger);
+.hostel-pill.men   { border-left: 3px solid #38bdf8; }
+.hostel-pill.women { border-left: 3px solid #f472b6; }
+
+.stall-body { padding: 22px 22px 18px; }
+
+.stall-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
 }
 
-.delete-toast i {
-    font-size: 20px;
-    color: var(--danger);
+.stall-name a { color: inherit; text-decoration: none; }
+.stall-name a:hover { color: #f97316; }
+
+.stall-location {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.stall-location i { color: #f97316; }
+
+.menu-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 14px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.menu-chip {
+    background: #fff3e8;
+    color: #ea580c;
+    border: 1px solid #fed7aa;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.menu-chip.more {
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border-color: var(--gray-200);
 }
 
-@keyframes slideOutRight {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(100px);
-    }
+.stall-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.tag { padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+.tag-cat   { background: #eff6ff; color: #1d4ed8; }
+.tag-block { background: #f5f3ff; color: #6d28d9; }
+
+.stall-divider { border: none; border-top: 1px solid var(--gray-200); margin: 14px 0; }
+
+.stall-actions { display: flex; gap: 8px; }
+
+.btn-act {
+    flex: 1;
+    padding: 9px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+    transition: all 0.2s;
 }
+
+.btn-act:hover { transform: translateY(-2px); }
+.btn-view-act  { background: var(--gray-100); color: var(--gray-700); }
+.btn-view-act:hover { background: var(--gray-200); color: var(--gray-700); }
+.btn-edit-act  { background: #fef3c7; color: #92400e; }
+.btn-edit-act:hover { background: #fde68a; color: #78350f; }
+.btn-del-act   { background: #fee2e2; color: #991b1b; }
+.btn-del-act:hover { background: #fecaca; color: #7f1d1d; }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .products-page {
-        padding: 20px;
+    .products-page { padding: 0 12px 60px; }
+    .page-header { 
+        padding: 24px 20px 28px; 
+        border-radius: 0 0 24px 24px; 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 20px; 
     }
-    
-    .page-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .header-stats {
+    .header-left h1 { font-size: 26px; text-align: center; }
+    .header-left p { text-align: center; font-size: 13px; }
+    .header-stats { justify-content: center; gap: 8px; }
+    .stat-badge { padding: 10px 8px; min-width: 0; flex: 1; }
+    .stat-badge span:first-of-type { font-size: 9px; letter-spacing: 0; }
+    .stat-badge span:last-of-type { font-size: 18px; }
+    .page-header > div:last-child { flex-direction: column; }
+    .track-purchase-btn, .add-product-btn, .add-nightmess-btn {
+        width: 100%;
         justify-content: center;
+        padding: 13px;
+        font-size: 15px;
     }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .action-buttons {
-        flex-wrap: wrap;
-    }
-    
-    .btn-action {
-        flex: auto;
-        min-width: calc(33.33% - 7px);
-    }
-    
-    .tab-btn {
-        padding: 8px 20px;
-        font-size: 14px;
-    }
+    .products-grid { grid-template-columns: 1fr; gap: 18px; }
+    .tab-buttons { display: flex; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; gap: 4px; }
+    .tab-btn { padding: 12px 18px; font-size: 14px; white-space: nowrap; flex: 1; justify-content: center; border-radius: 12px; }
+    .action-buttons { flex-wrap: wrap; }
+    .btn-action { flex: auto; min-width: calc(33.33% - 7px); }
+    .card-image { height: 180px; }
 }
 </style>
 
 <div class="products-page">
     <!-- Header -->
     <div class="page-header">
+        <div class="back-nav">
+            <a href="/marketplace" class="btn-back-market">
+                <i class="fas fa-arrow-left"></i> Back to Marketplace
+            </a>
+        </div>
         <div class="header-left">
             <h1>My Items</h1>
             <p>Manage your marketplace products and night mess food items</p>
@@ -788,7 +928,7 @@ input:checked + .toggle-slider:before {
                 <i class="fas fa-plus-circle"></i> Add Product
             </a>
             <a href="/nightmess/add-item" class="add-nightmess-btn">
-                <i class="fas fa-plus-circle"></i> Add Food Item
+                <i class="fas fa-plus-circle"></i> Add Food Stall
             </a>
         </div>
     </div>
@@ -893,7 +1033,7 @@ input:checked + .toggle-slider:before {
                         
                         <div class="card-content">
                             <h3 class="product-title"><%= product.title %></h3>
-                            <p class="product-description"><%= product.description.substring(0, 80) %><%= product.description.length > 80 ? '...' : '' %></p>
+                            <p class="product-description"><%= product.description ? product.description.substring(0, 80) : '' %><%= product.description && product.description.length > 80 ? '...' : '' %></p>
                             
                             <div class="price-section">
                                 <span class="product-price">₹<%= product.price %></span>
@@ -940,77 +1080,114 @@ input:checked + .toggle-slider:before {
                 <div class="empty-icon">
                     <i class="fas fa-utensils"></i>
                 </div>
-                <h3 class="empty-title">No food items added yet</h3>
+                <h3 class="empty-title">No food stalls added yet</h3>
                 <p class="empty-text">Start selling your delicious food items to hungry students!</p>
-                <a href="/nightmess/add-item" class="empty-btn" style="background: linear-gradient(135deg, #f97316, #ea580c);">
-                    <i class="fas fa-plus-circle"></i> Add Your First Food Item
+                <a href="/nightmess/add-item" class="add-nightmess-btn" style="margin-top:8px;">
+                    <i class="fas fa-plus-circle"></i> Add Your First Food Stall
                 </a>
             </div>
         <% } else { %>
             <div class="products-grid">
-                <% nightmessItems.forEach(item => { 
-                    const statusClass = item.status === 'available' ? 'status-available' : 
-                                       (item.status === 'sold_out' ? 'status-sold' : 'status-hidden');
+                <% nightmessItems.forEach((item, idx) => {
+                    const menuCount = item.menuItems ? item.menuItems.length : 0;
+                    const previewItems = item.menuItems ? item.menuItems.slice(0, 3) : [];
+                    const safeVendorName = (item.vendorName || "Food Stall").replace(/'/g, "\\'");
                 %>
-                    <div class="product-card-modern" data-item-id="<%= item._id %>" data-type="nightmess">
-                        <div class="card-image">
-                            <img src="<%= item.images[0] %>" alt="<%= item.title %>">
-                            <div class="visibility-toggle">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" class="visibility-checkbox" 
-                                           data-id="<%= item._id %>" 
-                                           data-type="nightmess"
-                                           <%= item.status !== 'hidden' ? 'checked' : '' %>
-                                           onchange="toggleVisibility('<%= item._id %>', 'nightmess', this.checked)">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                                <span class="toggle-label">Visible</span>
-                            </div>
-                            <div class="status-badge <%= statusClass %>">
-                                <i class="fas <%= item.status === 'available' ? 'fa-check-circle' : (item.status === 'sold_out' ? 'fa-shopping-cart' : 'fa-eye-slash') %>"></i>
-                                <%= item.status.toUpperCase() %>
-                            </div>
-                            <div class="category-badge">
-                                <i class="fas fa-tag"></i> <%= item.category %>
-                            </div>
-                            <div class="nightmess-badge">
-                                <i class="fas fa-utensils"></i> Night Mess
+                    <div class="stall-card" data-item-id="<%= item._id %>" data-type="nightmess" style="animation-delay: <%= idx * 0.06 %>s">
+
+                        <!-- Image with overlay badges -->
+                        <div class="stall-image">
+                            <img src="<%= item.images && item.images.length > 0 ? item.images[0] : '/images/placeholder.png' %>" alt="<%= item.vendorName %>">
+
+                            <div class="stall-overlay">
+                                <!-- Visibility Toggle -->
+                                <div class="badge-topleft">
+                                    <div class="vis-pill">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="visibility-checkbox"
+                                                   data-id="<%= item._id %>"
+                                                   data-type="nightmess"
+                                                   <%= item.status !== 'hidden' ? 'checked' : '' %>
+                                                   onchange="toggleVisibility('<%= item._id %>', 'nightmess', this.checked)">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                        <span class="toggle-label">Visible</span>
+                                    </div>
+                                </div>
+
+                                <!-- Status Badge -->
+                                <div class="badge-topright">
+                                    <% if (item.status === 'available') { %>
+                                        <span class="status-pill nm-open"><i class="fas fa-circle" style="font-size:7px;"></i> Open</span>
+                                    <% } else if (item.status === 'sold_out') { %>
+                                        <span class="status-pill nm-closed"><i class="fas fa-times-circle"></i> Closed</span>
+                                    <% } else { %>
+                                        <span class="status-pill nm-hidden"><i class="fas fa-eye-slash"></i> Hidden</span>
+                                    <% } %>
+                                </div>
+
+                                <!-- Hostel Type + Block -->
+                                <div class="badge-bottomleft">
+                                    <span class="hostel-pill <%= item.hostelType %>">
+                                        <% if (item.hostelType === 'men') { %>
+                                            <i class="fas fa-mars"></i> Men's
+                                        <% } else { %>
+                                            <i class="fas fa-venus"></i> Women's
+                                        <% } %>
+                                        · Block <%= item.hostelBlock %>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="card-content">
-                            <h3 class="product-title"><%= item.title %></h3>
-                            <p class="product-description"><%= item.description.substring(0, 80) %><%= item.description.length > 80 ? '...' : '' %></p>
-                            
-                            <div class="price-section">
-                                <span class="product-price"><%= item.price > 0 ? '₹' + item.price : 'Price Varies' %></span>
-                                <span class="condition-tag condition-good">Block <%= item.hostelBlock %></span>
+
+                        <!-- Card Body -->
+                        <div class="stall-body">
+                            <div class="stall-name">
+                                <i class="fas fa-store" style="color:#f97316;font-size:16px;"></i>
+                                <a href="/nightmess/item/<%= item._id %>"><%= item.vendorName %></a>
                             </div>
-                            
-                            <div class="product-meta">
-                                <div class="meta-item">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span>Listed: <%= new Date(item.createdAt).toLocaleDateString() %></span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-eye"></i>
-                                    <span><%= item.views %> views</span>
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-heart"></i>
-                                    <span><%= item.interestedBuyers ? item.interestedBuyers.length : 0 %> interested</span>
-                                </div>
+
+                            <div class="stall-location">
+                                <i class="fas fa-utensils"></i>
+                                <%= menuCount %> menu item<%= menuCount !== 1 ? 's' : '' %>
+                                &nbsp;·&nbsp;
+                                <i class="fas fa-eye"></i>
+                                <%= item.views || 0 %> views
+                                &nbsp;·&nbsp;
+                                <i class="fas fa-heart"></i>
+                                <%= item.interestedBuyers ? item.interestedBuyers.length : 0 %> interested
                             </div>
-                            
-                            <div class="action-buttons">
-                                <a href="/nightmess/item/<%= item._id %>" class="btn-action btn-view">
+
+                            <% if (previewItems.length > 0) { %>
+                                <div class="menu-chips">
+                                    <% previewItems.forEach(mi => { %>
+                                        <span class="menu-chip"><%= mi.itemName.substring(0,18) %><%= mi.itemName.length > 18 ? '…' : '' %> · ₹<%= mi.price %></span>
+                                    <% }) %>
+                                    <% if (menuCount > 3) { %>
+                                        <span class="menu-chip more">+<%= menuCount - 3 %> more</span>
+                                    <% } %>
+                                </div>
+                            <% } %>
+
+                            <div class="stall-tags">
+                                <span class="tag tag-cat"><i class="fas fa-layer-group"></i> <%= item.category %></span>
+                                <span class="tag tag-block"><i class="fas fa-building"></i> Block <%= item.hostelBlock %></span>
+                                <% if (item.vendorPhone) { %>
+                                    <span class="tag" style="background:#f0fdf4;color:#166534;"><i class="fas fa-phone"></i> <%= item.vendorPhone %></span>
+                                <% } %>
+                            </div>
+
+                            <hr class="stall-divider">
+
+                            <div class="stall-actions">
+                                <a href="/nightmess/item/<%= item._id %>" class="btn-act btn-view-act">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="/nightmess/edit-item/<%= item._id %>" class="btn-action btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
+                                <a href="/nightmess/edit-item/<%= item._id %>" class="btn-act btn-edit-act">
+                                    <i class="fas fa-pen"></i> Edit
                                 </a>
-                                <button onclick="deleteItem('<%= item._id %>', 'nightmess', '<%= item.title %>')" class="btn-action btn-delete">
-                                    <i class="fas fa-trash-alt"></i> Delete
+                                <button onclick="deleteItem('<%= item._id %>', 'nightmess', '<%= safeVendorName %>')" class="btn-act btn-del-act">
+                                    <i class="fas fa-trash"></i> Delete
                                 </button>
                             </div>
                         </div>
@@ -1091,28 +1268,26 @@ function toggleVisibility(id, type, isVisible) {
 }
 
 function deleteItem(id, type, title) {
-    if (confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
-        const url = type === 'product' ? '/marketplace/product/' : '/nightmess/item/';
-        
-        fetch(`${url}${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success || response.ok) {
+    vmConfirm({
+        title: 'Delete Item',
+        message: `Are you sure you want to delete <strong>"${title}"</strong>? This action cannot be undone.`,
+        confirmText: 'Yes, Delete',
+        cancelText: 'Keep It',
+        variant: 'danger',
+        onConfirm() {
+            const url = type === 'product' ? '/marketplace/product/' : '/nightmess/item/';
+            fetch(`${url}${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(r => r.json())
+            .then(data => {
                 showToast('Item deleted successfully!', 'success');
                 setTimeout(() => window.location.reload(), 1000);
-            } else {
-                showToast('Error deleting item', 'error');
-            }
-        })
-        .catch(error => {
-            showToast('Error deleting item', 'error');
-        });
-    }
+            })
+            .catch(() => showToast('Error deleting item', 'error'));
+        }
+    });
 }
 
 function showToast(message, type) {

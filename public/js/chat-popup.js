@@ -6,6 +6,7 @@ class ChatPopup {
         this.typingTimeouts = new Map();
         this.joinedRooms = new Set();
         this.pendingMessages = new Set();
+        this.dealStatuses = new Map(); // Track deal status per room
         this.init();
     }
     
@@ -62,6 +63,26 @@ class ChatPopup {
         this.socket.on('chat-notification', (data) => {
             console.log('🔔 Notification:', data);
             this.showNotification(data);
+        });
+        
+        this.socket.on('deal-confirmation', (data) => {
+            console.log('🤝 Deal confirmation received:', data);
+            this.handleDealConfirmation(data);
+        });
+        
+        this.socket.on('deal-cancelled', (data) => {
+            console.log('❌ Deal cancelled:', data);
+            this.handleDealCancelled(data);
+        });
+        
+        this.socket.on('product-available-again', (data) => {
+            console.log('✅ Product available again:', data);
+            this.handleProductAvailableAgain(data);
+        });
+        
+        this.socket.on('deal-sold', (data) => {
+            console.log('🔒 Product sold to another buyer:', data);
+            this.showGlobalNotification(`The product "${data.productTitle}" was sold to another buyer.`, 'warning');
         });
         
         this.socket.on('disconnect', () => {
@@ -261,6 +282,9 @@ class ChatPopup {
         const chatWindow = this.createChatWindow(data);
         this.activeChats.set(roomId, chatWindow);
         
+        // Fetch deal status
+        this.fetchDealStatus(data, chatWindow);
+        
         // Determine API endpoint based on type
         let apiEndpoint;
         if (data.type === 'nightmess' || roomId.startsWith('nightmess_')) {
@@ -272,11 +296,135 @@ class ChatPopup {
         this.loadChatHistory(apiEndpoint, roomId, chatWindow);
     }
     
+    fetchDealStatus(data, chatWindow) {
+        let url;
+        if (data.type === 'nightmess' || data.roomId.startsWith('nightmess_')) {
+            url = `/nightmess/item/${data.productId}/deal-status`;
+        } else {
+            url = `/marketplace/product/${data.productId}/deal-status`;
+        }
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(status => {
+                this.dealStatuses.set(data.roomId, status);
+                this.updateDealButton(chatWindow, status);
+            })
+            .catch(err => console.error('Error fetching deal status:', err));
+    }
+    
+    updateDealButton(chatWindow, status) {
+        const dealBtn = chatWindow.querySelector('.confirm-deal-btn');
+        const cancelBtn = chatWindow.querySelector('.cancel-deal-btn');
+        
+        if (status.status === 'sold' || status.status === 'sold_out') {
+            if (dealBtn) { dealBtn.disabled = true; dealBtn.innerHTML = '<i class="fas fa-check-circle"></i> Deal Closed'; dealBtn.style.background = '#6b7280'; }
+            if (cancelBtn) cancelBtn.style.display = 'none';
+            return;
+        }
+        
+        if (status.bothConfirmed) {
+            if (dealBtn) { dealBtn.disabled = true; dealBtn.innerHTML = '<i class="fas fa-check-circle"></i> Deal Confirmed!'; dealBtn.style.background = '#10b981'; }
+            if (cancelBtn) cancelBtn.style.display = 'none';
+            return;
+        }
+        
+        if (status.isQueued) {
+            if (dealBtn) { dealBtn.disabled = true; dealBtn.innerHTML = '<i class="fas fa-clock"></i> You are in queue'; dealBtn.style.background = '#6366f1'; }
+            if (cancelBtn) cancelBtn.style.display = 'none';
+            return;
+        }
+        
+        if (status.userConfirmed) {
+            if (dealBtn) { dealBtn.disabled = true; dealBtn.innerHTML = '<i class="fas fa-clock"></i> Waiting for other party...'; dealBtn.style.background = '#f59e0b'; }
+            // Show cancel deal button for confirmed party
+            if (cancelBtn) { cancelBtn.style.display = 'flex'; cancelBtn.innerHTML = '<i class="fas fa-times-circle"></i> Cancel Deal'; }
+            return;
+        }
+        
+        if (dealBtn) { dealBtn.disabled = false; dealBtn.innerHTML = '<i class="fas fa-handshake"></i> Confirm Deal'; dealBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)'; }
+        if (cancelBtn) cancelBtn.style.display = 'none';
+    }
+    
+    handleDealConfirmation(data) {
+        // Try to find the chat window by productId since we may not have roomId in the event
+        let chatWindow = null;
+        for (let [roomId, win] of this.activeChats) {
+            if (win.dataset.productId === data.productId.toString()) {
+                chatWindow = win;
+                break;
+            }
+        }
+        
+        if (chatWindow) {
+            const currentStatus = this.dealStatuses.get(chatWindow.dataset.roomId) || {};
+            currentStatus.dealStatus = data.dealStatus;
+            currentStatus.bothConfirmed = data.bothConfirmed;
+            this.dealStatuses.set(chatWindow.dataset.roomId, currentStatus);
+            
+            this.updateDealButton(chatWindow, currentStatus);
+            
+            const messagesContainer = chatWindow.querySelector('.chat-messages');
+            const notificationDiv = document.createElement('div');
+            notificationDiv.className = 'deal-notification';
+            notificationDiv.innerHTML = `
+                <div class="deal-notification-content">
+                    <i class="fas fa-handshake"></i>
+                    <span>${this.escapeHtml(data.confirmedBy)} confirmed the deal! ${data.bothConfirmed ? '🎉 Deal completed!' : 'Waiting for the other party...'}</span>
+                </div>
+            `;
+            messagesContainer.appendChild(notificationDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            this.playNotificationSound();
+        }
+    }
+    
+    handleDealCancelled(data) {
+        let chatWindow = null;
+        for (let [roomId, win] of this.activeChats) {
+            if (win.dataset.productId === data.productId.toString()) {
+                chatWindow = win;
+                break;
+            }
+        }
+        if (chatWindow) {
+            const currentStatus = this.dealStatuses.get(chatWindow.dataset.roomId) || {};
+            currentStatus.dealStatus = 'pending';
+            currentStatus.userConfirmed = false;
+            currentStatus.bothConfirmed = false;
+            currentStatus.isQueued = false;
+            this.dealStatuses.set(chatWindow.dataset.roomId, currentStatus);
+            this.updateDealButton(chatWindow, currentStatus);
+            
+            const messagesContainer = chatWindow.querySelector('.chat-messages');
+            const notificationDiv = document.createElement('div');
+            notificationDiv.className = 'deal-notification warning';
+            notificationDiv.innerHTML = `<div class="deal-notification-content"><i class="fas fa-times-circle"></i><span>${this.escapeHtml(data.cancelledBy)} cancelled the deal. The product is available again.</span></div>`;
+            messagesContainer.appendChild(notificationDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
+    
+    handleProductAvailableAgain(data) {
+        this.showGlobalNotification(`🎉 ${data.message || `The product "${data.productTitle}" is available again! You may now confirm the deal.`}`, 'success');
+    }
+    
+    showGlobalNotification(message, type = 'info') {
+        const colors = { info: '#3b82f6', success: '#10b981', warning: '#f59e0b', error: '#ef4444' };
+        const toast = document.createElement('div');
+        toast.style.cssText = `position:fixed;bottom:80px;right:20px;background:${colors[type] || colors.info};color:white;padding:14px 20px;border-radius:12px;max-width:320px;z-index:99999;font-size:14px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:slideUp 0.3s ease;`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 6000);
+    }
+    
     createChatWindow(data) {
         const chatWindow = document.createElement('div');
         chatWindow.className = 'chat-window';
         chatWindow.dataset.roomId = data.roomId;
         chatWindow.dataset.type = data.type || 'product';
+        chatWindow.dataset.productId = data.productId;
+        chatWindow.dataset.otherUserId = data.otherUserId;
         chatWindow.innerHTML = `
             <div class="chat-window-header">
                 <div class="chat-window-title">
@@ -294,6 +442,14 @@ class ChatPopup {
                     <span class="typing-text">Typing...</span>
                 </div>
             </div>
+            <div class="chat-deal-area">
+                <button class="confirm-deal-btn">
+                    <i class="fas fa-handshake"></i> Confirm Deal
+                </button>
+                <button class="cancel-deal-btn" style="display:none;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;padding:8px 16px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer;align-items:center;gap:6px;margin-left:8px;">
+                    <i class="fas fa-times-circle"></i> Cancel Deal
+                </button>
+            </div>
             <div class="chat-input-area">
                 <textarea placeholder="Type your message..." rows="2"></textarea>
                 <button class="send-message">Send</button>
@@ -310,26 +466,23 @@ class ChatPopup {
         const closeBtn = chatWindow.querySelector('.close-chat');
         const minimizeBtn = chatWindow.querySelector('.minimize-chat');
         const sendBtn = chatWindow.querySelector('.send-message');
+        const confirmDealBtn = chatWindow.querySelector('.confirm-deal-btn');
+        const cancelDealBtn = chatWindow.querySelector('.cancel-deal-btn');
         const textarea = chatWindow.querySelector('textarea');
         
         closeBtn.onclick = () => this.closeChat(data.roomId);
         minimizeBtn.onclick = () => chatWindow.classList.toggle('minimized');
         sendBtn.onclick = () => this.sendMessage(chatWindow, data);
+        confirmDealBtn.onclick = () => this.confirmDeal(chatWindow, data);
+        cancelDealBtn.onclick = () => this.cancelDeal(chatWindow, data);
         
         let typingTimeout;
         textarea.oninput = () => {
             if (this.socket) {
-                this.socket.emit('typing-start', {
-                    roomId: data.roomId,
-                    username: this.currentUser.username
-                });
-                
+                this.socket.emit('typing-start', { roomId: data.roomId, username: this.currentUser.username });
                 clearTimeout(typingTimeout);
                 typingTimeout = setTimeout(() => {
-                    this.socket.emit('typing-stop', {
-                        roomId: data.roomId,
-                        username: this.currentUser.username
-                    });
+                    this.socket.emit('typing-stop', { roomId: data.roomId, username: this.currentUser.username });
                 }, 1000);
             }
         };
@@ -342,6 +495,123 @@ class ChatPopup {
         };
         
         return chatWindow;
+    }
+    
+    confirmDeal(chatWindow, data) {
+        const confirmBtn = chatWindow.querySelector('.confirm-deal-btn');
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Confirming...';
+        
+        let url;
+        if (data.type === 'nightmess' || data.roomId.startsWith('nightmess_')) {
+            url = `/nightmess/item/${data.productId}/deal-confirm`;
+        } else {
+            url = `/marketplace/product/${data.productId}/deal-confirm`;
+        }
+        
+        // Always send the other userId so server knows which buyer the deal is locked to
+        const bodyPayload = { buyerId: data.otherUserId };
+        
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyPayload)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.queued) {
+                // Buyer is queued — show info in chat
+                const messagesContainer = chatWindow.querySelector('.chat-messages');
+                const notificationDiv = document.createElement('div');
+                notificationDiv.className = 'deal-notification warning';
+                notificationDiv.innerHTML = `
+                    <div class="deal-notification-content" style="flex-direction:column;gap:8px;">
+                        <div><i class="fas fa-clock"></i> <strong>You've been added to the queue!</strong></div>
+                        <div style="font-size:12px;opacity:0.9;">${this.escapeHtml(result.message)}</div>
+                        ${result.sellerPhone ? `<div style="font-size:12px;">📞 Call seller: <strong>${this.escapeHtml(result.sellerPhone)}</strong></div>` : ''}
+                        ${result.sellerEmail ? `<div style="font-size:12px;">✉️ Email: <strong>${this.escapeHtml(result.sellerEmail)}</strong></div>` : ''}
+                    </div>
+                `;
+                messagesContainer.appendChild(notificationDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = '<i class="fas fa-clock"></i> You are in queue';
+                confirmBtn.style.background = '#6366f1';
+            } else if (result.success) {
+                const currentStatus = this.dealStatuses.get(data.roomId) || {};
+                currentStatus.userConfirmed = true;
+                currentStatus.dealStatus = result.dealStatus;
+                currentStatus.bothConfirmed = result.bothConfirmed;
+                this.dealStatuses.set(data.roomId, currentStatus);
+                
+                this.updateDealButton(chatWindow, currentStatus);
+                
+                const messagesContainer = chatWindow.querySelector('.chat-messages');
+                const notificationDiv = document.createElement('div');
+                notificationDiv.className = 'deal-notification success';
+                notificationDiv.innerHTML = `<div class="deal-notification-content"><i class="fas fa-check-circle"></i><span>${this.escapeHtml(result.message)}</span></div>`;
+                messagesContainer.appendChild(notificationDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                if (result.bothConfirmed) {
+                    setTimeout(() => { this.closeChat(data.roomId); this.loadChats(); }, 3000);
+                }
+            } else {
+                alert(result.message || 'Failed to confirm deal');
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i class="fas fa-handshake"></i> Confirm Deal';
+            }
+        })
+        .catch(err => {
+            console.error('Error confirming deal:', err);
+            alert('Error confirming deal. Please try again.');
+            confirmBtn.disabled = false;
+            confirmBtn.innerHTML = '<i class="fas fa-handshake"></i> Confirm Deal';
+        });
+    }
+    
+    cancelDeal(chatWindow, data) {
+        vmConfirm({
+            title: 'Cancel This Deal',
+            message: 'Are you sure you want to cancel this deal? Queued buyers will be notified.',
+            confirmText: 'Yes, Cancel Deal',
+            cancelText: 'Keep Deal',
+            variant: 'warning',
+            onConfirm: () => {
+                const cancelBtn = chatWindow.querySelector('.cancel-deal-btn');
+                if (cancelBtn) { cancelBtn.disabled = true; cancelBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cancelling...'; }
+
+                const url = (data.type === 'nightmess' || data.roomId.startsWith('nightmess_'))
+                    ? `/nightmess/item/${data.productId}/deal-cancel`
+                    : `/marketplace/product/${data.productId}/deal-cancel`;
+
+                fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
+                .then(r => r.json())
+                .then(result => {
+                    if (result.success) {
+                        const currentStatus = this.dealStatuses.get(data.roomId) || {};
+                        currentStatus.dealStatus = 'pending'; currentStatus.userConfirmed = false; currentStatus.bothConfirmed = false;
+                        this.dealStatuses.set(data.roomId, currentStatus);
+                        this.updateDealButton(chatWindow, currentStatus);
+
+                        const messagesContainer = chatWindow.querySelector('.chat-messages');
+                        const notificationDiv = document.createElement('div');
+                        notificationDiv.className = 'deal-notification warning';
+                        notificationDiv.innerHTML = `<div class="deal-notification-content"><i class="fas fa-times-circle"></i><span>You cancelled the deal. The product is now available again.</span></div>`;
+                        messagesContainer.appendChild(notificationDiv);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    } else {
+                        alert(result.message || 'Failed to cancel deal');
+                        if (cancelBtn) { cancelBtn.disabled = false; cancelBtn.innerHTML = '<i class="fas fa-times-circle"></i> Cancel Deal'; }
+                    }
+                })
+                .catch(err => {
+                    alert('Error cancelling deal.');
+                    if (cancelBtn) { cancelBtn.disabled = false; cancelBtn.innerHTML = '<i class="fas fa-times-circle"></i> Cancel Deal'; }
+                });
+            }
+        });
     }
     
     loadChatHistory(apiEndpoint, roomId, chatWindow) {
@@ -357,6 +627,12 @@ class ChatPopup {
             .then(data => {
                 console.log('Chat history received:', data);
                 const messagesContainer = chatWindow.querySelector('.chat-messages');
+                
+                // Update deal status from response
+                if (data.dealStatus) {
+                    this.dealStatuses.set(roomId, data.dealStatus);
+                    this.updateDealButton(chatWindow, data.dealStatus);
+                }
                 
                 if (data.messages && data.messages.length > 0) {
                     this.displayMessages(chatWindow, data.messages);
@@ -619,6 +895,7 @@ class ChatPopup {
             }
             chatWindow.remove();
             this.activeChats.delete(roomId);
+            this.dealStatuses.delete(roomId);
         }
     }
     

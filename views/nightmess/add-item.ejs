@@ -1,517 +1,831 @@
 <%- include('../partials/header') %>
 
 <style>
-    /* ========== PREMIUM STYLES ========== */
-    :root {
-        --primary-orange: #f97316;
-        --primary-orange-dark: #ea580c;
-        --primary-orange-light: #ff8c42;
-        --dark-bg: #ffffff;
-        --card-bg: #ffffff;
-        --text-light: #464646;
-        --text-muted: #94a3b8;
-        --border-glow: rgba(249, 115, 22, 0.3);
-    }
-    
-    .add-item-container {
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
-    
-    /* Back Button */
-    .back-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 24px;
-        transition: all 0.3s ease;
-        padding: 8px 0;
-    }
-    
-    .back-button:hover {
-        color: var(--primary-orange);
-        transform: translateX(-4px);
-    }
-    
-    .back-button i {
-        font-size: 14px;
-    }
-    
-    /* Premium Card */
-    .premium-card {
-        background: var(--card-bg);
-        border-radius: 32px;
-        overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(249, 115, 22, 0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .premium-card:hover {
-        box-shadow: 0 25px 50px rgba(249, 115, 22, 0.1);
-        border-color: rgba(249, 115, 22, 0.2);
-    }
-    
-    /* Card Header */
-    .card-header-premium {
-        background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
-        padding: 32px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .card-header-premium::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-    }
-    
-    .card-header-premium::after {
-        content: '';
-        position: absolute;
-        bottom: -30%;
-        left: -10%;
-        width: 150px;
-        height: 150px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50%;
-    }
-    
-    .header-icon {
-        width: 70px;
-        height: 70px;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
-    }
-    
-    .header-icon i {
-        font-size: 32px;
-        color: white;
-    }
-    
-    .card-header-premium h2 {
-        color: white;
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-    
-    .card-header-premium p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 14px;
-    }
-    
-    /* Card Body */
-    .card-body-premium {
-        padding: 40px;
-    }
-    
-    /* Form Groups */
-    .form-group-modern {
-        margin-bottom: 28px;
-        position: relative;
-    }
-    
-    .form-label-modern {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-light);
-        margin-bottom: 8px;
-    }
-    
-    .form-label-modern i {
-        color: var(--primary-orange);
-        margin-right: 8px;
-        width: 20px;
-    }
-    
-    .required-star {
-        color: #ef4444;
-        margin-left: 4px;
-    }
-    
-    .form-input-modern,
-    .form-textarea-modern,
-    .form-select-modern {
-        width: 100%;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(249, 115, 22, 0.2);
-        border-radius: 16px;
-        font-size: 14px;
-        color: var(--text-light);
-        transition: all 0.3s ease;
-    }
-    
-    .form-input-modern:focus,
-    .form-textarea-modern:focus,
-    .form-select-modern:focus {
-        outline: none;
-        border-color: var(--primary-orange);
-        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-        background: rgba(241, 243, 248, 0.8);
-    }
-    
-    .form-textarea-modern {
-        resize: vertical;
-        min-height: 120px;
-    }
-    
-    /* Form Row */
+/* ========== VALL THEME VARIABLES ========== */
+:root {
+    --primary: #00d8ff;
+    --primary-dark: #00b8e6;
+    --primary-light: #33e0ff;
+    --secondary: #7c3aed;
+    --accent: #f97316;
+    --success: #10b981;
+    --dark: #dcdcdc;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* ========== MAIN CONTAINER ========== */
+.sell-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ========== FORM CARD ========== */
+.form-card {
+    background: rgba(249, 249, 249, 0.95);
+    border-radius: 32px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 216, 255, 0.1);
+}
+
+.form-card:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 216, 255, 0.2);
+    border-color: rgba(0, 216, 255, 0.3);
+}
+
+/* ========== HEADER SECTION ========== */
+.form-header {
+    background: linear-gradient(135deg, #00d8ff 0%, #7c3aed 100%);
+    padding: 40px 40px 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.form-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.header-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.header-icon i {
+    font-size: 36px;
+    color: white;
+}
+
+.header-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 12px;
+    text-shadow: 0 0 20px rgba(0, 216, 255, 0.5);
+}
+
+.header-subtitle {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* ========== FORM BODY ========== */
+.form-body {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* ========== FORM GROUPS ========== */
+.form-group {
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.form-label i {
+    color: var(--primary);
+    margin-right: 8px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 16px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: rgba(243, 243, 243, 0.9);
+    color: #1f2937;
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 216, 255, 0.1);
+    background: white;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #9ca3af;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-select option {
+    background: white;
+    color: #1f2937;
+}
+
+/* ========== ROW LAYOUT ========== */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+@media (max-width: 640px) {
     .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 28px;
+        grid-template-columns: 1fr;
+        gap: 28px;
     }
-    
-    @media (max-width: 640px) {
-        .form-row {
-            grid-template-columns: 1fr;
-            gap: 28px;
-        }
+}
+
+/* ========== MENU ITEMS SECTION ========== */
+.menu-items-section {
+    background: linear-gradient(135deg, rgba(0, 216, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+}
+
+.menu-items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.menu-items-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-items-title i {
+    color: var(--primary);
+}
+
+.item-count-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-count-selector label {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.item-count-input {
+    width: 80px;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: center;
+    background: white;
+}
+
+.generate-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    padding: 8px 20px;
+    border-radius: 40px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 216, 255, 0.3);
+}
+
+.menu-items-container {
+    margin-top: 20px;
+}
+
+.menu-item-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0, 216, 255, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.menu-item-card:hover {
+    border-color: rgba(0, 216, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.menu-item-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.remove-item-btn {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.remove-item-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    transform: scale(1.1);
+}
+
+.menu-item-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.menu-item-field {
+    width: 100%;
+}
+
+.menu-item-field label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.menu-item-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.menu-item-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.1);
+    background: white;
+}
+
+/* ========== HOSTEL TYPE SECTION ========== */
+.hostel-type-section {
+    background: linear-gradient(135deg, rgba(0, 216, 255, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(0, 216, 255, 0.2);
+}
+
+.hostel-type-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hostel-type-title i {
+    color: var(--primary);
+}
+
+.hostel-type-options {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hostel-type-option {
+    flex: 1;
+    min-width: 120px;
+}
+
+.hostel-type-option input {
+    display: none;
+}
+
+.hostel-type-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.hostel-type-option input:checked + label {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 216, 255, 0.3);
+}
+
+.hostel-type-option label i {
+    font-size: 14px;
+}
+
+/* ========== BLOCK SELECTION ========== */
+.block-group {
+    margin-bottom: 20px;
+}
+
+.block-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.block-group-title.men {
+    color: var(--primary);
+}
+
+.block-group-title.women {
+    color: #ff69b4;
+}
+
+.block-buttons-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.block-option {
+    position: relative;
+}
+
+.block-option input {
+    display: none;
+}
+
+.block-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.block-option input:checked + label {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 216, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.block-option label:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+/* ========== IMAGE UPLOAD ========== */
+.image-upload-area {
+    border: 2px dashed rgba(0, 216, 255, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #f9fafb;
+}
+
+.image-upload-area:hover {
+    border-color: var(--primary);
+    background: rgba(0, 216, 255, 0.02);
+    transform: translateY(-2px);
+}
+
+.upload-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    box-shadow: 0 0 20px rgba(0, 216, 255, 0.3);
+}
+
+.upload-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.upload-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.upload-hint {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.preview-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    animation: fadeIn 0.3s ease;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-image {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    font-size: 12px;
+}
+
+.remove-image:hover {
+    background: #ef4444;
+    transform: scale(1.1);
+}
+
+/* ========== BUTTONS ========== */
+.btn-update {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border: none;
+    padding: 16px;
+    border-radius: 60px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-update::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 216, 255, 0.3);
+}
+
+.btn-update:hover::before {
+    left: 100%;
+}
+
+.btn-cancel {
+    width: 100%;
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 14px;
+    border-radius: 60px;
+    color: #1f2937;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-cancel:hover {
+    background: #f9fafb;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ========== HELPER TEXT ========== */
+.helper-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 6px;
+}
+
+.required-star {
+    color: var(--accent);
+    margin-left: 4px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
     }
-    
-    /* Image Upload Area */
-    .image-upload-area {
-        border: 2px dashed rgba(249, 115, 22, 0.3);
-        border-radius: 20px;
-        padding: 40px;
-        text-align: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        background: rgba(228, 228, 228, 0.959);
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
-    
-    .image-upload-area:hover {
-        border-color: var(--primary-orange);
-        background: rgba(249, 115, 22, 0.05);
-        transform: translateY(-2px);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-    
-    .upload-icon {
-        width: 64px;
-        height: 64px;
-        background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 16px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    
-    .upload-icon i {
-        font-size: 28px;
-        color: white;
-    }
-    
-    .upload-title {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--text-light);
-        margin-bottom: 8px;
-    }
-    
-    .upload-hint {
-        font-size: 12px;
-        color: var(--text-muted);
-    }
-    
-    .preview-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
-    }
-    
-    .preview-item {
-        position: relative;
-        aspect-ratio: 1;
-        border-radius: 12px;
-        overflow: hidden;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(249, 115, 22, 0.2);
-        animation: fadeIn 0.3s ease;
-    }
-    
-    .preview-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .remove-image {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 24px;
-        height: 24px;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(4px);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        color: white;
-        font-size: 12px;
-    }
-    
-    .remove-image:hover {
-        background: #ef4444;
-        transform: scale(1.1);
-    }
-    
-    /* Buttons */
-    .btn-submit {
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
-        border: none;
-        padding: 14px;
-        border-radius: 60px;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 12px;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .btn-submit::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s ease;
-    }
-    
-    .btn-submit:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
-    }
-    
-    .btn-submit:hover::before {
-        left: 100%;
-    }
-    
-    .btn-cancel {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(249, 115, 22, 0.2);
-        padding: 12px;
-        border-radius: 60px;
-        color: var(--text-light);
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-    }
-    
-    .btn-cancel:hover {
-        background: rgba(249, 115, 22, 0.1);
-        border-color: var(--primary-orange);
-        transform: translateY(-2px);
-    }
-    
-    /* Helper Text */
-    .helper-text {
-        font-size: 11px;
-        color: var(--text-muted);
-        margin-top: 6px;
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .premium-card {
-        animation: slideUp 0.5s ease-out;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .card-body-premium {
-            padding: 24px;
-        }
-        
-        .card-header-premium {
-            padding: 24px;
-        }
-        
-        .card-header-premium h2 {
-            font-size: 24px;
-        }
-        
-        .header-icon {
-            width: 56px;
-            height: 56px;
-        }
-        
-        .header-icon i {
-            font-size: 24px;
-        }
-    }
+}
+
+.form-card {
+    animation: slideUp 0.5s ease-out;
+}
+
+/* ========== LOADING STATE ========== */
+.btn-update.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-update.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 </style>
 
-<div class="add-item-container">
-    <!-- Back Button -->
-    <a href="/marketplace" class="back-button">
-        <i class="fas fa-arrow-left"></i> Back to Night Mess
-    </a>
-    
-    <div class="premium-card">
-        <div class="card-header-premium">
+<div class="sell-container">
+    <div class="form-card">
+        <div class="form-header">
             <div class="header-icon">
                 <i class="fas fa-utensils"></i>
             </div>
-            <h2>Add Night Mess Food Item</h2>
-            <p>Share your delicious food with hungry students</p>
+            <h1 class="header-title">Add Food Items</h1>
+            <p class="header-subtitle">Share your delicious food with hungry students</p>
         </div>
         
-        <div class="card-body-premium">
+        <div class="form-body">
             <form action="/nightmess/add-item" method="POST" enctype="multipart/form-data" id="foodForm">
-                <!-- Item Name -->
-                <div class="form-group-modern">
-                    <label class="form-label-modern">
-                        <i class="fas fa-tag"></i> Item Name <span class="required-star">*</span>
+                <!-- Vendor Name -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> Vendor Name <span class="required-star">*</span>
                     </label>
-                    <input type="text" name="title" class="form-input-modern" placeholder="e.g., Hot & Spicy Maggi" required>
+                    <input type="text" name="vendorName" class="form-input" placeholder="e.g., Sharma Canteen, Singh's Kitchen" required>
+                    <div class="helper-text">Your shop/restaurant name</div>
                 </div>
                 
-                <!-- Description -->
-                <div class="form-group-modern">
-                    <label class="form-label-modern">
-                        <i class="fas fa-align-left"></i> Description <span class="required-star">*</span>
+                <!-- Category -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-folder"></i> Category <span class="required-star">*</span>
                     </label>
-                    <textarea name="description" class="form-textarea-modern" placeholder="Describe your food item... (ingredients, taste, special features)" required></textarea>
+                    <select name="category" class="form-select" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Meals">Meals</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Others">Others</option>
+                    </select>
                 </div>
                 
-                <!-- Price & Category Row -->
-                <div class="form-row">
-                    <div class="form-group-modern">
-                        <label class="form-label-modern">
-                            <i class="fas fa-rupee-sign"></i> Price <span class="required-star">*</span>
-                        </label>
-                        <input type="number" name="price" class="form-input-modern" step="0.01" value="0" placeholder="0 for Price Varies">
-                        <div class="helper-text">Leave 0 for "Price Varies"</div>
+                <!-- Hostel Type Selection -->
+                <div class="hostel-type-section">
+                    <div class="hostel-type-title">
+                        <i class="fas fa-venus-mars"></i>
+                        <span>Delivery Available For</span>
+                        <span class="required-star">*</span>
                     </div>
+                    <div class="hostel-type-options">
+                        <div class="hostel-type-option">
+                            <input type="radio" name="hostelType" id="typeMen" value="men" checked>
+                            <label for="typeMen">
+                                <i class="fas fa-mars"></i>
+                                Men's Only
+                            </label>
+                        </div>
+                        <div class="hostel-type-option">
+                            <input type="radio" name="hostelType" id="typeWomen" value="women">
+                            <label for="typeWomen">
+                                <i class="fas fa-venus"></i>
+                                Women's Only
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hostel Block Selection -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-building"></i> Hostel Block <span class="required-star">*</span>
+                    </label>
                     
-                    <div class="form-group-modern">
-                        <label class="form-label-modern">
-                            <i class="fas fa-folder"></i> Category <span class="required-star">*</span>
-                        </label>
-                        <select name="category" class="form-select-modern" required>
-                            <option value="" disabled selected>Select category</option>
-                            <option value="Snacks">🍿 Snacks</option>
-                            <option value="Beverages">🥤 Beverages</option>
-                            <option value="Meals">🍛 Meals</option>
-                            <option value="Desserts">🍰 Desserts</option>
-                            <option value="Burgers">🍔 Burgers</option>
-                            <option value="Pizza">🍕 Pizza</option>
-                            <option value="Others">🎁 Others</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Hostel Block & Tags Row -->
-                <div class="form-row">
-                    <div class="form-group-modern">
-                        <label class="form-label-modern">
-                            <i class="fas fa-building"></i> Hostel Block <span class="required-star">*</span>
-                        </label>
-                        <select name="hostelBlock" class="form-select-modern" required>
-                            <option value="" disabled selected>Select your block</option>
-                            <% const blocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']; %>
-                            <% blocks.forEach(block => { %>
-                                <option value="<%= block %>">Block <%= block %></option>
+                    <!-- Men's Hostel Blocks -->
+                    <div class="block-group" id="menBlocksGroup">
+                        <div class="block-group-title men">
+                            <i class="fas fa-mars"></i>
+                            <span>Men's Hostel Blocks (A - T)</span>
+                        </div>
+                        <div class="block-buttons-group">
+                            <% const menBlocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']; %>
+                            <% menBlocks.forEach(block => { %>
+                                <div class="block-option">
+                                    <input type="radio" name="hostelBlock" id="blockMen<%= block %>" value="<%= block %>">
+                                    <label for="blockMen<%= block %>"><%= block %></label>
+                                </div>
                             <% }) %>
-                        </select>
+                        </div>
                     </div>
                     
-                    <div class="form-group-modern">
-                        <label class="form-label-modern">
-                            <i class="fas fa-hashtag"></i> Tags
-                        </label>
-                        <input type="text" name="tags" class="form-input-modern" placeholder="e.g., spicy, veg, non-veg">
-                        <div class="helper-text">Separate tags with commas</div>
+                    <!-- Women's Hostel Blocks -->
+                    <div class="block-group" id="womenBlocksGroup" style="display: none;">
+                        <div class="block-group-title women">
+                            <i class="fas fa-venus"></i>
+                            <span>Women's Hostel Blocks (A - I)</span>
+                        </div>
+                        <div class="block-buttons-group">
+                            <% const womenBlocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; %>
+                            <% womenBlocks.forEach(block => { %>
+                                <div class="block-option">
+                                    <input type="radio" name="hostelBlock" id="blockWomen<%= block %>" value="<%= block %>">
+                                    <label for="blockWomen<%= block %>"><%= block %></label>
+                                </div>
+                            <% }) %>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- Menu Items Section -->
+                <div class="menu-items-section">
+                    <div class="menu-items-header">
+                        <div class="menu-items-title">
+                            <i class="fas fa-list-ul"></i>
+                            <span>Menu Items</span>
+                            <span class="required-star">*</span>
+                        </div>
+                        <div class="item-count-selector">
+                            <label>Number of items:</label>
+                            <input type="number" id="itemCount" class="item-count-input" min="1" max="20" value="1">
+                            <button type="button" class="generate-btn" onclick="generateMenuItems()">Generate</button>
+                        </div>
+                    </div>
+                    <div id="menuItemsContainer" class="menu-items-container"></div>
                 </div>
                 
                 <!-- Contact Information -->
-                <div class="form-group-modern">
-                    <label class="form-label-modern">
-                        <i class="fas fa-phone-alt"></i> Vendor Contact <span class="required-star">*</span>
-                    </label>
-                    <div class="form-row" style="margin-bottom: 0;">
-                        <div>
-                            <input type="tel" name="vendorPhone" class="form-input-modern" placeholder="Mobile Number" required pattern="[0-9]{10}">
-                            <div class="helper-text">10-digit mobile number</div>
-                        </div>
-                        <div>
-                            <input type="email" name="vendorEmail" class="form-input-modern" value="<%= currUser.email %>" required>
-                            <div class="helper-text">Your email address</div>
-                        </div>
+                <div class="contact-info-section">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-phone-alt"></i> Mobile Number <span class="required-star">*</span>
+                        </label>
+                        <input type="tel" name="vendorPhone" class="form-input" placeholder="Enter your mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                        <div class="helper-text-small">Students will contact you on this number</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-envelope"></i> Email Address <span class="required-star">*</span>
+                        </label>
+                        <input type="email" name="vendorEmail" class="form-input" value="<%= currUser ? currUser.email : '' %>" placeholder="Enter your email address" required>
+                        <div class="helper-text-small">For order confirmations and inquiries</div>
                     </div>
                 </div>
                 
                 <!-- Image Upload -->
-                <div class="form-group-modern">
-                    <label class="form-label-modern">
+                <div class="form-group">
+                    <label class="form-label">
                         <i class="fas fa-images"></i> Food Images <span class="required-star">*</span>
                     </label>
                     <div class="image-upload-area" onclick="document.getElementById('images').click()">
@@ -527,8 +841,8 @@
                 
                 <!-- Submit Buttons -->
                 <div style="margin-top: 32px;">
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <i class="fas fa-plus-circle"></i> Add Food Item
+                    <button type="submit" class="btn-update" id="submitBtn">
+                        <i class="fas fa-plus-circle"></i> Add Food Items
                     </button>
                     <a href="/nightmess" class="btn-cancel">
                         <i class="fas fa-times"></i> Cancel
@@ -541,6 +855,7 @@
 
 <script>
 let selectedFiles = [];
+let menuItemCount = 1;
 
 function previewImages(input) {
     const preview = document.getElementById('imagePreview');
@@ -581,11 +896,114 @@ function removeImage(indexToRemove) {
     }
 }
 
+function generateMenuItems() {
+    const count = parseInt(document.getElementById('itemCount').value);
+    if (count < 1 || count > 20) {
+        alert('Please enter a number between 1 and 20');
+        return;
+    }
+    
+    menuItemCount = count;
+    const container = document.getElementById('menuItemsContainer');
+    let html = '';
+    
+    for (let i = 1; i <= count; i++) {
+        html += `
+            <div class="menu-item-card" data-index="${i}">
+                <div class="menu-item-header">
+                    <span class="menu-item-number">Item ${i}</span>
+                    <button type="button" class="remove-item-btn" onclick="removeMenuItem(${i})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+                <div class="menu-item-fields">
+                    <div class="menu-item-field">
+                        <label>Item Name</label>
+                        <input type="text" name="menuItems[${i-1}][itemName]" class="menu-item-input" placeholder="e.g., Masala Dosa" required>
+                    </div>
+                    <div class="menu-item-field">
+                        <label>Price (₹)</label>
+                        <input type="number" name="menuItems[${i-1}][price]" class="menu-item-input" placeholder="e.g., 60" step="0.01" min="0" required>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+}
+
+function removeMenuItem(index) {
+    if (menuItemCount <= 1) {
+        alert('At least one menu item is required');
+        return;
+    }
+    
+    const itemToRemove = document.querySelector(`.menu-item-card[data-index="${index}"]`);
+    if (itemToRemove) {
+        itemToRemove.remove();
+        menuItemCount--;
+        
+        // Renumber remaining items
+        const remainingItems = document.querySelectorAll('.menu-item-card');
+        remainingItems.forEach((item, idx) => {
+            item.setAttribute('data-index', idx + 1);
+            const numberSpan = item.querySelector('.menu-item-number');
+            if (numberSpan) numberSpan.textContent = `Item ${idx + 1}`;
+            
+            // Update input names
+            const inputs = item.querySelectorAll('input');
+            inputs.forEach(input => {
+                const name = input.getAttribute('name');
+                if (name) {
+                    const newName = name.replace(/menuItems\[\d+\]/, `menuItems[${idx}]`);
+                    input.setAttribute('name', newName);
+                }
+            });
+        });
+    }
+}
+
+// Toggle block groups based on hostel type selection
+document.querySelectorAll('input[name="hostelType"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const menBlocks = document.getElementById('menBlocksGroup');
+        const womenBlocks = document.getElementById('womenBlocksGroup');
+        
+        if (this.value === 'men') {
+            menBlocks.style.display = 'block';
+            womenBlocks.style.display = 'none';
+            // Clear women's block selection
+            document.querySelectorAll('#womenBlocksGroup input').forEach(input => {
+                input.checked = false;
+            });
+        } else {
+            menBlocks.style.display = 'none';
+            womenBlocks.style.display = 'block';
+            // Clear men's block selection
+            document.querySelectorAll('#menBlocksGroup input').forEach(input => {
+                input.checked = false;
+            });
+        }
+    });
+});
+
+// Generate initial menu items on page load
+document.addEventListener('DOMContentLoaded', function() {
+    generateMenuItems();
+    
+    // Set default hostel type to men and show appropriate blocks
+    const menRadio = document.getElementById('typeMen');
+    if (menRadio) menRadio.checked = true;
+    document.getElementById('menBlocksGroup').style.display = 'block';
+    document.getElementById('womenBlocksGroup').style.display = 'none';
+});
+
 // Form submission loading state
 document.getElementById('foodForm').addEventListener('submit', function(e) {
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.classList.add('loading');
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Food Item...';
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Food Items...';
     submitBtn.disabled = true;
 });
 </script>

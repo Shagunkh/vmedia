@@ -167,6 +167,8 @@ app.use('/apii', appi);
 const addDropRoutes = require('./routes/addDrop');
 app.use('/add-drop', addDropRoutes);
 
+const { startDealScheduler } = require('./utils/dealScheduler');
+startDealScheduler(); 
 const marketplaceRoutes = require('./routes/marketplaceController');
 app.use('/marketplace', marketplaceRoutes);
 const nightMessRoutes = require('./routes/nightMess');

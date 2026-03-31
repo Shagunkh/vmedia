@@ -1,387 +1,780 @@
 <%- include('../partials/header') %>
 
 <style>
-.products-grid {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --orange: #f97316;
+    --orange-dark: #ea580c;
+    --orange-glow: rgba(249,115,22,0.18);
+    --success: #10b981;
+    --danger: #ef4444;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --dark: #0f172a;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 20px rgba(249,115,22,0.07);
+    --shadow-hover: 0 16px 48px rgba(249,115,22,0.2);
+}
+
+* { box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #fff8f3; }
+
+/* ====== PAGE ====== */
+.nm-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+}
+
+/* ====== HERO ====== */
+.nm-hero {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 45%, #dc2626 100%);
+    border-radius: 28px;
+    padding: 40px 48px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.nm-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+}
+
+.nm-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 25%;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+}
+
+.nm-hero-text { z-index: 1; }
+
+.nm-hero-text h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 8px;
+}
+
+.nm-hero-text p {
+    color: rgba(255,255,255,0.78);
+    margin: 0;
+    font-size: 15px;
+}
+
+.nm-hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    z-index: 1;
+}
+
+.btn-add-stall {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 12px 26px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+}
+
+.btn-add-stall:hover {
+    background: white;
+    color: var(--orange-dark);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* ====== STATS ROW ====== */
+.stats-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow);
+    transition: all 0.25s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.stat-icon.orange { background: #fff3e8; color: var(--orange); }
+.stat-icon.green  { background: #d1fae5; color: var(--success); }
+.stat-icon.red    { background: #fee2e2; color: var(--danger); }
+.stat-icon.gray   { background: var(--gray-100); color: var(--gray-600); }
+
+.stat-info-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1;
+}
+
+.stat-info-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+/* ====== SECTION LABEL ====== */
+.section-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+}
+
+/* ====== GRID ====== */
+.nm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
     gap: 24px;
 }
 
-.food-card {
-    background: white;
-    border-radius: 20px;
+/* ====== STALL CARD ====== */
+.stall-card {
+    background: var(--card-bg);
+    border-radius: 22px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--gray-200);
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    animation: fadeUp 0.4s ease both;
     position: relative;
 }
 
-.food-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    border-color: #f97316;
+.stall-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--orange);
 }
 
-.food-image {
-    height: 200px;
+/* Image */
+.stall-image {
+    height: 220px;
     overflow: hidden;
     position: relative;
+    background: #f3f4f6;
 }
 
-.food-image img {
+.stall-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
-.food-info {
-    padding: 20px;
+.stall-card:hover .stall-image img {
+    transform: scale(1.07);
 }
 
-.food-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.food-price {
-    font-size: 20px;
-    font-weight: 700;
-    color: #f97316;
-    margin-bottom: 8px;
-}
-
-/* Status Badge */
-.status-badge {
+/* Overlay badges */
+.stall-overlay {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    z-index: 2;
+    inset: 0;
+    pointer-events: none;
 }
 
-.status-available {
-    background: #10b981;
-    color: white;
-}
-
-.status-sold_out {
-    background: #ef4444;
-    color: white;
-}
-
-.status-hidden {
-    background: #6b7280;
-    color: white;
-}
-
-/* Visibility Toggle */
-.visibility-toggle {
+.badge-topleft {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 2;
+    top: 14px;
+    left: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    padding: 5px 10px;
+    pointer-events: all;
+}
+
+.badge-topright {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.badge-bottomleft {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+}
+
+/* Visibility Toggle Pill */
+.vis-pill {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
     border-radius: 30px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .toggle-switch {
     position: relative;
     display: inline-block;
-    width: 44px;
-    height: 22px;
+    width: 40px;
+    height: 20px;
 }
 
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+.toggle-switch input { opacity:0; width:0; height:0; }
 
 .toggle-slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
+    inset: 0;
+    background: #6b7280;
+    border-radius: 20px;
+    transition: 0.3s;
 }
 
 .toggle-slider:before {
+    content: '';
     position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
+    width: 14px;
+    height: 14px;
     left: 3px;
     bottom: 3px;
-    background-color: white;
-    transition: 0.4s;
+    background: white;
     border-radius: 50%;
+    transition: 0.3s;
 }
 
-input:checked + .toggle-slider {
-    background-color: #10b981;
+input:checked + .toggle-slider { background: #10b981; }
+input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+.toggle-label { font-size: 10px; color: white; font-weight: 600; }
+
+/* Status Badge */
+.status-pill {
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(8px);
 }
 
-input:checked + .toggle-slider:before {
-    transform: translateX(22px);
-}
+.status-pill.open     { background: rgba(16,185,129,0.9); color: white; }
+.status-pill.closed   { background: rgba(239,68,68,0.9); color: white; }
+.status-pill.hidden   { background: rgba(107,114,128,0.85); color: white; }
 
-.toggle-label {
-    font-size: 10px;
+/* Hostel Type Badge */
+.hostel-pill {
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
     color: white;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hostel-pill.men   { border-left: 3px solid #38bdf8; }
+.hostel-pill.women { border-left: 3px solid #f472b6; }
+
+/* Card Body */
+.stall-body {
+    padding: 22px 22px 18px;
+}
+
+.stall-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stall-name a { color: inherit; text-decoration: none; }
+.stall-name a:hover { color: var(--orange); }
+
+.stall-location {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stall-location i { color: var(--orange); }
+
+/* Menu Chips */
+.menu-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.menu-chip {
+    background: #fff3e8;
+    color: var(--orange-dark);
+    border: 1px solid #fed7aa;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
     font-weight: 600;
 }
 
-/* Delete Toast */
-.delete-toast {
+.menu-chip.more {
+    background: var(--gray-100);
+    color: var(--gray-600);
+    border-color: var(--gray-200);
+}
+
+/* Divider */
+.stall-divider {
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    margin: 14px 0;
+}
+
+/* Category + Block Row */
+.stall-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.tag {
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tag-cat   { background: #eff6ff; color: #1d4ed8; }
+.tag-block { background: #f5f3ff; color: #6d28d9; }
+
+/* Action Buttons */
+.stall-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-act {
+    flex: 1;
+    padding: 9px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.btn-act:hover { transform: translateY(-2px); }
+
+.btn-view-act { background: var(--gray-100); color: var(--gray-700); }
+.btn-view-act:hover { background: var(--gray-200); color: var(--gray-700); }
+
+.btn-edit-act { background: #fef3c7; color: #92400e; }
+.btn-edit-act:hover { background: #fde68a; color: #78350f; }
+
+.btn-del-act { background: #fee2e2; color: #991b1b; }
+.btn-del-act:hover { background: #fecaca; color: #7f1d1d; }
+
+/* ====== EMPTY ====== */
+.empty-state {
+    text-align: center;
+    padding: 80px 40px;
+    background: white;
+    border-radius: 28px;
+    border: 1px solid var(--gray-200);
+}
+
+.empty-icon-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffedd5, #fed7aa);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.empty-icon-circle i { font-size: 44px; color: var(--orange); }
+
+.empty-title { font-size: 24px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+.empty-sub   { color: var(--gray-600); margin-bottom: 28px; font-size: 15px; }
+
+.btn-add-first {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: white;
+    padding: 13px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s;
+    font-size: 15px;
+}
+
+.btn-add-first:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(249,115,22,0.35);
+    color: white;
+}
+
+/* ====== TOAST ====== */
+.nm-toast {
     position: fixed;
     bottom: 30px;
     right: 30px;
     background: white;
-    border-radius: 16px;
+    border-radius: 14px;
     padding: 16px 24px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
     display: flex;
     align-items: center;
-    gap: 16px;
-    z-index: 1000;
+    gap: 14px;
+    z-index: 9999;
     animation: slideInRight 0.3s ease;
-    border-left: 4px solid #ef4444;
+    min-width: 260px;
+    border-left: 4px solid var(--success);
 }
 
-.delete-toast i {
-    font-size: 20px;
-    color: #ef4444;
+.nm-toast.error { border-left-color: var(--danger); }
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(80px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideOutRight {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(100px);
-    }
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(80px); }
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 700px) {
+    .nm-hero { padding: 28px 20px; }
+    .nm-hero-text h1 { font-size: 24px; }
+    .nm-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>My Food Items</h1>
-        <a href="/nightmess/add-item" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white;">
-            <i class="fas fa-plus-circle"></i> Add New Item
-        </a>
+<div class="nm-page">
+
+    <!-- Hero -->
+    <div class="nm-hero">
+        <div class="nm-hero-text">
+            <h1><i class="fas fa-moon" style="margin-right:10px;opacity:0.9;"></i>My Food Stalls</h1>
+            <p>Manage your Night Mess listings and track performance</p>
+        </div>
+        <div class="nm-hero-actions">
+            <a href="/nightmess/add-item" class="btn-add-stall">
+                <i class="fas fa-plus-circle"></i> Add New Stall
+            </a>
+        </div>
     </div>
-    
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-icon orange"><i class="fas fa-store"></i></div>
+            <div>
+                <div class="stat-info-num"><%= items.length %></div>
+                <div class="stat-info-label">Total Stalls</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+            <div>
+                <div class="stat-info-num"><%= items.filter(i => i.status === 'available').length %></div>
+                <div class="stat-info-label">Open Now</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon red"><i class="fas fa-times-circle"></i></div>
+            <div>
+                <div class="stat-info-num"><%= items.filter(i => i.status === 'sold_out').length %></div>
+                <div class="stat-info-label">Closed</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon gray"><i class="fas fa-eye-slash"></i></div>
+            <div>
+                <div class="stat-info-num"><%= items.filter(i => i.status === 'hidden').length %></div>
+                <div class="stat-info-label">Hidden</div>
+            </div>
+        </div>
+    </div>
+
     <% if (items.length === 0) { %>
-        <div class="text-center py-5">
-            <i class="fas fa-utensils fa-4x text-muted mb-3"></i>
-            <h3>No food items added yet</h3>
-            <p>Click the button above to add your first food item!</p>
+        <!-- Empty State -->
+        <div class="empty-state">
+            <div class="empty-icon-circle"><i class="fas fa-utensils"></i></div>
+            <div class="empty-title">No food stalls yet</div>
+            <div class="empty-sub">Add your first night mess stall and start selling!</div>
+            <a href="/nightmess/add-item" class="btn-add-first">
+                <i class="fas fa-plus-circle"></i> Add Your First Stall
+            </a>
         </div>
     <% } else { %>
-        <div class="products-grid">
-            <% items.forEach(item => { 
-                const statusClass = item.status === 'available' ? 'status-available' : 
-                                   (item.status === 'sold_out' ? 'status-sold_out' : 'status-hidden');
+
+        <div class="section-label">
+            <i class="fas fa-fire"></i> Your Stalls
+        </div>
+
+        <div class="nm-grid">
+            <% items.forEach((item, idx) => {
+                const menuCount = item.menuItems ? item.menuItems.length : 0;
+                const previewItems = item.menuItems ? item.menuItems.slice(0, 3) : [];
+                const safeVendorName = item.vendorName.replace(/'/g, "\\'");
             %>
-                <div class="food-card" data-item-id="<%= item._id %>">
-                    <div class="food-image">
-                        <img src="<%= item.images[0] %>" alt="<%= item.title %>">
-                        <div class="visibility-toggle">
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="visibility-checkbox" 
-                                       data-id="<%= item._id %>" 
-                                       data-type="nightmess"
-                                       <%= item.status !== 'hidden' ? 'checked' : '' %>
-                                       onchange="toggleVisibility('<%= item._id %>', 'nightmess', this.checked)">
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Visible</span>
-                        </div>
-                        <div class="status-badge <%= statusClass %>">
-                            <i class="fas <%= item.status === 'available' ? 'fa-check-circle' : (item.status === 'sold_out' ? 'fa-shopping-cart' : 'fa-eye-slash') %>"></i>
-                            <%= item.status === 'hidden' ? 'HIDDEN' : item.status.toUpperCase() %>
+                <div class="stall-card" data-item-id="<%= item._id %>" style="animation-delay: <%= idx * 0.07 %>s">
+
+                    <!-- Image Area -->
+                    <div class="stall-image">
+                        <img src="<%= item.images && item.images.length > 0 ? item.images[0] : '/images/placeholder.png' %>"
+                             alt="<%= item.vendorName %>">
+
+                        <div class="stall-overlay">
+                            <!-- Top Left: Visibility Toggle -->
+                            <div class="badge-topleft">
+                                <div class="vis-pill">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="visibility-checkbox"
+                                               data-id="<%= item._id %>"
+                                               data-type="nightmess"
+                                               <%= item.status !== 'hidden' ? 'checked' : '' %>
+                                               onchange="toggleVisibility('<%= item._id %>', 'nightmess', this.checked)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-label">Visible</span>
+                                </div>
+                            </div>
+
+                            <!-- Top Right: Status -->
+                            <div class="badge-topright">
+                                <% if (item.status === 'available') { %>
+                                    <span class="status-pill open"><i class="fas fa-circle" style="font-size:7px;"></i> Open</span>
+                                <% } else if (item.status === 'sold_out') { %>
+                                    <span class="status-pill closed"><i class="fas fa-times-circle"></i> Closed</span>
+                                <% } else { %>
+                                    <span class="status-pill hidden"><i class="fas fa-eye-slash"></i> Hidden</span>
+                                <% } %>
+                            </div>
+
+                            <!-- Bottom Left: Hostel Type -->
+                            <div class="badge-bottomleft">
+                                <span class="hostel-pill <%= item.hostelType %>">
+                                    <% if (item.hostelType === 'men') { %>
+                                        <i class="fas fa-mars"></i> Men's
+                                    <% } else { %>
+                                        <i class="fas fa-venus"></i> Women's
+                                    <% } %>
+                                    · Block <%= item.hostelBlock %>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="food-info">
-                        <h3 class="food-title"><%= item.title %></h3>
-                        <div class="food-price"><%= item.price > 0 ? '₹' + item.price : 'Price Varies' %></div>
-                        <div class="mb-2">
-                            <span class="badge bg-info"><%= item.category %></span>
-                            <span class="badge bg-secondary">Block <%= item.hostelBlock %></span>
+
+                    <!-- Card Body -->
+                    <div class="stall-body">
+                        <div class="stall-name">
+                            <i class="fas fa-store" style="color:var(--orange);font-size:16px;"></i>
+                            <a href="/nightmess/item/<%= item._id %>"><%= item.vendorName %></a>
                         </div>
-                        <div class="btn-group w-100 mt-3">
-                            <a href="/nightmess/item/<%= item._id %>" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="/nightmess/edit-item/<%= item._id %>" class="btn btn-sm btn-outline-warning">Edit</a>
-                            <button onclick="deleteItem('<%= item._id %>', '<%= item.title %>')" class="btn btn-sm btn-outline-danger">Delete</button>
+
+                        <div class="stall-location">
+                            <i class="fas fa-utensils"></i>
+                            <%= menuCount %> menu item<%= menuCount !== 1 ? 's' : '' %>
+                            &nbsp;·&nbsp;
+                            <i class="fas fa-phone"></i>
+                            <%= item.vendorPhone %>
+                        </div>
+
+                        <% if (previewItems.length > 0) { %>
+                            <div class="menu-chips">
+                                <% previewItems.forEach(mi => { %>
+                                    <span class="menu-chip"><%= mi.itemName.substring(0,18) %><%= mi.itemName.length > 18 ? '…' : '' %> · ₹<%= mi.price %></span>
+                                <% }) %>
+                                <% if (menuCount > 3) { %>
+                                    <span class="menu-chip more">+<%= menuCount - 3 %> more</span>
+                                <% } %>
+                            </div>
+                        <% } %>
+
+                        <div class="stall-tags">
+                            <span class="tag tag-cat"><i class="fas fa-layer-group"></i> <%= item.category %></span>
+                            <span class="tag tag-block"><i class="fas fa-building"></i> Block <%= item.hostelBlock %></span>
+                        </div>
+
+                        <hr class="stall-divider">
+
+                        <div class="stall-actions">
+                            <a href="/nightmess/item/<%= item._id %>" class="btn-act btn-view-act">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="/nightmess/edit-item/<%= item._id %>" class="btn-act btn-edit-act">
+                                <i class="fas fa-pen"></i> Edit
+                            </a>
+                            <button onclick="deleteItem('<%= item._id %>', '<%= safeVendorName %>')" class="btn-act btn-del-act">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
                         </div>
                     </div>
                 </div>
             <% }) %>
         </div>
+
     <% } %>
 </div>
 
 <script>
-
-function deleteItem(itemId, itemTitle) {
-    if (confirm(`Are you sure you want to delete "${itemTitle}"? This action cannot be undone.`)) {
-        const deleteBtn = event.target.closest('.btn-delete');
-        if (deleteBtn) {
-            deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
-            deleteBtn.disabled = true;
-        }
-        
-        fetch(`/nightmess/item/${itemId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success || response.ok) {
-                showToast('Item deleted successfully!', 'success');
+function deleteItem(itemId, vendorName) {
+    vmConfirm({
+        title: 'Delete Food Stall',
+        message: `Are you sure you want to delete <strong>"${vendorName}"</strong>? This cannot be undone.`,
+        confirmText: 'Yes, Delete',
+        cancelText: 'Keep It',
+        variant: 'danger',
+        onConfirm() {
+            fetch(`/nightmess/item/${itemId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(r => r.json())
+            .then(data => {
+                showToast('Stall deleted successfully!', 'success');
                 setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            } else {
-                showToast('Error deleting item', 'error');
-                if (deleteBtn) {
-                    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
-                    deleteBtn.disabled = false;
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showToast('Error deleting item', 'error');
-            if (deleteBtn) {
-                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
-                deleteBtn.disabled = false;
-            }
-        });
-    }
+                    const card = document.querySelector(`[data-item-id="${itemId}"]`);
+                    if (card) card.style.opacity = '0';
+                    setTimeout(() => window.location.reload(), 400);
+                }, 900);
+            })
+            .catch(() => showToast('Error deleting stall. Try again.', 'error'));
+        }
+    });
 }
 
 function showToast(message, type) {
     const toast = document.createElement('div');
-    toast.className = 'delete-toast';
-    toast.style.animation = 'slideInRight 0.3s ease';
-    
+    toast.className = `nm-toast ${type === 'error' ? 'error' : ''}`;
     const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
     const color = type === 'success' ? '#10b981' : '#ef4444';
-    
-    toast.innerHTML = `
-        <i class="fas ${icon}" style="color: ${color};"></i>
-        <span>${message}</span>
-    `;
-    
+    toast.innerHTML = `<i class="fas ${icon}" style="color:${color};font-size:20px;"></i><span>${message}</span>`;
     document.body.appendChild(toast);
-    
     setTimeout(() => {
         toast.style.animation = 'slideOutRight 0.3s ease forwards';
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
+        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
 function toggleVisibility(id, type, isVisible) {
     const status = isVisible ? 'available' : 'hidden';
-    let url;
-    
-    if (type === 'product') {
-        url = `/marketplace/product/${id}/visibility`;
-    } else {
-        url = `/nightmess/item/${id}/visibility`;
-    }
-    
-    console.log(`Toggling visibility: ${url} with status: ${status}`);
-    
+    const url = type === 'product' ? `/marketplace/product/${id}/visibility` : `/nightmess/item/${id}/visibility`;
+
     fetch(url, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ status: status })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
     })
-    .then(response => {
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-            return response.text().then(text => {
-                console.error('Error response:', text);
-                throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
-            });
-        }
-        return response.json();
+    .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
     })
     .then(data => {
         if (data.success) {
-            showToast(`Item is now ${isVisible ? 'visible to everyone' : 'hidden from marketplace'}!`, 'success');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
+            showToast(`Stall is now ${isVisible ? 'visible to everyone' : 'hidden from Night Mess'}!`, 'success');
         } else {
-            showToast('Failed to update visibility: ' + (data.error || 'Unknown error'), 'error');
-            // Revert checkbox
-            const checkbox = document.querySelector(`.visibility-checkbox[data-id="${id}"][data-type="${type}"]`);
-            if (checkbox) {
-                checkbox.checked = !isVisible;
-            }
+            throw new Error(data.error || 'Failed');
         }
     })
     .catch(err => {
-        console.error('Error:', err);
         showToast('Error updating visibility: ' + err.message, 'error');
-        // Revert checkbox
-        const checkbox = document.querySelector(`.visibility-checkbox[data-id="${id}"][data-type="${type}"]`);
-        if (checkbox) {
-            checkbox.checked = !isVisible;
-        }
+        const cb = document.querySelector(`.visibility-checkbox[data-id="${id}"][data-type="${type}"]`);
+        if (cb) cb.checked = !isVisible;
     });
 }
-
-// Add slideOut animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-    }
-`;
-document.head.appendChild(style);
 </script>
 
 <%- include('../partials/vall-promo-banner') %>

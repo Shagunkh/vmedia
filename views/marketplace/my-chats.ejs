@@ -226,28 +226,28 @@
     <div class="chats-list">
         <% if (chats && chats.length > 0) { %>
             <% chats.forEach(chat => { %>
-               <div class="chat-card" 
-     data-room-id="<%= chat.roomId %>"
-     data-product-id="<%= chat.productId %>"
-     data-product-title="<%= chat.productTitle.replace(/'/g, "\\'") %>"
-     data-product-image="<%= chat.productImage %>"
-     data-other-user-id="<%= chat.otherUserId %>"
-     data-other-user-name="<%= chat.otherUserName.replace(/'/g, "\\'") %>"
-     data-unread-count="<%= chat.unreadCount %>">
+                <div class="chat-card" 
+      data-room-id="<%= chat.roomId %>"
+      data-product-id="<%= chat.productId %>"
+      data-product-title="<%= (chat.productTitle || 'Product').replace(/'/g, "\\'") %>"
+      data-product-image="<%= chat.productImage %>"
+      data-other-user-id="<%= chat.otherUserId %>"
+      data-other-user-name="<%= (chat.otherUserName || 'User').replace(/'/g, "\\'") %>"
+      data-unread-count="<%= chat.unreadCount %>">
     <div class="chat-avatar">
         <% if (chat.productImage) { %>
-            <img src="<%= chat.productImage %>" alt="<%= chat.productTitle %>">
+            <img src="<%= chat.productImage %>" alt="<%= chat.productTitle || 'Product' %>">
         <% } else { %>
-            <span><%= chat.productTitle.charAt(0).toUpperCase() %></span>
+            <span><%= (chat.productTitle || 'P').charAt(0).toUpperCase() %></span>
         <% } %>
     </div>
     <div class="chat-info">
-        <div class="chat-product-title"><%= chat.productTitle %></div>
+        <div class="chat-product-title"><%= chat.productTitle || 'Deleted Product' %></div>
         <div class="chat-with">
             <% if (chat.role === 'seller') { %>
-                <i class="fas fa-user"></i> Buyer: <%= chat.otherUserName %>
+                <i class="fas fa-user"></i> Buyer: <%= chat.otherUserName || 'Unknown User' %>
             <% } else { %>
-                <i class="fas fa-store"></i> Seller: <%= chat.otherUserName %>
+                <i class="fas fa-store"></i> Seller: <%= chat.otherUserName || 'Unknown User' %>
             <% } %>
         </div>
         <div class="chat-last-message">

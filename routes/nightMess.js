@@ -16,7 +16,6 @@ function generateChatRoomId(itemId, user1Id, user2Id) {
 
 // Check if night mess is open (10:30 PM to 3:00 AM)
 function isNightMessOpen() {
-    
     return true;
 }
 
@@ -58,20 +57,24 @@ const upload = multer({
 
 // ============ PUBLIC ROUTES ============
 
-// Get all available food items
+// Get all available food stalls
 router.get('/', async (req, res) => {
     try {
-        const { hostelBlock, search, category } = req.query;
+        const { hostelBlock, search, category, hostelType } = req.query;
         let filter = { status: 'available' };
         
         if (hostelBlock && hostelBlock !== '') filter.hostelBlock = hostelBlock.toUpperCase();
         if (category && category !== '') filter.category = category;
         
+        if (hostelType && hostelType !== '') {
+            filter.hostelType = hostelType;
+        }
+        
         if (search) {
             filter.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } },
-                { tags: { $in: [new RegExp(search, 'i')] } }
+                { vendorName: { $regex: search, $options: 'i' } },
+                { 'menuItems.itemName': { $regex: search, $options: 'i' } },
+                { category: { $regex: search, $options: 'i' } }
             ];
         }
         
@@ -100,7 +103,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get food item details
+// Get food stall details
 router.get('/item/:id', async (req, res) => {
     try {
         const item = await NightMessFood.findById(req.params.id)
@@ -126,6 +129,8 @@ router.get('/item/:id', async (req, res) => {
         let hasInterested = false;
         let existingChatRoom = null;
         let interestedBuyersWithChat = [];
+        let userConfirmed = false;
+        let dealStatus = item.dealStatus;
         
         if (req.user) {
             hasInterested = item.interestedBuyers.some(
@@ -160,6 +165,11 @@ router.get('/item/:id', async (req, res) => {
                     };
                 });
             }
+            
+            // Check if user already confirmed the deal
+            userConfirmed = item.dealConfirmations && item.dealConfirmations.some(
+                conf => conf.user.toString() === req.user._id.toString()
+            );
         }
         
         const returnTo = `/nightmess/item/${item._id}`;
@@ -173,7 +183,9 @@ router.get('/item/:id', async (req, res) => {
             interestedBuyersWithChat,
             currUser: req.user,
             returnTo,
-            isOpen
+            isOpen,
+            userConfirmed,
+            dealStatus
         });
     } catch (error) {
         console.error(error);
@@ -181,6 +193,7 @@ router.get('/item/:id', async (req, res) => {
         res.redirect('/nightmess');
     }
 });
+
 // ============ PROTECTED ROUTES ============
 
 // Add item form
@@ -195,9 +208,8 @@ router.get('/add-item', isLoggedIn, (req, res) => {
 // Add item
 router.post('/add-item', isLoggedIn, upload.array('images', 5), async (req, res) => {
     try {
-        const { title, description, price, category, hostelBlock, tags, vendorPhone, vendorEmail } = req.body;
+        const { vendorName, category, hostelBlock, hostelType, vendorPhone, vendorEmail, menuItems } = req.body;
         
-        const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
         const images = req.files ? req.files.map(file => `/uploads/nightmess/${file.filename}`) : [];
         
         if (images.length === 0) {
@@ -205,23 +217,34 @@ router.post('/add-item', isLoggedIn, upload.array('images', 5), async (req, res)
             return res.redirect('/nightmess/add-item');
         }
         
+        let parsedMenuItems = [];
+        if (menuItems && Array.isArray(menuItems)) {
+            parsedMenuItems = menuItems.filter(item => item.itemName && item.price);
+        } else if (menuItems && typeof menuItems === 'object') {
+            parsedMenuItems = Object.values(menuItems).filter(item => item.itemName && item.price);
+        }
+        
+        if (parsedMenuItems.length === 0) {
+            req.flash('error', 'Please add at least one menu item');
+            return res.redirect('/nightmess/add-item');
+        }
+        
         const item = new NightMessFood({
-            title,
-            description,
-            price: price ? parseFloat(price) : 0,
+            vendorName,
             category,
             hostelBlock: hostelBlock.toUpperCase(),
-            tags: tagsArray,
+            hostelType,
+            menuItems: parsedMenuItems,
             images,
             vendor: req.user._id,
-            vendorPhone: vendorPhone,
-            vendorEmail: vendorEmail,
+            vendorPhone,
+            vendorEmail,
             chatRooms: []
         });
         
         await item.save();
         
-        req.flash('success', 'Food item added successfully!');
+        req.flash('success', 'Food stall added successfully!');
         res.redirect('/nightmess/my-items');
     } catch (error) {
         console.error(error);
@@ -291,14 +314,20 @@ router.put('/edit-item/:id', isLoggedIn, upload.array('images', 5), async (req, 
             return res.redirect('/nightmess/my-items');
         }
         
-        const { title, description, price, category, hostelBlock, tags, vendorPhone, vendorEmail } = req.body;
+        const { vendorName, category, hostelBlock, hostelType, vendorPhone, vendorEmail, menuItems } = req.body;
         
-        item.title = title;
-        item.description = description;
-        item.price = price ? parseFloat(price) : 0;
+        let parsedMenuItems = [];
+        if (menuItems && Array.isArray(menuItems)) {
+            parsedMenuItems = menuItems.filter(item => item.itemName && item.price);
+        } else if (menuItems && typeof menuItems === 'object') {
+            parsedMenuItems = Object.values(menuItems).filter(item => item.itemName && item.price);
+        }
+        
+        item.vendorName = vendorName;
         item.category = category;
         item.hostelBlock = hostelBlock.toUpperCase();
-        item.tags = tags ? tags.split(',').map(tag => tag.trim()) : [];
+        item.hostelType = hostelType;
+        item.menuItems = parsedMenuItems;
         item.vendorPhone = vendorPhone;
         item.vendorEmail = vendorEmail;
         
@@ -309,7 +338,7 @@ router.put('/edit-item/:id', isLoggedIn, upload.array('images', 5), async (req, 
         
         await item.save();
         
-        req.flash('success', 'Item updated successfully!');
+        req.flash('success', 'Food stall updated successfully!');
         res.redirect('/nightmess/my-items');
     } catch (error) {
         console.error(error);
@@ -317,10 +346,8 @@ router.put('/edit-item/:id', isLoggedIn, upload.array('images', 5), async (req, 
         res.redirect('/nightmess/my-items');
     }
 });
-// ============ VISIBILITY TOGGLE ROUTE ============
-// Add this BEFORE the module.exports, preferably near other PUT routes
 
-// Toggle visibility for night mess item
+// ============ VISIBILITY TOGGLE ROUTE ============
 router.put('/item/:id/visibility', isLoggedIn, async (req, res) => {
     try {
         const { status } = req.body;
@@ -338,7 +365,6 @@ router.put('/item/:id/visibility', isLoggedIn, async (req, res) => {
             return res.status(403).json({ error: 'Unauthorized - You can only edit your own items' });
         }
         
-        // Update status
         item.status = status;
         await item.save();
         
@@ -351,29 +377,6 @@ router.put('/item/:id/visibility', isLoggedIn, async (req, res) => {
     }
 });
 
-// Also add a route for getting item visibility status (optional)
-router.get('/item/:id/visibility', isLoggedIn, async (req, res) => {
-    try {
-        const item = await NightMessFood.findById(req.params.id);
-        
-        if (!item) {
-            return res.status(404).json({ error: 'Item not found' });
-        }
-        
-        if (item.vendor.toString() !== req.user._id.toString()) {
-            return res.status(403).json({ error: 'Unauthorized' });
-        }
-        
-        res.json({ 
-            success: true, 
-            status: item.status,
-            isVisible: item.status !== 'hidden'
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error fetching visibility' });
-    }
-});
 // Delete item
 router.delete('/item/:id', isLoggedIn, async (req, res) => {
     try {
@@ -395,7 +398,8 @@ router.delete('/item/:id', isLoggedIn, async (req, res) => {
         res.status(500).json({ error: 'Error deleting item' });
     }
 });
-// Mark as sold for night mess item
+
+// Mark as closed (legacy)
 router.post('/item/:id/mark-sold', isLoggedIn, async (req, res) => {
     try {
         const item = await NightMessFood.findById(req.params.id);
@@ -406,7 +410,7 @@ router.post('/item/:id/mark-sold', isLoggedIn, async (req, res) => {
         }
         
         if (item.vendor.toString() !== req.user._id.toString()) {
-            req.flash('error', 'You can only mark your own items as sold');
+            req.flash('error', 'You can only mark your own items as closed');
             return res.redirect(`/nightmess/item/${item._id}`);
         }
         
@@ -417,125 +421,224 @@ router.post('/item/:id/mark-sold', isLoggedIn, async (req, res) => {
             return res.redirect(`/nightmess/item/${item._id}`);
         }
         
-        // Update item status
         item.status = 'sold_out';
         await item.save();
         
-        // Create a transaction record (optional - you might want to create a similar model for food transactions)
-        // For now, just update the status
-        
-        // Notify the buyer
         const buyer = await User.findById(buyerId);
         if (buyer && buyer.email) {
-            try {
-                const transporter = require('../utils/emailService');
-                // Send email notification to buyer
-                const mailOptions = {
-                    from: `"VMALL Night Mess" <${process.env.EMAIL_USER}>`,
-                    to: buyer.email,
-                    subject: `Your food item has been marked as sold: ${item.title}`,
-                    html: `
-                        <h2>Food Item Sold</h2>
-                        <p>Hello ${buyer.username},</p>
-                        <p>The vendor has marked "${item.title}" as sold.</p>
-                        <p>Thank you for using VMALL Night Mess!</p>
-                        <a href="${process.env.BASE_URL}/nightmess">Browse more items</a>
-                    `
-                };
-                // Uncomment if you have transporter configured
-                // await transporter.sendMail(mailOptions);
-            } catch (emailErr) {
-                console.log('Email error:', emailErr);
-            }
+            console.log(`Notification sent to buyer: ${buyer.email}`);
         }
         
-        req.flash('success', 'Item marked as sold!');
+        req.flash('success', 'Stall marked as closed!');
         res.redirect('/nightmess/my-items');
     } catch (error) {
         console.error(error);
-        req.flash('error', 'Error marking item as sold');
+        req.flash('error', 'Error marking item as closed');
         res.redirect(`/nightmess/item/${req.params.id}`);
     }
 });
-// Show interest
-// Show interest and create/join chat
-router.post('/item/:id/interest', isLoggedIn, async (req, res) => {
+
+// ============ DEAL CONFIRMATION ROUTES ============
+
+// Deal confirmation route for night mess items
+router.post('/item/:id/deal-confirm', isLoggedIn, async (req, res) => {
     try {
-        const item = await NightMessFood.findById(req.params.id)
-            .populate('vendor', 'username email');
-            
+        const item = await NightMessFood.findById(req.params.id);
+        
         if (!item) {
-            req.flash('error', 'Item not found');
-            return res.redirect('/nightmess');
+            return res.status(404).json({ error: 'Item not found' });
         }
         
-        if (item.vendor._id.toString() === req.user._id.toString()) {
-            req.flash('error', 'You cannot show interest in your own item');
-            return res.redirect(`/nightmess/item/${item._id}`);
+        if (item.status === 'sold_out') {
+            return res.status(400).json({ error: 'This stall is already closed' });
         }
         
-        const alreadyInterested = item.interestedBuyers.some(
-            i => i.user && i.user.toString() === req.user._id.toString()
-        );
-        
-        let chatRoomId;
-        
-        if (!alreadyInterested) {
-            item.interestedBuyers.push({ user: req.user._id });
-            
-            // Generate consistent room ID
-            chatRoomId = generateChatRoomId(item._id, req.user._id, item.vendor._id);
-            
-            if (!item.chatRooms) {
-                item.chatRooms = [];
-            }
-            
-            item.chatRooms.push({
-                user: req.user._id,
-                roomId: chatRoomId,
-                lastMessage: null,
-                lastMessageTime: new Date(),
-                unreadCount: 0
-            });
-            
-            await item.save();
-            
-            // Send email notifications
-            const buyer = {
-                _id: req.user._id,
-                username: req.user.username,
-                email: req.user.email,
-                phone: req.user.phone || 'Not provided'
-            };
-            
-            const vendor = {
-                username: item.vendor.username,
-                email: item.vendor.email
-            };
-            
-            await emailService.sendInterestEmailToSeller(item, buyer, vendor);
-            await emailService.sendBuyerConfirmationEmail(item, buyer, vendor);
+        const userIdStr = req.user._id.toString();
+        let role;
+        if (item.vendor.toString() === userIdStr) {
+            role = 'vendor';
+        } else if (item.interestedBuyers.some(b => b.user.toString() === userIdStr)) {
+            role = 'buyer';
         } else {
-            if (item.chatRooms && item.chatRooms.length > 0) {
-                const existingRoom = item.chatRooms.find(
-                    room => room.user && room.user.toString() === req.user._id.toString()
-                );
-                chatRoomId = existingRoom ? existingRoom.roomId : null;
-            }
+            return res.status(403).json({ error: 'You are not involved in this deal' });
         }
         
-        req.flash('success', `Interest shown! Check your email for vendor details. You can now chat with the vendor.`);
-        res.redirect(`/nightmess/item/${item._id}`);
+        const buyerId = req.body.buyerId || null;
+        const result = await item.addDealConfirmation(req.user._id, role, buyerId);
+        
+        if (result.queued) {
+            return res.json({
+                success: false,
+                queued: true,
+                message: result.message,
+                sellerPhone: result.sellerPhone,
+                sellerEmail: result.sellerEmail
+            });
+        }
+        
+        if (result.success) {
+            const io = req.app.get('io');
+            
+            if (result.bothConfirmed) {
+                const vendor = await User.findById(item.vendor);
+                const buyerUser = await User.findById(item.buyer);
+                
+                if (io) {
+                    io.to(`user_${item.vendor}`).emit('deal-confirmation', {
+                        productId: item._id, productTitle: item.vendorName,
+                        dealStatus: result.dealStatus, confirmedBy: req.user.username, bothConfirmed: true, type: 'nightmess'
+                    });
+                    io.to(`user_${item.buyer}`).emit('deal-confirmation', {
+                        productId: item._id, productTitle: item.vendorName,
+                        dealStatus: result.dealStatus, confirmedBy: req.user.username, bothConfirmed: true, type: 'nightmess'
+                    });
+                    item.queuedBuyers.forEach(qb => {
+                        io.to(`user_${qb.user}`).emit('deal-sold', { productId: item._id, productTitle: item.vendorName });
+                    });
+                }
+                
+                if (vendor && buyerUser) {
+                    emailService.sendAutoSoldNotification(item, vendor, buyerUser, true).catch(err => {
+                        console.error('Failed to send sold notification:', err);
+                    });
+                }
+            } else {
+                const otherUser = role === 'buyer' ? item.vendor : item.pendingDealWith;
+                if (io && otherUser) {
+                    io.to(`user_${otherUser}`).emit('deal-confirmation', {
+                        productId: item._id, productTitle: item.vendorName,
+                        dealStatus: result.dealStatus, confirmedBy: req.user.username, bothConfirmed: false, type: 'nightmess'
+                    });
+                }
+            }
+            
+            res.json({ 
+                success: true, 
+                dealStatus: result.dealStatus,
+                bothConfirmed: result.bothConfirmed,
+                message: result.bothConfirmed ? 'Deal confirmed! Stall marked as closed.' : 'Confirmation recorded. Waiting for other party.'
+            });
+        } else {
+            res.json({ success: false, message: result.message });
+        }
+    } catch (error) {
+        console.error('Error confirming deal:', error);
+        res.status(500).json({ error: 'Error confirming deal' });
+    }
+});
+
+// Cancel a deal for night mess
+router.post('/item/:id/deal-cancel', isLoggedIn, async (req, res) => {
+    try {
+        const item = await NightMessFood.findById(req.params.id);
+        if (!item) return res.status(404).json({ error: 'Item not found' });
+        
+        const result = await item.cancelDeal(req.user._id);
+        
+        if (result.success) {
+            const io = req.app.get('io');
+            if (io && result.cancelledWith) {
+                io.to(`user_${result.cancelledWith}`).emit('deal-cancelled', { productId: item._id, productTitle: item.vendorName, cancelledBy: req.user.username });
+                io.to(`user_${item.vendor}`).emit('deal-cancelled', { productId: item._id, productTitle: item.vendorName, cancelledBy: req.user.username });
+            }
+            if (io && result.queuedBuyers && result.queuedBuyers.length > 0) {
+                result.queuedBuyers.forEach(qb => {
+                    io.to(`user_${qb.user}`).emit('product-available-again', {
+                        productId: item._id,
+                        productTitle: item.vendorName,
+                        message: `Good news! The stall "${item.vendorName}" you were waiting for is now available again.`
+                    });
+                });
+            }
+            res.json({ success: true, message: 'Deal cancelled successfully.' });
+        } else {
+            res.json({ success: false, message: result.message });
+        }
+    } catch (error) {
+        console.error('Error cancelling deal:', error);
+        res.status(500).json({ error: 'Error cancelling deal' });
+    }
+});
+
+// Revert interest for night mess
+router.post('/item/:id/interest-revert', isLoggedIn, async (req, res) => {
+    try {
+        const item = await NightMessFood.findById(req.params.id);
+        if (!item) return res.status(404).json({ error: 'Item not found' });
+        
+        const userIdStr = req.user._id.toString();
+        if (item.status === 'sold_out') return res.status(400).json({ error: 'Cannot revert interest after stall is closed.' });
+        
+        const isInterested = item.interestedBuyers.some(i => i.user && i.user.toString() === userIdStr);
+        if (!isInterested) return res.status(400).json({ error: 'You have not shown interest in this stall.' });
+        
+        const isPendingBuyer = item.pendingDealWith && item.pendingDealWith.toString() === userIdStr;
+        let cancelResult = null;
+        if (isPendingBuyer) {
+            cancelResult = await item.cancelDeal(req.user._id);
+        }
+        
+        item.interestedBuyers = item.interestedBuyers.filter(i => i.user && i.user.toString() !== userIdStr);
+        item.queuedBuyers = item.queuedBuyers.filter(q => q.user && q.user.toString() !== userIdStr);
+        await item.save();
+        
+        const io = req.app.get('io');
+        if (isPendingBuyer && cancelResult && cancelResult.success && io) {
+            cancelResult.queuedBuyers.forEach(qb => {
+                if (qb.user.toString() !== userIdStr) {
+                    io.to(`user_${qb.user}`).emit('product-available-again', {
+                        productId: item._id, productTitle: item.vendorName,
+                        message: `Good news! The stall "${item.vendorName}" you were waiting for is now available again.`
+                    });
+                }
+            });
+            io.to(`user_${item.vendor}`).emit('deal-cancelled', { productId: item._id, productTitle: item.vendorName, cancelledBy: req.user.username });
+        }
+        
+        res.json({ success: true, message: 'Interest removed successfully.' });
+    } catch (error) {
+        console.error('Error reverting interest:', error);
+        res.status(500).json({ error: 'Error reverting interest' });
+    }
+});
+
+// Get deal status for night mess item
+router.get('/item/:id/deal-status', isLoggedIn, async (req, res) => {
+    try {
+        const item = await NightMessFood.findById(req.params.id);
+        
+        if (!item) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        
+        const userIdStr = req.user._id.toString();
+        const userConfirmed = item.dealConfirmations && item.dealConfirmations.some(conf => conf.user.toString() === userIdStr);
+        const isQueued = item.queuedBuyers && item.queuedBuyers.some(q => q.user.toString() === userIdStr);
+        const isBlocked = item.pendingDealWith && item.pendingDealWith.toString() !== userIdStr && item.vendor.toString() !== userIdStr;
+        const isPendingBuyer = item.pendingDealWith && item.pendingDealWith.toString() === userIdStr;
+        
+        res.json({
+            dealStatus: item.dealStatus,
+            status: item.status,
+            userConfirmed,
+            bothConfirmed: item.dealStatus === 'both_confirmed',
+            autoMarkSoldAt: item.autoMarkSoldAt,
+            interestCreatedAt: item.interestCreatedAt,
+            isQueued,
+            isBlocked,
+            isPendingBuyer,
+            sellerPhone: item.vendorPhone,
+            sellerEmail: item.vendorEmail
+        });
     } catch (error) {
         console.error(error);
-        req.flash('error', 'Error showing interest');
-        res.redirect(`/nightmess/item/${req.params.id}`);
+        res.status(500).json({ error: 'Error fetching deal status' });
     }
 });
 
 // ============ CHAT ROUTES ============
 
-// Get chat messages for a food item - FIXED
+// Get chat messages for a food stall
 router.get('/chat/:itemId/:userId', isLoggedIn, async (req, res) => {
     try {
         const { itemId, userId } = req.params;
@@ -585,11 +688,21 @@ router.get('/chat/:itemId/:userId', isLoggedIn, async (req, res) => {
             await item.save();
         }
         
-        // Return in the same format as marketplace chat
+        // Include deal status in chat response
+        const dealStatus = {
+            dealStatus: item.dealStatus,
+            bothConfirmed: item.dealConfirmations && item.dealConfirmations.length === 2,
+            userConfirmed: item.dealConfirmations && item.dealConfirmations.some(
+                conf => conf.user.toString() === req.user._id.toString()
+            ),
+            autoMarkSoldAt: item.autoMarkSoldAt
+        };
+        
         res.json({ 
             messages: messages || [], 
             roomId: consistentRoomId,
-            success: true 
+            success: true,
+            dealStatus: dealStatus
         });
     } catch (error) {
         console.error('Error fetching messages:', error);
@@ -597,7 +710,7 @@ router.get('/chat/:itemId/:userId', isLoggedIn, async (req, res) => {
     }
 });
 
-// Send chat message - FIXED
+// Send chat message
 router.post('/chat/send', isLoggedIn, async (req, res) => {
     try {
         const { itemId, receiverId, message, roomId } = req.body;
@@ -651,13 +764,14 @@ router.post('/chat/send', isLoggedIn, async (req, res) => {
                 createdAt: savedMessage.createdAt,
                 roomId: roomId,
                 itemId: itemId,
-                itemTitle: item.title
+                itemTitle: item.vendorName,
+                dealStatus: item.dealStatus
             };
             
             io.to(roomId).emit('receive-chat-message', messageData);
             io.to(`user_${receiverId}`).emit('chat-notification', {
                 itemId,
-                itemTitle: item.title,
+                itemTitle: item.vendorName,
                 message: message.substring(0, 50),
                 roomId,
                 sender: req.user.username,
@@ -675,8 +789,6 @@ router.post('/chat/send', isLoggedIn, async (req, res) => {
         res.status(500).json({ error: 'Error sending message: ' + error.message });
     }
 });
-
-
 
 // Get all active chats for user (night mess specific)
 router.get('/my-chats', isLoggedIn, async (req, res) => {
@@ -696,7 +808,7 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                     if (chat.user) {
                         allChats.push({
                             itemId: item._id,
-                            itemTitle: item.title,
+                            itemTitle: item.vendorName,
                             itemImage: item.images[0],
                             otherUserId: chat.user._id,
                             otherUserName: chat.user.username,
@@ -705,7 +817,8 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                             lastMessageTime: chat.lastMessageTime,
                             unreadCount: chat.unreadCount,
                             role: 'vendor',
-                            type: 'nightmess'
+                            type: 'nightmess',
+                            dealStatus: item.dealStatus
                         });
                     }
                 }
@@ -718,7 +831,7 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                 if (chat) {
                     allChats.push({
                         itemId: item._id,
-                        itemTitle: item.title,
+                        itemTitle: item.vendorName,
                         itemImage: item.images[0],
                         otherUserId: item.vendor._id,
                         otherUserName: item.vendor.username,
@@ -727,7 +840,8 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
                         lastMessageTime: chat.lastMessageTime,
                         unreadCount: chat.unreadCount,
                         role: 'buyer',
-                        type: 'nightmess'
+                        type: 'nightmess',
+                        dealStatus: item.dealStatus
                     });
                 }
             }
@@ -746,27 +860,122 @@ router.get('/my-chats', isLoggedIn, async (req, res) => {
     }
 });
 
-// Add this API endpoint to your nightMess.js routes
-// Add at the end of your routes/marketplaceController.js
-
-// ============ NIGHT MESS API ENDPOINTS (Integrated) ============
+// Show interest and create/join chat - UPDATED with interestCreatedAt
+router.post('/item/:id/interest', isLoggedIn, async (req, res) => {
+    try {
+        const item = await NightMessFood.findById(req.params.id)
+            .populate('vendor', 'username email');
+            
+        if (!item) {
+            req.flash('error', 'Item not found');
+            return res.redirect('/nightmess');
+        }
+        
+        if (item.vendor._id.toString() === req.user._id.toString()) {
+            req.flash('error', 'You cannot show interest in your own stall');
+            return res.redirect(`/nightmess/item/${item._id}`);
+        }
+        
+        const alreadyInterested = item.interestedBuyers.some(
+            i => i.user && i.user.toString() === req.user._id.toString()
+        );
+        
+        let chatRoomId;
+        
+        if (!alreadyInterested) {
+            item.interestedBuyers.push({ user: req.user._id });
+            
+            // Set interest creation timestamp for deal tracking
+            if (!item.interestCreatedAt) {
+                item.interestCreatedAt = new Date();
+            }
+            
+            chatRoomId = generateChatRoomId(item._id, req.user._id, item.vendor._id);
+            
+            if (!item.chatRooms) {
+                item.chatRooms = [];
+            }
+            
+            item.chatRooms.push({
+                user: req.user._id,
+                roomId: chatRoomId,
+                lastMessage: null,
+                lastMessageTime: new Date(),
+                unreadCount: 0
+            });
+            
+            await item.save();
+            
+            // Send email notifications in background
+            const buyer = {
+                _id: req.user._id,
+                username: req.user.username,
+                email: req.user.email,
+                phone: req.user.phone || 'Not provided'
+            };
+            
+            const vendor = {
+                username: item.vendor.username,
+                email: item.vendor.email
+            };
+            
+            Promise.all([
+                emailService.sendInterestEmailToSeller(item, buyer, vendor),
+                emailService.sendBuyerConfirmationEmail(item, buyer, vendor)
+            ]).catch(err => {
+                console.error('Failed to send interest emails:', err);
+            });
+            
+            const io = req.app.get('io');
+            if (io) {
+                io.to(`user_${item.vendor._id}`).emit('newInterest', {
+                    productId: item._id,
+                    productTitle: item.vendorName,
+                    buyer: {
+                        id: req.user._id,
+                        username: req.user.username
+                    },
+                    chatRoomId: chatRoomId
+                });
+            }
+        } else {
+            if (item.chatRooms && item.chatRooms.length > 0) {
+                const existingRoom = item.chatRooms.find(
+                    room => room.user && room.user.toString() === req.user._id.toString()
+                );
+                chatRoomId = existingRoom ? existingRoom.roomId : null;
+            }
+        }
+        
+        req.flash('success', `Interest shown! Check your email for vendor details. You can now chat with the vendor.`);
+        res.redirect(`/nightmess/item/${item._id}`);
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Error showing interest');
+        res.redirect(`/nightmess/item/${req.params.id}`);
+    }
+});
 
 // ============ API ENDPOINTS ============
 
 // Get all night mess items (API)
 router.get('/api/nightmess', async (req, res) => {
     try {
-        const { hostelBlock, search, category } = req.query;
+        const { hostelBlock, search, category, hostelType } = req.query;
         let filter = { status: 'available' };
         
         if (hostelBlock && hostelBlock !== '') filter.hostelBlock = hostelBlock.toUpperCase();
         if (category && category !== '') filter.category = category;
         
-        if (search) {
+        if (hostelType && hostelType !== '' && hostelType !== 'both') {
+            filter.hostelType = hostelType;
+        }
+        
+        if (search && search !== '') {
             filter.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } },
-                { tags: { $in: [new RegExp(search, 'i')] } }
+                { vendorName: { $regex: search, $options: 'i' } },
+                { category: { $regex: search, $options: 'i' } },
+                { 'menuItems.itemName': { $regex: search, $options: 'i' } }
             ];
         }
         
@@ -777,132 +986,19 @@ router.get('/api/nightmess', async (req, res) => {
         const isOpen = isNightMessOpen();
         
         res.json({ 
-            items: items, 
+            items: items || [], 
             success: true,
             isOpen: isOpen
         });
     } catch (error) {
         console.error('Error loading night mess items:', error);
-        res.status(500).json({ error: 'Error loading night mess items', success: false });
-    }
-});
-
-// Add night mess item
-router.post('/api/nightmess/add', isLoggedIn, upload.array('images', 5), async (req, res) => {
-    try {
-        const NightMessFood = require('../models/NightMessFood');
-        const { title, description, price, category, hostelBlock, tags, vendorPhone, vendorEmail } = req.body;
-        
-        const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
-        const images = req.files ? req.files.map(file => `/uploads/nightmess/${file.filename}`) : [];
-        
-        if (images.length === 0) {
-            return res.status(400).json({ error: 'Please upload at least one image' });
-        }
-        
-        const item = new NightMessFood({
-            title,
-            description,
-            price: price ? parseFloat(price) : 0,
-            category,
-            hostelBlock: hostelBlock.toUpperCase(),
-            tags: tagsArray,
-            images,
-            vendor: req.user._id,
-            vendorPhone: vendorPhone,
-            vendorEmail: vendorEmail,
-            chatRooms: []
+        res.status(200).json({ 
+            items: [], 
+            success: false, 
+            error: error.message,
+            isOpen: true
         });
-        
-        await item.save();
-        
-        res.json({ success: true, item });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
     }
 });
-
-// Get single night mess item
-router.get('/marketplace/nightmess-item/:id', async (req, res) => {
-    try {
-        const NightMessFood = require('../models/NightMessFood');
-        const item = await NightMessFood.findById(req.params.id)
-            .populate('vendor', 'username profilePhoto email');
-            
-        if (!item) {
-            req.flash('error', 'Item not found');
-            return res.redirect('/marketplace');
-        }
-        
-        let hasInterested = false;
-        let existingChatRoom = null;
-        
-        if (req.user) {
-            hasInterested = item.interestedBuyers.some(
-                i => i.user && i.user._id && i.user._id.toString() === req.user._id.toString()
-            );
-            
-            if (item.chatRooms && item.chatRooms.length > 0) {
-                const existingRoom = item.chatRooms.find(
-                    room => room.user && room.user.toString() === req.user._id.toString()
-                );
-                if (existingRoom) {
-                    existingChatRoom = existingRoom.roomId;
-                }
-            }
-        }
-        
-        res.render('marketplace/nightmess-item', {
-            item,
-            hasInterested,
-            existingChatRoom,
-            currUser: req.user
-        });
-    } catch (error) {
-        console.error(error);
-        req.flash('error', 'Error loading item');
-        res.redirect('/marketplace');
-    }
-});
-// ============ API ENDPOINTS ============
-
-
-
-// Add night mess item (API)
-router.post('/api/nightmess/add', isLoggedIn, upload.array('images', 5), async (req, res) => {
-    try {
-        const { title, description, price, category, hostelBlock, tags, vendorPhone, vendorEmail } = req.body;
-        
-        const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
-        const images = req.files ? req.files.map(file => `/uploads/nightmess/${file.filename}`) : [];
-        
-        if (images.length === 0) {
-            return res.status(400).json({ error: 'Please upload at least one image' });
-        }
-        
-        const item = new NightMessFood({
-            title,
-            description,
-            price: price ? parseFloat(price) : 0,
-            category,
-            hostelBlock: hostelBlock.toUpperCase(),
-            tags: tagsArray,
-            images,
-            vendor: req.user._id,
-            vendorPhone: vendorPhone,
-            vendorEmail: vendorEmail,
-            chatRooms: []
-        });
-        
-        await item.save();
-        
-        res.json({ success: true, item });
-    } catch (error) {
-        console.error('Error adding night mess item:', error);
-        res.status(500).json({ error: error.message });
-    }
-});
-
 
 module.exports = router;
