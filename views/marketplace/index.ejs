@@ -1,1816 +1,1947 @@
 <%- include('../partials/header') %>
 
-<style>
-/* ========== MODERN VARIABLES ========== */
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1e40af;
-    --accent: #f97316;
-    --dark: #0f172a;
-    --light: #f8fafc;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-600: #4b5563;
-    --gray-800: #1f2937;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --card-hover-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
-    --transition-bounce: cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
-/* ========== VMALL PREMIUM HERO ========== */
-.vmall-premium-hero {
-    position: relative;
-    background: linear-gradient(135deg, #0a0a1a 0%, #000000 100%);
-    margin: 20px 20px 40px 20px;
-    border-radius: 48px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 216, 255, 0.15);
-    transition: all 0.4s ease;
-}
-
-.vmall-premium-hero:hover {
-    box-shadow: 0 25px 50px rgba(0, 140, 255, 0.1);
-    border-color: rgba(0, 216, 255, 0.3);
-}
-
-.hero-bg-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.hero-bg-animation::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    background: radial-gradient(circle, rgba(0, 216, 255, 0.08) 0%, transparent 70%);
-    animation: rotateBg 20s linear infinite;
-}
-
-@keyframes rotateBg {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.hero-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.hero-particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #00d8ff;
-    border-radius: 50%;
-    opacity: 0;
-    animation: floatParticle 10s ease-in-out infinite;
-}
-
-@keyframes floatParticle {
-    0% { opacity: 0; transform: translateY(0) translateX(0); }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.3; }
-    100% { opacity: 0; transform: translateY(-120px) translateX(60px); }
-}
-
-.hero-premium-content {
-    position: relative;
-    z-index: 2;
-    padding: 60px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.hero-premium-left {
-    flex: 1;
-    min-width: 280px;
-}
-
-.hero-premium-title {
-    font-size: 56px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.hero-premium-title span {
-    background: linear-gradient(135deg, #00d8ff, #008cff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-}
-
-.hero-premium-search {
-    display: flex;
-    gap: 12px;
-    max-width: 600px;
-    width: 100%;
-    margin-bottom: 28px;
-}
-
-.hero-search-input {
-    flex: 1;
-    padding: 16px 24px;
-    border-radius: 60px;
-    border: 1px solid rgba(0, 216, 255, 0.2);
-    font-size: 15px;
-    background: rgba(10, 10, 26, 0.6);
-    color: white;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.hero-search-input:focus {
-    outline: none;
-    border-color: #00d8ff;
-    background: rgba(0, 216, 255, 0.05);
-    box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.1);
-}
-
-.hero-search-btn {
-    padding: 0 32px;
-    border-radius: 60px;
-    background: linear-gradient(135deg, #00d8ff, #008cff);
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-search-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 140, 255, 0.3);
-}
-
-.hero-premium-buttons {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-
-.hero-sell-btn {
-    background: rgba(0, 216, 255, 0.08);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 14px 32px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(0, 216, 255, 0.35);
-    box-shadow: 0 4px 16px rgba(0, 140, 255, 0.15);
-}
-
-.hero-sell-btn:hover {
-    background: rgba(0, 216, 255, 0.15);
-    border-color: rgba(0, 216, 255, 0.5);
-    transform: translateY(-2px);
-    color: white;
-}
-
-.total-sales-card {
-    background: linear-gradient(135deg, rgba(10, 10, 26, 0.8), rgba(0, 0, 0, 0.6));
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 216, 255, 0.1);
-    border-radius: 24px;
-    padding: 32px;
-    min-width: 320px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-    cursor: auto;
-    animation: cardFloat 5s ease-in-out infinite;
-}
-
-@media (max-width: 1024px) {
-    .total-sales-card {
-        display: none;
-    }
-}
-
-.hero-float-image {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 380px;
-    opacity: 0.7;
-    pointer-events: none;
-    z-index: 0;
-    filter: drop-shadow(0 0 20px rgba(0, 216, 255, 0.3));
-}
-
-@media (max-width: 992px) {
-    .hero-premium-content {
-        flex-direction: column;
-        text-align: center;
-        padding: 40px 30px;
-    }
-    .hero-premium-title { font-size: 44px; }
-    .hero-premium-search { margin-left: auto; margin-right: auto; }
-    .hero-premium-buttons { justify-content: center; }
-    .hero-float-image { display: none; }
-}
-
-@media (max-width: 768px) {
-    .vmall-premium-hero { margin: 10px; border-radius: 32px; }
-    .hero-premium-title { font-size: 32px; }
-    .hero-search-input { padding: 12px 18px; font-size: 13px; }
-    .hero-search-btn { padding: 0 20px; font-size: 13px; }
-}
-
-/* ========== BROWSE SECTION ========== */
-.browse-section {
-    margin: 60px 20px 40px 20px;
-}
-
-.tab-container {
-    margin-bottom: 32px;
-    border-bottom: 2px solid var(--gray-200);
-}
-
-.tab-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.tab-btn {
-    padding: 12px 28px;
-    font-size: 16px;
-    font-weight: 600;
-    background: transparent;
-    border: none;
-    color: var(--gray-600);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 40px;
-    position: relative;
-}
-
-.tab-btn.active {
-    color: var(--primary);
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.05));
-}
-
-.tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    border-radius: 2px;
-}
-
-.tab-content {
-    display: none;
-    animation: fadeIn 0.3s ease;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* ========== FILTER BAR ========== */
-.filter-bar {
-    background: white;
-    border-radius: 20px;
-    padding: 20px 24px;
-    margin-bottom: 32px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-200);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px;
-    justify-content: space-between;
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.filter-select {
-    padding: 8px 16px;
-    border: 1px solid var(--gray-200);
-    border-radius: 12px;
-    font-size: 14px;
-    background: white;
-    cursor: pointer;
-}
-
-.price-input-group {
-    display: flex;
-    gap: 8px;
-}
-
-.price-input {
-    width: 100px;
-    padding: 8px 12px;
-    border: 1px solid var(--gray-200);
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-.filter-apply {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 8px 24px;
-    border-radius: 12px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.sell-quick-btn {
-    background: linear-gradient(135deg, #f97316, #ea580c);
-    color: white;
-    padding: 8px 24px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* ========== PRODUCT GRID ========== */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 28px;
-}
-
-.product-card-vmall {
-    background: white;
-    border-radius: 24px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--gray-200);
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-}
-
-.product-card-vmall:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-2xl);
-    border-color: transparent;
-}
-
-.product-image-vmall {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1;
-}
-
-.product-image-vmall img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.product-info {
-    padding: 20px;
-}
-
-.product-title-vmall {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--dark);
-}
-
-.product-price-vmall {
-    font-size: 24px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-/* ========== NIGHT MESS FOOD GRID ========== */
-.food-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 28px;
-}
-
-.food-card {
-    background: white;
-    border-radius: 24px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--gray-200);
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-}
-
-.food-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-2xl);
-    border-color: #f97316;
-}
-
-.food-image {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-}
-
-.food-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.food-card:hover .food-image img {
-    transform: scale(1.08);
-}
-
-.food-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    color: white;
-}
-
-.food-block-badge {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: linear-gradient(135deg, #f97316, #ea580c);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-}
-
-.hostel-type-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.hostel-type-badge.men {
-    background: #00d8ff;
-}
-
-.hostel-type-badge.women {
-    background: #ff69b4;
-}
-
-.food-info {
-    padding: 16px;
-}
-
-.food-vendor-name {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #f97316;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.food-category {
-    font-size: 12px;
-    color: #6b7280;
-    margin-bottom: 8px;
-}
-
-.menu-preview {
-    font-size: 13px;
-    color: #6b7280;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.menu-preview-item {
-    background: #f3f4f6;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    color: #1f2937;
-}
-
-.menu-count {
-    font-size: 12px;
-    color: #f97316;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-.food-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--gray-200);
-}
-
-.food-vendor {
-    font-size: 12px;
-    color: #6b7280;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.food-rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    color: #f59e0b;
-}
-
-/* ========== HOSTEL TYPE TOGGLE ========== */
-.hostel-type-toggle .btn-group {
-    border-radius: 40px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 216, 255, 0.2);
-    margin-bottom: 20px;
-}
-
-.hostel-type-btn {
-    background: rgba(10, 10, 26, 0.6);
-    color: #94a3b8;
-    border: none;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-}
-
-.hostel-type-btn.active {
-    background: linear-gradient(135deg, #00d8ff, #008cff);
-    color: white;
-}
-
-.block-subtitle {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.men-hostel-blocks .block-subtitle { color: #00d8ff; }
-.women-hostel-blocks .block-subtitle { color: #ff69b4; }
-
-.block-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.block-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-200);
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.block-btn:hover {
-    transform: translateY(-2px);
-}
-
-.men-hostel-blocks .block-btn:hover {
-    border-color: #00d8ff;
-    background: rgba(0, 216, 255, 0.1);
-}
-
-.women-hostel-blocks .block-btn:hover {
-    border-color: #ff69b4;
-    background: rgba(255, 105, 180, 0.1);
-}
-
-.empty-state {
-    text-align: center;
-    padding: 80px 40px;
-    background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
-    border-radius: 32px;
-}
-
-.empty-icon {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-}
-
-.empty-icon i {
-    font-size: 48px;
-    color: white;
-}
-
-.empty-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--gray-800);
-}
-
-.empty-text {
-    color: var(--gray-600);
-    margin-bottom: 32px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes cardFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-}
-
-.sales-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(0, 216, 255, 0.2), rgba(0, 140, 255, 0.1));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    animation: iconPulse 2s ease-in-out infinite;
-}
-
-.sales-icon i {
-    font-size: 28px;
-    color: #00d8ff;
-}
-
-.sales-label {
-    font-size: 12px;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.sales-amount {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 20px;
-}
-
-.currency {
-    font-size: 28px;
-    font-weight: 600;
-    color: #00d8ff;
-}
-
-.amount {
-    font-size: 48px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #00d8ff, #008cff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    line-height: 1;
-    letter-spacing: -1px;
-}
-
-@keyframes iconPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 216, 255, 0.4); }
-    50% { box-shadow: 0 0 0 15px rgba(0, 216, 255, 0); }
-}
-/* ========== ENHANCED PRODUCT CARD DESIGN ========== */
-
-/* Product Card Container */
-.product-card-vmall {
-    background: white;
-    border-radius: 28px;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    position: relative;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.product-card-vmall:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
-    border-color: rgba(0, 216, 255, 0.2);
-}
-
-/* Image Container Enhancement */
-.product-image-vmall {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1;
-    background: linear-gradient(135deg, #f5f7fa 0%, #eef2f6 100%);
-}
-
-.product-image-vmall img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-.product-card-vmall:hover .product-image-vmall img {
-    transform: scale(1.08);
-}
-
-/* Category Badge - Enhanced */
-.product-badge-vmall {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(12px);
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: 600;
-    color: white;
-    letter-spacing: 0.3px;
-    z-index: 2;
-    transition: all 0.3s ease;
-}
-
-.product-card-vmall:hover .product-badge-vmall {
-    background: rgba(0, 216, 255, 0.9);
-    transform: translateX(4px);
-}
-
-/* Wishlist Button */
-.product-wishlist {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 38px;
-    height: 38px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-    z-index: 2;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.product-wishlist:hover {
-    background: white;
-    transform: scale(1.12);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.product-wishlist i {
-    color: #ef4444;
-    font-size: 18px;
-    transition: transform 0.2s ease;
-}
-
-.product-wishlist:hover i {
-    transform: scale(1.05);
-}
-
-/* Product Info Section */
-.product-info {
-    padding: 20px 20px 24px;
-    background: white;
-}
-
-/* Title */
-.product-title-vmall {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #1f2937;
-    line-height: 1.4;
-    transition: color 0.2s ease;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 50px;
-}
-
-.product-card-vmall:hover .product-title-vmall {
-    color: var(--primary);
-}
-
-/* Meta Info */
-.product-meta-vmall {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.seller-vmall {
-    font-size: 12px;
-    color: #6b7280;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #f3f4f6;
-    padding: 4px 12px;
-    border-radius: 30px;
-    transition: all 0.2s ease;
-}
-
-.seller-vmall i {
-    font-size: 12px;
-    color: var(--primary);
-}
-
-.product-card-vmall:hover .seller-vmall {
-    background: #e0f2fe;
-    color: #0284c7;
-}
-
-/* Condition Badge */
-.condition-vmall {
-    font-size: 11px;
-    padding: 4px 12px;
-    border-radius: 30px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.condition-new {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
-}
-
-.condition-like-new {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
-
-.condition-good {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
-}
-
-.condition-fair {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: white;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
-}
-
-/* Description */
-.product-description {
-    font-size: 13px;
-    color: #6b7280;
-    line-height: 1.5;
-    margin-bottom: 16px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 40px;
-}
-
-/* Price Section */
-.price-section {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid #f3f4f6;
-    margin-top: 8px;
-}
-
-.product-price-vmall {
-    font-size: 26px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: -0.5px;
-}
-
-.view-details-icon {
-    width: 36px;
-    height: 36px;
-    background: #f3f4f6;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-.product-card-vmall:hover .view-details-icon {
-    opacity: 1;
-    transform: translateX(0);
-    background: var(--primary);
-}
-
-.product-card-vmall:hover .view-details-icon i {
-    color: white;
-}
-
-.view-details-icon i {
-    font-size: 14px;
-    color: var(--primary);
-    transition: color 0.2s ease;
-}
-
-/* Status Badge for Sold/Reserved */
-.status-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.product-card-vmall[data-status="sold"]:hover .status-overlay,
-.product-card-vmall[data-status="reserved"]:hover .status-overlay {
-    opacity: 1;
-}
-
-.status-text {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 8px 20px;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Animation for new cards */
-@keyframes cardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.product-card-vmall {
-    animation: cardAppear 0.5s ease-out backwards;
-}
-
-.product-card-vmall:nth-child(1) { animation-delay: 0.05s; }
-.product-card-vmall:nth-child(2) { animation-delay: 0.1s; }
-.product-card-vmall:nth-child(3) { animation-delay: 0.15s; }
-.product-card-vmall:nth-child(4) { animation-delay: 0.2s; }
-.product-card-vmall:nth-child(5) { animation-delay: 0.25s; }
-.product-card-vmall:nth-child(6) { animation-delay: 0.3s; }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .product-card-vmall {
-        border-radius: 20px;
-    }
-    
-    .product-info {
-        padding: 14px;
-    }
-    
-    .product-title-vmall {
-        font-size: 15px;
-        min-height: 42px;
-    }
-    
-    .product-price-vmall {
-        font-size: 20px;
-    }
-    
-    .view-details-icon {
-        width: 32px;
-        height: 32px;
-    }
-    
-    .seller-vmall {
-        font-size: 10px;
-        padding: 3px 10px;
-    }
-    
-    .condition-vmall {
-        font-size: 9px;
-        padding: 3px 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .product-info {
-        padding: 12px;
-    }
-    
-    .product-title-vmall {
-        font-size: 14px;
-        min-height: 38px;
-    }
-    
-    .product-price-vmall {
-        font-size: 18px;
-    }
-    
-    .view-details-icon {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .view-details-icon i {
-        font-size: 12px;
-    }
-}
-/* ========== MOBILE PRODUCT GRID - 2 COLUMNS ========== */
-
-/* Default grid for desktop */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 28px;
-}
-
-/* For tablet view */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-}
-
-/* For mobile view - 2 columns */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 0 8px;
-    }
-    
-    /* Adjust product card for mobile */
-    .product-card-vmall {
-        border-radius: 16px;
-    }
-    
-    .product-image-vmall {
-        aspect-ratio: 1;
-    }
-    
-    .product-info {
-        padding: 10px;
-    }
-    
-    .product-title-vmall {
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 4px;
-        line-height: 1.3;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 34px;
-    }
-    
-    .product-meta-vmall {
-        margin-bottom: 6px;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-    
-    .seller-vmall {
-        font-size: 9px;
-        padding: 2px 8px;
-    }
-    
-    .seller-vmall i {
-        font-size: 8px;
-    }
-    
-    .condition-vmall {
-        font-size: 8px;
-        padding: 2px 6px;
-    }
-    
-    .product-description {
-        display: none;
-    }
-    
-    .price-section {
-        padding-top: 6px;
-        margin-top: 0;
-        border-top: 1px solid #f3f4f6;
-    }
-    
-    .product-price-vmall {
-        font-size: 14px;
-        font-weight: 700;
-    }
-    
-    .view-details-icon {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .view-details-icon i {
-        font-size: 10px;
-    }
-    
-    .product-badge-vmall {
-        top: 8px;
-        left: 8px;
-        padding: 3px 8px;
-        font-size: 8px;
-    }
-    
-    .product-wishlist {
-        top: 8px;
-        right: 8px;
-        width: 28px;
-        height: 28px;
-    }
-    
-    .product-wishlist i {
-        font-size: 12px;
-    }
-}
-
-/* For very small screens (under 480px) - keep 2 columns but adjust spacing */
-@media (max-width: 480px) {
-    .products-grid {
-        gap: 10px;
-        padding: 0 6px;
-    }
-    
-    .product-info {
-        padding: 8px;
-    }
-    
-    .product-title-vmall {
-        font-size: 12px;
-        min-height: 32px;
-    }
-    
-    .seller-vmall {
-        font-size: 8px;
-        padding: 2px 6px;
-    }
-    
-    .condition-vmall {
-        font-size: 7px;
-        padding: 1px 4px;
-    }
-    
-    .product-price-vmall {
-        font-size: 13px;
-    }
-    
-    .view-details-icon {
-        width: 22px;
-        height: 22px;
-    }
-    
-    .view-details-icon i {
-        font-size: 9px;
-    }
-}
-
-/* For extra small screens (under 360px) */
-@media (max-width: 360px) {
-    .products-grid {
-        gap: 8px;
-        padding: 0 4px;
-    }
-    
-    .product-title-vmall {
-        font-size: 11px;
-        min-height: 28px;
-    }
-    
-    .product-price-vmall {
-        font-size: 12px;
-    }
-}
-
-/* Also apply to food grid for consistency */
-.food-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 28px;
-}
-
-@media (max-width: 768px) {
-    .food-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-    
-    .food-card {
-        border-radius: 16px;
-    }
-    
-    .food-image {
-        height: 140px;
-    }
-    
-    .food-info {
-        padding: 10px;
-    }
-    
-    .food-vendor-name {
-        font-size: 14px;
-    }
-    
-    .food-category {
-        font-size: 10px;
-    }
-    
-    .menu-count {
-        font-size: 10px;
-    }
-    
-    .menu-preview-item {
-        font-size: 9px;
-        padding: 1px 6px;
-    }
-    
-    .food-meta {
-        font-size: 10px;
-        margin-top: 8px;
-        padding-top: 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    .food-grid {
-        gap: 10px;
-    }
-    
-    .food-image {
-        height: 120px;
-    }
-    
-    .food-vendor-name {
-        font-size: 13px;
-    }
-    
-    .menu-preview {
-        gap: 4px;
-    }
-    
-    .menu-preview-item {
-        font-size: 8px;
-        padding: 1px 4px;
-    }
-}
-/* ========== TOTAL SALES CARD - MOBILE RESPONSIVE ========== */
-
-/* Desktop view - card positioned on the right */
-.total-sales-card {
-    background: linear-gradient(135deg, rgba(10, 10, 26, 0.8), rgba(0, 0, 0, 0.6));
-    backdrop-filter: blur(20px);
-    border-radius: 32px;
-    padding: 28px;
-    min-width: 280px;
-    border: 1px solid rgba(0, 216, 255, 0.2);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-    cursor: pointer;
-    animation: cardFloat 4s ease-in-out infinite;
-    margin-right: auto;
-    margin-left: 0;
-}
-
-/* Tablet view - show card but adjust size */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .total-sales-card {
-        min-width: 240px;
-        padding: 20px;
-        margin-top: 20px;
-    }
-    
-    .amount {
-        font-size: 36px;
-    }
-    
-    .currency {
-        font-size: 24px;
-    }
-    
-    .sales-icon {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .sales-icon i {
-        font-size: 24px;
-    }
-}
-
-/* Mobile view - hide the card */
-@media (max-width: 768px) {
-    .total-sales-card {
-        display: none !important;
-    }
-    
-    .sales-icon {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 16px;
-    }
-    
-    .sales-icon i {
-        font-size: 24px;
-    }
-    
-    .sales-label {
-        font-size: 11px;
-        margin-bottom: 6px;
-    }
-    
-    .sales-amount {
-        margin-bottom: 12px;
-    }
-    
-    .currency {
-        font-size: 20px;
-    }
-    
-    .amount {
-        font-size: 32px;
-    }
-    
-    /* Reorder the hero content on mobile */
-    .hero-premium-content {
-        flex-direction: column;
-        padding: 30px 24px;
-    }
-    
-    .hero-premium-left {
-        width: 100%;
-    }
-    
-    /* Position total sales card below the buttons - but it's hidden now */
-    .total-sales-card {
-        order: 3;
-        margin-top: 24px;
-        display: none !important;
-    }
-    
-    .hero-premium-search {
-        order: 1;
-    }
-    
-    .hero-premium-buttons {
-        order: 2;
-    }
-}
-
-/* Small mobile view - kept hidden */
-@media (max-width: 480px) {
-    .total-sales-card {
-        display: none !important;
-    }
-    
-    .sales-icon {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 12px;
-    }
-    
-    .sales-icon i {
-        font-size: 20px;
-    }
-    
-    .sales-label {
-        font-size: 10px;
-        margin-bottom: 4px;
-    }
-    
-    .currency {
-        font-size: 18px;
-    }
-    
-    .amount {
-        font-size: 28px;
-    }
-}
-
-/* Removed the desktop-only hide rules that were conflicting */
-@media (max-width: 1024px) {
-    /* .total-sales-card used to be display block here */
-}
-
-/* Keep the hero content layout proper */
-.hero-premium-content {
-    position: relative;
-    z-index: 2;
-    padding: 60px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-@media (max-width: 768px) {
-    .hero-premium-content {
-        flex-direction: column;
-        padding: 30px 24px;
-        gap: 20px;
-    }
-    
-    .hero-premium-left {
-        width: 100%;
-    }
-}
-
-
-</style>
-
-<div class="vmall-premium-hero">
-    <div class="hero-bg-animation"></div>
-    <div class="hero-particles" id="heroParticles"></div>
-    
-    <div class="hero-premium-content">
-        <div class="hero-premium-left">
-            <h1 class="hero-premium-title">
-                Buy. Sell. Rent. <span>Repeat.</span>
-            </h1>
-            
-            <div class="hero-premium-search">
-                <input type="text" id="bannerSearchInput" class="hero-search-input" 
-                       placeholder="Search products..." 
-                       value="<%= searchQuery %>">
-                <button class="hero-search-btn" onclick="performSearch()">
-                    <i class="fas fa-search"></i> <span>Search</span>
-                </button>
+    <style>
+        /* ========== MODERN VARIABLES ========== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #f97316;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --card-hover-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+            --transition-bounce: cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+
+        /* ========== VMALL PREMIUM HERO ========== */
+        .vmall-premium-hero {
+            position: relative;
+            background: linear-gradient(135deg, #0a0a1a 0%, #000000 100%);
+            margin: 20px 20px 40px 20px;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 216, 255, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .vmall-premium-hero:hover {
+            box-shadow: 0 25px 50px rgba(0, 140, 255, 0.1);
+            border-color: rgba(0, 216, 255, 0.3);
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(0, 216, 255, 0.08) 0%, transparent 70%);
+            animation: rotateBg 20s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d8ff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 10s ease-in-out infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+
+            10% {
+                opacity: 0.5;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) translateX(60px);
+            }
+        }
+
+        .hero-premium-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .hero-premium-left {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .hero-premium-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero-premium-title span {
+            background: linear-gradient(135deg, #00d8ff, #008cff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-premium-search {
+            display: flex;
+            gap: 12px;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 28px;
+        }
+
+        .hero-search-input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 60px;
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            font-size: 15px;
+            background: rgba(10, 10, 26, 0.6);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .hero-search-input:focus {
+            outline: none;
+            border-color: #00d8ff;
+            background: rgba(0, 216, 255, 0.05);
+            box-shadow: 0 0 0 3px rgba(0, 216, 255, 0.1);
+        }
+
+        .hero-search-btn {
+            padding: 0 32px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #00d8ff, #008cff);
+            border: none;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 140, 255, 0.3);
+        }
+
+        .hero-premium-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-sell-btn {
+            background: rgba(0, 216, 255, 0.08);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(0, 216, 255, 0.35);
+            box-shadow: 0 4px 16px rgba(0, 140, 255, 0.15);
+        }
+
+        .hero-sell-btn:hover {
+            background: rgba(0, 216, 255, 0.15);
+            border-color: rgba(0, 216, 255, 0.5);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .total-sales-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.8), rgba(0, 0, 0, 0.6));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            min-width: 320px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            cursor: auto;
+            animation: cardFloat 5s ease-in-out infinite;
+        }
+
+        @media (max-width: 1024px) {
+            .total-sales-card {
+                display: none;
+            }
+        }
+
+        .hero-float-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+            filter: drop-shadow(0 0 20px rgba(0, 216, 255, 0.3));
+        }
+
+        @media (max-width: 992px) {
+            .hero-premium-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 30px;
+            }
+
+            .hero-premium-title {
+                font-size: 44px;
+            }
+
+            .hero-premium-search {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-premium-buttons {
+                justify-content: center;
+            }
+
+            .hero-float-image {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vmall-premium-hero {
+                margin: 10px;
+                border-radius: 32px;
+            }
+
+            .hero-premium-title {
+                font-size: 32px;
+            }
+
+            .hero-search-input {
+                padding: 12px 18px;
+                font-size: 13px;
+            }
+
+            .hero-search-btn {
+                padding: 0 20px;
+                font-size: 13px;
+            }
+        }
+
+        /* ========== BROWSE SECTION ========== */
+        .browse-section {
+            margin: 60px 20px 40px 20px;
+        }
+
+        .tab-container {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 40px;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(249, 115, 22, 0.05));
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ========== FILTER BAR ========== */
+        .filter-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 8px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .price-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .price-input {
+            width: 100px;
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .filter-apply {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .sell-quick-btn {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ========== PRODUCT GRID ========== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card-vmall {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .product-card-vmall:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: transparent;
+        }
+
+        .product-image-vmall {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .product-image-vmall img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title-vmall {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .product-price-vmall {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ========== NIGHT MESS FOOD GRID ========== */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .food-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: #f97316;
+        }
+
+        .food-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .food-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .food-card:hover .food-image img {
+            transform: scale(1.08);
+        }
+
+        .food-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: white;
+        }
+
+        .food-block-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .hostel-type-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hostel-type-badge.men {
+            background: #00d8ff;
+        }
+
+        .hostel-type-badge.women {
+            background: #ff69b4;
+        }
+
+        .food-info {
+            padding: 16px;
+        }
+
+        .food-vendor-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #f97316;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .food-category {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .menu-preview {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .menu-preview-item {
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #1f2937;
+        }
+
+        .menu-count {
+            font-size: 12px;
+            color: #f97316;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .food-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .food-vendor {
+            font-size: 12px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .food-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #f59e0b;
+        }
+
+        /* ========== HOSTEL TYPE TOGGLE ========== */
+        .hostel-type-toggle .btn-group {
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .hostel-type-btn {
+            background: rgba(10, 10, 26, 0.6);
+            color: #94a3b8;
+            border: none;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .hostel-type-btn.active {
+            background: linear-gradient(135deg, #00d8ff, #008cff);
+            color: white;
+        }
+
+        .block-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .men-hostel-blocks .block-subtitle {
+            color: #00d8ff;
+        }
+
+        .women-hostel-blocks .block-subtitle {
+            color: #ff69b4;
+        }
+
+        .block-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .block-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .block-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .men-hostel-blocks .block-btn:hover {
+            border-color: #00d8ff;
+            background: rgba(0, 216, 255, 0.1);
+        }
+
+        .women-hostel-blocks .block-btn:hover {
+            border-color: #ff69b4;
+            background: rgba(255, 105, 180, 0.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+            border-radius: 32px;
+        }
+
+        .empty-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .empty-icon i {
+            font-size: 48px;
+            color: white;
+        }
+
+        .empty-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--gray-800);
+        }
+
+        .empty-text {
+            color: var(--gray-600);
+            margin-bottom: 32px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes cardFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .sales-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(0, 216, 255, 0.2), rgba(0, 140, 255, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        .sales-icon i {
+            font-size: 28px;
+            color: #00d8ff;
+        }
+
+        .sales-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .sales-amount {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .currency {
+            font-size: 28px;
+            font-weight: 600;
+            color: #00d8ff;
+        }
+
+        .amount {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d8ff, #008cff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+
+        @keyframes iconPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 216, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(0, 216, 255, 0);
+            }
+        }
+
+        /* ========== ENHANCED PRODUCT CARD DESIGN ========== */
+
+        /* Product Card Container */
+        .product-card-vmall {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .product-card-vmall:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(0, 216, 255, 0.2);
+        }
+
+        /* Image Container Enhancement */
+        .product-image-vmall {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef2f6 100%);
+        }
+
+        .product-image-vmall img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .product-card-vmall:hover .product-image-vmall img {
+            transform: scale(1.08);
+        }
+
+        /* Category Badge - Enhanced */
+        .product-badge-vmall {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.3px;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .product-card-vmall:hover .product-badge-vmall {
+            background: rgba(0, 216, 255, 0.9);
+            transform: translateX(4px);
+        }
+
+        /* Wishlist Button */
+        .product-wishlist {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-wishlist:hover {
+            background: white;
+            transform: scale(1.12);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-wishlist i {
+            color: #ef4444;
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .product-wishlist:hover i {
+            transform: scale(1.05);
+        }
+
+        /* Product Info Section */
+        .product-info {
+            padding: 20px 20px 24px;
+            background: white;
+        }
+
+        /* Title */
+        .product-title-vmall {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1f2937;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 50px;
+        }
+
+        .product-card-vmall:hover .product-title-vmall {
+            color: var(--primary);
+        }
+
+        /* Meta Info */
+        .product-meta-vmall {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .seller-vmall {
+            font-size: 12px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f3f4f6;
+            padding: 4px 12px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+        }
+
+        .seller-vmall i {
+            font-size: 12px;
+            color: var(--primary);
+        }
+
+        .product-card-vmall:hover .seller-vmall {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        /* Condition Badge */
+        .condition-vmall {
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .condition-new {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+
+        .condition-like-new {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        .condition-good {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+        }
+
+        .condition-fair {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Description */
+        .product-description {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 40px;
+        }
+
+        /* Price Section */
+        .price-section {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f3f4f6;
+            margin-top: 8px;
+        }
+
+        .product-price-vmall {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .view-details-icon {
+            width: 36px;
+            height: 36px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .product-card-vmall:hover .view-details-icon {
+            opacity: 1;
+            transform: translateX(0);
+            background: var(--primary);
+        }
+
+        .product-card-vmall:hover .view-details-icon i {
+            color: white;
+        }
+
+        .view-details-icon i {
+            font-size: 14px;
+            color: var(--primary);
+            transition: color 0.2s ease;
+        }
+
+        /* Status Badge for Sold/Reserved */
+        .status-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .product-card-vmall[data-status="sold"]:hover .status-overlay,
+        .product-card-vmall[data-status="reserved"]:hover .status-overlay {
+            opacity: 1;
+        }
+
+        .status-text {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Animation for new cards */
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card-vmall {
+            animation: cardAppear 0.5s ease-out backwards;
+        }
+
+        .product-card-vmall:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .product-card-vmall:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .product-card-vmall:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .product-card-vmall:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .product-card-vmall:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .product-card-vmall:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .product-card-vmall {
+                border-radius: 20px;
+            }
+
+            .product-info {
+                padding: 14px;
+            }
+
+            .product-title-vmall {
+                font-size: 15px;
+                min-height: 42px;
+            }
+
+            .product-price-vmall {
+                font-size: 20px;
+            }
+
+            .view-details-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .seller-vmall {
+                font-size: 10px;
+                padding: 3px 10px;
+            }
+
+            .condition-vmall {
+                font-size: 9px;
+                padding: 3px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-info {
+                padding: 12px;
+            }
+
+            .product-title-vmall {
+                font-size: 14px;
+                min-height: 38px;
+            }
+
+            .product-price-vmall {
+                font-size: 18px;
+            }
+
+            .view-details-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .view-details-icon i {
+                font-size: 12px;
+            }
+        }
+
+        /* ========== MOBILE PRODUCT GRID - 2 COLUMNS ========== */
+
+        /* Default grid for desktop */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        /* For tablet view */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        /* For mobile view - 2 columns */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 0 8px;
+            }
+
+            /* Adjust product card for mobile */
+            .product-card-vmall {
+                border-radius: 16px;
+            }
+
+            .product-image-vmall {
+                aspect-ratio: 1;
+            }
+
+            .product-info {
+                padding: 10px;
+            }
+
+            .product-title-vmall {
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                line-height: 1.3;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                min-height: 34px;
+            }
+
+            .product-meta-vmall {
+                margin-bottom: 6px;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .seller-vmall {
+                font-size: 9px;
+                padding: 2px 8px;
+            }
+
+            .seller-vmall i {
+                font-size: 8px;
+            }
+
+            .condition-vmall {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+
+            .product-description {
+                display: none;
+            }
+
+            .price-section {
+                padding-top: 6px;
+                margin-top: 0;
+                border-top: 1px solid #f3f4f6;
+            }
+
+            .product-price-vmall {
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .view-details-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .view-details-icon i {
+                font-size: 10px;
+            }
+
+            .product-badge-vmall {
+                top: 8px;
+                left: 8px;
+                padding: 3px 8px;
+                font-size: 8px;
+            }
+
+            .product-wishlist {
+                top: 8px;
+                right: 8px;
+                width: 28px;
+                height: 28px;
+            }
+
+            .product-wishlist i {
+                font-size: 12px;
+            }
+        }
+
+        /* For very small screens (under 480px) - keep 2 columns but adjust spacing */
+        @media (max-width: 480px) {
+            .products-grid {
+                gap: 10px;
+                padding: 0 6px;
+            }
+
+            .product-info {
+                padding: 8px;
+            }
+
+            .product-title-vmall {
+                font-size: 12px;
+                min-height: 32px;
+            }
+
+            .seller-vmall {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+
+            .condition-vmall {
+                font-size: 7px;
+                padding: 1px 4px;
+            }
+
+            .product-price-vmall {
+                font-size: 13px;
+            }
+
+            .view-details-icon {
+                width: 22px;
+                height: 22px;
+            }
+
+            .view-details-icon i {
+                font-size: 9px;
+            }
+        }
+
+        /* For extra small screens (under 360px) */
+        @media (max-width: 360px) {
+            .products-grid {
+                gap: 8px;
+                padding: 0 4px;
+            }
+
+            .product-title-vmall {
+                font-size: 11px;
+                min-height: 28px;
+            }
+
+            .product-price-vmall {
+                font-size: 12px;
+            }
+        }
+
+        /* Also apply to food grid for consistency */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .food-card {
+                border-radius: 16px;
+            }
+
+            .food-image {
+                height: 140px;
+            }
+
+            .food-info {
+                padding: 10px;
+            }
+
+            .food-vendor-name {
+                font-size: 14px;
+            }
+
+            .food-category {
+                font-size: 10px;
+            }
+
+            .menu-count {
+                font-size: 10px;
+            }
+
+            .menu-preview-item {
+                font-size: 9px;
+                padding: 1px 6px;
+            }
+
+            .food-meta {
+                font-size: 10px;
+                margin-top: 8px;
+                padding-top: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .food-grid {
+                gap: 10px;
+            }
+
+            .food-image {
+                height: 120px;
+            }
+
+            .food-vendor-name {
+                font-size: 13px;
+            }
+
+            .menu-preview {
+                gap: 4px;
+            }
+
+            .menu-preview-item {
+                font-size: 8px;
+                padding: 1px 4px;
+            }
+        }
+
+        /* ========== TOTAL SALES CARD - MOBILE RESPONSIVE ========== */
+
+        /* Desktop view - card positioned on the right */
+        .total-sales-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.8), rgba(0, 0, 0, 0.6));
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 28px;
+            min-width: 280px;
+            border: 1px solid rgba(0, 216, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            cursor: pointer;
+            animation: cardFloat 4s ease-in-out infinite;
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        /* Tablet view - show card but adjust size */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .total-sales-card {
+                min-width: 240px;
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .amount {
+                font-size: 36px;
+            }
+
+            .currency {
+                font-size: 24px;
+            }
+
+            .sales-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .sales-icon i {
+                font-size: 24px;
+            }
+        }
+
+        /* Mobile view - hide the card */
+        @media (max-width: 768px) {
+            .total-sales-card {
+                display: none !important;
+            }
+
+            .sales-icon {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 16px;
+            }
+
+            .sales-icon i {
+                font-size: 24px;
+            }
+
+            .sales-label {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+
+            .sales-amount {
+                margin-bottom: 12px;
+            }
+
+            .currency {
+                font-size: 20px;
+            }
+
+            .amount {
+                font-size: 32px;
+            }
+
+            /* Reorder the hero content on mobile */
+            .hero-premium-content {
+                flex-direction: column;
+                padding: 30px 24px;
+            }
+
+            .hero-premium-left {
+                width: 100%;
+            }
+
+            /* Position total sales card below the buttons - but it's hidden now */
+            .total-sales-card {
+                order: 3;
+                margin-top: 24px;
+                display: none !important;
+            }
+
+            .hero-premium-search {
+                order: 1;
+            }
+
+            .hero-premium-buttons {
+                order: 2;
+            }
+        }
+
+        /* Small mobile view - kept hidden */
+        @media (max-width: 480px) {
+            .total-sales-card {
+                display: none !important;
+            }
+
+            .sales-icon {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 12px;
+            }
+
+            .sales-icon i {
+                font-size: 20px;
+            }
+
+            .sales-label {
+                font-size: 10px;
+                margin-bottom: 4px;
+            }
+
+            .currency {
+                font-size: 18px;
+            }
+
+            .amount {
+                font-size: 28px;
+            }
+        }
+
+        /* Removed the desktop-only hide rules that were conflicting */
+        @media (max-width: 1024px) {
+            /* .total-sales-card used to be display block here */
+        }
+
+        /* Keep the hero content layout proper */
+        .hero-premium-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-premium-content {
+                flex-direction: column;
+                padding: 30px 24px;
+                gap: 20px;
+            }
+
+            .hero-premium-left {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="vmall-premium-hero">
+        <div class="hero-bg-animation"></div>
+        <div class="hero-particles" id="heroParticles"></div>
+
+        <div class="hero-premium-content">
+            <div class="hero-premium-left">
+                <h1 class="hero-premium-title">
+                    Buy. Sell. Rent. <span>Repeat.</span>
+                </h1>
+
+                <div class="hero-premium-search">
+                    <input type="text" id="bannerSearchInput" class="hero-search-input" placeholder="Search products..."
+                        value="<%= searchQuery %>">
+                    <button class="hero-search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i> <span></span>
+                    </button>
+                </div>
+
+                <div class="hero-premium-buttons">
+                    <% if (currUser) { %>
+                        <a href="/marketplace/add-product" class="hero-sell-btn">
+                            <i class="fas fa-plus-circle"></i> Sell Now
+                        </a>
+                        <% } %>
+                </div>
             </div>
-            
-            <div class="hero-premium-buttons">
-                <% if (currUser) { %>
-                    <a href="/marketplace/add-product" class="hero-sell-btn">
-                        <i class="fas fa-plus-circle"></i> Sell Now
-                    </a>
-                <% } %>
-            </div>
-        </div>
-        
-        <div class="total-sales-card">
-            <div class="sales-icon">
-                <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="sales-content">
-                <span class="sales-label">Total Sales Volume</span>
-                <div class="sales-amount">
-                    <span class="currency">₹</span>
-                    <span class="amount" id="totalSalesAmount"><%= totalSales.toLocaleString() %></span>
+
+            <div class="total-sales-card">
+                <div class="sales-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="sales-content">
+                    <span class="sales-label">Total Sales Volume</span>
+                    <div class="sales-amount">
+                        <span class="currency">₹</span>
+                        <span class="amount" id="totalSalesAmount">
+                            <%= totalSales.toLocaleString() %>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- <div class="hero-float-image">
+
+        <!-- <div class="hero-float-image">
         <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="Shopping" style="width: 100%; opacity: 0.6;">
     </div> -->
-</div>
-
-<script>
-function performSearch() {
-    const searchQuery = document.getElementById('bannerSearchInput').value;
-    if (searchQuery.trim()) {
-        window.location.href = `/marketplace?search=${encodeURIComponent(searchQuery)}`;
-    } else {
-        window.location.href = '/marketplace';
-    }
-}
-document.getElementById('bannerSearchInput')?.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') performSearch();
-});
-</script>
-
-<div class="browse-section">
-    <div class="tab-container">
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('products')">
-                <i class="fas fa-box"></i> Products
-            </button>
-            <button class="tab-btn" onclick="switchTab('nightmess')">
-                <i class="fas fa-utensils"></i> Late Night Food
-            </button>
-        </div>
     </div>
-    
-    <!-- Products Tab -->
-    <div id="productsTab" class="tab-content active">
-        <div class="filter-bar">
-            <div class="filter-group">
-                <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
-                <form action="/marketplace" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap;" id="filterForm">
-                    <select name="category" class="filter-select">
-                        <option value="">All Categories</option>
-                        <% categories.forEach(cat => { %>
-                            <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
-                        <% }) %>
-                    </select>
-                    <div class="price-input-group">
-                        <input type="number" name="minPrice" class="price-input" placeholder="Min ₹" value="<%= filters.minPrice %>">
-                        <span>-</span>
-                        <input type="number" name="maxPrice" class="price-input" placeholder="Max ₹" value="<%= filters.maxPrice %>">
-                    </div>
-                    <select name="condition" class="filter-select">
-                        <option value="">Any Condition</option>
-                        <option value="New" <%= filters.condition === 'New' ? 'selected' : '' %>>New</option>
-                        <option value="Like New" <%= filters.condition === 'Like New' ? 'selected' : '' %>>Like New</option>
-                        <option value="Good" <%= filters.condition === 'Good' ? 'selected' : '' %>>Good</option>
-                        <option value="Fair" <%= filters.condition === 'Fair' ? 'selected' : '' %>>Fair</option>
-                    </select>
-                    <button type="submit" class="filter-apply">Apply</button>
-                </form>
-            </div>
-            <% if (currUser) { %>
-                <a href="/marketplace/add-product" class="sell-quick-btn">
-                    <i class="fas fa-plus-circle"></i> Sell Item
-                </a>
-            <% } %>
-        </div>
-        
-        <% if (products.length === 0) { %>
-            <div class="empty-state">
-                <div class="empty-icon"><i class="fas fa-store"></i></div>
-                <h3 class="empty-title">No products found</h3>
-                <p class="empty-text">Be the first to list an item!</p>
-            </div>
-        <% } else { %>
-            <div class="products-grid">
-                <% products.forEach(product => { %>
-                    <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
-                        <div class="product-image-vmall">
-                            <img src="<%= product.images[0] %>" alt="<%= product.title %>">
-                            <div class="product-badge-vmall"><%= product.category %></div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title-vmall"><%= product.title %></h3>
-                            <div class="product-meta-vmall">
-                                <span class="seller-vmall"><i class="fas fa-user-circle"></i> <%= product.seller.username %></span>
-                                <span class="condition-vmall condition-<%= product.condition === 'New' ? 'new' : (product.condition === 'Like New' ? 'like-new' : 'good') %>"><%= product.condition %></span>
-                            </div>
-                            <div class="price-section">
-                                <span class="product-price-vmall">₹<%= product.price %></span>
-                            </div>
-                        </div>
-                    </a>
-                <% }) %>
-            </div>
-        <% } %>
-    </div>
-    
-    <!-- Night Mess Tab -->
-    <div id="nightmessTab" class="tab-content">
-        <div class="nightmess-hero" style="background: linear-gradient(135deg, #f97316, #ea580c); border-radius: 24px; padding: 40px; margin-bottom: 32px; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-            <div style="position: relative; z-index: 2;">
-                <h2 style="color: white; font-size: 32px; font-weight: 800; margin-bottom: 12px;">🌙 Late Night Food</h2>
-                <p style="color: rgba(255,255,255,0.9); font-size: 16px; max-width: 500px;">Order delicious food from your favorite vendors. Available 10:30 PM - 3:00 AM</p>
-            </div>
-        </div>
-        
-        <div class="block-search-section" style="margin-bottom: 32px;">
-            <div class="block-search-card" style="background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);">
-                <div class="block-title" style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">
-                    <i class="fas fa-building"></i> Search by Hostel Block
-                </div>
-                
-                <div class="hostel-type-toggle mb-3">
-                    <div class="btn-group w-100" role="group">
-                        <button type="button" class="btn hostel-type-btn active" data-type="both" onclick="filterNightMessByType('both')">
-                            <i class="fas fa-venus-mars"></i> All
-                        </button>
-                        <button type="button" class="btn hostel-type-btn" data-type="men" onclick="filterNightMessByType('men')">
-                            <i class="fas fa-mars"></i> Men's
-                        </button>
-                        <button type="button" class="btn hostel-type-btn" data-type="women" onclick="filterNightMessByType('women')">
-                            <i class="fas fa-venus"></i> Women's
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="men-hostel-blocks mb-3">
-                    <div class="block-subtitle"><i class="fas fa-mars"></i> Men's Hostel Blocks</div>
-                    <div class="block-buttons">
-                        <% const menBlocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']; %>
-                        <% menBlocks.forEach(block => { %>
-                            <button class="block-btn" onclick="filterNightMessByBlock('<%= block %>')"><%= block %></button>
-                        <% }) %>
-                    </div>
-                </div>
-                
-                <div class="women-hostel-blocks mb-3">
-                    <div class="block-subtitle"><i class="fas fa-venus"></i> Women's Hostel Blocks</div>
-                    <div class="block-buttons">
-                        <% const womenBlocks = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; %>
-                        <% womenBlocks.forEach(block => { %>
-                            <button class="block-btn" onclick="filterNightMessByBlock('<%= block %>')"><%= block %></button>
-                        <% }) %>
-                    </div>
-                </div>
-                
-                <button class="block-btn" onclick="filterNightMessByBlock('')" style="width: auto; padding: 0 20px;">All Blocks</button>
-                
-                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 20px;">
-                    <input type="text" id="nightmessSearchInput" class="form-control" placeholder="Search for food stalls..." style="flex: 1; padding: 12px 16px; border-radius: 40px; border: 1px solid #e5e7eb;">
-                    <button onclick="searchNightMess()" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px;">
-                        <i class="fas fa-search"></i> Search
-                    </button>
-                    <% if (currUser) { %>
-                        <a href="/nightmess/add-item" class="btn" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-plus-circle"></i> Add Food Stall
-                        </a>
-                    <% } %>
-                </div>
-            </div>
-        </div>
-        
-        <div id="nightmessItemsContainer">
-            <div style="text-align: center; padding: 60px;">
-                <div style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div>
-                <p>Loading food stalls...</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<%- include('../partials/vall-promo-banner') %>
-
-<script>
-function toggleWishlist(element, productId) {
-    const icon = element.querySelector('i');
-    if (icon.classList.contains('far')) {
-        icon.classList.remove('far');
-        icon.classList.add('fas');
-        icon.style.color = '#ef4444';
-    } else {
-        icon.classList.remove('fas');
-        icon.classList.add('far');
-        icon.style.color = '';
-    }
-}
-
-function switchTab(tabName) {
-    const tabs = document.querySelectorAll('.tab-btn');
-    const contents = document.querySelectorAll('.tab-content');
-    
-    tabs.forEach(tab => tab.classList.remove('active'));
-    contents.forEach(content => content.classList.remove('active'));
-    
-    if (tabName === 'products') {
-        document.getElementById('productsTab').classList.add('active');
-        document.querySelector('.tab-buttons button:first-child').classList.add('active');
-    } else if (tabName === 'nightmess') {
-        document.getElementById('nightmessTab').classList.add('active');
-        document.querySelector('.tab-buttons button:last-child').classList.add('active');
-        loadNightMessItems();
-    }
-}
-
-// ============ NIGHT MESS FUNCTIONS ============
-// ============ NIGHT MESS FUNCTIONS ============
-let nightMessItems = [];
-let currentBlockFilter = '';
-let currentSearchQuery = '';
-let currentHostelType = 'both';
-
-function loadNightMessItems() {
-    const container = document.getElementById('nightmessItemsContainer');
-    if (!container) return;
-    
-    container.innerHTML = '<div style="text-align: center; padding: 60px;"><div style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div><p>Loading food stalls...</p></div>';
-    
-    // FIXED: Correct API endpoint with /nightmess prefix
-    let url = '/nightmess/api/nightmess';
-    const params = new URLSearchParams();
-    if (currentBlockFilter && currentBlockFilter !== '') params.append('hostelBlock', currentBlockFilter);
-    if (currentSearchQuery && currentSearchQuery !== '') params.append('search', currentSearchQuery);
-    if (currentHostelType && currentHostelType !== 'both') params.append('hostelType', currentHostelType);
-    if (params.toString()) url += '?' + params.toString();
-    
-    console.log('Fetching from URL:', url);
-    
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Night mess data received:', data);
-            if (data.success !== false) {
-                const items = data.items || [];
-                renderNightMessItems(items, data.isOpen);
+    <script>
+        function performSearch() {
+            const searchQuery = document.getElementById('bannerSearchInput').value;
+            if (searchQuery.trim()) {
+                window.location.href = `/marketplace?search=${encodeURIComponent(searchQuery)}`;
             } else {
-                throw new Error(data.error || 'Failed to load');
+                window.location.href = '/marketplace';
             }
-        })
-        .catch(err => {
-            console.error('Error loading night mess items:', err);
-            container.innerHTML = `
+        }
+        document.getElementById('bannerSearchInput')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
+
+    <div class="browse-section">
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('products')">
+                    <i class="fas fa-box"></i> Products
+                </button>
+                <button class="tab-btn" onclick="switchTab('nightmess')">
+                    <i class="fas fa-utensils"></i> Late Night Food
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="productsTab" class="tab-content active">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
+                    <form action="/marketplace" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap;"
+                        id="filterForm">
+                        <select name="category" class="filter-select">
+                            <option value="">All Categories</option>
+                            <% categories.forEach(cat=> { %>
+                                <option value="<%= cat %>" <%=filters.category===cat ? 'selected' : '' %>><%= cat %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <div class="price-input-group">
+                            <input type="number" name="minPrice" class="price-input" placeholder="Min ₹"
+                                value="<%= filters.minPrice %>">
+                            <span>-</span>
+                            <input type="number" name="maxPrice" class="price-input" placeholder="Max ₹"
+                                value="<%= filters.maxPrice %>">
+                        </div>
+                        <select name="condition" class="filter-select">
+                            <option value="">Any Condition</option>
+                            <option value="New" <%=filters.condition==='New' ? 'selected' : '' %>>New</option>
+                            <option value="Like New" <%=filters.condition==='Like New' ? 'selected' : '' %>>Like New
+                            </option>
+                            <option value="Good" <%=filters.condition==='Good' ? 'selected' : '' %>>Good</option>
+                            <option value="Fair" <%=filters.condition==='Fair' ? 'selected' : '' %>>Fair</option>
+                        </select>
+                        <button type="submit" class="filter-apply">Apply</button>
+                    </form>
+                </div>
+                <% if (currUser) { %>
+                    <a href="/marketplace/add-product" class="sell-quick-btn">
+                        <i class="fas fa-plus-circle"></i> Sell Item
+                    </a>
+                    <% } %>
+            </div>
+
+            <% if (products.length===0) { %>
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="fas fa-store"></i></div>
+                    <h3 class="empty-title">No products found</h3>
+                    <p class="empty-text">Be the first to list an item!</p>
+                </div>
+                <% } else { %>
+                    <div class="products-grid">
+                        <% products.forEach(product=> { %>
+                            <a href="/marketplace/product/<%= product._id %>" class="product-card-vmall">
+                                <div class="product-image-vmall">
+                                    <img src="<%= product.images[0] %>" alt="<%= product.title %>">
+                                    <div class="product-badge-vmall">
+                                        <%= product.category %>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-title-vmall">
+                                        <%= product.title %>
+                                    </h3>
+                                    <div class="product-meta-vmall">
+                                        <span class="seller-vmall"><i class="fas fa-user-circle"></i>
+                                            <%= product.seller.username %>
+                                        </span>
+                                        <span
+                                            class="condition-vmall condition-<%= product.condition === 'New' ? 'new' : (product.condition === 'Like New' ? 'like-new' : 'good') %>">
+                                            <%= product.condition %>
+                                        </span>
+                                    </div>
+                                    <div class="price-section">
+                                        <span class="product-price-vmall">₹<%= product.price %></span>
+                                    </div>
+                                </div>
+                            </a>
+                            <% }) %>
+                    </div>
+                    <% } %>
+        </div>
+
+        <!-- Night Mess Tab -->
+        <div id="nightmessTab" class="tab-content">
+            <div class="nightmess-hero"
+                style="background: linear-gradient(135deg, #f97316, #ea580c); border-radius: 24px; padding: 40px; margin-bottom: 32px; position: relative; overflow: hidden;">
+                <div
+                    style="position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%;">
+                </div>
+                <div style="position: relative; z-index: 2;">
+                    <h2 style="color: white; font-size: 32px; font-weight: 800; margin-bottom: 12px;">🌙 Late Night Food
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 16px; max-width: 500px;">Order delicious food
+                        from your favorite vendors. Available 10:30 PM - 3:00 AM</p>
+                </div>
+            </div>
+
+            <div class="block-search-section" style="margin-bottom: 32px;">
+                <div class="block-search-card"
+                    style="background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);">
+                    <div class="block-title" style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">
+                        <i class="fas fa-building"></i> Search by Hostel Block
+                    </div>
+
+                    <div class="hostel-type-toggle mb-3">
+                        <div class="btn-group w-100" role="group">
+                            <button type="button" class="btn hostel-type-btn active" data-type="both"
+                                onclick="filterNightMessByType('both')">
+                                <i class="fas fa-venus-mars"></i> All
+                            </button>
+                            <button type="button" class="btn hostel-type-btn" data-type="men"
+                                onclick="filterNightMessByType('men')">
+                                <i class="fas fa-mars"></i> Men's
+                            </button>
+                            <button type="button" class="btn hostel-type-btn" data-type="women"
+                                onclick="filterNightMessByType('women')">
+                                <i class="fas fa-venus"></i> Women's
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="men-hostel-blocks mb-3">
+                        <div class="block-subtitle"><i class="fas fa-mars"></i> Men's Hostel Blocks</div>
+                        <div class="block-buttons">
+                            <% const menBlocks=['A', 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L'
+                                , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' , 'S' , 'T' ]; %>
+                                <% menBlocks.forEach(block=> { %>
+                                    <button class="block-btn" onclick="filterNightMessByBlock('<%= block %>')">
+                                        <%= block %>
+                                    </button>
+                                    <% }) %>
+                        </div>
+                    </div>
+
+                    <div class="women-hostel-blocks mb-3">
+                        <div class="block-subtitle"><i class="fas fa-venus"></i> Women's Hostel Blocks</div>
+                        <div class="block-buttons">
+                            <% const womenBlocks=['A', 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' ]; %>
+                                <% womenBlocks.forEach(block=> { %>
+                                    <button class="block-btn" onclick="filterNightMessByBlock('<%= block %>')">
+                                        <%= block %>
+                                    </button>
+                                    <% }) %>
+                        </div>
+                    </div>
+
+                    <button class="block-btn" onclick="filterNightMessByBlock('')"
+                        style="width: auto; padding: 0 20px;">All Blocks</button>
+
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 20px;">
+                        <input type="text" id="nightmessSearchInput" class="form-control"
+                            placeholder="Search for food stalls..."
+                            style="flex: 1; padding: 12px 16px; border-radius: 40px; border: 1px solid #e5e7eb;">
+                        <button onclick="searchNightMess()" class="btn"
+                            style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px;">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <% if (currUser) { %>
+                            <a href="/nightmess/add-item" class="btn"
+                                style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; padding: 12px 24px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-plus-circle"></i> Add Food Stall
+                            </a>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nightmessItemsContainer">
+                <div style="text-align: center; padding: 60px;">
+                    <div
+                        style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;">
+                    </div>
+                    <p>Loading food stalls...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/vall-promo-banner') %>
+
+        <script>
+            function toggleWishlist(element, productId) {
+                const icon = element.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = '#ef4444';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+            }
+
+            function switchTab(tabName) {
+                const tabs = document.querySelectorAll('.tab-btn');
+                const contents = document.querySelectorAll('.tab-content');
+
+                tabs.forEach(tab => tab.classList.remove('active'));
+                contents.forEach(content => content.classList.remove('active'));
+
+                if (tabName === 'products') {
+                    document.getElementById('productsTab').classList.add('active');
+                    document.querySelector('.tab-buttons button:first-child').classList.add('active');
+                } else if (tabName === 'nightmess') {
+                    document.getElementById('nightmessTab').classList.add('active');
+                    document.querySelector('.tab-buttons button:last-child').classList.add('active');
+                    loadNightMessItems();
+                }
+            }
+
+            // ============ NIGHT MESS FUNCTIONS ============
+            // ============ NIGHT MESS FUNCTIONS ============
+            let nightMessItems = [];
+            let currentBlockFilter = '';
+            let currentSearchQuery = '';
+            let currentHostelType = 'both';
+
+            function loadNightMessItems() {
+                const container = document.getElementById('nightmessItemsContainer');
+                if (!container) return;
+
+                container.innerHTML = '<div style="text-align: center; padding: 60px;"><div style="width: 60px; height: 60px; border: 3px solid var(--gray-200); border-top-color: #f97316; border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div><p>Loading food stalls...</p></div>';
+
+                // FIXED: Correct API endpoint with /nightmess prefix
+                let url = '/nightmess/api/nightmess';
+                const params = new URLSearchParams();
+                if (currentBlockFilter && currentBlockFilter !== '') params.append('hostelBlock', currentBlockFilter);
+                if (currentSearchQuery && currentSearchQuery !== '') params.append('search', currentSearchQuery);
+                if (currentHostelType && currentHostelType !== 'both') params.append('hostelType', currentHostelType);
+                if (params.toString()) url += '?' + params.toString();
+
+                console.log('Fetching from URL:', url);
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Night mess data received:', data);
+                        if (data.success !== false) {
+                            const items = data.items || [];
+                            renderNightMessItems(items, data.isOpen);
+                        } else {
+                            throw new Error(data.error || 'Failed to load');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error loading night mess items:', err);
+                        container.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon"><i class="fas fa-utensils"></i></div>
                     <h3>Unable to load items</h3>
@@ -1820,25 +1951,25 @@ function loadNightMessItems() {
                     </button>
                 </div>
             `;
-        });
-}
-function renderNightMessItems(items, isOpen) {
-    const container = document.getElementById('nightmessItemsContainer');
-    
-    // Check if night mess is open
-    if (isOpen === false) {
-        container.innerHTML = `
+                    });
+            }
+            function renderNightMessItems(items, isOpen) {
+                const container = document.getElementById('nightmessItemsContainer');
+
+                // Check if night mess is open
+                if (isOpen === false) {
+                    container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon"><i class="fas fa-clock"></i></div>
                 <h3>Night Mess is Closed</h3>
                 <p>Open from 10:30 PM to 3:00 AM. Come back later for delicious food!</p>
             </div>
         `;
-        return;
-    }
-    
-    if (!items || items.length === 0) {
-        container.innerHTML = `
+                    return;
+                }
+
+                if (!items || items.length === 0) {
+                    container.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon"><i class="fas fa-utensils"></i></div>
                 <h3>No food stalls found</h3>
@@ -1854,18 +1985,18 @@ function renderNightMessItems(items, isOpen) {
                 <% } %>
             </div>
         `;
-        return;
-    }
-    
-    let html = '<div class="food-grid">';
-    
-    items.forEach(item => {
-        const menuCount = item.menuItems ? item.menuItems.length : 0;
-        const previewItems = item.menuItems ? item.menuItems.slice(0, 3) : [];
-        const hostelTypeClass = item.hostelType === 'men' ? 'men' : 'women';
-        const hostelTypeText = item.hostelType === 'men' ? '👨 Men\'s Only' : '👩 Women\'s Only';
-        
-        html += `
+                    return;
+                }
+
+                let html = '<div class="food-grid">';
+
+                items.forEach(item => {
+                    const menuCount = item.menuItems ? item.menuItems.length : 0;
+                    const previewItems = item.menuItems ? item.menuItems.slice(0, 3) : [];
+                    const hostelTypeClass = item.hostelType === 'men' ? 'men' : 'women';
+                    const hostelTypeText = item.hostelType === 'men' ? '👨 Men\'s Only' : '👩 Women\'s Only';
+
+                    html += `
             <a href="/nightmess/item/${item._id}" class="food-card">
                 <div class="food-image">
                     <img src="${escapeHtml(item.images && item.images[0] ? item.images[0] : '/images/default-food.jpg')}" alt="${escapeHtml(item.vendorName)}">
@@ -1902,128 +2033,128 @@ function renderNightMessItems(items, isOpen) {
                 </div>
             </a>
         `;
-    });
-    
-    html += '</div>';
-    container.innerHTML = html;
-}
+                });
 
-function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function filterNightMessByType(type) {
-    currentHostelType = type;
-    loadNightMessItems();
-    
-    document.querySelectorAll('.hostel-type-btn').forEach(btn => {
-        if (btn.getAttribute('data-type') === type) {
-            btn.classList.add('active');
-            btn.style.background = 'linear-gradient(135deg, #f97316, #ea580c)';
-            btn.style.color = 'white';
-        } else {
-            btn.classList.remove('active');
-            btn.style.background = 'rgba(10, 10, 26, 0.6)';
-            btn.style.color = '#94a3b8';
-        }
-    });
-}
-
-function filterNightMessByBlock(block) {
-    currentBlockFilter = block;
-    loadNightMessItems();
-    
-    document.querySelectorAll('#nightmessTab .block-btn').forEach(btn => {
-        if (btn.innerText === block || (block === '' && btn.innerText === 'All Blocks')) {
-            btn.style.background = 'linear-gradient(135deg, #f97316, #ea580c)';
-            btn.style.color = 'white';
-        } else {
-            btn.style.background = 'var(--gray-100)';
-            btn.style.color = 'var(--gray-600)';
-        }
-    });
-}
-
-function searchNightMess() {
-    const searchInput = document.getElementById('nightmessSearchInput');
-    if (searchInput) {
-        currentSearchQuery = searchInput.value.trim();
-        loadNightMessItems();
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Always load night mess items when page loads
-    loadNightMessItems();
-    
-    const searchInput = document.getElementById('nightmessSearchInput');
-    const searchBtn = document.querySelector('#nightmessTab button[onclick="searchNightMess()"]');
-    
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            searchNightMess();
-        });
-    }
-    
-    if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                searchNightMess();
+                html += '</div>';
+                container.innerHTML = html;
             }
-        });
-    }
-});
-</script>
-<script>
-// Add interactive counter animation when card comes into view
-document.addEventListener('DOMContentLoaded', function() {
-    const salesCard = document.querySelector('.total-sales-card');
-    const amountElement = document.getElementById('totalSalesAmount');
-    const targetAmount = <%= totalSales %>;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateNumber(amountElement, 0, targetAmount, 2000);
-                observer.unobserve(entry.target);
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
-        });
-    }, { threshold: 0.3 });
-    
-    if (salesCard) {
-        observer.observe(salesCard);
-    }
-    
-    function animateNumber(element, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const current = Math.floor(progress * (end - start) + start);
-            element.textContent = current.toLocaleString();
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
+
+            function filterNightMessByType(type) {
+                currentHostelType = type;
+                loadNightMessItems();
+
+                document.querySelectorAll('.hostel-type-btn').forEach(btn => {
+                    if (btn.getAttribute('data-type') === type) {
+                        btn.classList.add('active');
+                        btn.style.background = 'linear-gradient(135deg, #f97316, #ea580c)';
+                        btn.style.color = 'white';
+                    } else {
+                        btn.classList.remove('active');
+                        btn.style.background = 'rgba(10, 10, 26, 0.6)';
+                        btn.style.color = '#94a3b8';
+                    }
+                });
             }
-        };
-        window.requestAnimationFrame(step);
-    }
-    
-    // Add click interaction
-    if (salesCard) {
-        salesCard.addEventListener('click', function() {
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
-            
-            // Optional: Show a toast or redirect to sales page
-            console.log('Total Sales: ₹<%= totalSales.toLocaleString() %>');
-        });
-    }
-});
-</script>
+
+            function filterNightMessByBlock(block) {
+                currentBlockFilter = block;
+                loadNightMessItems();
+
+                document.querySelectorAll('#nightmessTab .block-btn').forEach(btn => {
+                    if (btn.innerText === block || (block === '' && btn.innerText === 'All Blocks')) {
+                        btn.style.background = 'linear-gradient(135deg, #f97316, #ea580c)';
+                        btn.style.color = 'white';
+                    } else {
+                        btn.style.background = 'var(--gray-100)';
+                        btn.style.color = 'var(--gray-600)';
+                    }
+                });
+            }
+
+            function searchNightMess() {
+                const searchInput = document.getElementById('nightmessSearchInput');
+                if (searchInput) {
+                    currentSearchQuery = searchInput.value.trim();
+                    loadNightMessItems();
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Always load night mess items when page loads
+                loadNightMessItems();
+
+                const searchInput = document.getElementById('nightmessSearchInput');
+                const searchBtn = document.querySelector('#nightmessTab button[onclick="searchNightMess()"]');
+
+                if (searchBtn) {
+                    searchBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        searchNightMess();
+                    });
+                }
+
+                if (searchInput) {
+                    searchInput.addEventListener('keypress', function (e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            searchNightMess();
+                        }
+                    });
+                }
+            });
+        </script>
+        <script>
+            // Add interactive counter animation when card comes into view
+            document.addEventListener('DOMContentLoaded', function () {
+                const salesCard = document.querySelector('.total-sales-card');
+                const amountElement = document.getElementById('totalSalesAmount');
+                const targetAmount = <%= totalSales %>;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateNumber(amountElement, 0, targetAmount, 2000);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                if (salesCard) {
+                    observer.observe(salesCard);
+                }
+
+                function animateNumber(element, start, end, duration) {
+                    let startTimestamp = null;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        const current = Math.floor(progress * (end - start) + start);
+                        element.textContent = current.toLocaleString();
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        }
+                    };
+                    window.requestAnimationFrame(step);
+                }
+
+                // Add click interaction
+                if (salesCard) {
+                    salesCard.addEventListener('click', function () {
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+
+                        // Optional: Show a toast or redirect to sales page
+                        console.log('Total Sales: ₹<%= totalSales.toLocaleString() %>');
+                    });
+                }
+            });
+        </script>
