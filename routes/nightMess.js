@@ -16,20 +16,30 @@ function generateChatRoomId(itemId, user1Id, user2Id) {
 
 // Check if night mess is open (10:25 PM to 3:00 AM IST)
 function isNightMessOpen() {
-    // Get current time in IST (UTC+5:30)
+    // Get current time reliably in IST format regardless of server timezone
     const now = new Date();
-    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
-    const istTime = new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000 + istOffset);
+    const istOptions = { timeZone: 'Asia/Kolkata', hour12: false, hour: 'numeric', minute: 'numeric' };
+    const istTimeFormatter = new Intl.DateTimeFormat('en-US', istOptions);
+    const parts = istTimeFormatter.formatToParts(now);
+    
+    let hours = 0;
+    let minutes = 0;
+    
+    for (const part of parts) {
+        if (part.type === 'hour') hours = parseInt(part.value, 10);
+        if (part.type === 'minute') minutes = parseInt(part.value, 10);
+    }
+    
+    // In Intl.DateTimeFormat hour="numeric" and hour12=false, 24:00 is sometimes output as 24 
+    if (hours === 24) hours = 0;
 
-    const hours = istTime.getHours();
-    const minutes = istTime.getMinutes();
     const totalMinutes = hours * 60 + minutes;
 
     // Open: 22:25 (1345 mins) to 23:59, and 00:00 to 03:00 (180 mins)
     const openStart = 22 * 60 + 25; // 22:25
     const openEnd   =  3 * 60 + 0;  // 03:00
 
-    return totalMinutes >= openStart || totalMinutes < openEnd;
+    return totalMinutes >= openStart || totalMinutes <= openEnd; // Changed to <= to include exactly 3:00 AM
 }
 
 // Authentication middleware
