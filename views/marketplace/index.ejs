@@ -1,11 +1,21 @@
 <%- include('../partials/header') %>
 <% 
   const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
+  const istOptions = { timeZone: 'Asia/Kolkata', hour12: false, hour: 'numeric', minute: 'numeric' };
+  const istTimeFormatter = new Intl.DateTimeFormat('en-US', istOptions);
+  const parts = istTimeFormatter.formatToParts(now);
+  
+  let hours = 0;
+  let minutes = 0;
+  for (const part of parts) {
+      if (part.type === 'hour') hours = parseInt(part.value, 10);
+      if (part.type === 'minute') minutes = parseInt(part.value, 10);
+  }
+  if (hours === 24) hours = 0;
+
   const currentTotalMinutes = hours * 60 + minutes;
-  // 10:20 PM is 22:20 = 1340 mins. 3:00 AM is 180 mins.
-  const isNightMessActive = (currentTotalMinutes >= 1340 || currentTotalMinutes <= 180);
+  // 10:25 PM is 22:25 = 1345 mins. 3:00 AM is 180 mins.
+  const isNightMessActive = (currentTotalMinutes >= 1345 || currentTotalMinutes <= 180);
 %>
 
     <style>
@@ -1818,7 +1828,7 @@
                     <h2 style="color: white; font-size: 32px; font-weight: 800; margin-bottom: 12px;">🌙 Late Night Food
                     </h2>
                     <p style="color: rgba(255,255,255,0.9); font-size: 16px; max-width: 500px;">Order delicious food
-                        from your favorite vendors. Available 10:20 PM - 3:00 AM</p>
+                        from your favorite vendors. Available 10:25 PM - 3:00 AM</p>
                 </div>
             </div>
 
@@ -1829,7 +1839,7 @@
                     <p style="color: #6b7280; font-size: 16px; max-width: 500px; margin: 0 auto;">
                         Our food stalls operate specifically for your late-night cravings.
                         <br><br>
-                        <strong style="color: #ea580c; font-size: 18px;">Available only between 10:20 P.M. to 3:00 A.M.</strong>
+                        <strong style="color: #ea580c; font-size: 18px;">Available only between 10:25 P.M. to 3:00 A.M.</strong>
                     </p>
                 </div>
             <% } else { %>
@@ -2011,7 +2021,7 @@
             <div class="empty-state">
                 <div class="empty-icon"><i class="fas fa-clock"></i></div>
                 <h3>Night Mess is Closed</h3>
-                <p>Open from 10:20 PM to 3:00 AM. Come back later for delicious food!</p>
+                <p>Open from 10:25 PM to 3:00 AM. Come back later for delicious food!</p>
             </div>
         `;
                     return;
