@@ -905,6 +905,13 @@
         <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-success);">Mix & Match Assignments</div>
     </div>
 
+    <!-- Extra Practice Pool -->
+    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(255,76,106,0.05), rgba(255,221,0,0.1)); border: 1px dashed #ff4c6a; text-align: center;" onclick="openExtraPracticeModal()">
+        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #ff4c6a;">Massive Question Bank</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #ff4c6a, #ffdd00); -webkit-background-clip: text; color: transparent;">Extra Practice Pool</h2>
+        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: #ff4c6a;">175 New Questions</div>
+    </div>
+
     <div class="cosmic-card" style="padding: 1.5rem;" onclick="promptQuiz('sdg', 1)">
         <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 1</div>
         <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Goals & SDGs</h2>
@@ -1018,6 +1025,8 @@
     }
 </script>
 
+<script src="/js/extraQuestions.js"></script>
+
 <!-- ========== CUSTOM QUIZ MODAL ========== -->
 <div class="cosmic-modal" id="custom-quiz-modal">
     <div class="cosmic-modal-content" style="max-width: 600px; text-align: center;">
@@ -1050,6 +1059,31 @@
         </label>
 
         <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startCustomQuiz()">Launch Custom Quiz</button>
+    </div>
+</div>
+
+<!-- ========== EXTRA PRACTICE MODAL ========== -->
+<div class="cosmic-modal" id="extra-practice-modal">
+    <div class="cosmic-modal-content" style="max-width: 500px; text-align: center;">
+        <button class="cosmic-close-btn" onclick="closeModal('extra-practice-modal')">&times;</button>
+        <h2 class="cosmic-modal-title" style="font-size: 1.8rem;">Extra Practice Pool</h2>
+        <p class="cosmic-modal-subtitle">There are 175 extra questions available. How many would you like to attempt?</p>
+        
+        <div style="margin: 1.5rem 0;">
+            <select id="extra-practice-count" class="cosmic-btn cosmic-btn-secondary" style="width: 100%; padding: 0.8rem; font-size: 1.1rem; text-align: center;">
+                <option value="10">10 Questions</option>
+                <option value="25">25 Questions</option>
+                <option value="50">50 Questions</option>
+                <option value="100">100 Questions</option>
+                <option value="175">All 175 Questions</option>
+            </select>
+        </div>
+        
+        <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; margin-bottom: 1.5rem; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+            <input type="checkbox" id="extra-practice-shuffle" checked> Shuffle Questions
+        </label>
+
+        <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startExtraPractice()">Start Practice</button>
     </div>
 </div>
 
@@ -1379,6 +1413,7 @@ const groupTitles = {
 
 // ========== STATE ==========
 let isCustomQuiz = false;
+let isExtraPractice = false;
 let customSelections = [];
 let currentQuiz = [];
 let currentQuizMeta = {};
@@ -1402,6 +1437,49 @@ document.querySelectorAll('.cosmic-modal').forEach(m => {
 
 let pendingQuizGroup = null;
 let pendingQuizWeek = null;
+
+function openExtraPracticeModal() {
+    openModal('extra-practice-modal');
+}
+
+function startExtraPractice() {
+    const count = parseInt(document.getElementById('extra-practice-count').value);
+    const doShuffle = document.getElementById('extra-practice-shuffle').checked;
+    
+    isExtraPractice = true;
+    isCustomQuiz = false;
+    
+    document.getElementById('cosmic-spinner').style.display = 'block';
+    setTimeout(() => {
+        closeModal('extra-practice-modal');
+        
+        currentQuiz = [...extraQuestions];
+        
+        if (doShuffle) {
+            for (let i = currentQuiz.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+            }
+        }
+        
+        // Slice the requested number of questions
+        currentQuiz = currentQuiz.slice(0, count);
+        
+        currentQuizMeta = { title: "Extra Practice (" + currentQuiz.length + " Questions)" };
+        timeLeft = currentQuiz.length * 1.5 * 60; // 1.5 mins per question
+        
+        currentQIndex   = 0;
+        userAnswers     = Array(currentQuiz.length).fill(null);
+
+        document.getElementById('quiz-screen-title').textContent = currentQuizMeta.title;
+        document.getElementById('quiz-screen').classList.add('show');
+
+        startTimer();
+        loadQuestion();
+
+        document.getElementById('cosmic-spinner').style.display = 'none';
+    }, 400);
+}
 
 function openCustomQuizModal() {
     openModal('custom-quiz-modal');
@@ -1474,6 +1552,7 @@ document.getElementById('btn-shuffle').onclick = () => {
 // ========== START QUIZ ==========
 function startQuiz(group, week, shuffle = false) {
     isCustomQuiz = false;
+    isExtraPractice = false;
     document.getElementById('cosmic-spinner').style.display = 'block';
     lastGroup = group;
     lastWeek = week;
@@ -1662,7 +1741,9 @@ function addConfetti() {
 
 function retryQuiz() {
     document.getElementById('results-screen').classList.remove('show');
-    if (isCustomQuiz) {
+    if (isExtraPractice) {
+        openExtraPracticeModal();
+    } else if (isCustomQuiz) {
         openCustomQuizModal();
     } else {
         promptQuiz(lastGroup, lastWeek);
