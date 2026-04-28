@@ -880,28 +880,12 @@
             <div class="stat-label">Free Access</div>
         </div>
         <div class="stat-item" style="position: relative;">
-            <div class="stat-value" id="live-count" style="color: var(--cosmic-success);">
-                <span class="live-dot" style="display:inline-block; width:12px; height:12px; background-color: var(--cosmic-success); border-radius:50%; margin-right:8px; animation: cosmicPulse 1.5s infinite;"></span>
-                142
+            <div class="stat-value" style="color: var(--cosmic-primary);">
+                <span style="font-size: 0.9em; margin-right: 4px;">👁️</span><%= typeof viewCount !== 'undefined' ? viewCount : '100+' %>
             </div>
-            <div class="stat-label" style="color: var(--cosmic-success); font-weight: 700;">Live People</div>
+            <div class="stat-label" style="color: var(--cosmic-primary); font-weight: 700;">Global Views</div>
         </div>
     </div>
-    <script>
-        // Simulate live people count fluctuating
-        setInterval(() => {
-            const el = document.getElementById('live-count');
-            if(el) {
-                let current = parseInt(el.innerText.replace(/[^0-9]/g, ''));
-                // Randomly go up or down by 1-3 people
-                const change = Math.floor(Math.random() * 5) - 2; 
-                let next = current + change;
-                if(next < 115) next += 5; // keep it looking active
-                if(next > 165) next -= 5;
-                el.innerHTML = `<span class="live-dot" style="display:inline-block; width:12px; height:12px; background-color: var(--cosmic-success); border-radius:50%; margin-right:8px; animation: cosmicPulse 1.5s infinite;"></span> ${next}`;
-            }
-        }, 4500);
-    </script>
 </header>
 
 <!-- Subject Cards -->
