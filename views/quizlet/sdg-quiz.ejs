@@ -898,6 +898,13 @@
         <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-light);">120 Questions • All Assignments</div>
     </div>
 
+    <!-- Custom Quiz Builder -->
+    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(76,255,176,0.05), rgba(0,216,255,0.1)); border: 1px dashed var(--cosmic-success); text-align: center;" onclick="openCustomQuizModal()">
+        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--cosmic-success);">Personalized Assessment</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #4cffb0, #00d8ff); -webkit-background-clip: text; color: transparent;">Custom Quiz Builder</h2>
+        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-success);">Mix & Match Assignments</div>
+    </div>
+
     <div class="cosmic-card" style="padding: 1.5rem;" onclick="promptQuiz('sdg', 1)">
         <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 1</div>
         <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Goals & SDGs</h2>
@@ -1010,6 +1017,41 @@
         }
     }
 </script>
+
+<!-- ========== CUSTOM QUIZ MODAL ========== -->
+<div class="cosmic-modal" id="custom-quiz-modal">
+    <div class="cosmic-modal-content" style="max-width: 600px; text-align: center;">
+        <button class="cosmic-close-btn" onclick="closeModal('custom-quiz-modal')">&times;</button>
+        <h2 class="cosmic-modal-title" style="font-size: 1.8rem;">Custom Quiz Builder</h2>
+        <p class="cosmic-modal-subtitle">Select the assignments you want to include in this quiz.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem; text-align: left; margin: 1.5rem 0;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="1"> Assignment 1</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="2"> Assignment 2</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="3"> Assignment 3</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="4"> Assignment 4</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="5"> Assignment 5</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="6"> Assignment 6</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="7"> Assignment 7</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="8"> Assignment 8</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="9"> Assignment 9</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="10"> Assignment 10</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="11"> Assignment 11</label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer;"><input type="checkbox" class="custom-quiz-cb" value="12"> Assignment 12</label>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <button class="cosmic-btn cosmic-btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="toggleAllCustomCheckboxes(true)">Select All</button>
+            <button class="cosmic-btn cosmic-btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="toggleAllCustomCheckboxes(false)">Deselect All</button>
+        </div>
+        
+        <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; margin-bottom: 1.5rem; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+            <input type="checkbox" id="custom-quiz-shuffle" checked> Shuffle Questions
+        </label>
+
+        <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startCustomQuiz()">Launch Custom Quiz</button>
+    </div>
+</div>
 
 <!-- ========== SHUFFLE MODAL ========== -->
 <div class="cosmic-modal" id="shuffle-modal">
@@ -1335,6 +1377,8 @@ const groupTitles = {
 };
 
 // ========== STATE ==========
+let isCustomQuiz = false;
+let customSelections = [];
 let currentQuiz = [];
 let currentQuizMeta = {};
 let currentQIndex = 0;
@@ -1358,6 +1402,58 @@ document.querySelectorAll('.cosmic-modal').forEach(m => {
 let pendingQuizGroup = null;
 let pendingQuizWeek = null;
 
+function openCustomQuizModal() {
+    openModal('custom-quiz-modal');
+}
+
+function toggleAllCustomCheckboxes(check) {
+    document.querySelectorAll('.custom-quiz-cb').forEach(cb => cb.checked = check);
+}
+
+function startCustomQuiz() {
+    const checkboxes = document.querySelectorAll('.custom-quiz-cb:checked');
+    if (checkboxes.length === 0) {
+        alert('Please select at least one assignment.');
+        return;
+    }
+    
+    customSelections = Array.from(checkboxes).map(cb => parseInt(cb.value));
+    const doShuffle = document.getElementById('custom-quiz-shuffle').checked;
+    
+    isCustomQuiz = true;
+    
+    document.getElementById('cosmic-spinner').style.display = 'block';
+    setTimeout(() => {
+        closeModal('custom-quiz-modal');
+        
+        currentQuiz = [];
+        customSelections.forEach(num => {
+            currentQuiz = currentQuiz.concat(quizData[num].questions);
+        });
+        
+        currentQuizMeta = { title: "Custom Mix (" + customSelections.length + " Assignments)" };
+        timeLeft = customSelections.length * 15 * 60; // 15 mins per assignment
+        
+        if (doShuffle) {
+            for (let i = currentQuiz.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+            }
+        }
+        
+        currentQIndex   = 0;
+        userAnswers     = Array(currentQuiz.length).fill(null);
+
+        document.getElementById('quiz-screen-title').textContent = currentQuizMeta.title;
+        document.getElementById('quiz-screen').classList.add('show');
+
+        startTimer();
+        loadQuestion();
+
+        document.getElementById('cosmic-spinner').style.display = 'none';
+    }, 400);
+}
+
 function promptQuiz(group, week) {
     pendingQuizGroup = group;
     pendingQuizWeek = week;
@@ -1376,6 +1472,7 @@ document.getElementById('btn-shuffle').onclick = () => {
 
 // ========== START QUIZ ==========
 function startQuiz(group, week, shuffle = false) {
+    isCustomQuiz = false;
     document.getElementById('cosmic-spinner').style.display = 'block';
     lastGroup = group;
     lastWeek = week;
@@ -1564,7 +1661,11 @@ function addConfetti() {
 
 function retryQuiz() {
     document.getElementById('results-screen').classList.remove('show');
-    startQuiz(lastGroup, lastWeek);
+    if (isCustomQuiz) {
+        openCustomQuizModal();
+    } else {
+        promptQuiz(lastGroup, lastWeek);
+    }
 }
 
 function closeResults() {
