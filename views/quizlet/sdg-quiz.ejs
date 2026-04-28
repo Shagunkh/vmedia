@@ -1764,13 +1764,23 @@ function initStudyDropdown() {
         opt.textContent = quizData[key].title;
         sel.appendChild(opt);
     }
+    let extraOpt = document.createElement('option');
+    extraOpt.value = 'extra';
+    extraOpt.textContent = 'Extra Practice Questions (175 Qs)';
+    sel.appendChild(extraOpt);
 }
 
 function renderStudyGuide(assignmentKey = '1') {
     const container = document.getElementById('study-guide-container');
     if (!container) return;
     
-    let assignment = quizData[assignmentKey];
+    let assignment;
+    if (assignmentKey === 'extra') {
+        assignment = { title: "Extra Practice Questions", questions: extraQuestions };
+    } else {
+        assignment = quizData[assignmentKey];
+    }
+    
     if (!assignment) return;
     
     let html = `<div class="study-assignment" style="animation: cosmicFadeIn 0.4s ease both;">
