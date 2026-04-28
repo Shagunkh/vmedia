@@ -733,9 +733,25 @@
             .cosmic-results-title { font-size: 1.7rem; }
             .cosmic-score { font-size: 2.2rem; }
         }
+        @media (max-width: 768px) {
+            .study-assignment { padding: 1.2rem; }
+            .study-question-card { padding: 1rem; }
+            .cosmic-select { min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box; }
+        }
         @media (max-width: 480px) {
             .cosmic-card { padding: 1.4rem; }
             .cosmic-quiz-title, .cosmic-timer { font-size: 1rem; }
+            
+            /* Study Guide Mobile Fixes */
+            .study-assignment { padding: 1rem; border-radius: 12px; }
+            .study-assignment-title { font-size: 1.4rem; }
+            .study-question-card { padding: 0.8rem; border-left-width: 3px; }
+            .study-q { font-size: 1.05rem; }
+            .study-opt-item { font-size: 0.9rem; padding: 0.8rem; }
+            .study-opt-item.correct-opt { font-size: 0.95rem; }
+            .study-desc { font-size: 0.85rem; padding: 0.8rem; }
+            .cosmic-learn-section { padding: 1rem 0.5rem 4rem; }
+            #study-toggle-btn { width: 100%; font-size: 1rem !important; padding: 1rem !important; }
         }
         /* ===== STUDY GUIDE ===== */
         .cosmic-learn-section {
