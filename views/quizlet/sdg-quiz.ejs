@@ -891,6 +891,13 @@
 <!-- Subject Cards (12 Individual Assignments) -->
 <main class="cosmic-subjects" id="main-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
 
+    <!-- Full Mock Test (All 120 Questions) -->
+    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(0,216,255,0.05), rgba(0,140,255,0.1)); border: 1px solid var(--cosmic-primary); text-align: center;" onclick="startQuiz('all', 'full')">
+        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem;">Comprehensive Assessment</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.8rem;">Full Mock Test</h2>
+        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-light);">120 Questions • All Assignments</div>
+    </div>
+
     <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('sdg', 1)">
         <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 1</div>
         <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Goals & SDGs</h2>
@@ -1304,14 +1311,16 @@ const groupMap = {
   sdg:        [1, 2, 3],
   esd:        [4, 5, 6],
   health:     [7, 8, 9],
-  leadership: [10, 11, 12]
+  leadership: [10, 11, 12],
+  all:        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 };
 
 const groupTitles = {
   sdg:        "SDG & Global Goals",
   esd:        "ESD & Greening TVET",
   health:     "Health, Energy & Climate",
-  leadership: "Sustainable Leadership & Resources"
+  leadership: "Sustainable Leadership & Resources",
+  all:        "Full Mock Test"
 };
 
 // ========== STATE ==========
@@ -1350,8 +1359,8 @@ function startQuiz(group, week) {
             groupMap[group].forEach(num => {
                 currentQuiz = currentQuiz.concat(quizData[num].questions);
             });
-            currentQuizMeta = { title: groupTitles[group] + " — Full Challenge" };
-            timeLeft = 25 * 60;
+            currentQuizMeta = { title: groupTitles[group] + (group === 'all' ? "" : " — Full Challenge") };
+            timeLeft = group === 'all' ? 120 * 60 : 25 * 60;
         } else {
             currentQuiz = quizData[week].questions;
             currentQuizMeta = { title: quizData[week].title };
