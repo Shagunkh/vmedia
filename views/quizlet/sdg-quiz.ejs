@@ -898,6 +898,13 @@
         <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-light);">120 Questions • All Assignments</div>
     </div>
 
+    <!-- Last Year NPTEL SDG Assignments -->
+    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(255,221,0,0.05), rgba(255,140,0,0.1)); border: 1px solid #ffdd00; text-align: center;" onclick="openLastYearModal()">
+        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #ffdd00;">Archived Content</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #ffdd00, #ff8c00); -webkit-background-clip: text; color: transparent;">Last Year NPTEL SDG Assignments</h2>
+        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: #ffdd00;">12 Assignments • 120 Questions</div>
+    </div>
+
     <div style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
         <!-- Custom Quiz Builder -->
         <div class="cosmic-card" style="padding: 2rem; background: linear-gradient(135deg, rgba(76,255,176,0.05), rgba(0,216,255,0.1)); border: 1px dashed var(--cosmic-success); text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;" onclick="openCustomQuizModal()">
@@ -1028,6 +1035,7 @@
 </script>
 
 <script src="/js/extraQuestions.js"></script>
+<script src="/js/lastYearNptelData.js"></script>
 
 <!-- ========== CUSTOM QUIZ MODAL ========== -->
 <div class="cosmic-modal" id="custom-quiz-modal">
@@ -1061,6 +1069,22 @@
         </label>
 
         <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startCustomQuiz()">Launch Custom Quiz</button>
+    </div>
+</div>
+
+<!-- ========== LAST YEAR NPTEL MODAL ========== -->
+<div class="cosmic-modal" id="last-year-modal">
+    <div class="cosmic-modal-content" style="max-width: 600px; text-align: center;">
+        <button class="cosmic-close-btn" onclick="closeModal('last-year-modal')">&times;</button>
+        <h2 class="cosmic-modal-title" style="font-size: 1.8rem;">Last Year Assignments</h2>
+        <p class="cosmic-modal-subtitle">Select an assignment to practice from last year's course.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem; text-align: left; margin: 1.5rem 0;">
+            <% for(let i=1; i<=12; i++) { %>
+                <button class="cosmic-btn cosmic-btn-secondary" style="padding: 0.6rem; font-size: 0.9rem;" onclick="promptLastYearQuiz('<%= i %>')">Week <%= i %></button>
+            <% } %>
+            <button class="cosmic-btn cosmic-btn-primary" style="grid-column: 1 / -1; margin-top: 0.5rem;" onclick="promptLastYearQuiz('full')">Full 120-Q Mock Test</button>
+        </div>
     </div>
 </div>
 
@@ -1416,6 +1440,7 @@ const groupTitles = {
 // ========== STATE ==========
 let isCustomQuiz = false;
 let isExtraPractice = false;
+let isLastYearQuiz = false;
 let customSelections = [];
 let currentQuiz = [];
 let currentQuizMeta = {};
@@ -1442,6 +1467,17 @@ let pendingQuizWeek = null;
 
 function openExtraPracticeModal() {
     openModal('extra-practice-modal');
+}
+
+function openLastYearModal() {
+    openModal('last-year-modal');
+}
+
+function promptLastYearQuiz(week) {
+    pendingQuizGroup = 'last';
+    pendingQuizWeek = week;
+    closeModal('last-year-modal');
+    openModal('shuffle-modal');
 }
 
 function startExtraPractice() {
@@ -1555,6 +1591,7 @@ document.getElementById('btn-shuffle').onclick = () => {
 function startQuiz(group, week, shuffle = false) {
     isCustomQuiz = false;
     isExtraPractice = false;
+    isLastYearQuiz = false;
     document.getElementById('cosmic-spinner').style.display = 'block';
     lastGroup = group;
     lastWeek = week;
@@ -1563,7 +1600,21 @@ function startQuiz(group, week, shuffle = false) {
         // Close all modals
         document.querySelectorAll('.cosmic-modal').forEach(m => m.classList.remove('show'));
 
-        if (week === 'full') {
+        if (group === 'last') {
+            isLastYearQuiz = true;
+            if (week === 'full') {
+                currentQuiz = [];
+                for(let i=1; i<=12; i++) {
+                    currentQuiz = currentQuiz.concat(lastYearQuizData[i].questions);
+                }
+                currentQuizMeta = { title: "Last Year NPTEL SDG Assignments — Full Challenge" };
+                timeLeft = 120 * 60;
+            } else {
+                currentQuiz = [...lastYearQuizData[week].questions];
+                currentQuizMeta = { title: "Last Year " + lastYearQuizData[week].title };
+                timeLeft = 15 * 60;
+            }
+        } else if (week === 'full') {
             currentQuiz = [];
             groupMap[group].forEach(num => {
                 currentQuiz = currentQuiz.concat(quizData[num].questions);
@@ -1745,6 +1796,8 @@ function retryQuiz() {
     document.getElementById('results-screen').classList.remove('show');
     if (isExtraPractice) {
         openExtraPracticeModal();
+    } else if (isLastYearQuiz) {
+        openLastYearModal();
     } else if (isCustomQuiz) {
         openCustomQuizModal();
     } else {
@@ -1760,12 +1813,29 @@ function closeResults() {
 function initStudyDropdown() {
     const sel = document.getElementById('study-assignment-select');
     sel.innerHTML = '';
+    
+    // Current assignments
+    let optCurrent = document.createElement('optgroup');
+    optCurrent.label = "Current Course Assignments";
     for (let key in quizData) {
         let opt = document.createElement('option');
         opt.value = key;
         opt.textContent = quizData[key].title;
-        sel.appendChild(opt);
+        optCurrent.appendChild(opt);
     }
+    sel.appendChild(optCurrent);
+
+    // Last year assignments
+    let optLast = document.createElement('optgroup');
+    optLast.label = "Last Year NPTEL Assignments";
+    for (let key in lastYearQuizData) {
+        let opt = document.createElement('option');
+        opt.value = 'last_' + key;
+        opt.textContent = lastYearQuizData[key].title;
+        optLast.appendChild(opt);
+    }
+    sel.appendChild(optLast);
+    
     let extraOpt = document.createElement('option');
     extraOpt.value = 'extra';
     extraOpt.textContent = 'Extra Practice Questions (175 Qs)';
@@ -1779,6 +1849,9 @@ function renderStudyGuide(assignmentKey = '1') {
     let assignment;
     if (assignmentKey === 'extra') {
         assignment = { title: "Extra Practice Questions", questions: extraQuestions };
+    } else if (assignmentKey.startsWith('last_')) {
+        let key = assignmentKey.replace('last_', '');
+        assignment = lastYearQuizData[key];
     } else {
         assignment = quizData[assignmentKey];
     }

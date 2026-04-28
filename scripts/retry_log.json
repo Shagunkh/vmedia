@@ -1,0 +1,2989 @@
+{
+  "summary": {
+    "success": 589,
+    "failed": 6
+  },
+  "details": [
+    {
+      "email": "harini.rp2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:05:42.611Z"
+    },
+    {
+      "email": "shirinfarhana.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:05:48.241Z"
+    },
+    {
+      "email": "s.harini2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:05:55.535Z"
+    },
+    {
+      "email": "krishivraajvir.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:01.132Z"
+    },
+    {
+      "email": "revadala.ruthvika2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:06.330Z"
+    },
+    {
+      "email": "gangisettysai.bhuvanesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:11.693Z"
+    },
+    {
+      "email": "harshvardhan.golhani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:17.047Z"
+    },
+    {
+      "email": "skarthik.sudharsan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:22.942Z"
+    },
+    {
+      "email": "tishya.renukuntla2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:28.993Z"
+    },
+    {
+      "email": "noeljacob.mathew2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:06:34.070Z"
+    },
+    {
+      "email": "ribhav.aggarwal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:10.211Z"
+    },
+    {
+      "email": "prikshit.kharb2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:15.566Z"
+    },
+    {
+      "email": "swapnil.jain2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:20.607Z"
+    },
+    {
+      "email": "kaven.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:28.180Z"
+    },
+    {
+      "email": "kolluri.saketh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:34.502Z"
+    },
+    {
+      "email": "chinmayeemallappa.badiger2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:39.562Z"
+    },
+    {
+      "email": "devarsh.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:44.978Z"
+    },
+    {
+      "email": "tadakala.hariharan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:51.333Z"
+    },
+    {
+      "email": "tanvi.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:08:56.580Z"
+    },
+    {
+      "email": "diyas.menon2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:01.516Z"
+    },
+    {
+      "email": "hashita2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:06.480Z"
+    },
+    {
+      "email": "gokulmaharajan.bhagavathi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:12.121Z"
+    },
+    {
+      "email": "keerthana.sudharsan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:17.822Z"
+    },
+    {
+      "email": "danmathew.phile2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:24.852Z"
+    },
+    {
+      "email": "estheraju.jacob2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:29.982Z"
+    },
+    {
+      "email": "rinivaishnavir.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:37.107Z"
+    },
+    {
+      "email": "harirudransunil.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:42.571Z"
+    },
+    {
+      "email": "dev.nambiar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:47.632Z"
+    },
+    {
+      "email": "divyanshmani.tripathi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:52.866Z"
+    },
+    {
+      "email": "saikaushickkutti.saravanan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:09:58.495Z"
+    },
+    {
+      "email": "hrithikeshvineeth.nair2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:03.856Z"
+    },
+    {
+      "email": "nidhi.satish2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:08.782Z"
+    },
+    {
+      "email": "eldhogibi.issac2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:15.586Z"
+    },
+    {
+      "email": "poojaiykkarath.santhosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:23.035Z"
+    },
+    {
+      "email": "ajna.saj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:29.033Z"
+    },
+    {
+      "email": "anton.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:35.026Z"
+    },
+    {
+      "email": "aarav.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:41.011Z"
+    },
+    {
+      "email": "singh.anushka2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:46.218Z"
+    },
+    {
+      "email": "harshavardhanmallela.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:51.312Z"
+    },
+    {
+      "email": "aarush.abhilash2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:10:56.972Z"
+    },
+    {
+      "email": "gowri.kishore2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:02.290Z"
+    },
+    {
+      "email": "arush.james2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:07.237Z"
+    },
+    {
+      "email": "rithishsriram.krishnamurthy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:12.555Z"
+    },
+    {
+      "email": "mitkumarraju.panchal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:17.769Z"
+    },
+    {
+      "email": "sahana.naganandh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:22.487Z"
+    },
+    {
+      "email": "avanthika.oruganti2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:27.375Z"
+    },
+    {
+      "email": "abhinavrajesh.pittan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:32.380Z"
+    },
+    {
+      "email": "chrisk.edison2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:39.172Z"
+    },
+    {
+      "email": "vasanth.anandakumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:44.593Z"
+    },
+    {
+      "email": "nichellesia.khushu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:49.788Z"
+    },
+    {
+      "email": "davidrouvin.joysondas2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:54.922Z"
+    },
+    {
+      "email": "shouryaansingh.gurjar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:11:59.936Z"
+    },
+    {
+      "email": "hannaann.lalu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:05.029Z"
+    },
+    {
+      "email": "balaadhithya.kanagabalan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:09.941Z"
+    },
+    {
+      "email": "jay.ahya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:14.547Z"
+    },
+    {
+      "email": "joshualanien.kanmani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:19.712Z"
+    },
+    {
+      "email": "sooryasunilkumar.punnapilly2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:24.616Z"
+    },
+    {
+      "email": "deepanshsinghdeopa.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:29.693Z"
+    },
+    {
+      "email": "sanjaihariharan.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:34.653Z"
+    },
+    {
+      "email": "parnika.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:39.978Z"
+    },
+    {
+      "email": "judeantonyliju.chirayathu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:45.005Z"
+    },
+    {
+      "email": "keziahmaria.george2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:49.839Z"
+    },
+    {
+      "email": "alankroota.goli2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:54.678Z"
+    },
+    {
+      "email": "abhigyanashok.gali2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:12:59.736Z"
+    },
+    {
+      "email": "gowrika.menon2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:05.032Z"
+    },
+    {
+      "email": "modassir.ahmad2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:10.804Z"
+    },
+    {
+      "email": "najeebmohammed.zakaria2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:15.718Z"
+    },
+    {
+      "email": "farhan.rashid2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:20.632Z"
+    },
+    {
+      "email": "prajith.senthil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:25.443Z"
+    },
+    {
+      "email": "ashishraimangaru.innoc2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:30.693Z"
+    },
+    {
+      "email": "sherylkingson.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:36.004Z"
+    },
+    {
+      "email": "abishekanandananthan.vaidheeswaran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:41.218Z"
+    },
+    {
+      "email": "aleenaann.aji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:46.459Z"
+    },
+    {
+      "email": "riyashibu.pullikottil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:51.970Z"
+    },
+    {
+      "email": "keerthimeghna.murugan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:13:57.094Z"
+    },
+    {
+      "email": "lokesh.prathab2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:02.071Z"
+    },
+    {
+      "email": "pradeepa.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:07.130Z"
+    },
+    {
+      "email": "a.pragadheesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:12.348Z"
+    },
+    {
+      "email": "thanikonda.nikhil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:17.676Z"
+    },
+    {
+      "email": "shantanu.saurav2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:22.688Z"
+    },
+    {
+      "email": "narasaimokshagna.chowdary2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:29.400Z"
+    },
+    {
+      "email": "divyansh.kumawat2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:34.979Z"
+    },
+    {
+      "email": "taniya.lilani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:39.931Z"
+    },
+    {
+      "email": "vaibhav.viswanath2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:44.974Z"
+    },
+    {
+      "email": "shivang.haldenia2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:50.332Z"
+    },
+    {
+      "email": "tisham.dey2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:14:55.229Z"
+    },
+    {
+      "email": "utkarsh.sharma2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:00.169Z"
+    },
+    {
+      "email": "aryan.dabas2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:05.110Z"
+    },
+    {
+      "email": "siddharth.tripathi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:10.510Z"
+    },
+    {
+      "email": "bharti2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:15.754Z"
+    },
+    {
+      "email": "tanmoy.ojha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:20.579Z"
+    },
+    {
+      "email": "akhilkumar.sawa2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:25.602Z"
+    },
+    {
+      "email": "diptesh.sabat2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:30.681Z"
+    },
+    {
+      "email": "vishwajeet.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:35.865Z"
+    },
+    {
+      "email": "sachin.mehta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:40.863Z"
+    },
+    {
+      "email": "varshal.iyer2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:45.694Z"
+    },
+    {
+      "email": "arhamsadiq.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:50.276Z"
+    },
+    {
+      "email": "khanziyanahmedanwar.ali2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:15:54.998Z"
+    },
+    {
+      "email": "r.gomathi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:00.069Z"
+    },
+    {
+      "email": "viveksharma.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:05.302Z"
+    },
+    {
+      "email": "tashi.norbu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:10.518Z"
+    },
+    {
+      "email": "nidhurshek.prabakaran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:15.859Z"
+    },
+    {
+      "email": "vikrant.pradhan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:20.655Z"
+    },
+    {
+      "email": "ashvik.mishra2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:25.772Z"
+    },
+    {
+      "email": "arnabdey.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:30.548Z"
+    },
+    {
+      "email": "a.deepika2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:35.597Z"
+    },
+    {
+      "email": "nirupam.raut2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:40.734Z"
+    },
+    {
+      "email": "kavipurapunagavenkatasatyasaiamrit.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:45.860Z"
+    },
+    {
+      "email": "saiyashwanthpanda.pujari2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:50.703Z"
+    },
+    {
+      "email": "ashwini.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:16:55.749Z"
+    },
+    {
+      "email": "k.r..neelambari2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Can't send mail - all recipients were rejected: 553-5.1.3 The recipient address <k.r..neelambari2024@vitstudent.ac.in> is not a\n553-5.1.3 valid RFC 5321 address. For more information, go to\n553-5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n553 5.1.3 specifications. d9443c01a7336-2b478139fe8sm27735105ad.36 - gsmtp",
+      "timestamp": "2026-04-15T20:16:59.449Z"
+    },
+    {
+      "email": "nikithad.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:04.502Z"
+    },
+    {
+      "email": "nivetha.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:09.417Z"
+    },
+    {
+      "email": "gokuls.rajeev2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:14.483Z"
+    },
+    {
+      "email": "gattamanenivinay.chowdary2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:19.326Z"
+    },
+    {
+      "email": "prasanna2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:24.237Z"
+    },
+    {
+      "email": "keisic.nowlan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:29.173Z"
+    },
+    {
+      "email": "simrankumari.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:34.999Z"
+    },
+    {
+      "email": "lokchandhar.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:40.634Z"
+    },
+    {
+      "email": "varunesh.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:46.472Z"
+    },
+    {
+      "email": "dhruvie.khanna2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:51.690Z"
+    },
+    {
+      "email": "sreegovind.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:17:57.022Z"
+    },
+    {
+      "email": "n.nimesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:02.257Z"
+    },
+    {
+      "email": "reshma.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:07.458Z"
+    },
+    {
+      "email": "dhikkshitha.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:12.993Z"
+    },
+    {
+      "email": "ddinesh.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:18.325Z"
+    },
+    {
+      "email": "shreyas.jha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:23.944Z"
+    },
+    {
+      "email": "sarvesh.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:28.841Z"
+    },
+    {
+      "email": "omprakash.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:36.538Z"
+    },
+    {
+      "email": "anusri.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:43.274Z"
+    },
+    {
+      "email": "r.divya.sree2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:49.041Z"
+    },
+    {
+      "email": "bhagyasree2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:54.562Z"
+    },
+    {
+      "email": "rabinkumar.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:18:59.751Z"
+    },
+    {
+      "email": "gokul.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:05.309Z"
+    },
+    {
+      "email": "mahizhnan.e2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:10.659Z"
+    },
+    {
+      "email": "samanthageorgejohns.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:15.560Z"
+    },
+    {
+      "email": "mikhdad.musthafa2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:21.119Z"
+    },
+    {
+      "email": "rajorshi.basu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:25.896Z"
+    },
+    {
+      "email": "parimullai.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:31.538Z"
+    },
+    {
+      "email": "shresthraj.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:36.960Z"
+    },
+    {
+      "email": "sp.neethimaaran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:42.177Z"
+    },
+    {
+      "email": "amalmadhav.tv2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:47.203Z"
+    },
+    {
+      "email": "rmichealabraham.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:52.074Z"
+    },
+    {
+      "email": "rohit2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:19:57.501Z"
+    },
+    {
+      "email": "sanjayram.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:03.174Z"
+    },
+    {
+      "email": "yogesh.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:08.402Z"
+    },
+    {
+      "email": "sunilkumar.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:13.820Z"
+    },
+    {
+      "email": "mukesh.balaji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:19.253Z"
+    },
+    {
+      "email": "gandla.neeladri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:24.645Z"
+    },
+    {
+      "email": "s.dhanush2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:30.066Z"
+    },
+    {
+      "email": "pjagadeesh.raj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:34.945Z"
+    },
+    {
+      "email": "sudhakar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:40.293Z"
+    },
+    {
+      "email": "santhosh.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:45.469Z"
+    },
+    {
+      "email": "santhosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:50.345Z"
+    },
+    {
+      "email": "dineshraja.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-15T20:20:55.389Z"
+    },
+    {
+      "email": "ameynarendra.mahajan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "queryA ETIMEOUT smtp.gmail.com",
+      "timestamp": "2026-04-17T19:26:10.522Z"
+    },
+    {
+      "email": "aapti.paul2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "queryA ETIMEOUT smtp.gmail.com",
+      "timestamp": "2026-04-17T19:27:21.712Z"
+    },
+    {
+      "email": "deepak.dhewa2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cbaasm28323685ad.54 - gsmtp",
+      "timestamp": "2026-04-17T19:27:26.500Z"
+    },
+    {
+      "email": "sandhya.tiwari2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa176e9sm27721795ad.20 - gsmtp",
+      "timestamp": "2026-04-17T19:27:30.581Z"
+    },
+    {
+      "email": "ayush.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140ff148dsm2665933a91.7 - gsmtp",
+      "timestamp": "2026-04-17T19:27:34.903Z"
+    },
+    {
+      "email": "ameynarendra.mahajan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:08:40.655Z"
+    },
+    {
+      "email": "aapti.paul2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:09:24.317Z"
+    },
+    {
+      "email": "deepak.dhewa2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:09:31.029Z"
+    },
+    {
+      "email": "sandhya.tiwari2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:09:43.570Z"
+    },
+    {
+      "email": "ayush.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:09:48.933Z"
+    },
+    {
+      "email": "arihant.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:02.092Z"
+    },
+    {
+      "email": "vedaant.agarwal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:23.906Z"
+    },
+    {
+      "email": "shlokrakesh.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:29.230Z"
+    },
+    {
+      "email": "shaswat.naman2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:34.492Z"
+    },
+    {
+      "email": "atharv.agarwal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:40.960Z"
+    },
+    {
+      "email": "durgaprassad.manthri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:46.154Z"
+    },
+    {
+      "email": "t.jayapradha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:51.751Z"
+    },
+    {
+      "email": "vedika.malhotra2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:10:57.953Z"
+    },
+    {
+      "email": "r.avaneesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:03.909Z"
+    },
+    {
+      "email": "sanjita.prakash2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:09.544Z"
+    },
+    {
+      "email": "adwitiya.verma2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:14.756Z"
+    },
+    {
+      "email": "yuvasri.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:19.993Z"
+    },
+    {
+      "email": "aniruthkarthikeyan.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:24.882Z"
+    },
+    {
+      "email": "mahasrresveta.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:30.439Z"
+    },
+    {
+      "email": "tashvi.wadhwa2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:36.064Z"
+    },
+    {
+      "email": "vaibhav.chaudhary2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:41.586Z"
+    },
+    {
+      "email": "abhilakshit.tomar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:46.696Z"
+    },
+    {
+      "email": "kavya.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:52.584Z"
+    },
+    {
+      "email": "kristamm.hemasri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:11:58.481Z"
+    },
+    {
+      "email": "tejasshailendra.kadam2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:03.832Z"
+    },
+    {
+      "email": "chahat.sahni2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:09.846Z"
+    },
+    {
+      "email": "rohitkanna.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:14.976Z"
+    },
+    {
+      "email": "deepujjwal.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:21.741Z"
+    },
+    {
+      "email": "shubhamkumar.jha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:26.976Z"
+    },
+    {
+      "email": "aluriravi.teja2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:34.825Z"
+    },
+    {
+      "email": "gauri.arvind2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:40.792Z"
+    },
+    {
+      "email": "meghasajith.maya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:47.978Z"
+    },
+    {
+      "email": "visvanathan.kamali2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:12:54.190Z"
+    },
+    {
+      "email": "adwaitravi.pande2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:00.844Z"
+    },
+    {
+      "email": "nandhini.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:08.049Z"
+    },
+    {
+      "email": "suvitha.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:14.971Z"
+    },
+    {
+      "email": "gavara.lokesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:20.812Z"
+    },
+    {
+      "email": "mohammedhafi.jalal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:27.997Z"
+    },
+    {
+      "email": "rainaann.shaji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:35.565Z"
+    },
+    {
+      "email": "bitansha.mukhopadhyay2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:41.608Z"
+    },
+    {
+      "email": "aditya.chourasia2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:47.642Z"
+    },
+    {
+      "email": "ramesht.parashar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:53.023Z"
+    },
+    {
+      "email": "rijulrajendra.kothawade2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:13:58.882Z"
+    },
+    {
+      "email": "manthan.takarkhede2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:04.837Z"
+    },
+    {
+      "email": "nishchay.aggarwal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:10.688Z"
+    },
+    {
+      "email": "ritika.dhiman2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:16.007Z"
+    },
+    {
+      "email": "rehan.khan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:21.439Z"
+    },
+    {
+      "email": "gracy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:27.779Z"
+    },
+    {
+      "email": "mahekkamleshkumar.shah2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:34.028Z"
+    },
+    {
+      "email": "smriti.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:39.129Z"
+    },
+    {
+      "email": "devashree.vishnudas2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:43.889Z"
+    },
+    {
+      "email": "ankita.datta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:49.688Z"
+    },
+    {
+      "email": "elwin.shaijin2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:14:55.913Z"
+    },
+    {
+      "email": "sivapriya.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:01.121Z"
+    },
+    {
+      "email": "priyanshi.jain2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:07.715Z"
+    },
+    {
+      "email": "subhang.gattu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:13.863Z"
+    },
+    {
+      "email": "devanshroy.choudhury2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:19.395Z"
+    },
+    {
+      "email": "aahan.dey2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:25.326Z"
+    },
+    {
+      "email": "srabontika.sarkar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:31.477Z"
+    },
+    {
+      "email": "anwesha.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:37.216Z"
+    },
+    {
+      "email": "pavithran.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:42.839Z"
+    },
+    {
+      "email": "aishani.kohli2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:49.207Z"
+    },
+    {
+      "email": "manasa.balakrishnan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:54.412Z"
+    },
+    {
+      "email": "rohithgopalb.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:15:59.937Z"
+    },
+    {
+      "email": "monalika.saha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:06.293Z"
+    },
+    {
+      "email": "aaditya.panigrahi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:11.735Z"
+    },
+    {
+      "email": "kavya.venkatesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:18.062Z"
+    },
+    {
+      "email": "isaac.george2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:23.799Z"
+    },
+    {
+      "email": "lena.shibu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:29.010Z"
+    },
+    {
+      "email": "vennilaaditi.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:34.292Z"
+    },
+    {
+      "email": "revatialok.shinkhede2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:39.488Z"
+    },
+    {
+      "email": "subrata.paul2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:44.879Z"
+    },
+    {
+      "email": "aditiarunshankar.naidu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:50.266Z"
+    },
+    {
+      "email": "keerthana.selvan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:16:55.494Z"
+    },
+    {
+      "email": "dhiyasarah.arun2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:01.079Z"
+    },
+    {
+      "email": "anumitha.sandeep2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:06.115Z"
+    },
+    {
+      "email": "netra.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:10.912Z"
+    },
+    {
+      "email": "kanishka.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:16.536Z"
+    },
+    {
+      "email": "niranjankumar.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:21.766Z"
+    },
+    {
+      "email": "anandi.seth2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:28.021Z"
+    },
+    {
+      "email": "raghav.balakrishnan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:33.463Z"
+    },
+    {
+      "email": "namanpreet.kaur2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:39.469Z"
+    },
+    {
+      "email": "ananya.kulkarni2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:44.832Z"
+    },
+    {
+      "email": "e.panimalar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:50.968Z"
+    },
+    {
+      "email": "dhwani.deorah2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:17:55.849Z"
+    },
+    {
+      "email": "kasturika.mishra2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:01.704Z"
+    },
+    {
+      "email": "eshadeen.binu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:07.100Z"
+    },
+    {
+      "email": "inchara.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:11.894Z"
+    },
+    {
+      "email": "samyukthaparasuraman.vedha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:17.091Z"
+    },
+    {
+      "email": "nawinpranesshv.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:22.403Z"
+    },
+    {
+      "email": "swati2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:28.011Z"
+    },
+    {
+      "email": "sohinee.ray2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:32.826Z"
+    },
+    {
+      "email": "keshav.garg2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:37.761Z"
+    },
+    {
+      "email": "mohona.roychowdhury2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:43.579Z"
+    },
+    {
+      "email": "a.s.b.shailesh.naga2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:49.828Z"
+    },
+    {
+      "email": "s.dharisana2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:18:55.553Z"
+    },
+    {
+      "email": "progyaa.dey2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:03.011Z"
+    },
+    {
+      "email": "elsaanne.simon2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:08.425Z"
+    },
+    {
+      "email": "diyarajendra.naik2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:13.990Z"
+    },
+    {
+      "email": "rasheswari.padhi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:19.780Z"
+    },
+    {
+      "email": "meghna.jagadeep2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:24.871Z"
+    },
+    {
+      "email": "ananya.odak2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:29.749Z"
+    },
+    {
+      "email": "aksharav.bendre2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:35.086Z"
+    },
+    {
+      "email": "g.sanyuktha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:40.301Z"
+    },
+    {
+      "email": "dixitan.relwani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:45.329Z"
+    },
+    {
+      "email": "sasharajesh.gaikwad2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:50.745Z"
+    },
+    {
+      "email": "r.subhashini2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:19:56.346Z"
+    },
+    {
+      "email": "samvardhika.r.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:01.691Z"
+    },
+    {
+      "email": "srija.samui2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:08.494Z"
+    },
+    {
+      "email": "ayaan.lukose2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:14.337Z"
+    },
+    {
+      "email": "sumanjoseph.t2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:19.520Z"
+    },
+    {
+      "email": "sanjanavijay.krishnan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:24.776Z"
+    },
+    {
+      "email": "priyangsha.banerjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:30.299Z"
+    },
+    {
+      "email": "swayam.sahaya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:35.978Z"
+    },
+    {
+      "email": "amrutha.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:41.928Z"
+    },
+    {
+      "email": "jirgegautami.nitin2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:48.197Z"
+    },
+    {
+      "email": "kajol.harishwar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:54.564Z"
+    },
+    {
+      "email": "manthra.sj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:20:59.893Z"
+    },
+    {
+      "email": "adityamayuresh.mhaiskar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:05.090Z"
+    },
+    {
+      "email": "kavishree.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:10.518Z"
+    },
+    {
+      "email": "megha.rani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:16.048Z"
+    },
+    {
+      "email": "tharun.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:21.491Z"
+    },
+    {
+      "email": "rithika.bhattacharjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:26.899Z"
+    },
+    {
+      "email": "aayush.omkar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:32.920Z"
+    },
+    {
+      "email": "ayushman.chand2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:38.071Z"
+    },
+    {
+      "email": "sanjana.samanta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:43.186Z"
+    },
+    {
+      "email": "aanchalrajiv.jani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:48.110Z"
+    },
+    {
+      "email": "nehasatish.chavan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:53.319Z"
+    },
+    {
+      "email": "smita.bameta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:21:58.547Z"
+    },
+    {
+      "email": "radhaanand.nankar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:05.445Z"
+    },
+    {
+      "email": "yusra.rehman2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:11.078Z"
+    },
+    {
+      "email": "priyanka.goyal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:17.482Z"
+    },
+    {
+      "email": "r.poornima2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:22.921Z"
+    },
+    {
+      "email": "madhumitha.balaji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:27.941Z"
+    },
+    {
+      "email": "tanve.sablok2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:32.949Z"
+    },
+    {
+      "email": "shreya.sarkar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:38.278Z"
+    },
+    {
+      "email": "sweatakshi.bhattacharjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:44.007Z"
+    },
+    {
+      "email": "akhurath.ganapathy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:49.433Z"
+    },
+    {
+      "email": "rimpai.chatterjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:22:55.879Z"
+    },
+    {
+      "email": "swattika.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:01.518Z"
+    },
+    {
+      "email": "apshankarpushkar.harshad2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:07.467Z"
+    },
+    {
+      "email": "aaditya.ghosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:13.979Z"
+    },
+    {
+      "email": "snehanjali.sahoo2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:19.998Z"
+    },
+    {
+      "email": "nishka.jain2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:25.886Z"
+    },
+    {
+      "email": "pavitraa.nair2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:32.976Z"
+    },
+    {
+      "email": "bhadra.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:38.495Z"
+    },
+    {
+      "email": "arpankumar.naha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:44.329Z"
+    },
+    {
+      "email": "abemithraav.o2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:51.810Z"
+    },
+    {
+      "email": "dhriti.garg2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:23:58.408Z"
+    },
+    {
+      "email": "anahita.munshi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:03.451Z"
+    },
+    {
+      "email": "anvesha.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:08.495Z"
+    },
+    {
+      "email": "saktivisakan.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:15.050Z"
+    },
+    {
+      "email": "aditikrishnav.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:20.526Z"
+    },
+    {
+      "email": "chetankeshab.chopra2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:27.049Z"
+    },
+    {
+      "email": "rinu.pattanayak2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:33.063Z"
+    },
+    {
+      "email": "prashanth.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:38.560Z"
+    },
+    {
+      "email": "vanathi.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:43.437Z"
+    },
+    {
+      "email": "aldrinjoseph.sebastian2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:48.400Z"
+    },
+    {
+      "email": "saranyav.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:24:54.346Z"
+    },
+    {
+      "email": "oishani.ghosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:00.448Z"
+    },
+    {
+      "email": "vaishnavi.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:07.175Z"
+    },
+    {
+      "email": "arushiraj.chaman2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:12.892Z"
+    },
+    {
+      "email": "lakshitapadmini.balaji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:19.995Z"
+    },
+    {
+      "email": "m.aadesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:25.439Z"
+    },
+    {
+      "email": "neil.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:31.122Z"
+    },
+    {
+      "email": "shyamsundar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:36.944Z"
+    },
+    {
+      "email": "tamanna.yadav2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:42.905Z"
+    },
+    {
+      "email": "bidisha.baidisobha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:47.990Z"
+    },
+    {
+      "email": "rithi.kandasamy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:25:53.855Z"
+    },
+    {
+      "email": "rudrabha.dasgupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:00.021Z"
+    },
+    {
+      "email": "r.cibiya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:05.679Z"
+    },
+    {
+      "email": "sanarose.kannanaikal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:11.569Z"
+    },
+    {
+      "email": "abhapranavdatta.natekar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:17.418Z"
+    },
+    {
+      "email": "nehaasrisingaram.vinodhini2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:22.653Z"
+    },
+    {
+      "email": "swarnavarshni.alagappan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:28.000Z"
+    },
+    {
+      "email": "gokul.manoj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:33.571Z"
+    },
+    {
+      "email": "kilaparthivenkatasai.divyasree2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:39.833Z"
+    },
+    {
+      "email": "rishabh.das2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:44.862Z"
+    },
+    {
+      "email": "pushti.goyal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:50.290Z"
+    },
+    {
+      "email": "anirudlaxman.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:26:55.840Z"
+    },
+    {
+      "email": "vijaykrushnaan.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:01.235Z"
+    },
+    {
+      "email": "uthra.vijay2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:06.559Z"
+    },
+    {
+      "email": "ayush.bera2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:12.093Z"
+    },
+    {
+      "email": "urjoswati.maity2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:18.033Z"
+    },
+    {
+      "email": "ushnish.saha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:23.976Z"
+    },
+    {
+      "email": "sukrit.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:29.095Z"
+    },
+    {
+      "email": "samehakhan.pathan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:34.523Z"
+    },
+    {
+      "email": "thejas.arun2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:40.044Z"
+    },
+    {
+      "email": "prithviraj.parikshit.deshmane2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:45.383Z"
+    },
+    {
+      "email": "harini.iyyappan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:50.485Z"
+    },
+    {
+      "email": "sameer.nair2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:27:55.927Z"
+    },
+    {
+      "email": "riti.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:01.832Z"
+    },
+    {
+      "email": "manini.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:07.598Z"
+    },
+    {
+      "email": "sanjaivisak.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:12.938Z"
+    },
+    {
+      "email": "snehan.brajabasi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:18.861Z"
+    },
+    {
+      "email": "taejashwini.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:25.308Z"
+    },
+    {
+      "email": "anagha.rao2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:30.531Z"
+    },
+    {
+      "email": "rithikkag.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:35.847Z"
+    },
+    {
+      "email": "suryashri.subramanian2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:41.699Z"
+    },
+    {
+      "email": "sitharat.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:47.125Z"
+    },
+    {
+      "email": "akshitaharikrishnan.menon2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:53.060Z"
+    },
+    {
+      "email": "ramneek.kaur2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:28:58.993Z"
+    },
+    {
+      "email": "vedantramesh.kumbhar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:04.322Z"
+    },
+    {
+      "email": "bidushi.sarangi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:09.545Z"
+    },
+    {
+      "email": "shalinibasu.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:14.963Z"
+    },
+    {
+      "email": "amalaann.shino2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:20.040Z"
+    },
+    {
+      "email": "j.haneesha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:25.221Z"
+    },
+    {
+      "email": "catherine.danni2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:31.354Z"
+    },
+    {
+      "email": "vismaya.madhusoodanan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:36.993Z"
+    },
+    {
+      "email": "vidhi.garg2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:41.933Z"
+    },
+    {
+      "email": "alishamartha.joseph2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:47.742Z"
+    },
+    {
+      "email": "sb.theran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:52.765Z"
+    },
+    {
+      "email": "toshinip.jain2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:29:57.814Z"
+    },
+    {
+      "email": "harini.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:03.303Z"
+    },
+    {
+      "email": "gladwinrenick.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:09.027Z"
+    },
+    {
+      "email": "gautham.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:14.083Z"
+    },
+    {
+      "email": "pooja.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:20.062Z"
+    },
+    {
+      "email": "abiram.narikkundil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:25.468Z"
+    },
+    {
+      "email": "aditya.abhilash2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:31.172Z"
+    },
+    {
+      "email": "aadesh.raj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:36.587Z"
+    },
+    {
+      "email": "keosharajesh.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:42.314Z"
+    },
+    {
+      "email": "bayanabhavyasri.vasundhara2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:48.575Z"
+    },
+    {
+      "email": "yerralikhitha.sai2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:53.683Z"
+    },
+    {
+      "email": "pgokul.anand2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:30:59.324Z"
+    },
+    {
+      "email": "kushipoovaiah.chendira2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:04.444Z"
+    },
+    {
+      "email": "udith.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:09.861Z"
+    },
+    {
+      "email": "parnika.prakash2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:15.601Z"
+    },
+    {
+      "email": "suvetha.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:21.440Z"
+    },
+    {
+      "email": "sameeksha.chandak2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:27.158Z"
+    },
+    {
+      "email": "tejaswini.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:32.698Z"
+    },
+    {
+      "email": "aindvi.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:38.187Z"
+    },
+    {
+      "email": "deeptanshu.ghosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:44.067Z"
+    },
+    {
+      "email": "mehwish.ahmed2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:49.909Z"
+    },
+    {
+      "email": "alankrita.mukherjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:31:55.630Z"
+    },
+    {
+      "email": "tanvi.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:01.370Z"
+    },
+    {
+      "email": "deepanshi.kumaresan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:07.206Z"
+    },
+    {
+      "email": "aniket.dutta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:12.960Z"
+    },
+    {
+      "email": "ancyrose.shibu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:18.786Z"
+    },
+    {
+      "email": "sohini.datta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:23.988Z"
+    },
+    {
+      "email": "kishorekarthik.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:29.187Z"
+    },
+    {
+      "email": "pramod.s.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:34.953Z"
+    },
+    {
+      "email": "sanyukthaa.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:40.378Z"
+    },
+    {
+      "email": "gokul.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:46.089Z"
+    },
+    {
+      "email": "kezia.pearlyne.e2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:51.954Z"
+    },
+    {
+      "email": "k.s.kanishkka.sri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:32:57.491Z"
+    },
+    {
+      "email": "arghyadeep.debroy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:02.809Z"
+    },
+    {
+      "email": "anoushkha.dutta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:08.247Z"
+    },
+    {
+      "email": "tabasum.firoz2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:13.770Z"
+    },
+    {
+      "email": "aakhyaata.mudgal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:19.229Z"
+    },
+    {
+      "email": "minakshi.thakur2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:24.830Z"
+    },
+    {
+      "email": "subhranshu.chattopadhyay2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:29.984Z"
+    },
+    {
+      "email": "sheteanish.anirudha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:35.792Z"
+    },
+    {
+      "email": "b.atharv2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:40.987Z"
+    },
+    {
+      "email": "surya.venkatesan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:46.777Z"
+    },
+    {
+      "email": "malavika.renjit2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:52.329Z"
+    },
+    {
+      "email": "swetha.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:33:58.008Z"
+    },
+    {
+      "email": "rakshidha.ravichandran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:03.197Z"
+    },
+    {
+      "email": "anjali.benoy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:08.867Z"
+    },
+    {
+      "email": "devapriyah.nair2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:14.012Z"
+    },
+    {
+      "email": "s.sanjana2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:19.313Z"
+    },
+    {
+      "email": "vidhi.ajmera2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:24.429Z"
+    },
+    {
+      "email": "mithil.mohanraj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:29.861Z"
+    },
+    {
+      "email": "kenisham.dutia2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:35.696Z"
+    },
+    {
+      "email": "samrriddha.naskar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:41.250Z"
+    },
+    {
+      "email": "sharveshwaran.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:46.135Z"
+    },
+    {
+      "email": "hannaan.h2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:51.977Z"
+    },
+    {
+      "email": "aroondhati.rakshit2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:34:58.152Z"
+    },
+    {
+      "email": "krithik.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:03.183Z"
+    },
+    {
+      "email": "balaji.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:08.957Z"
+    },
+    {
+      "email": "shriranjanisaroj.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:15.020Z"
+    },
+    {
+      "email": "s.sivakarthik2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:21.058Z"
+    },
+    {
+      "email": "thanvi.p.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:26.788Z"
+    },
+    {
+      "email": "lakshana.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:31.915Z"
+    },
+    {
+      "email": "smeenatche.sri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:37.460Z"
+    },
+    {
+      "email": "sarahjonathanlobo.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:43.477Z"
+    },
+    {
+      "email": "diyatess.jacson2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:49.306Z"
+    },
+    {
+      "email": "chhavi.mathur2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:54.337Z"
+    },
+    {
+      "email": "haya.nisthar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:35:59.764Z"
+    },
+    {
+      "email": "koena.malick2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:04.985Z"
+    },
+    {
+      "email": "varsha.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:10.001Z"
+    },
+    {
+      "email": "irfhan.sheriff2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:15.738Z"
+    },
+    {
+      "email": "adithya.sunesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:21.158Z"
+    },
+    {
+      "email": "andreaanthonycruz.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:27.107Z"
+    },
+    {
+      "email": "devdarshudayabhanu.divya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:32.537Z"
+    },
+    {
+      "email": "priyadharsini.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:38.182Z"
+    },
+    {
+      "email": "anashyay.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:48.496Z"
+    },
+    {
+      "email": "anmol.durgam2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:53.772Z"
+    },
+    {
+      "email": "tanishqa.dey2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:36:58.956Z"
+    },
+    {
+      "email": "karan.saha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:04.380Z"
+    },
+    {
+      "email": "priyasakthee.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:09.986Z"
+    },
+    {
+      "email": "gauranga.koirala2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:16.066Z"
+    },
+    {
+      "email": "dheekshana.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:21.428Z"
+    },
+    {
+      "email": "mohamedhannann.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:27.207Z"
+    },
+    {
+      "email": "roshan.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:32.602Z"
+    },
+    {
+      "email": "keyur.warkhedkar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:38.371Z"
+    },
+    {
+      "email": "anoosragha.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:44.351Z"
+    },
+    {
+      "email": "tanisha.gupta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:49.527Z"
+    },
+    {
+      "email": "savitha.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:37:54.967Z"
+    },
+    {
+      "email": "rennah.reeza2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:01.102Z"
+    },
+    {
+      "email": "anjalyanand.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:06.631Z"
+    },
+    {
+      "email": "varshinee.bn2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:11.873Z"
+    },
+    {
+      "email": "sriharinir.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:16.870Z"
+    },
+    {
+      "email": "rynaj.george2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:21.968Z"
+    },
+    {
+      "email": "p.navya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:27.264Z"
+    },
+    {
+      "email": "vijayachandrikaa.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:33.231Z"
+    },
+    {
+      "email": "devansh.pokhariya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:39.192Z"
+    },
+    {
+      "email": "kishore.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:45.540Z"
+    },
+    {
+      "email": "hariprasanth.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:51.281Z"
+    },
+    {
+      "email": "siddhi.chandak2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:38:57.021Z"
+    },
+    {
+      "email": "shruti.kumari2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:02.535Z"
+    },
+    {
+      "email": "rajesh.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:09.032Z"
+    },
+    {
+      "email": "nithya.sree.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:14.328Z"
+    },
+    {
+      "email": "calebstevin2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:20.096Z"
+    },
+    {
+      "email": "balaji.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:25.993Z"
+    },
+    {
+      "email": "akarshg.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:30.980Z"
+    },
+    {
+      "email": "navinashj.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:36.746Z"
+    },
+    {
+      "email": "lokesh.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:41.604Z"
+    },
+    {
+      "email": "jeevanprasanth.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:46.767Z"
+    },
+    {
+      "email": "vishal.u2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:52.812Z"
+    },
+    {
+      "email": "lavanyap.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:39:57.847Z"
+    },
+    {
+      "email": "miruthiga.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:03.134Z"
+    },
+    {
+      "email": "rajesh.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:09.031Z"
+    },
+    {
+      "email": "tamilamudhu.sasikumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:14.234Z"
+    },
+    {
+      "email": "deep.raj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:19.652Z"
+    },
+    {
+      "email": "kushwantsingh.chauhan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:26.098Z"
+    },
+    {
+      "email": "priyadarshini.n.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:31.732Z"
+    },
+    {
+      "email": "arun.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:37.117Z"
+    },
+    {
+      "email": "sudeepkumar.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:42.390Z"
+    },
+    {
+      "email": "hemanthraj.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:49.957Z"
+    },
+    {
+      "email": "bhumika.ray2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:40:55.281Z"
+    },
+    {
+      "email": "subalakshmi.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:00.987Z"
+    },
+    {
+      "email": "deepak.e2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:06.340Z"
+    },
+    {
+      "email": "janani.l2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:11.463Z"
+    },
+    {
+      "email": "s.ishwarya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:17.096Z"
+    },
+    {
+      "email": "ruthika.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:22.195Z"
+    },
+    {
+      "email": "praveen.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:27.372Z"
+    },
+    {
+      "email": "sujitha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:32.964Z"
+    },
+    {
+      "email": "ranjani.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:39.006Z"
+    },
+    {
+      "email": "mohammedfarhan.rn2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:46.388Z"
+    },
+    {
+      "email": "nivetha.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:52.113Z"
+    },
+    {
+      "email": "tamilkumaran.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:41:58.256Z"
+    },
+    {
+      "email": "awanishemmanuel.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:04.410Z"
+    },
+    {
+      "email": "keerthana.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:09.248Z"
+    },
+    {
+      "email": "rekha.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:14.855Z"
+    },
+    {
+      "email": "sharmi.l2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:20.583Z"
+    },
+    {
+      "email": "chinnavakilimohammadumar.farooq2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:25.588Z"
+    },
+    {
+      "email": "vt.preethivarshini2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:30.831Z"
+    },
+    {
+      "email": "anusree.muralikrishnan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:36.090Z"
+    },
+    {
+      "email": "p.lathikarchana2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:41.883Z"
+    },
+    {
+      "email": "mohamedsumair.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:47.071Z"
+    },
+    {
+      "email": "priyadharshini.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:52.173Z"
+    },
+    {
+      "email": "santhosh.kumaran.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:42:57.758Z"
+    },
+    {
+      "email": "mohammedrayaan.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:03.187Z"
+    },
+    {
+      "email": "yogeshwaran.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:08.279Z"
+    },
+    {
+      "email": "mohammedsouban.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:14.241Z"
+    },
+    {
+      "email": "pmohammedirbaz.raihan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:20.432Z"
+    },
+    {
+      "email": "mohammedazhaan.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:25.788Z"
+    },
+    {
+      "email": "angelaann.soji2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:31.346Z"
+    },
+    {
+      "email": "rakesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:36.877Z"
+    },
+    {
+      "email": "tharanesh.p.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:42.204Z"
+    },
+    {
+      "email": "akshita.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:48.349Z"
+    },
+    {
+      "email": "manojkumar.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:43:54.383Z"
+    },
+    {
+      "email": "harika.u2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:00.318Z"
+    },
+    {
+      "email": "kaviyapriya.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:06.569Z"
+    },
+    {
+      "email": "dharshini.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:12.414Z"
+    },
+    {
+      "email": "bharathraj.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:18.148Z"
+    },
+    {
+      "email": "dharshini.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:23.583Z"
+    },
+    {
+      "email": "tianachoudhary.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:28.984Z"
+    },
+    {
+      "email": "shalini2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:34.840Z"
+    },
+    {
+      "email": "nisha.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:40.357Z"
+    },
+    {
+      "email": "priyadharshini.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:45.369Z"
+    },
+    {
+      "email": "thanusri.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:51.645Z"
+    },
+    {
+      "email": "thanuja.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:44:57.976Z"
+    },
+    {
+      "email": "yogavarshini.e2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:03.012Z"
+    },
+    {
+      "email": "madhumitha.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:09.027Z"
+    },
+    {
+      "email": "richa2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:14.308Z"
+    },
+    {
+      "email": "nithish.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:20.606Z"
+    },
+    {
+      "email": "jeevanandhan.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:26.544Z"
+    },
+    {
+      "email": "srimahalakshmim.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:32.077Z"
+    },
+    {
+      "email": "j.dhanushri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:38.019Z"
+    },
+    {
+      "email": "kailash.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:43.456Z"
+    },
+    {
+      "email": "v.hemalatha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:49.490Z"
+    },
+    {
+      "email": "aneeka.saba2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:45:55.005Z"
+    },
+    {
+      "email": "ramya.e2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:00.433Z"
+    },
+    {
+      "email": "dhinesh.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:06.162Z"
+    },
+    {
+      "email": "kameshwaran.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:11.606Z"
+    },
+    {
+      "email": "divyasri2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:17.334Z"
+    },
+    {
+      "email": "sivaraman.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:22.462Z"
+    },
+    {
+      "email": "jahanaaraqureshi.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:28.176Z"
+    },
+    {
+      "email": "logeeshwaran.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:34.135Z"
+    },
+    {
+      "email": "rekha.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:39.599Z"
+    },
+    {
+      "email": "krishnab.nambiar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:44.569Z"
+    },
+    {
+      "email": "harishraghav.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:50.718Z"
+    },
+    {
+      "email": "harinik.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:46:56.758Z"
+    },
+    {
+      "email": "pmohammed.sannan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:02.911Z"
+    },
+    {
+      "email": "nushra.begum2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:08.735Z"
+    },
+    {
+      "email": "prithivp.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:14.136Z"
+    },
+    {
+      "email": "mohammedadnan.t2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:19.805Z"
+    },
+    {
+      "email": "pr.vaishnavi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:25.225Z"
+    },
+    {
+      "email": "s.prithiviraj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:30.550Z"
+    },
+    {
+      "email": "sunithalakshmi.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:36.496Z"
+    },
+    {
+      "email": "diyaanamariyama.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:42.942Z"
+    },
+    {
+      "email": "dhruvrajsinghbhati.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:47.986Z"
+    },
+    {
+      "email": "vallipi.saraswathi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:53.460Z"
+    },
+    {
+      "email": "mdadnansharique.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:47:58.808Z"
+    },
+    {
+      "email": "ramya.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:04.237Z"
+    },
+    {
+      "email": "shamrutha.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:09.583Z"
+    },
+    {
+      "email": "ananya.polamada2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:15.614Z"
+    },
+    {
+      "email": "niranjanasnair.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:21.241Z"
+    },
+    {
+      "email": "shamma.arshad2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:27.080Z"
+    },
+    {
+      "email": "saran.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:32.703Z"
+    },
+    {
+      "email": "mohammedsiddiques.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:38.851Z"
+    },
+    {
+      "email": "rithika.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:44.057Z"
+    },
+    {
+      "email": "mohammeddanish.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:49.703Z"
+    },
+    {
+      "email": "vasanthakumarr.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:48:54.697Z"
+    },
+    {
+      "email": "pavithra.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:01.172Z"
+    },
+    {
+      "email": "priya.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:06.294Z"
+    },
+    {
+      "email": "rohit.y2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:11.700Z"
+    },
+    {
+      "email": "n.deenadayal.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:17.660Z"
+    },
+    {
+      "email": "vishnupriya.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:22.981Z"
+    },
+    {
+      "email": "jayashree.s.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:28.073Z"
+    },
+    {
+      "email": "ranjana.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:33.449Z"
+    },
+    {
+      "email": "chinnadurai.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:38.642Z"
+    },
+    {
+      "email": "smohammed.aakif2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:43.858Z"
+    },
+    {
+      "email": "mohammedathar.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:48.876Z"
+    },
+    {
+      "email": "saumya.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:54.222Z"
+    },
+    {
+      "email": "dineshbabu.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:49:59.970Z"
+    },
+    {
+      "email": "fidaamber.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:05.691Z"
+    },
+    {
+      "email": "aakash.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:10.963Z"
+    },
+    {
+      "email": "jeevitha.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:16.359Z"
+    },
+    {
+      "email": "ayisanaswa.kp2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:22.133Z"
+    },
+    {
+      "email": "pooja.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:27.301Z"
+    },
+    {
+      "email": "nethra.b.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:32.989Z"
+    },
+    {
+      "email": "perarasan.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:39.375Z"
+    },
+    {
+      "email": "teena.l2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-18T11:50:45.215Z"
+    }
+  ]
+}

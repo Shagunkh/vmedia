@@ -1,0 +1,2295 @@
+{
+  "summary": {
+    "total": 417,
+    "success": 216,
+    "failed": 201
+  },
+  "details": [
+    {
+      "email": "aritri.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:41:58.404Z"
+    },
+    {
+      "email": "yuvagururajan.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:02.196Z"
+    },
+    {
+      "email": "sreenithi.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:06.122Z"
+    },
+    {
+      "email": "maddalyvenkatakusalsai.deepak2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:09.888Z"
+    },
+    {
+      "email": "jeevasri.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:13.994Z"
+    },
+    {
+      "email": "singhadityadineshwar.pinky2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:17.767Z"
+    },
+    {
+      "email": "upulurisai.samundar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:21.690Z"
+    },
+    {
+      "email": "madhuparna.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:26.241Z"
+    },
+    {
+      "email": "mudaliarkishoryoganandhan.sudha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:30.140Z"
+    },
+    {
+      "email": "alwinjosey.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:34.011Z"
+    },
+    {
+      "email": "dosapatrunisanjay.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:37.767Z"
+    },
+    {
+      "email": "nandhini.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:41.506Z"
+    },
+    {
+      "email": "nidigatla.anuroop2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:45.424Z"
+    },
+    {
+      "email": "merlinhepshibamg.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:49.338Z"
+    },
+    {
+      "email": "neha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:53.143Z"
+    },
+    {
+      "email": "natarajanr.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:42:57.059Z"
+    },
+    {
+      "email": "sudhirkrishna.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:00.904Z"
+    },
+    {
+      "email": "lnaren.karthikeyan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:04.813Z"
+    },
+    {
+      "email": "suryakrishnam.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:08.560Z"
+    },
+    {
+      "email": "sneha.sachin2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:12.529Z"
+    },
+    {
+      "email": "neham.jethwani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:16.364Z"
+    },
+    {
+      "email": "pradipta.pal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:20.136Z"
+    },
+    {
+      "email": "p.suvetha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:23.880Z"
+    },
+    {
+      "email": "shreyasaran.shakya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:27.646Z"
+    },
+    {
+      "email": "shreosi.das2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:31.440Z"
+    },
+    {
+      "email": "rose.biju2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:35.253Z"
+    },
+    {
+      "email": "keerthana.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:39.039Z"
+    },
+    {
+      "email": "glady.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:42.905Z"
+    },
+    {
+      "email": "shaladharshinis.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:46.688Z"
+    },
+    {
+      "email": "hs.dhanush2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:50.538Z"
+    },
+    {
+      "email": "chhavishukla.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:54.478Z"
+    },
+    {
+      "email": "aanisa.ameen2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:43:58.523Z"
+    },
+    {
+      "email": "soorya.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:02.421Z"
+    },
+    {
+      "email": "harishvikram.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:06.277Z"
+    },
+    {
+      "email": "priyadharshini.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:10.153Z"
+    },
+    {
+      "email": "bhavanavs.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:13.973Z"
+    },
+    {
+      "email": "monishkumar.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:17.829Z"
+    },
+    {
+      "email": "abitha.v.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:21.763Z"
+    },
+    {
+      "email": "deepika2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:25.730Z"
+    },
+    {
+      "email": "sathiya.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:29.560Z"
+    },
+    {
+      "email": "d.divya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:33.358Z"
+    },
+    {
+      "email": "srinath.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:37.129Z"
+    },
+    {
+      "email": "palak.yadav2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:40.954Z"
+    },
+    {
+      "email": "gondukurminaidu.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:44.801Z"
+    },
+    {
+      "email": "miruthubashinia.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:48.601Z"
+    },
+    {
+      "email": "bela.sreekesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:52.320Z"
+    },
+    {
+      "email": "rozun.rahman.h2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:56.208Z"
+    },
+    {
+      "email": "r.samitha2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:44:59.921Z"
+    },
+    {
+      "email": "navanika.barthwal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:03.740Z"
+    },
+    {
+      "email": "atanishatanmayee.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:07.554Z"
+    },
+    {
+      "email": "vaishnav.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:11.492Z"
+    },
+    {
+      "email": "vaishnavi.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:15.366Z"
+    },
+    {
+      "email": "hiba.farooq2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:19.526Z"
+    },
+    {
+      "email": "karthika.anbu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:23.536Z"
+    },
+    {
+      "email": "vaishnavi.mane2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:27.429Z"
+    },
+    {
+      "email": "gauria.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:31.266Z"
+    },
+    {
+      "email": "gayathri.mani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:35.082Z"
+    },
+    {
+      "email": "thirukumaran.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:38.982Z"
+    },
+    {
+      "email": "shubham.salui2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:42.857Z"
+    },
+    {
+      "email": "thanushram.gajendiran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:46.713Z"
+    },
+    {
+      "email": "tsmahesh.kumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:51.144Z"
+    },
+    {
+      "email": "sindhu.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:55.084Z"
+    },
+    {
+      "email": "febinvshiju.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:45:58.929Z"
+    },
+    {
+      "email": "sanhita.biswas2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:02.725Z"
+    },
+    {
+      "email": "jjaison.immanuel2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:06.572Z"
+    },
+    {
+      "email": "akashgarneshwar.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:10.596Z"
+    },
+    {
+      "email": "s.iniyah.yhasmin2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:14.472Z"
+    },
+    {
+      "email": "harish.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:18.288Z"
+    },
+    {
+      "email": "prathipa.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:22.239Z"
+    },
+    {
+      "email": "pallavan..j2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Can't send mail - all recipients were rejected: 553-5.1.3 The recipient address <pallavan..j2024@vitstudent.ac.in> is not a\n553-5.1.3 valid RFC 5321 address. For more information, go to\n553-5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n553 5.1.3 specifications. 41be03b00d2f7-c7976f9da4esm17957451a12.11 - gsmtp",
+      "timestamp": "2026-04-24T17:46:25.101Z"
+    },
+    {
+      "email": "barathan.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:29.030Z"
+    },
+    {
+      "email": "priyanka.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:32.793Z"
+    },
+    {
+      "email": "sibisundar.ram2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:36.581Z"
+    },
+    {
+      "email": "aiswarya.srinivasan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:40.399Z"
+    },
+    {
+      "email": "himavathis.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:44.274Z"
+    },
+    {
+      "email": "sweetha.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:48.069Z"
+    },
+    {
+      "email": "radhakrishnan.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:51.923Z"
+    },
+    {
+      "email": "karan.yeole2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:55.851Z"
+    },
+    {
+      "email": "srijananisivasaravanan.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:46:59.764Z"
+    },
+    {
+      "email": "anushamuralidhar.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:03.767Z"
+    },
+    {
+      "email": "ajantha.rm.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:08.444Z"
+    },
+    {
+      "email": "tamminainasashi.kiran2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:12.882Z"
+    },
+    {
+      "email": "dhanushv.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:16.724Z"
+    },
+    {
+      "email": "r.santhosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:20.515Z"
+    },
+    {
+      "email": "r.desikan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:24.360Z"
+    },
+    {
+      "email": "sahilkumar.jain2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:28.046Z"
+    },
+    {
+      "email": "keshavs.katti2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:31.826Z"
+    },
+    {
+      "email": "aleena.jayakumar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:35.611Z"
+    },
+    {
+      "email": "eniyanakshatra.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:39.484Z"
+    },
+    {
+      "email": "gouri.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:43.514Z"
+    },
+    {
+      "email": "ahana.mukherjee2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:47.746Z"
+    },
+    {
+      "email": "krishnasurya.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:51.562Z"
+    },
+    {
+      "email": "keerthana.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:55.446Z"
+    },
+    {
+      "email": "aardra.prem2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:47:59.303Z"
+    },
+    {
+      "email": "hasnahbinti.hasheer2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:03.107Z"
+    },
+    {
+      "email": "sakshi.chandanshiv2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:07.033Z"
+    },
+    {
+      "email": "amala.baby2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:10.853Z"
+    },
+    {
+      "email": "albin.thomas2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:14.825Z"
+    },
+    {
+      "email": "abhinavv.sunil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:18.832Z"
+    },
+    {
+      "email": "josmik.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:22.737Z"
+    },
+    {
+      "email": "smeshach.wilson2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:26.526Z"
+    },
+    {
+      "email": "rosemol.jolly2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:30.312Z"
+    },
+    {
+      "email": "dhinkar.parthiban2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:34.296Z"
+    },
+    {
+      "email": "etha.chowdhury2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:38.049Z"
+    },
+    {
+      "email": "shaheen.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:42.124Z"
+    },
+    {
+      "email": "glaudiatejal.d2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:46.014Z"
+    },
+    {
+      "email": "manasaaithal.gm2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:51.162Z"
+    },
+    {
+      "email": "barendrakumar.datta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:55.177Z"
+    },
+    {
+      "email": "avneet.kaur2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:48:58.980Z"
+    },
+    {
+      "email": "jadhavshreeyashsunil.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:02.908Z"
+    },
+    {
+      "email": "divykriti.agrawal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:06.681Z"
+    },
+    {
+      "email": "gopika2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:10.649Z"
+    },
+    {
+      "email": "emisha.l2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:14.519Z"
+    },
+    {
+      "email": "kamali.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:18.453Z"
+    },
+    {
+      "email": "suriya.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:22.655Z"
+    },
+    {
+      "email": "akshaya.prakash2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:27.262Z"
+    },
+    {
+      "email": "soujatya.mondal2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:31.031Z"
+    },
+    {
+      "email": "shriya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:34.870Z"
+    },
+    {
+      "email": "rahulsur.roy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:38.645Z"
+    },
+    {
+      "email": "akilesh.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:42.516Z"
+    },
+    {
+      "email": "avanthika.v2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:46.388Z"
+    },
+    {
+      "email": "vaishmitha.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:50.188Z"
+    },
+    {
+      "email": "debanjali.pan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:54.024Z"
+    },
+    {
+      "email": "arpithars.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:49:58.629Z"
+    },
+    {
+      "email": "janani.arun2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:02.474Z"
+    },
+    {
+      "email": "harshitha.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:06.370Z"
+    },
+    {
+      "email": "anugrah.michael2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:10.154Z"
+    },
+    {
+      "email": "reshmashankar.nandre2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:14.032Z"
+    },
+    {
+      "email": "srishti.debnath2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:17.816Z"
+    },
+    {
+      "email": "bnaveena.m.sc2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:21.622Z"
+    },
+    {
+      "email": "sagnik.sen2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:25.447Z"
+    },
+    {
+      "email": "gowrim.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:29.345Z"
+    },
+    {
+      "email": "samuelmugin.j2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:33.177Z"
+    },
+    {
+      "email": "fariha.hasan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:37.059Z"
+    },
+    {
+      "email": "roshini.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:40.807Z"
+    },
+    {
+      "email": "swatika.sharma2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:44.712Z"
+    },
+    {
+      "email": "reshmi.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:48.637Z"
+    },
+    {
+      "email": "reevesdavid.c2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:52.492Z"
+    },
+    {
+      "email": "muhammad.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:50:56.439Z"
+    },
+    {
+      "email": "devika.pradeep2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:00.253Z"
+    },
+    {
+      "email": "shatanik.chakraborty2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:04.064Z"
+    },
+    {
+      "email": "soumya.sakshi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:07.940Z"
+    },
+    {
+      "email": "vindhyasree.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:11.862Z"
+    },
+    {
+      "email": "navyaj.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:16.058Z"
+    },
+    {
+      "email": "nethrras.u2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:19.940Z"
+    },
+    {
+      "email": "dharsank.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:23.959Z"
+    },
+    {
+      "email": "gsai.sadwika2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:27.855Z"
+    },
+    {
+      "email": "srishtilingaraj.chandargi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:31.617Z"
+    },
+    {
+      "email": "neelu.nargund2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:35.311Z"
+    },
+    {
+      "email": "shrisathyan.g.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:39.244Z"
+    },
+    {
+      "email": "muskaanprashant.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:43.032Z"
+    },
+    {
+      "email": "shubham2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:46.895Z"
+    },
+    {
+      "email": "saoni.ghosh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:50.551Z"
+    },
+    {
+      "email": "sneha.majumdar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:54.335Z"
+    },
+    {
+      "email": "paul.stephen2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:51:58.120Z"
+    },
+    {
+      "email": "dhanalakshmi.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:02.119Z"
+    },
+    {
+      "email": "omsai.kavtekar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:05.876Z"
+    },
+    {
+      "email": "preranak.prasad2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:09.678Z"
+    },
+    {
+      "email": "haritha.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:13.495Z"
+    },
+    {
+      "email": "venkats.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:17.494Z"
+    },
+    {
+      "email": "thiran.raj2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:21.312Z"
+    },
+    {
+      "email": "srinarayanan.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:25.226Z"
+    },
+    {
+      "email": "shruthibabub.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:29.001Z"
+    },
+    {
+      "email": "meena.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:32.802Z"
+    },
+    {
+      "email": "sakinashoukat.safdari2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:36.612Z"
+    },
+    {
+      "email": "sourish.karmakar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:40.377Z"
+    },
+    {
+      "email": "dwaipayan.paul2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:44.176Z"
+    },
+    {
+      "email": "janki.pahlwani2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:48.062Z"
+    },
+    {
+      "email": "shambhavi.srivastava2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:51.864Z"
+    },
+    {
+      "email": "parthiv.jakka2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:55.657Z"
+    },
+    {
+      "email": "kulkarniabhay.milind2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:52:59.536Z"
+    },
+    {
+      "email": "balaji.g2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:03.418Z"
+    },
+    {
+      "email": "madasudeepaksai.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:07.224Z"
+    },
+    {
+      "email": "khandatenilesh.vishnu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:10.952Z"
+    },
+    {
+      "email": "pinakinatindrakatkar.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:14.826Z"
+    },
+    {
+      "email": "aakash.pradeep2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:18.644Z"
+    },
+    {
+      "email": "saurabh.panda2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:22.525Z"
+    },
+    {
+      "email": "matheweldho.biju2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:26.767Z"
+    },
+    {
+      "email": "nikhil.gopinath2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:30.710Z"
+    },
+    {
+      "email": "kanz.roshan2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:34.697Z"
+    },
+    {
+      "email": "samrichard.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:38.657Z"
+    },
+    {
+      "email": "abburusai.sandeep2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:42.542Z"
+    },
+    {
+      "email": "shrey.pandya2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:46.491Z"
+    },
+    {
+      "email": "sureshkumar.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:50.202Z"
+    },
+    {
+      "email": "gujjasathvik.reddy2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:53.965Z"
+    },
+    {
+      "email": "sridevkrishnac.m2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:53:57.803Z"
+    },
+    {
+      "email": "varunprasadr.r2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:01.628Z"
+    },
+    {
+      "email": "jadhavakshat.anil2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:05.406Z"
+    },
+    {
+      "email": "tilak..p2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Can't send mail - all recipients were rejected: 553-5.1.3 The recipient address <tilak..p2024@vitstudent.ac.in> is not a valid\n553-5.1.3 RFC 5321 address. For more information, go to\n553-5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n553 5.1.3 specifications. d9443c01a7336-2b5fab3ac1fsm247797835ad.70 - gsmtp",
+      "timestamp": "2026-04-24T17:54:08.276Z"
+    },
+    {
+      "email": "danialarulanandh.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:12.054Z"
+    },
+    {
+      "email": "jayantn.ramesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:15.956Z"
+    },
+    {
+      "email": "sailesh.patra2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:19.770Z"
+    },
+    {
+      "email": "yashodeepannaso.more2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:23.682Z"
+    },
+    {
+      "email": "vishnuprasath.a2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:27.511Z"
+    },
+    {
+      "email": "omkarsanjay.shinde2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:31.370Z"
+    },
+    {
+      "email": "adarshbhardwaj.b2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:35.116Z"
+    },
+    {
+      "email": "vishwavarunsm.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:38.910Z"
+    },
+    {
+      "email": "arafatshahajahan.kazi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:42.678Z"
+    },
+    {
+      "email": "ganeshdinesh.vasmatkar2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:46.506Z"
+    },
+    {
+      "email": "rajesh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:50.518Z"
+    },
+    {
+      "email": "arjun.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:54.336Z"
+    },
+    {
+      "email": "rahul.kharb2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:54:58.107Z"
+    },
+    {
+      "email": "syedmohammad.kaif2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:01.985Z"
+    },
+    {
+      "email": "surya.raghu2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:05.641Z"
+    },
+    {
+      "email": "gandhidarshit.dhavalbhai2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:09.564Z"
+    },
+    {
+      "email": "jashwanth.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:13.340Z"
+    },
+    {
+      "email": "vaishalipriyanka.n2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:17.333Z"
+    },
+    {
+      "email": "prasanth.h2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:21.349Z"
+    },
+    {
+      "email": "himanshu.singh2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:25.253Z"
+    },
+    {
+      "email": "bharatheswar.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:29.190Z"
+    },
+    {
+      "email": "nithish.p2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:33.211Z"
+    },
+    {
+      "email": "gopi2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:37.259Z"
+    },
+    {
+      "email": "kiruthiga.k2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:41.396Z"
+    },
+    {
+      "email": "annapoorani.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:45.421Z"
+    },
+    {
+      "email": "princy.a.2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:49.369Z"
+    },
+    {
+      "email": "chitra.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:53.174Z"
+    },
+    {
+      "email": "sarat.s2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:55:57.080Z"
+    },
+    {
+      "email": "rupam.bhakta2024@vitstudent.ac.in",
+      "status": "success",
+      "timestamp": "2026-04-24T17:56:00.969Z"
+    },
+    {
+      "email": "gokul.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9fef42sm220710265ad.16 - gsmtp",
+      "timestamp": "2026-04-24T17:56:04.089Z"
+    },
+    {
+      "email": "praveenkumar.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff98csm231682515ad.3 - gsmtp",
+      "timestamp": "2026-04-24T17:56:07.172Z"
+    },
+    {
+      "email": "saranya.k2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb33fcsm23097530b3a.33 - gsmtp",
+      "timestamp": "2026-04-24T17:56:10.305Z"
+    },
+    {
+      "email": "vishal.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981be6sm29634287b3a.9 - gsmtp",
+      "timestamp": "2026-04-24T17:56:13.435Z"
+    },
+    {
+      "email": "abishek.d2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797701d880sm18229543a12.20 - gsmtp",
+      "timestamp": "2026-04-24T17:56:16.541Z"
+    },
+    {
+      "email": "dharshini.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362b9b6f5b5sm6408396a91.1 - gsmtp",
+      "timestamp": "2026-04-24T17:56:19.696Z"
+    },
+    {
+      "email": "helan.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ec05391sm25170141b3a.56 - gsmtp",
+      "timestamp": "2026-04-24T17:56:22.860Z"
+    },
+    {
+      "email": "prathesha.j2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fb9b121sm12766948a91.5 - gsmtp",
+      "timestamp": "2026-04-24T17:56:25.978Z"
+    },
+    {
+      "email": "sruthika.m2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140fc5d94sm30978554a91.2 - gsmtp",
+      "timestamp": "2026-04-24T17:56:29.104Z"
+    },
+    {
+      "email": "g.divyapriya.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981c12sm29693356b3a.6 - gsmtp",
+      "timestamp": "2026-04-24T17:56:32.478Z"
+    },
+    {
+      "email": "arjob.das2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff734sm224426555ad.10 - gsmtp",
+      "timestamp": "2026-04-24T17:56:35.606Z"
+    },
+    {
+      "email": "ihajira.gulnaz2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cddfsm320763245ad.49 - gsmtp",
+      "timestamp": "2026-04-24T17:56:38.828Z"
+    },
+    {
+      "email": "sarathi.g2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebba485sm30515735b3a.38 - gsmtp",
+      "timestamp": "2026-04-24T17:56:41.926Z"
+    },
+    {
+      "email": "shanmugapriyan.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797701afeesm17706479a12.15 - gsmtp",
+      "timestamp": "2026-04-24T17:56:45.051Z"
+    },
+    {
+      "email": "resham.rout2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe68ebsm27309951b3a.47 - gsmtp",
+      "timestamp": "2026-04-24T17:56:48.246Z"
+    },
+    {
+      "email": "danishwar.p2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7977031729sm19377379a12.25 - gsmtp",
+      "timestamp": "2026-04-24T17:56:51.402Z"
+    },
+    {
+      "email": "nitheesh.s.a2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ea0a97esm29920002b3a.27 - gsmtp",
+      "timestamp": "2026-04-24T17:56:54.589Z"
+    },
+    {
+      "email": "sanchita.chatterjee2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab20c4fsm288802125ad.59 - gsmtp",
+      "timestamp": "2026-04-24T17:56:57.804Z"
+    },
+    {
+      "email": "ankur.mishra2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140ff2e1esm23201730a91.8 - gsmtp",
+      "timestamp": "2026-04-24T17:57:00.960Z"
+    },
+    {
+      "email": "sindhu2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c79770587c1sm18690154a12.32 - gsmtp",
+      "timestamp": "2026-04-24T17:57:04.177Z"
+    },
+    {
+      "email": "pavitra.agarwal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cdd1sm234806785ad.38 - gsmtp",
+      "timestamp": "2026-04-24T17:57:07.348Z"
+    },
+    {
+      "email": "jyotiraditya.mirda2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff918sm247692215ad.13 - gsmtp",
+      "timestamp": "2026-04-24T17:57:10.515Z"
+    },
+    {
+      "email": "deepayan.mukhopadhyay2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797701b0f0sm19178528a12.17 - gsmtp",
+      "timestamp": "2026-04-24T17:57:13.654Z"
+    },
+    {
+      "email": "ravi.kishan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe68ebsm27310711b3a.47 - gsmtp",
+      "timestamp": "2026-04-24T17:57:16.859Z"
+    },
+    {
+      "email": "penubolusindhu.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab3bd2bsm247680105ad.74 - gsmtp",
+      "timestamp": "2026-04-24T17:57:20.080Z"
+    },
+    {
+      "email": "dhakshika.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa17632sm240656765ad.24 - gsmtp",
+      "timestamp": "2026-04-24T17:57:23.305Z"
+    },
+    {
+      "email": "anwesha.aditya2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140feea38sm24060925a91.6 - gsmtp",
+      "timestamp": "2026-04-24T17:57:26.508Z"
+    },
+    {
+      "email": "dinesh.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb3f31sm30093474b3a.37 - gsmtp",
+      "timestamp": "2026-04-24T17:57:29.692Z"
+    },
+    {
+      "email": "ramyavarshini.gh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361410a7cb5sm24156811a91.9 - gsmtp",
+      "timestamp": "2026-04-24T17:57:32.890Z"
+    },
+    {
+      "email": "bhuban.mahapatra2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f97eb5ce8sm22066176b3a.61 - gsmtp",
+      "timestamp": "2026-04-24T17:57:36.075Z"
+    },
+    {
+      "email": "umavathi.a2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab4bf7bsm231293235ad.81 - gsmtp",
+      "timestamp": "2026-04-24T17:57:39.219Z"
+    },
+    {
+      "email": "charumathi.e2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb3fa2sm24313480b3a.29 - gsmtp",
+      "timestamp": "2026-04-24T17:57:42.390Z"
+    },
+    {
+      "email": "nithishkumar.a2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797704b575sm18878615a12.29 - gsmtp",
+      "timestamp": "2026-04-24T17:57:45.571Z"
+    },
+    {
+      "email": "anandakumar.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa326f5sm219214025ad.32 - gsmtp",
+      "timestamp": "2026-04-24T17:57:48.766Z"
+    },
+    {
+      "email": "debraj.saha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0db13sm247790875ad.53 - gsmtp",
+      "timestamp": "2026-04-24T17:57:51.946Z"
+    },
+    {
+      "email": "pooja.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f9cabfsm20792170a12.9 - gsmtp",
+      "timestamp": "2026-04-24T17:57:55.126Z"
+    },
+    {
+      "email": "mohammedzaid.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff918sm247707155ad.13 - gsmtp",
+      "timestamp": "2026-04-24T17:57:58.317Z"
+    },
+    {
+      "email": "prabhu.t2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f92183sm17106914a12.3 - gsmtp",
+      "timestamp": "2026-04-24T17:58:01.514Z"
+    },
+    {
+      "email": "subasree.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebcc9easm31200080b3a.39 - gsmtp",
+      "timestamp": "2026-04-24T17:58:04.762Z"
+    },
+    {
+      "email": "tulashireena.g2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fab1c32sm9108403a91.5 - gsmtp",
+      "timestamp": "2026-04-24T17:58:08.017Z"
+    },
+    {
+      "email": "varun.fatepuria2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa17632sm240671235ad.24 - gsmtp",
+      "timestamp": "2026-04-24T17:58:11.176Z"
+    },
+    {
+      "email": "dhanush.k2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe40dasm23757411b3a.40 - gsmtp",
+      "timestamp": "2026-04-24T17:58:14.349Z"
+    },
+    {
+      "email": "chandhruu.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab32cfasm297710285ad.69 - gsmtp",
+      "timestamp": "2026-04-24T17:58:17.579Z"
+    },
+    {
+      "email": "ritwick.roy2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ec04448sm28938164b3a.55 - gsmtp",
+      "timestamp": "2026-04-24T17:58:20.768Z"
+    },
+    {
+      "email": "shubhrajyoti.roy2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797702fbfcsm18599955a12.22 - gsmtp",
+      "timestamp": "2026-04-24T17:58:23.982Z"
+    },
+    {
+      "email": "gowtham.g2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cdd1sm234829295ad.38 - gsmtp",
+      "timestamp": "2026-04-24T17:58:27.132Z"
+    },
+    {
+      "email": "hariharan.g2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0c17esm229301325ad.41 - gsmtp",
+      "timestamp": "2026-04-24T17:58:30.350Z"
+    },
+    {
+      "email": "praveen.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cf3bsm275308465ad.44 - gsmtp",
+      "timestamp": "2026-04-24T17:58:33.544Z"
+    },
+    {
+      "email": "yasharth.chaturvedi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb3f31sm30095288b3a.37 - gsmtp",
+      "timestamp": "2026-04-24T17:58:36.730Z"
+    },
+    {
+      "email": "adityaparmar.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f8fcbdsm18226040a12.6 - gsmtp",
+      "timestamp": "2026-04-24T17:58:39.887Z"
+    },
+    {
+      "email": "arya.agarwal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362c69b8257sm9314204a91.7 - gsmtp",
+      "timestamp": "2026-04-24T17:58:43.035Z"
+    },
+    {
+      "email": "rishitaa.bohra2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa30134sm237866755ad.30 - gsmtp",
+      "timestamp": "2026-04-24T17:58:46.376Z"
+    },
+    {
+      "email": "mouleeshwar.t2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362dde4ccbfsm7011780a91.1 - gsmtp",
+      "timestamp": "2026-04-24T17:58:49.656Z"
+    },
+    {
+      "email": "shreekant.kalwar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab55062sm233969395ad.84 - gsmtp",
+      "timestamp": "2026-04-24T17:58:52.885Z"
+    },
+    {
+      "email": "harisankar.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797701afeesm17709136a12.15 - gsmtp",
+      "timestamp": "2026-04-24T17:58:56.101Z"
+    },
+    {
+      "email": "lekhasree.t2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ea09914sm23671774b3a.26 - gsmtp",
+      "timestamp": "2026-04-24T17:58:59.274Z"
+    },
+    {
+      "email": "pvsai.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36146ae9cd8sm21786874a91.11 - gsmtp",
+      "timestamp": "2026-04-24T17:59:02.481Z"
+    },
+    {
+      "email": "prinkal.garg2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ec003dcsm24854012b3a.52 - gsmtp",
+      "timestamp": "2026-04-24T17:59:05.665Z"
+    },
+    {
+      "email": "sudharson.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976fa40b2sm17397162a12.13 - gsmtp",
+      "timestamp": "2026-04-24T17:59:08.855Z"
+    },
+    {
+      "email": "aswinkrishna.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36143b0dc2fsm23404527a91.3 - gsmtp",
+      "timestamp": "2026-04-24T17:59:12.050Z"
+    },
+    {
+      "email": "prajesh.p2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3614186a52csm30757026a91.4 - gsmtp",
+      "timestamp": "2026-04-24T17:59:15.243Z"
+    },
+    {
+      "email": "suriya.e2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140fc575bsm24047659a91.4 - gsmtp",
+      "timestamp": "2026-04-24T17:59:18.484Z"
+    },
+    {
+      "email": "saloni.tiwari2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fabeccesm8833382a91.6 - gsmtp",
+      "timestamp": "2026-04-24T17:59:21.746Z"
+    },
+    {
+      "email": "anand.sabnani2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe6642sm29926719b3a.45 - gsmtp",
+      "timestamp": "2026-04-24T17:59:24.898Z"
+    },
+    {
+      "email": "pankaj.panchal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976fa40b2sm17397552a12.13 - gsmtp",
+      "timestamp": "2026-04-24T17:59:28.050Z"
+    },
+    {
+      "email": "suvedha.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebbf0e5sm24404492b3a.28 - gsmtp",
+      "timestamp": "2026-04-24T17:59:31.237Z"
+    },
+    {
+      "email": "sathyanikethanrv.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e982fd3sm30641926b3a.10 - gsmtp",
+      "timestamp": "2026-04-24T17:59:34.406Z"
+    },
+    {
+      "email": "duwarakishore.m2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa1763dsm212901855ad.23 - gsmtp",
+      "timestamp": "2026-04-24T17:59:37.629Z"
+    },
+    {
+      "email": "bhuvaneshwaran.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9d2f9asm25581475b3a.19 - gsmtp",
+      "timestamp": "2026-04-24T17:59:40.849Z"
+    },
+    {
+      "email": "sanjai.b2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3614189343esm23789460a91.6 - gsmtp",
+      "timestamp": "2026-04-24T17:59:44.022Z"
+    },
+    {
+      "email": "nivedita.agarwal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981a0asm25093699b3a.3 - gsmtp",
+      "timestamp": "2026-04-24T17:59:47.226Z"
+    },
+    {
+      "email": "magesh.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362b9a79176sm11961798a91.5 - gsmtp",
+      "timestamp": "2026-04-24T17:59:50.422Z"
+    },
+    {
+      "email": "arun.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361410bac6dsm23633510a91.14 - gsmtp",
+      "timestamp": "2026-04-24T17:59:53.609Z"
+    },
+    {
+      "email": "raj.rakade2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3614186a52csm30758171a91.4 - gsmtp",
+      "timestamp": "2026-04-24T17:59:56.817Z"
+    },
+    {
+      "email": "vanmathi.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab3ac1fsm247890775ad.70 - gsmtp",
+      "timestamp": "2026-04-24T18:00:00.118Z"
+    },
+    {
+      "email": "vansham.aggarwal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab32cfasm297739795ad.69 - gsmtp",
+      "timestamp": "2026-04-24T18:00:03.406Z"
+    },
+    {
+      "email": "nikita.birla2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0db13sm247829515ad.53 - gsmtp",
+      "timestamp": "2026-04-24T18:00:06.656Z"
+    },
+    {
+      "email": "saravanakumar.r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab28e35sm229261735ad.64 - gsmtp",
+      "timestamp": "2026-04-24T18:00:09.907Z"
+    },
+    {
+      "email": "kanishkagarwal.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ea0a97esm29926184b3a.27 - gsmtp",
+      "timestamp": "2026-04-24T18:00:13.126Z"
+    },
+    {
+      "email": "kakarlaakshitha.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab208d4sm249831815ad.55 - gsmtp",
+      "timestamp": "2026-04-24T18:00:16.311Z"
+    },
+    {
+      "email": "tanisha.kulshreshtha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab40786sm248834235ad.79 - gsmtp",
+      "timestamp": "2026-04-24T18:00:19.581Z"
+    },
+    {
+      "email": "dhanush.kumar.d2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976fa40b2sm17398787a12.13 - gsmtp",
+      "timestamp": "2026-04-24T18:00:22.769Z"
+    },
+    {
+      "email": "punjanidev.hitendrakumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9d9a1csm25885271b3a.20 - gsmtp",
+      "timestamp": "2026-04-24T18:00:26.088Z"
+    },
+    {
+      "email": "ayush.bisht2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe74d8sm24767153b3a.46 - gsmtp",
+      "timestamp": "2026-04-24T18:00:29.592Z"
+    },
+    {
+      "email": "rajeev.ranjan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f8f370sm19122662a12.7 - gsmtp",
+      "timestamp": "2026-04-24T18:00:32.851Z"
+    },
+    {
+      "email": "adityaraghuvanshi.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36146ae9cd8sm21789480a91.11 - gsmtp",
+      "timestamp": "2026-04-24T18:00:36.077Z"
+    },
+    {
+      "email": "aditi.singh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff8d6sm222768055ad.1 - gsmtp",
+      "timestamp": "2026-04-24T18:00:39.266Z"
+    },
+    {
+      "email": "niveditas.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab30f29sm230499035ad.68 - gsmtp",
+      "timestamp": "2026-04-24T18:00:42.678Z"
+    },
+    {
+      "email": "aadhya.gupta2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0dafcsm241660145ad.52 - gsmtp",
+      "timestamp": "2026-04-24T18:00:46.290Z"
+    },
+    {
+      "email": "hitesh.joshi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa507cbsm240030015ad.37 - gsmtp",
+      "timestamp": "2026-04-24T18:00:49.504Z"
+    },
+    {
+      "email": "rashithaj.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebbcfd7sm30566664b3a.32 - gsmtp",
+      "timestamp": "2026-04-24T18:00:52.697Z"
+    },
+    {
+      "email": "avinash.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3614186a52csm30760048a91.4 - gsmtp",
+      "timestamp": "2026-04-24T18:00:56.011Z"
+    },
+    {
+      "email": "vyom.singh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb3f31sm30099494b3a.37 - gsmtp",
+      "timestamp": "2026-04-24T18:00:59.224Z"
+    },
+    {
+      "email": "anupam.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797702fbfcsm18603121a12.22 - gsmtp",
+      "timestamp": "2026-04-24T18:01:02.447Z"
+    },
+    {
+      "email": "ripudamansingh.pundeer2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b8e82e0463sm2577555ad.0 - gsmtp",
+      "timestamp": "2026-04-24T18:01:05.670Z"
+    },
+    {
+      "email": "arpan.paul2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976fa40b2sm17399701a12.13 - gsmtp",
+      "timestamp": "2026-04-24T18:01:08.844Z"
+    },
+    {
+      "email": "sankar.gopan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36143b0dc2fsm23407568a91.3 - gsmtp",
+      "timestamp": "2026-04-24T18:01:12.056Z"
+    },
+    {
+      "email": "joyezra.fernandes2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab30f29sm230508525ad.68 - gsmtp",
+      "timestamp": "2026-04-24T18:01:15.282Z"
+    },
+    {
+      "email": "shakir.ali2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f0811fsm18204213a12.0 - gsmtp",
+      "timestamp": "2026-04-24T18:01:18.620Z"
+    },
+    {
+      "email": "shreya.sinha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0db13sm247852545ad.53 - gsmtp",
+      "timestamp": "2026-04-24T18:01:21.916Z"
+    },
+    {
+      "email": "naman.kalwani2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9e0f40sm26149848b3a.17 - gsmtp",
+      "timestamp": "2026-04-24T18:01:25.103Z"
+    },
+    {
+      "email": "n.divya2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7977031729sm19383420a12.25 - gsmtp",
+      "timestamp": "2026-04-24T18:01:28.302Z"
+    },
+    {
+      "email": "ritam.hota2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab28e35sm229282695ad.64 - gsmtp",
+      "timestamp": "2026-04-24T18:01:31.486Z"
+    },
+    {
+      "email": "rahulprakash.mishra2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f932dabd4sm24419839b3a.51 - gsmtp",
+      "timestamp": "2026-04-24T18:01:35.001Z"
+    },
+    {
+      "email": "vijays.patil2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981a0asm25097122b3a.3 - gsmtp",
+      "timestamp": "2026-04-24T18:01:38.183Z"
+    },
+    {
+      "email": "anil.jangid2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cddfsm320849795ad.49 - gsmtp",
+      "timestamp": "2026-04-24T18:01:41.422Z"
+    },
+    {
+      "email": "spooja.sree2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa34ea7sm232951855ad.34 - gsmtp",
+      "timestamp": "2026-04-24T18:01:44.771Z"
+    },
+    {
+      "email": "akarshtripathi.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36141990bb6sm24940116a91.17 - gsmtp",
+      "timestamp": "2026-04-24T18:01:48.118Z"
+    },
+    {
+      "email": "dharshini.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe901csm30380454b3a.48 - gsmtp",
+      "timestamp": "2026-04-24T18:01:51.644Z"
+    },
+    {
+      "email": "poojashree.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361418c3944sm30601136a91.8 - gsmtp",
+      "timestamp": "2026-04-24T18:01:54.914Z"
+    },
+    {
+      "email": "aagam.jain2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36140fc575bsm24051797a91.4 - gsmtp",
+      "timestamp": "2026-04-24T18:01:58.106Z"
+    },
+    {
+      "email": "rakeshkumar.meher2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-8317076ca48sm6800187b3a.35 - gsmtp",
+      "timestamp": "2026-04-24T18:02:01.300Z"
+    },
+    {
+      "email": "vansh.jain2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab4bf7bsm231363705ad.81 - gsmtp",
+      "timestamp": "2026-04-24T18:02:04.897Z"
+    },
+    {
+      "email": "vandita.gupta2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0caf1sm244045985ad.42 - gsmtp",
+      "timestamp": "2026-04-24T18:02:08.273Z"
+    },
+    {
+      "email": "vaani.agarwal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff90dsm230874905ad.11 - gsmtp",
+      "timestamp": "2026-04-24T18:02:11.504Z"
+    },
+    {
+      "email": "mansi.goel2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f9dfc8sm20377432a12.12 - gsmtp",
+      "timestamp": "2026-04-24T18:02:14.691Z"
+    },
+    {
+      "email": "balmukund.jha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9fbb85sm28292520b3a.22 - gsmtp",
+      "timestamp": "2026-04-24T18:02:18.003Z"
+    },
+    {
+      "email": "kumarpiyush.raj2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab3a929sm224550285ad.72 - gsmtp",
+      "timestamp": "2026-04-24T18:02:21.184Z"
+    },
+    {
+      "email": "aarshath.sherif2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa2e5cesm275017175ad.25 - gsmtp",
+      "timestamp": "2026-04-24T18:02:24.455Z"
+    },
+    {
+      "email": "snehapriya.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-36145fe05f4sm10895166a91.0 - gsmtp",
+      "timestamp": "2026-04-24T18:02:27.694Z"
+    },
+    {
+      "email": "gursimarjot.kaur2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f0811fsm18205615a12.0 - gsmtp",
+      "timestamp": "2026-04-24T18:02:30.985Z"
+    },
+    {
+      "email": "nalinis.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab3ba16sm237984305ad.75 - gsmtp",
+      "timestamp": "2026-04-24T18:02:34.154Z"
+    },
+    {
+      "email": "pragyan.patidar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa3073asm221824885ad.27 - gsmtp",
+      "timestamp": "2026-04-24T18:02:37.379Z"
+    },
+    {
+      "email": "janak.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebbcfd7sm30570043b3a.32 - gsmtp",
+      "timestamp": "2026-04-24T18:02:40.597Z"
+    },
+    {
+      "email": "mehak.thakur2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9d6adbsm30880434b3a.18 - gsmtp",
+      "timestamp": "2026-04-24T18:02:43.788Z"
+    },
+    {
+      "email": "baskarraj.a2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff713sm234149885ad.5 - gsmtp",
+      "timestamp": "2026-04-24T18:02:46.980Z"
+    },
+    {
+      "email": "paras.sachdeva2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9d2fa9sm24929890b3a.16 - gsmtp",
+      "timestamp": "2026-04-24T18:02:50.192Z"
+    },
+    {
+      "email": "shristi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e982fd3sm30649069b3a.10 - gsmtp",
+      "timestamp": "2026-04-24T18:02:53.407Z"
+    },
+    {
+      "email": "lokeshkumar..r2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Can't send mail - all recipients were rejected: 553-5.1.3 The recipient address <lokeshkumar..r2024@vitstudent.ac.in> is not a\n553-5.1.3 valid RFC 5321 address. For more information, go to\n553-5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n553 5.1.3 specifications. 41be03b00d2f7-c7976f8fcbdsm18230977a12.6 - gsmtp",
+      "timestamp": "2026-04-24T18:02:56.313Z"
+    },
+    {
+      "email": "hangsha.saha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ea09914sm23678262b3a.26 - gsmtp",
+      "timestamp": "2026-04-24T18:02:59.501Z"
+    },
+    {
+      "email": "vaibhavraaj.singh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361410bac6dsm23639425a91.14 - gsmtp",
+      "timestamp": "2026-04-24T18:03:02.777Z"
+    },
+    {
+      "email": "bharaniakash.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ec23b19sm28339435b3a.59 - gsmtp",
+      "timestamp": "2026-04-24T18:03:06.041Z"
+    },
+    {
+      "email": "sayam.badoni2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362b9a79176sm11967428a91.5 - gsmtp",
+      "timestamp": "2026-04-24T18:03:09.249Z"
+    },
+    {
+      "email": "shambhavi.singh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613f56ecbesm8945382a91.0 - gsmtp",
+      "timestamp": "2026-04-24T18:03:12.475Z"
+    },
+    {
+      "email": "sreejit.bakshi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981c12sm29706725b3a.6 - gsmtp",
+      "timestamp": "2026-04-24T18:03:15.728Z"
+    },
+    {
+      "email": "vishvajeetsingh.mahecha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9fef42sm220819355ad.16 - gsmtp",
+      "timestamp": "2026-04-24T18:03:18.943Z"
+    },
+    {
+      "email": "chandra.pravesh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7991ca66dasm11873697a12.26 - gsmtp",
+      "timestamp": "2026-04-24T18:03:22.127Z"
+    },
+    {
+      "email": "shashwat.gupta2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ec24850sm25183101b3a.60 - gsmtp",
+      "timestamp": "2026-04-24T18:03:25.311Z"
+    },
+    {
+      "email": "tanishq.palkhe2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff918sm247805365ad.13 - gsmtp",
+      "timestamp": "2026-04-24T18:03:28.497Z"
+    },
+    {
+      "email": "manish.poudel2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe40e5sm22505010b3a.42 - gsmtp",
+      "timestamp": "2026-04-24T18:03:31.712Z"
+    },
+    {
+      "email": "jacob.victor2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff390sm227269795ad.9 - gsmtp",
+      "timestamp": "2026-04-24T18:03:34.963Z"
+    },
+    {
+      "email": "barsha.routh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cbaasm235441005ad.54 - gsmtp",
+      "timestamp": "2026-04-24T18:03:38.113Z"
+    },
+    {
+      "email": "puviyarasan.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebbcfd7sm30571971b3a.32 - gsmtp",
+      "timestamp": "2026-04-24T18:03:41.591Z"
+    },
+    {
+      "email": "rampravesh.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-362b9b6f5b5sm6414159a91.1 - gsmtp",
+      "timestamp": "2026-04-24T18:03:46.176Z"
+    },
+    {
+      "email": "priom.dutta2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff3b4sm300984675ad.2 - gsmtp",
+      "timestamp": "2026-04-24T18:03:49.307Z"
+    },
+    {
+      "email": "srishti.jalan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c79770512afsm18967997a12.31 - gsmtp",
+      "timestamp": "2026-04-24T18:03:52.501Z"
+    },
+    {
+      "email": "kunal.kashyap2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3614198f775sm29473522a91.16 - gsmtp",
+      "timestamp": "2026-04-24T18:03:55.746Z"
+    },
+    {
+      "email": "ish.jaiswal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f920e1sm18502576a12.2 - gsmtp",
+      "timestamp": "2026-04-24T18:03:58.932Z"
+    },
+    {
+      "email": "stuti.rajeev2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebba485sm30530624b3a.38 - gsmtp",
+      "timestamp": "2026-04-24T18:04:02.082Z"
+    },
+    {
+      "email": "vivek.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fae178fsm8894174a91.7 - gsmtp",
+      "timestamp": "2026-04-24T18:04:05.393Z"
+    },
+    {
+      "email": "gcharantej.paul2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981829sm29353140b3a.12 - gsmtp",
+      "timestamp": "2026-04-24T18:04:08.534Z"
+    },
+    {
+      "email": "vyshnav.vinod2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff734sm224541465ad.10 - gsmtp",
+      "timestamp": "2026-04-24T18:04:11.723Z"
+    },
+    {
+      "email": "muthu.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b8e82e0463sm2624565ad.0 - gsmtp",
+      "timestamp": "2026-04-24T18:04:14.939Z"
+    },
+    {
+      "email": "richa.kumari2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff3bfsm284371035ad.7 - gsmtp",
+      "timestamp": "2026-04-24T18:04:18.158Z"
+    },
+    {
+      "email": "aditya.gupta2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab4bf7bsm231396785ad.81 - gsmtp",
+      "timestamp": "2026-04-24T18:04:21.388Z"
+    },
+    {
+      "email": "nandini.kapil2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab29398sm236784755ad.66 - gsmtp",
+      "timestamp": "2026-04-24T18:04:24.497Z"
+    },
+    {
+      "email": "yashrajsharma.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c79770512afsm18968774a12.31 - gsmtp",
+      "timestamp": "2026-04-24T18:04:27.823Z"
+    },
+    {
+      "email": "sugandha2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa30047sm236495195ad.28 - gsmtp",
+      "timestamp": "2026-04-24T18:04:31.098Z"
+    },
+    {
+      "email": "sahil.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981be6sm29651321b3a.9 - gsmtp",
+      "timestamp": "2026-04-24T18:04:34.237Z"
+    },
+    {
+      "email": "ishika.bhagat2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fbbb4f9sm12858868a91.6 - gsmtp",
+      "timestamp": "2026-04-24T18:04:37.473Z"
+    },
+    {
+      "email": "purohitkunal.gopal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab2114bsm221014545ad.60 - gsmtp",
+      "timestamp": "2026-04-24T18:04:40.685Z"
+    },
+    {
+      "email": "ashita.goyal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe40e5sm22506979b3a.42 - gsmtp",
+      "timestamp": "2026-04-24T18:04:43.871Z"
+    },
+    {
+      "email": "nidhi.tulsyan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff918sm247828685ad.13 - gsmtp",
+      "timestamp": "2026-04-24T18:04:47.086Z"
+    },
+    {
+      "email": "arvind.kumar2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa30047sm236500095ad.28 - gsmtp",
+      "timestamp": "2026-04-24T18:04:50.325Z"
+    },
+    {
+      "email": "dhruv.pandey2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981a0asm25102566b3a.3 - gsmtp",
+      "timestamp": "2026-04-24T18:04:53.507Z"
+    },
+    {
+      "email": "ayushpratapsingh.chandel2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f8f3e5sm19232920a12.5 - gsmtp",
+      "timestamp": "2026-04-24T18:04:56.704Z"
+    },
+    {
+      "email": "sillaann.regi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebbcfd7sm30574394b3a.32 - gsmtp",
+      "timestamp": "2026-04-24T18:04:59.940Z"
+    },
+    {
+      "email": "charu2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-8317076ca48sm6805815b3a.35 - gsmtp",
+      "timestamp": "2026-04-24T18:05:03.140Z"
+    },
+    {
+      "email": "shruti.pathak2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff39csm236270095ad.4 - gsmtp",
+      "timestamp": "2026-04-24T18:05:06.326Z"
+    },
+    {
+      "email": "priyanka.t2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f9da4esm17980347a12.11 - gsmtp",
+      "timestamp": "2026-04-24T18:05:09.574Z"
+    },
+    {
+      "email": "arupratan.majhi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981829sm29355127b3a.12 - gsmtp",
+      "timestamp": "2026-04-24T18:05:12.780Z"
+    },
+    {
+      "email": "aashutosh.srivastava2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa1739fsm236790955ad.22 - gsmtp",
+      "timestamp": "2026-04-24T18:05:16.017Z"
+    },
+    {
+      "email": "adrija.de2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cdd1sm234948225ad.38 - gsmtp",
+      "timestamp": "2026-04-24T18:05:19.274Z"
+    },
+    {
+      "email": "tiyasha.ghosh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9fcea9sm30178218b3a.23 - gsmtp",
+      "timestamp": "2026-04-24T18:05:22.479Z"
+    },
+    {
+      "email": "sneha.ghosh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9cbb1dsm26311708b3a.14 - gsmtp",
+      "timestamp": "2026-04-24T18:05:25.729Z"
+    },
+    {
+      "email": "aditya.raj2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613fb95b1csm11380777a91.5 - gsmtp",
+      "timestamp": "2026-04-24T18:05:28.907Z"
+    },
+    {
+      "email": "akash.parida2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f97eb5ce8sm22079489b3a.61 - gsmtp",
+      "timestamp": "2026-04-24T18:05:32.449Z"
+    },
+    {
+      "email": "saswata.howlader2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9fbb85sm28298833b3a.22 - gsmtp",
+      "timestamp": "2026-04-24T18:05:35.599Z"
+    },
+    {
+      "email": "bikash.parida2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0caa9sm228648325ad.40 - gsmtp",
+      "timestamp": "2026-04-24T18:05:38.876Z"
+    },
+    {
+      "email": "ayush.bhosle2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9d35acsm24850681b3a.15 - gsmtp",
+      "timestamp": "2026-04-24T18:05:42.039Z"
+    },
+    {
+      "email": "siddharth.lalwani2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361410a7ab7sm30800168a91.10 - gsmtp",
+      "timestamp": "2026-04-24T18:05:45.245Z"
+    },
+    {
+      "email": "upinderjeet.kaur2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f9cacasm20942084a12.8 - gsmtp",
+      "timestamp": "2026-04-24T18:05:48.390Z"
+    },
+    {
+      "email": "savathallapalli.jasmine2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976f9db0esm17756904a12.10 - gsmtp",
+      "timestamp": "2026-04-24T18:05:51.670Z"
+    },
+    {
+      "email": "preetkunwarsingh.chouhan2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab2112csm222539835ad.62 - gsmtp",
+      "timestamp": "2026-04-24T18:05:54.832Z"
+    },
+    {
+      "email": "savaliyanirav.jayantibhai2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9819e5sm25251287b3a.2 - gsmtp",
+      "timestamp": "2026-04-24T18:05:58.000Z"
+    },
+    {
+      "email": "mainak.deb2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0db13sm247936965ad.53 - gsmtp",
+      "timestamp": "2026-04-24T18:06:01.171Z"
+    },
+    {
+      "email": "g.mdsajjad.yousuff2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e9fcea9sm30179827b3a.23 - gsmtp",
+      "timestamp": "2026-04-24T18:06:04.364Z"
+    },
+    {
+      "email": "athul.s2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7976fa3604sm16379334a12.14 - gsmtp",
+      "timestamp": "2026-04-24T18:06:07.566Z"
+    },
+    {
+      "email": "anurag.singh2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebb38f2sm23264149b3a.30 - gsmtp",
+      "timestamp": "2026-04-24T18:06:10.795Z"
+    },
+    {
+      "email": "anuj.mondal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fab0cbaasm235482585ad.54 - gsmtp",
+      "timestamp": "2026-04-24T18:06:14.016Z"
+    },
+    {
+      "email": "vijayvargiaaayush.sunil2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c7977031729sm19389821a12.25 - gsmtp",
+      "timestamp": "2026-04-24T18:06:17.194Z"
+    },
+    {
+      "email": "dineshkumar.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5fa9ff3casm296742665ad.17 - gsmtp",
+      "timestamp": "2026-04-24T18:06:20.476Z"
+    },
+    {
+      "email": "thinakaran2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-361418c3944sm30609765a91.8 - gsmtp",
+      "timestamp": "2026-04-24T18:06:23.875Z"
+    },
+    {
+      "email": "tanayverma.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c798b56a758sm13739332a12.18 - gsmtp",
+      "timestamp": "2026-04-24T18:06:27.064Z"
+    },
+    {
+      "email": "surya.v2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 41be03b00d2f7-c797701d9bfsm17848019a12.16 - gsmtp",
+      "timestamp": "2026-04-24T18:06:30.229Z"
+    },
+    {
+      "email": "sakshi.dwivedi2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8e981992sm29378529b3a.7 - gsmtp",
+      "timestamp": "2026-04-24T18:06:33.425Z"
+    },
+    {
+      "email": "divyansh.pandit2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 98e67ed59e1d1-3613f56ecbesm8947436a91.0 - gsmtp",
+      "timestamp": "2026-04-24T18:06:36.624Z"
+    },
+    {
+      "email": "debojitghosh.2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d2e1a72fcca58-82f8ebe74d8sm24778009b3a.46 - gsmtp",
+      "timestamp": "2026-04-24T18:06:39.757Z"
+    },
+    {
+      "email": "garvita.singhal2024@vitstudent.ac.in",
+      "status": "failed",
+      "error": "Data command failed: 550-5.4.5 Daily user sending limit exceeded. For more information on Gmail\n550-5.4.5 sending limits go to\n550 5.4.5  https://support.google.com/a/answer/166852 d9443c01a7336-2b5faa494e1sm229195315ad.35 - gsmtp",
+      "timestamp": "2026-04-24T18:06:42.894Z"
+    }
+  ]
+}
