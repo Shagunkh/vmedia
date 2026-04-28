@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education for Sustainable Development (NPTEL)</title>
+    <meta name="description" content="Test your knowledge on Sustainable Development Goals, Education for Sustainable Development, Global Citizenship, and more!">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== COSMIC DESIGN SYSTEM ===== */
+        :root {
+            --cosmic-primary: linear-gradient(90deg, #00d8ff, #008cff);
+            --cosmic-primary-reverse: linear-gradient(90deg, #008cff, #00d8ff);
+            --cosmic-light: #00d8ff;
+            --cosmic-dark: #008cff;
+            --cosmic-black: #0a0a12;
+            --cosmic-dark-bg: #12121a;
+            --cosmic-card: #0d0d18;
+            --cosmic-text: #f0f4ff;
+            --cosmic-text-dim: #b0b8cc;
+            --cosmic-success: #4cffb0;
+            --cosmic-error: #ff4c6a;
+            --transition-snap: cubic-bezier(0.8, 0, 0.2, 1);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        @keyframes cosmicFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes cosmicGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes cosmicFadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cosmicRipple {
+            to { transform: scale(4); opacity: 0; }
+        }
+        @keyframes cosmicSpin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes cosmicConfetti {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @keyframes subtleGlow {
+            0%, 100% { text-shadow: 0 0 8px rgba(0,216,255,0.3); }
+            50% { text-shadow: 0 0 18px rgba(0,216,255,0.6); }
+        }
+        @keyframes starDrift {
+            to { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+
+        /* ===== BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--cosmic-black);
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(0,140,255,0.13) 0%, transparent 30%),
+                radial-gradient(circle at 85% 75%, rgba(0,216,255,0.13) 0%, transparent 30%);
+            color: var(--cosmic-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== STARS ===== */
+        #stars-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ===== HEADER ===== */
+        .cosmic-header {
+            position: relative;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .cosmic-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center top, rgba(0,216,255,0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .header-badge {
+            display: inline-block;
+            background: rgba(0,216,255,0.1);
+            border: 1px solid rgba(0,216,255,0.3);
+            color: var(--cosmic-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            animation: cosmicFadeIn 0.8s var(--transition-smooth) both;
+        }
+        .cosmic-title {
+            font-size: clamp(2.8rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--cosmic-primary);
+            background-size: 200% 200%;
+            animation:
+                cosmicGradient 6s ease infinite,
+                cosmicFloat 7s ease-in-out infinite,
+                cosmicFadeIn 1s var(--transition-smooth) 0.1s both;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+        .cosmic-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: var(--cosmic-text-dim);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            animation: cosmicFadeIn 1s var(--transition-smooth) 0.3s both, subtleGlow 4s ease-in-out infinite;
+        }
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: cosmicFadeIn 1s var(--transition-smooth) 0.5s both;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--cosmic-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== SUBJECT GRID ===== */
+        .cosmic-subjects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+            padding: 2rem 3rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SUBJECT CARD ===== */
+        .cosmic-card {
+            background: var(--cosmic-card);
+            border: 1px solid rgba(0,216,255,0.08);
+            border-radius: 18px;
+            padding: 2rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.5s var(--transition-snap);
+            animation: cosmicFadeIn 0.7s var(--transition-smooth) both;
+        }
+        .cosmic-card:nth-child(1)  { animation-delay: 0.05s; }
+        .cosmic-card:nth-child(2)  { animation-delay: 0.10s; }
+        .cosmic-card:nth-child(3)  { animation-delay: 0.15s; }
+        .cosmic-card:nth-child(4)  { animation-delay: 0.20s; }
+        .cosmic-card:nth-child(5)  { animation-delay: 0.25s; }
+        .cosmic-card:nth-child(6)  { animation-delay: 0.30s; }
+        .cosmic-card:nth-child(7)  { animation-delay: 0.35s; }
+        .cosmic-card:nth-child(8)  { animation-delay: 0.40s; }
+        .cosmic-card:nth-child(9)  { animation-delay: 0.45s; }
+        .cosmic-card:nth-child(10) { animation-delay: 0.50s; }
+        .cosmic-card:nth-child(11) { animation-delay: 0.55s; }
+        .cosmic-card:nth-child(12) { animation-delay: 0.60s; }
+
+        .cosmic-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--cosmic-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--transition-snap);
+        }
+        .cosmic-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 20%, rgba(0,216,255,0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .cosmic-card:hover {
+            transform: translateY(-10px) rotateX(4deg) rotateY(1deg);
+            box-shadow: 0 24px 50px rgba(0,140,255,0.25), 0 0 0 1px rgba(0,216,255,0.2);
+            border-color: rgba(0,216,255,0.25);
+        }
+        .cosmic-card:hover::before { transform: scaleX(1); }
+        .cosmic-card:hover::after  { opacity: 1; }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .card-week {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cosmic-light);
+            opacity: 0.7;
+            margin-bottom: 0.4rem;
+        }
+        .cosmic-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .cosmic-card-desc {
+            font-size: 0.88rem;
+            color: var(--cosmic-text-dim);
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+        .cosmic-card:hover .cosmic-card-desc { color: var(--cosmic-text); }
+        .card-questions {
+            margin-top: 1.2rem;
+            font-size: 0.78rem;
+            color: rgba(0,216,255,0.6);
+            font-weight: 600;
+        }
+
+        /* ===== MODAL ===== */
+        .cosmic-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s var(--transition-smooth);
+        }
+        .cosmic-modal.show {
+            display: flex;
+            animation: cosmicFadeIn 0.4s var(--transition-smooth) forwards;
+        }
+        .cosmic-modal-content {
+            background: rgba(13,13,24,0.95);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 860px;
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            border: 1px solid rgba(0,216,255,0.15);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 40px rgba(0,140,255,0.1);
+            transform: scale(0.96) translateY(16px);
+            transition: all 0.4s var(--transition-smooth);
+        }
+        .cosmic-modal.show .cosmic-modal-content { transform: scale(1) translateY(0); }
+        .cosmic-modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .cosmic-modal-subtitle {
+            color: var(--cosmic-text-dim);
+            margin-bottom: 2rem;
+            font-size: 0.92rem;
+        }
+        .cosmic-close-btn {
+            position: absolute;
+            top: 1.2rem; right: 1.2rem;
+            width: 38px; height: 38px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: rgba(0,216,255,0.08);
+            color: var(--cosmic-text);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,216,255,0.15);
+        }
+        .cosmic-close-btn:hover {
+            background: rgba(0,216,255,0.18);
+            transform: rotate(90deg);
+            color: var(--cosmic-light);
+        }
+
+        /* ===== QUIZ START OPTIONS ===== */
+        .cosmic-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .cosmic-option {
+            background: rgba(0,216,255,0.05);
+            border: 1px solid rgba(0,216,255,0.15);
+            border-radius: 12px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            color: var(--cosmic-text);
+            font-size: 0.9rem;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .cosmic-option:hover {
+            background: rgba(0,216,255,0.12);
+            border-color: rgba(0,216,255,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,216,255,0.12);
+        }
+        .cosmic-full-option {
+            grid-column: 1 / -1;
+            background: var(--cosmic-primary);
+            color: white;
+            font-weight: 700;
+            padding: 1.5rem;
+            animation: cosmicPulse 3s infinite;
+            border: none;
+        }
+        .cosmic-full-option:hover {
+            animation: none;
+            background: var(--cosmic-primary-reverse);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,140,255,0.35);
+        }
+
+        /* ===== QUIZ SCREEN ===== */
+        .cosmic-quiz-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--cosmic-dark-bg);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        .cosmic-quiz-screen.show {
+            display: block;
+            animation: cosmicFadeIn 0.5s var(--transition-smooth) forwards;
+        }
+        .cosmic-quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 1.2rem 2rem;
+            background: rgba(0,0,0,0.6);
+            position: sticky;
+            top: 0; z-index: 10;
+            border-bottom: 1px solid rgba(0,216,255,0.1);
+            backdrop-filter: blur(8px);
+        }
+        .cosmic-quiz-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cosmic-timer {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: cosmicPulse 2s infinite;
+        }
+        .cosmic-quiz-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .cosmic-question-container {
+            padding: 3rem 2rem;
+            max-width: 820px;
+            margin: 0 auto;
+            animation: cosmicFadeIn 0.6s var(--transition-smooth);
+        }
+        .question-progress {
+            font-size: 0.82rem;
+            color: var(--cosmic-text-dim);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .cosmic-question {
+            font-size: 1.35rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            color: var(--cosmic-text);
+            background: rgba(0,216,255,0.04);
+            padding: 1.4rem 1.6rem;
+            border-radius: 14px;
+            border-left: 4px solid var(--cosmic-light);
+        }
+        .cosmic-options { display: flex; flex-direction: column; gap: 0.85rem; }
+        .cosmic-option-item {
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(0,216,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(0,216,255,0.03);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s var(--transition-smooth);
+            animation: cosmicFadeIn 0.5s var(--transition-smooth) both;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .cosmic-option-item:nth-child(1) { animation-delay: 0.05s; }
+        .cosmic-option-item:nth-child(2) { animation-delay: 0.12s; }
+        .cosmic-option-item:nth-child(3) { animation-delay: 0.19s; }
+        .cosmic-option-item:nth-child(4) { animation-delay: 0.26s; }
+        .cosmic-option-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--cosmic-light);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+        .cosmic-option-item:hover {
+            background: rgba(0,216,255,0.08);
+            border-color: rgba(0,216,255,0.3);
+            transform: translateX(8px);
+        }
+        .cosmic-option-item.selected {
+            background: rgba(0,216,255,0.13);
+            border-color: var(--cosmic-light);
+            transform: translateX(8px);
+        }
+        .cosmic-option-item.selected::before { transform: scaleY(1); }
+        .cosmic-option-item.correct {
+            background: rgba(76,255,176,0.1);
+            border-color: var(--cosmic-success);
+        }
+        .cosmic-option-item.correct::before { background: var(--cosmic-success); transform: scaleY(1); }
+        .cosmic-option-item.incorrect {
+            background: rgba(255,76,106,0.1);
+            border-color: var(--cosmic-error);
+        }
+        .cosmic-option-item.incorrect::before { background: var(--cosmic-error); transform: scaleY(1); }
+
+        .cosmic-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,216,255,0.08);
+        }
+
+        /* ===== BUTTONS ===== */
+        .cosmic-btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--transition-smooth);
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.4rem;
+            min-width: 130px;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .cosmic-btn-primary {
+            background: var(--cosmic-primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(0,140,255,0.3);
+        }
+        .cosmic-btn-primary:hover {
+            background: var(--cosmic-primary-reverse);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0,140,255,0.4);
+        }
+        .cosmic-btn-secondary {
+            background: rgba(0,216,255,0.08);
+            color: var(--cosmic-light);
+            border: 1px solid rgba(0,216,255,0.25);
+        }
+        .cosmic-btn-secondary:hover {
+            background: rgba(0,216,255,0.16);
+            transform: translateY(-2px);
+        }
+        .cosmic-btn-danger {
+            background: rgba(255,76,106,0.1);
+            color: var(--cosmic-error);
+            border: 1px solid rgba(255,76,106,0.3);
+            min-width: auto;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.85rem;
+        }
+        .cosmic-btn-danger:hover { background: rgba(255,76,106,0.2); }
+        .cosmic-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ===== RESULTS SCREEN ===== */
+        .cosmic-results-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--cosmic-dark-bg);
+            z-index: 1002;
+            overflow-y: auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        .cosmic-results-screen.show {
+            display: block;
+            animation: cosmicFadeIn 0.5s var(--transition-smooth) forwards;
+        }
+        .cosmic-results-container {
+            max-width: 820px;
+            margin: 2rem auto;
+            background: var(--cosmic-card);
+            border-radius: 22px;
+            padding: 3rem;
+            border: 1px solid rgba(0,216,255,0.12);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+            animation: cosmicFloat 6s ease-in-out infinite;
+        }
+        .cosmic-results-container::before {
+            content: '';
+            position: absolute;
+            top: -60%; left: -60%;
+            width: 220%; height: 220%;
+            background: radial-gradient(circle, rgba(0,216,255,0.04) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .cosmic-results-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        .cosmic-score {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+            margin: 1rem 0 0.5rem;
+        }
+        .cosmic-score::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 3px;
+            background: var(--cosmic-primary);
+            border-radius: 2px;
+        }
+        .score-message {
+            color: var(--cosmic-text-dim);
+            font-size: 1rem;
+            margin-top: 1.2rem;
+        }
+        .cosmic-review {
+            margin-top: 3rem;
+            text-align: left;
+        }
+        .cosmic-review-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--cosmic-text);
+            border-bottom: 1px solid rgba(0,216,255,0.1);
+            padding-bottom: 0.8rem;
+        }
+        .cosmic-answer-item {
+            margin-bottom: 1.8rem;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(0,216,255,0.03);
+            border: 1px solid rgba(0,216,255,0.06);
+            animation: cosmicFadeIn 0.5s var(--transition-smooth) both;
+        }
+        .cosmic-answer-item.cosmic-correct {
+            background: rgba(76,255,176,0.06);
+            border-color: rgba(76,255,176,0.15);
+        }
+        .cosmic-answer-item.cosmic-incorrect {
+            background: rgba(255,76,106,0.06);
+            border-color: rgba(255,76,106,0.15);
+        }
+        .cosmic-answer-item p { margin-bottom: 0.4rem; color: var(--cosmic-text); font-size: 0.92rem; }
+        .cosmic-answer-item p strong { font-weight: 700; }
+        .cosmic-correct-text { color: var(--cosmic-success); }
+        .cosmic-incorrect-text { color: var(--cosmic-error); }
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* ===== SPINNER ===== */
+        .cosmic-spinner {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px; height: 56px;
+            border: 4px solid rgba(0,216,255,0.1);
+            border-radius: 50%;
+            border-top-color: var(--cosmic-light);
+            animation: cosmicSpin 0.8s linear infinite;
+            z-index: 2000;
+        }
+
+        /* ===== CONFETTI ===== */
+        .cosmic-confetti {
+            position: absolute;
+            width: 8px; height: 8px;
+            opacity: 0;
+            animation: cosmicConfetti 4s linear forwards;
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(176,184,204,0.4);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        .page-footer a {
+            color: var(--cosmic-light);
+            text-decoration: none;
+            opacity: 0.7;
+        }
+        .page-footer a:hover { opacity: 1; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,216,255,0.04); }
+        ::-webkit-scrollbar-thumb { background: var(--cosmic-primary); border-radius: 4px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .cosmic-subjects {
+                grid-template-columns: 1fr;
+                padding: 1rem 1rem 3rem;
+            }
+            .cosmic-header { padding: 4rem 1.5rem 2.5rem; }
+            .header-stats { gap: 1.2rem; }
+            .cosmic-modal-content { padding: 1.5rem 1rem; width: 95%; }
+            .cosmic-modal-title { font-size: 1.6rem; }
+            .cosmic-options-grid { grid-template-columns: 1fr; }
+            .cosmic-quiz-header { padding: 1rem; flex-direction: column; align-items: flex-start; }
+            .cosmic-question-container { padding: 1.5rem 1rem; }
+            .cosmic-question { font-size: 1.1rem; padding: 1.1rem; }
+            .cosmic-navigation { flex-direction: column-reverse; gap: 0.8rem; }
+            .cosmic-btn { width: 100%; }
+            .cosmic-results-container { padding: 1.5rem; }
+            .cosmic-results-title { font-size: 1.7rem; }
+            .cosmic-score { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .cosmic-card { padding: 1.4rem; }
+            .cosmic-quiz-title, .cosmic-timer { font-size: 1rem; }
+        }
+        /* ===== STUDY GUIDE ===== */
+        .cosmic-learn-section {
+            padding: 2rem 1rem 6rem;
+            position: relative;
+            z-index: 1;
+        }
+        .study-controls {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            display: none;
+        }
+        .cosmic-select {
+            background: rgba(13, 13, 24, 0.9);
+            color: var(--cosmic-text);
+            border: 1px solid var(--cosmic-light);
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            min-width: 320px;
+            max-width: 90vw;
+            outline: none;
+        }
+        .cosmic-select option {
+            background: #0b0c10;
+        }
+        .study-assignment {
+            background: rgba(0, 216, 255, 0.02);
+            border: 1px solid rgba(0, 216, 255, 0.1);
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            animation: cosmicFadeIn 0.8s var(--transition-smooth) both;
+        }
+        .study-assignment-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--cosmic-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 216, 255, 0.15);
+            padding-bottom: 0.8rem;
+        }
+        .study-question-card {
+            background: rgba(13, 13, 24, 0.6);
+            border-left: 4px solid var(--cosmic-light);
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+        }
+        .study-question-card:hover {
+            background: rgba(0, 216, 255, 0.05);
+            transform: translateX(5px);
+        }
+        .study-q {
+            font-size: 1.15rem;
+            color: var(--cosmic-text);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+        .study-opts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+        .study-opt-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--cosmic-text-dim);
+            transition: all 0.2s ease;
+        }
+        .study-opt-item.correct-opt {
+            background: rgba(76, 255, 176, 0.1);
+            border-color: var(--cosmic-success);
+            color: var(--cosmic-success);
+            font-weight: 700;
+            transform: scale(1.01);
+            border-left: 4px solid var(--cosmic-success);
+        }
+        .study-desc {
+            color: var(--cosmic-text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+<%- include('../includes/navbar.ejs') %>
+
+<!-- Stars background -->
+<canvas id="stars-canvas"></canvas>
+
+<!-- Spinner -->
+<div class="cosmic-spinner" id="cosmic-spinner"></div>
+
+<!-- Header -->
+<header class="cosmic-header">
+    <h1 class="cosmic-title" style="font-size: clamp(2rem, 6vw, 4.5rem);">Education for Sustainable Development (NPTEL)</h1>
+    <p class="cosmic-tagline">Test your knowledge on the Sustainable Development Goals, ESD, Global Citizenship & more</p>
+    <div class="header-stats">
+        <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Assignments</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">120</div>
+            <div class="stat-label">Questions</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Free Access</div>
+        </div>
+        <div class="stat-item" style="position: relative;">
+            <div class="stat-value" id="live-count" style="color: var(--cosmic-success);">
+                <span class="live-dot" style="display:inline-block; width:12px; height:12px; background-color: var(--cosmic-success); border-radius:50%; margin-right:8px; animation: cosmicPulse 1.5s infinite;"></span>
+                142
+            </div>
+            <div class="stat-label" style="color: var(--cosmic-success); font-weight: 700;">Live People</div>
+        </div>
+    </div>
+    <script>
+        // Simulate live people count fluctuating
+        setInterval(() => {
+            const el = document.getElementById('live-count');
+            if(el) {
+                let current = parseInt(el.innerText.replace(/[^0-9]/g, ''));
+                // Randomly go up or down by 1-3 people
+                const change = Math.floor(Math.random() * 5) - 2; 
+                let next = current + change;
+                if(next < 115) next += 5; // keep it looking active
+                if(next > 165) next -= 5;
+                el.innerHTML = `<span class="live-dot" style="display:inline-block; width:12px; height:12px; background-color: var(--cosmic-success); border-radius:50%; margin-right:8px; animation: cosmicPulse 1.5s infinite;"></span> ${next}`;
+            }
+        }, 4500);
+    </script>
+</header>
+
+<!-- Subject Cards -->
+<main class="cosmic-subjects" id="main-grid">
+
+    <div class="cosmic-card" onclick="openModal('sdg-modal')">
+        <span class="card-icon">🎯</span>
+        <div class="card-week">Assignment 1–3</div>
+        <h2 class="cosmic-card-title">SDG & Global Goals</h2>
+        <p class="cosmic-card-desc">Explore the 17 Sustainable Development Goals, their history, poverty metrics, hunger indicators, and education frameworks.</p>
+        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    </div>
+
+    <div class="cosmic-card" onclick="openModal('esd-modal')">
+        <span class="card-icon">📚</span>
+        <div class="card-week">Assignment 4–6</div>
+        <h2 class="cosmic-card-title">ESD & Greening TVET</h2>
+        <p class="cosmic-card-desc">Education for Sustainable Development, Green TVET frameworks, sustainable entrepreneurship, and food security challenges.</p>
+        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    </div>
+
+    <div class="cosmic-card" onclick="openModal('health-modal')">
+        <span class="card-icon">🏥</span>
+        <div class="card-week">Assignment 7–9</div>
+        <h2 class="cosmic-card-title">Health, Energy & Climate</h2>
+        <p class="cosmic-card-desc">Sustainable health systems, energy types and democracy, climate action commitments, and transformative learning methods.</p>
+        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    </div>
+
+    <div class="cosmic-card" onclick="openModal('leadership-modal')">
+        <span class="card-icon">🌱</span>
+        <div class="card-week">Assignment 10–12</div>
+        <h2 class="cosmic-card-title">Leadership & Resources</h2>
+        <p class="cosmic-card-desc">Sustainable leadership styles, natural resource management, Gandhian economics, resilience, and the triple bottom line.</p>
+        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    </div>
+
+</main>
+
+<!-- ========== LEARN SECTION ========== -->
+<section class="cosmic-learn-section" id="learn-section">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 class="cosmic-title" style="font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; animation: none; opacity: 1; transform: none;">Study Guide</h2>
+        <p class="cosmic-tagline" style="animation: none; opacity: 1; transform: none; text-shadow: none;">Review all questions, correct answers, and detailed explanations below.</p>
+        <br>
+        <button class="cosmic-btn cosmic-btn-primary" style="margin: 0 auto; font-size: 1.2rem; padding: 1.2rem 3rem;" onclick="toggleStudyGuide()" id="study-toggle-btn">
+            📖 View Full Study Guide
+        </button>
+    </div>
+    
+    <div id="study-controls" class="study-controls">
+        <select id="study-assignment-select" class="cosmic-select" onchange="renderStudyGuide(this.value)">
+            <!-- Populated via JS -->
+        </select>
+    </div>
+    
+    <div id="study-guide-container" style="max-width: 1000px; margin: 0 auto; display: none;">
+        <!-- Dynamically populated by JS -->
+    </div>
+</section>
+<script>
+    function toggleStudyGuide() {
+        const container = document.getElementById('study-guide-container');
+        const controls = document.getElementById('study-controls');
+        const btn = document.getElementById('study-toggle-btn');
+        if (container.style.display === 'none') {
+            container.style.display = 'block';
+            controls.style.display = 'block';
+            btn.innerHTML = '📖 Hide Full Study Guide';
+            controls.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            if(document.getElementById('study-assignment-select').children.length === 0) {
+                 initStudyDropdown();
+                 renderStudyGuide('1');
+            }
+        } else {
+            container.style.display = 'none';
+            controls.style.display = 'none';
+            btn.innerHTML = '📖 View Full Study Guide';
+        }
+    }
+</script>
+
+<!-- ========== MODALS ========== -->
+
+<!-- SDG Modal -->
+<div id="sdg-modal" class="cosmic-modal">
+    <div class="cosmic-modal-content">
+        <span class="cosmic-close-btn" onclick="closeModal('sdg-modal')">&#x2715;</span>
+        <h2 class="cosmic-modal-title">SDG & Global Goals</h2>
+        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
+        <div class="cosmic-options-grid">
+            <div class="cosmic-option" onclick="startQuiz('sdg', 1)">Assignment 1 — Global Goals & SDGs</div>
+            <div class="cosmic-option" onclick="startQuiz('sdg', 2)">Assignment 2 — ESD & Human Rights</div>
+            <div class="cosmic-option" onclick="startQuiz('sdg', 3)">Assignment 3 — Global Citizenship</div>
+            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('sdg', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
+        </div>
+    </div>
+</div>
+
+<!-- ESD Modal -->
+<div id="esd-modal" class="cosmic-modal">
+    <div class="cosmic-modal-content">
+        <span class="cosmic-close-btn" onclick="closeModal('esd-modal')">&#x2715;</span>
+        <h2 class="cosmic-modal-title">ESD & Greening TVET</h2>
+        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
+        <div class="cosmic-options-grid">
+            <div class="cosmic-option" onclick="startQuiz('esd', 4)">Assignment 4 — Greening TVET</div>
+            <div class="cosmic-option" onclick="startQuiz('esd', 5)">Assignment 5 — Sustainable Health</div>
+            <div class="cosmic-option" onclick="startQuiz('esd', 6)">Assignment 6 — Hunger & Food Security</div>
+            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('esd', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Health Modal -->
+<div id="health-modal" class="cosmic-modal">
+    <div class="cosmic-modal-content">
+        <span class="cosmic-close-btn" onclick="closeModal('health-modal')">&#x2715;</span>
+        <h2 class="cosmic-modal-title">Health, Energy & Climate</h2>
+        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
+        <div class="cosmic-options-grid">
+            <div class="cosmic-option" onclick="startQuiz('health', 7)">Assignment 7 — Energy & Climate</div>
+            <div class="cosmic-option" onclick="startQuiz('health', 8)">Assignment 8 — ESD Competencies</div>
+            <div class="cosmic-option" onclick="startQuiz('health', 9)">Assignment 9 — Learning Methods</div>
+            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('health', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Leadership Modal -->
+<div id="leadership-modal" class="cosmic-modal">
+    <div class="cosmic-modal-content">
+        <span class="cosmic-close-btn" onclick="closeModal('leadership-modal')">&#x2715;</span>
+        <h2 class="cosmic-modal-title">Sustainable Leadership & Resources</h2>
+        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
+        <div class="cosmic-options-grid">
+            <div class="cosmic-option" onclick="startQuiz('leadership', 10)">Assignment 10 — Sustainable Leadership</div>
+            <div class="cosmic-option" onclick="startQuiz('leadership', 11)">Assignment 11 — Global Leaders</div>
+            <div class="cosmic-option" onclick="startQuiz('leadership', 12)">Assignment 12 — Natural Resources</div>
+            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('leadership', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== QUIZ SCREEN ========== -->
+<div id="quiz-screen" class="cosmic-quiz-screen">
+    <div class="cosmic-quiz-header">
+        <div class="cosmic-quiz-title" id="quiz-screen-title">SDG Quiz</div>
+        <div class="cosmic-timer" id="quiz-timer">Time: 15:00</div>
+        <div class="cosmic-quiz-actions">
+            <button class="cosmic-btn cosmic-btn-danger" onclick="abortQuiz()">&#x2715; Abort</button>
+        </div>
+    </div>
+    <div class="cosmic-question-container">
+        <div class="question-progress" id="question-progress">Question 1 of 10</div>
+        <div class="cosmic-question" id="current-question">Loading...</div>
+        <div class="cosmic-options" id="current-options"></div>
+        <div class="cosmic-navigation">
+            <button class="cosmic-btn cosmic-btn-secondary" id="prev-btn" onclick="prevQuestion()">&#8592; Previous</button>
+            <button class="cosmic-btn cosmic-btn-primary"   id="next-btn" onclick="nextQuestion()">Next &#8594;</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== RESULTS SCREEN ========== -->
+<div id="results-screen" class="cosmic-results-screen">
+    <div class="cosmic-results-container" id="results-container">
+        <span class="result-emoji" id="result-emoji">🎉</span>
+        <h2 class="cosmic-results-title">Quiz Complete!</h2>
+        <div class="cosmic-score" id="result-score">0/10</div>
+        <p class="score-message" id="score-message">Great job!</p>
+        <div class="cosmic-review" id="review-section">
+            <h3 class="cosmic-review-title">Review Your Answers</h3>
+        </div>
+        <div class="results-actions">
+            <button class="cosmic-btn cosmic-btn-secondary" onclick="retryQuiz()">&#x21BA; Retry</button>
+            <button class="cosmic-btn cosmic-btn-primary"   onclick="closeResults()">&#8592; Back to Home</button>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    <p>VMall Quizlet &mdash; Sustainability Edition &nbsp;|&nbsp; <a href="/quiz">Back to Main Quizlet</a></p>
+</footer>
+
+<script>
+// ========== STAR CANVAS ==========
+(function () {
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < 120; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2,
+                a: Math.random(),
+                speed: Math.random() * 0.4 + 0.1,
+                dir: Math.random() > 0.5 ? 1 : -1
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.a += s.speed * 0.008 * s.dir;
+            if (s.a > 1 || s.a < 0) s.dir *= -1;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0,216,255,${s.a * 0.7})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    resize(); initStars(); draw();
+})();
+
+// ========== QUIZ DATA ==========
+const quizData = {
+
+  // ---- ASSIGNMENT 1: Global Goals & SDGs ----
+  1: {
+    title: "Assignment 1 — Global Goals & SDGs",
+    questions: [
+      { q: "The Global Goals were adopted by all United Nations member states in ___ as a universal call to action to end poverty, protect the planet and ensure that all people enjoy peace and prosperity by ___.", opts: ["2025, 2080","2020, 2060","2012, 2050","2015, 2030"], a: 3 },
+      { q: "Which of the following is true?", opts: ["The SDGs are a bold commitment to solely increase the GDP of India","Dealing with climate change has no impact on gender equality","Success in one SDG affects success of the others","Only 14 out of the 17 SDGs are interconnected"], a: 2 },
+      { q: "In June 1992, at the Earth Summit in Rio de Janeiro, Brazil, more than 178 countries adopted ___.", opts: ["Agenda 21","Millennium Development Goals","Agenda 51","Sustainable Development Goals"], a: 0 },
+      { q: "Brundtland Report was released in 1987 by the WCED. WCED stands for ___.", opts: ["World Commission on Environment Degradation","World Commission on Environment and Development","World Committee on Environmental Depletion","World Commission on Earth Development"], a: 1 },
+      { q: "Extreme poverty means living on less than ___ a day.", opts: ["$1.25","$4.25","$10.25","$100.25"], a: 0 },
+      { q: "___ poverty measures reveal who is poor and how they are poor.", opts: ["Unidimensional","Bidirectional","Multidimensional","Multidirectional"], a: 2 },
+      { q: "SDG 2 aims to end all forms of ___ by 2030.", opts: ["crime","hunger and malnutrition","pollution","drought"], a: 1 },
+      { q: "Which of the following is NOT one of the indicators of the Global Hunger Index?", opts: ["Prevalence of wasting and stunting in children under 5 years","Under 5 child mortality rate","Proportion of undernourished in the population","Proportion of obese people in the population"], a: 3 },
+      { q: "As per Ministry of Housing and Urban Affairs, 135 lpcd has been suggested for urban water supply. For rural areas, 55 lpcd has been fixed under ___.", opts: ["Jal Jeevan Mission","Jal Shakti Mission","Jal Protection Mission","Jal Janta Mission"], a: 0 },
+      { q: "Forests cover about ___ percent of the Earth's surface.", opts: ["5","85","30","50"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 2: ESD & Human Rights ----
+  2: {
+    title: "Assignment 2 — ESD & Human Rights",
+    questions: [
+      { q: "Which of the following is a characteristic of ESD as described in the framework?", opts: ["It is not locally relevant","It promotes learning only for children","It is interdisciplinary","It uses only two pedagogical techniques"], a: 2 },
+      { q: "The Declaration on the Right to Development (1986) established that everyone is entitled to participate in and enjoy:", opts: ["Only economic and social development","Economic, political, psychological and communist development","Economic, social, cultural and political development","Only cultural development"], a: 2 },
+      { q: "Text based methods for assessing ESD programs can be improved by using ___.", opts: ["Interpretive methodologies","Strict curriculum","Only quantitative techniques","Only qualitative methods"], a: 0 },
+      { q: "SDGs are for the following EXCEPT ___.", opts: ["People","Practice","Planet","Partnership"], a: 1 },
+      { q: "Policies like employment and labor rights, care and family leaves, and financial regulation are often called the ___ policies.", opts: ["Post-regulation","Self-care","Forceful","Pre-distributive"], a: 3 },
+      { q: "Which of the following is involved in developing the HRE indicator framework to measure progress on national implementation of human rights education?", opts: ["Danish Institute of Human Rights","The Office of the High Commissioner for Human Rights","Both A and B","Neither A nor B"], a: 2 },
+      { q: "___ plays a role in peace education.", opts: ["Schools","Parents","Community","All the given"], a: 3 },
+      { q: "The enterprise of education at its most profound level is ___.", opts: ["Discriminatory","Selective","Restricted","Transformative"], a: 3 },
+      { q: "UNESCO's World in 2030 survey revealed that respondents see ___ as one of the top global challenges.", opts: ["Climate change","Hunger","Unemployment","Mental health"], a: 0 },
+      { q: "Education for sustainable development and peace develops people's skills to take actions that improve our quality of life ___.", opts: ["Only now","Only for the future","For now and for the future","Only for the past"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 3: Global Citizenship ----
+  3: {
+    title: "Assignment 3 — Global Citizenship & TVET",
+    questions: [
+      { q: "Global citizenship is a belief that individuals are members of ___ networks.", opts: ["Multiple","Diverse","Local and non-local","All of the given"], a: 3 },
+      { q: "A global citizen ___.", opts: ["Is not aware of the wider world","Is confused about their place in the world","Takes an active role in their community","Does not care much about the planet"], a: 2 },
+      { q: "Global citizenship education is based on ___ domains of learning.", opts: ["Three","Two","Four","Seven"], a: 0 },
+      { q: "___ is UNESCO's first Category 1 education-related institute in the Asia-Pacific region.", opts: ["MGEIN","MGIER","MGIEP","MGOEL"], a: 2 },
+      { q: "SDG target 4.7 rearticulates a ___ agenda for education.", opts: ["Regional","Behavioral","Political","Humanistic"], a: 3 },
+      { q: "SEL stands for ___.", opts: ["Sustainable education and learning","Social and environmental learning","Social and emotional learning","Sustainable and economic learning"], a: 2 },
+      { q: "Which of the following is a role taken by a teacher in education for sustainable development?", opts: ["Facilitator","Guide","Role model","All of the given"], a: 3 },
+      { q: "Target ___ calls for strengthening efforts to protect and safeguard the world's cultural and natural heritage.", opts: ["9.5","1.5","2.3","11.4"], a: 3 },
+      { q: "The UNESCO International Centre for Technical and Vocational Education and Training enables ___ in member states.", opts: ["Green TVET","Blue TVET","Orange TVET","White TVET"], a: 0 },
+      { q: "Which of the following statements is NOT true about green jobs?", opts: ["Green jobs contribute to preserving environmental quality","Green jobs ensure workers' rights","Green jobs are only found in the agriculture sector","Green jobs must be accessible to all"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 4: Greening TVET ----
+  4: {
+    title: "Assignment 4 — Greening TVET",
+    questions: [
+      { q: "GESO stands for ___.", opts: ["Green Education for Sustainable Occupation","Green Enhanced Sustainable Occupation","Green Enhanced Skills Occupation","None of the above"], a: 2 },
+      { q: "The classification of occupations into GIDO, GESO and GNEO is given by US National Center for ___.", opts: ["GNET","ANET","INET","O*NET"], a: 3 },
+      { q: "The International Framework for Greening TVET consists of the following tiers, EXCEPT ___.", opts: ["Breaking TVET institutions","Transforming TVET institutions","Formulating National Policies","Forming International Alliance"], a: 0 },
+      { q: "Energy, water and waste management comes under the ___ dimension of Greening TVET.", opts: ["Green research","Green culture","Green teaching","Green campus"], a: 3 },
+      { q: "Industry-institute interaction is an indicator of ___.", opts: ["Green house","Green teaching","Green campus","Green curriculum"], a: 3 },
+      { q: "Sustainable entrepreneurship includes ___.", opts: ["Social entrepreneurship","Eco-preneurship","Intra-preneurship","All of the given"], a: 3 },
+      { q: "ESD requires ___ learning methods.", opts: ["Participatory","Passive","Rigid","Static"], a: 0 },
+      { q: "Which of the following is a transversal competency?", opts: ["Creativity","Empathy","Systems thinking","All of the given"], a: 3 },
+      { q: "___ is the ability to create good relationships and adapt to different social situations.", opts: ["Emotional fitness","Mental health","Social health","Physical health"], a: 2 },
+      { q: "Sustainable health is ___.", opts: ["A curative approach","Only about the body","A balance of mind, body and spirit","Only about mental health"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 5: Sustainable Health ----
+  5: {
+    title: "Assignment 5 — Sustainable Health Systems",
+    questions: [
+      { q: "Siddha comes under the ___.", opts: ["Public health sector","Voluntary health agencies","Indigenous system of medicine","Private health sector"], a: 2 },
+      { q: "Which of the following is NOT a problem of healthcare infrastructure in India?", opts: ["Shortage of staff","Skewed favor to urban areas","No proper regulatory mechanism","Standard procedures in all regions"], a: 3 },
+      { q: "Which of the following is a health system building block as suggested by WHO?", opts: ["Economic growth","Access to public transport","Politics","Service delivery"], a: 3 },
+      { q: "An ecologically sustainable approach broadens the definition of ___.", opts: ["Objective","Outcome","Cost","Value"], a: 3 },
+      { q: "A ___ is an environment in which data of medical interest can be stored and made easily available.", opts: ["Health repository","Health bank","Health bag","Health grid"], a: 3 },
+      { q: "The POSHAN Abhiyan in India aims to improve nutritional outcomes for ___.", opts: ["Children","Lactating mothers","Pregnant women","All of the given"], a: 3 },
+      { q: "Sus-QI stands for ___.", opts: ["Sustainable quality improvement","Sustainable quality improvisation","Sustainable quantity improvement","Sustainable quantity improvisation"], a: 0 },
+      { q: "Which of the following is NOT a stage of Sus-QI?", opts: ["Set goals","Measure impacts","Design the improvement effort","Ignore the system"], a: 3 },
+      { q: "Food insecurity is measured on the ___.", opts: ["FIES","FAIS","FIET","FAIR"], a: 0 },
+      { q: "The UN lists ___ levels of food security for any given country.", opts: ["5","4","3","2"], a: 0 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 6: Hunger & Food Security ----
+  6: {
+    title: "Assignment 6 — Hunger & Food Security",
+    questions: [
+      { q: "Poor infrastructure can cause hunger in a country.", opts: ["True","False"], a: 0 },
+      { q: "In high income countries, hunger is mainly caused due to poverty that results from ___.", opts: ["Low GDP of the country","Lack of access to food","Poor public transport infrastructure","Lack of jobs"], a: 3 },
+      { q: "Which of the following is true about hunger?", opts: ["It is a cause of war","It is an effect of war","It is both a cause and effect of war","It is neither a cause nor an effect of war"], a: 2 },
+      { q: "___ are most vulnerable to the harmful effects of hidden hunger.", opts: ["Adults","Infants","Adolescents","Elderly"], a: 1 },
+      { q: "Desertification is typically a result of ___.", opts: ["Drought","Deforestation","Inappropriate agriculture","All of the given"], a: 3 },
+      { q: "Which of the following is a key initiative in India for the problem of hunger?", opts: ["One Nation, One Plate","One Nation, One Hunger","One Nation, No Ration Card","One Nation, One Ration Card"], a: 3 },
+      { q: "In the past, MGNREGA has ___.", opts: ["Decreased rural wages","Increased gender wage gaps","Enabled poor access to food","Reduced distress migration from rural areas"], a: 3 },
+      { q: "Wheat productivity can suffer if ___.", opts: ["Temperature rises","Temperature does not change","Temperature falls","None of the given"], a: 0 },
+      { q: "Bringing forgotten and neglected foods like yam into cultivation and onto the market is called ___.", opts: ["Diversifying food basket","Restricting food basket","Completing food box","Wasting food basket"], a: 0 },
+      { q: "Home gardening has been proven as a reliable source to supplement food and nutritional security at the household level.", opts: ["True","False"], a: 0 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 7: Energy & Climate ----
+  7: {
+    title: "Assignment 7 — Energy & Climate Action",
+    questions: [
+      { q: "Which of the following is a type of energy?", opts: ["Fossil fuels","Nuclear power","Traditional biomass","All of the given"], a: 3 },
+      { q: "In IPCC by UN, 'I' stands for ___.", opts: ["Industrial","Internal","International","Intergovernmental"], a: 3 },
+      { q: "The extraction, transport and refinement of nuclear fuels results in ___.", opts: ["Improvement of land from mining","Pollution of air and water","Replenishment of biodiversity","All of the given"], a: 1 },
+      { q: "The greatest contributor to air pollution in China is ___.", opts: ["Cooking and heating","Coal burning","Transport","Forest burning"], a: 1 },
+      { q: "In the wake of tsunami and nuclear disaster following severe earthquake in 2011, a city in Japan set a target for ___ by 2022.", opts: ["Hundred net energy","One net energy","Million net energy","Zero net energy"], a: 3 },
+      { q: "The term 'energy democracy' grew out of the ___ movement.", opts: ["Hunger justice","Hunger revolt","Climate revolt","Climate justice"], a: 3 },
+      { q: "The Paris Agreement is a legally binding treaty on ___ adopted by 196 parties at COP 21 in 2015.", opts: ["Climate change","Education","Poverty","None of the given"], a: 0 },
+      { q: "The Government of India launched the NAPCC in 2008 outlining ___ National Missions on climate change.", opts: ["8","2","100","78"], a: 0 },
+      { q: "Stubble burning usually takes place in the months of ___.", opts: ["October-November","May-June","January-February","July-August"], a: 0 },
+      { q: "Stubble burning is ___.", opts: ["Intentional","Natural","Healthy for air quality","Related to burning of paper"], a: 0 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 8: ESD Competencies ----
+  8: {
+    title: "Assignment 8 — ESD Competencies & GAP",
+    questions: [
+      { q: "The Okayama Commitment is from ___.", opts: ["Russia","South Korea","North Korea","Japan"], a: 3 },
+      { q: "Which of the following is a policy support mechanism of Okayama Commitment?", opts: ["Taking money","Content development","Exploitation of resources","None of the given"], a: 1 },
+      { q: "Education is related to SDG 9 such that ___.", opts: ["Education helps in skills required to build resilient infrastructure","Education enhances skills to use natural resources more sustainably","Education is critical to lifting people out of poverty","Education helps reduce gender gaps"], a: 0 },
+      { q: "The frame model structures sustainability competencies into ___ goal dimensions.", opts: ["8","3","11","45"], a: 1 },
+      { q: "Sustainability issues must be looked at through a ___ approach.", opts: ["Isolated thinking","Independent thinking","Silos thinking","Systems thinking"], a: 3 },
+      { q: "Technology and Science can alone solve all our sustainability problems.", opts: ["True","False"], a: 1 },
+      { q: "GAP in the context of ESD stands for ___.", opts: ["Global Action Programme","Great Activity Plan","Global Attention Programme","Great Action Policy"], a: 0 },
+      { q: "___ competency is the ability to understand and evaluate multiple futures.", opts: ["Anticipatory","Normative","Strategic","Collaborative"], a: 0 },
+      { q: "The ability to question norms is ___ competency.", opts: ["Critical thinking","Normative","Anticipatory","Self-awareness"], a: 0 },
+      { q: "Action-oriented learning draws on Kolb's concept of ___.", opts: ["Experiential learning","Experimental learning","Rote learning","Direct learning"], a: 0 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 9: Learning Methods ----
+  9: {
+    title: "Assignment 9 — Transformative Learning Methods",
+    questions: [
+      { q: "Activities like fish bowl discussion help ___.", opts: ["Passive thinking","Critical and reflexive thinking","Rote-memory","All of the given"], a: 1 },
+      { q: "Which of the following is NOT a vision-building exercise?", opts: ["Scenario analysis","Classroom teaching","Science fiction thinking","Dystopian storytelling"], a: 1 },
+      { q: "The ability to hold contradictory thoughts and feelings is an ___ competency.", opts: ["Intellectual","Interpersonal","Intrapersonal","Institutional"], a: 2 },
+      { q: "___ intelligences is proposed by Howard Gardner.", opts: ["Multiple","Singular","Double","Triple"], a: 0 },
+      { q: "___ intelligence refers to using one's body in skilled ways.", opts: ["Kinesthetic","Musical","Naturalist","Spatial"], a: 0 },
+      { q: "The idea of big transformation implies that changes in individual action are intertwined with ___.", opts: ["Reorganization of self","Reorganization of societal structures","Ignorance of others","None of the given"], a: 1 },
+      { q: "In ___ learning, learners start to question all the things they knew to make room for new insights and information.", opts: ["Transformative","Transactional","Trivial","Trans-disciplinary"], a: 0 },
+      { q: "Which of the following is a key principle of adult education?", opts: ["Need to know why","Guilt","Boredom","None of the given"], a: 0 },
+      { q: "___ Sustainable Development is a process through which people influence and share control over development initiatives, decisions and resources that affect them.", opts: ["Internal","Societal","Participatory","Transformational"], a: 2 },
+      { q: "___ is the common regulatory body for higher education in India.", opts: ["HECI","WHO","AIIMS","None of the given"], a: 0 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 10: Sustainable Leadership ----
+  10: {
+    title: "Assignment 10 — Sustainable Leadership",
+    questions: [
+      { q: "Sustainable leaders look at immediate, short-term gains.", opts: ["True","False"], a: 1 },
+      { q: "The need of the hour is to have leaders who ___.", opts: ["Focus only on business profit","Focus only on building technical solutions","Take a holistic approach","None of the given"], a: 2 },
+      { q: "Which of the following is a part of the 3Ps of triple bottom line?", opts: ["Profit","Passion","Party","Pivot"], a: 0 },
+      { q: "Organizations need leaders who create value for ___.", opts: ["Internal stakeholders","External stakeholders","Oneself","All stakeholders"], a: 3 },
+      { q: "The sustainability mindset involves ___.", opts: ["Transparency","Presencing","Integrity","All of the given"], a: 3 },
+      { q: "Finding ways to maintain one's own and others' energy is an unsustainable leadership practice.", opts: ["True","False"], a: 1 },
+      { q: "Systems thinking is often highlighted by the ability to ___.", opts: ["Zoom in","Zoom out","Zoom in and out","None of the given"], a: 2 },
+      { q: "Practicing consciousness awareness includes ___.", opts: ["Ignoring self with others","Forgetting about what has happened and moving on","Living in denial","Authentic interactions"], a: 3 },
+      { q: "Leadership ___ is the last challenge of leadership; of letting go, moving on, and planning for one's own obsolescence.", opts: ["Succession","Regression","Formation","Integration"], a: 0 },
+      { q: "___ leadership is also called missionary leadership and is different from quiet leadership.", opts: ["Participative","Servant","Radical","Inspirational"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 11: Global Leaders ----
+  11: {
+    title: "Assignment 11 — Becoming a Global Leader",
+    questions: [
+      { q: "There is one universal curriculum to become a sustainable leader.", opts: ["True","False"], a: 1 },
+      { q: "A sustainable leader has a ___ decision-making style.", opts: ["Forceful","Autocratic","Selfish","Consensual"], a: 3 },
+      { q: "A sustainable leader must have awareness of ___ contexts.", opts: ["Ecological","Economic","Political","All of the given"], a: 3 },
+      { q: "The 'results' component of sustainable leadership relates with the ___ dimension.", opts: ["Institutional","Social","Environmental","Economic"], a: 3 },
+      { q: "___ India gives a theory U that consists of aspects like co-initiating, co-sensing and co-evolving among others.", opts: ["HEAD","SAID","GEAD","LEAD"], a: 3 },
+      { q: "The ___ component in Theory 'U' entails prototyping the new.", opts: ["Co-evolving","Co-initiating","Co-sensing","Co-creating"], a: 3 },
+      { q: "Which of the following factor does NOT aid in becoming a global leader?", opts: ["Willingness to stay in one's comfort zone","Undesirable circumstances like poverty","Confidence to embrace risk","Willingness to learn from failure"], a: 0 },
+      { q: "According to Maxwell, there are ___ levels of leadership.", opts: ["15","25","50","5"], a: 3 },
+      { q: "The ___ describes global leaders as dynamic, engaged and driven individuals with a high degree of intellectual curiosity and service-oriented humility.", opts: ["World Health Organization","World Labor Organization","World Economic Forum","World Political Forum"], a: 2 },
+      { q: "SDG ___ is to make cities and human settlements inclusive, safe, resilient, and sustainable.", opts: ["2","10","11","5"], a: 2 }
+    ]
+  },
+
+  // ---- ASSIGNMENT 12: Natural Resources ----
+  12: {
+    title: "Assignment 12 — Natural Resources & Resilience",
+    questions: [
+      { q: "___ resources are those that exist in the absence of human intervention.", opts: ["Artificial","Natural","Fake","Real"], a: 1 },
+      { q: "The food sector accounts for around ___ percent of total greenhouse gas emissions.", opts: ["3","22","100","90"], a: 1 },
+      { q: "Which of the following is NOT a solution for natural resource depletion?", opts: ["Use less renewable energy","Promote sustainable fishing growth","Reduce food waste","Treat wastewater before discharging"], a: 0 },
+      { q: "In order to support reform on green fiscal policy, UN Environment has established the ___ in partnership with the International Monetary Fund.", opts: ["Green Fiscal Policy Network","Blue Fiscal Policy Network","Green Fishery Policy Network","Green Fiscal Policy Natural"], a: 0 },
+      { q: "As responsible consumers, we should ask ourselves ___ before buying anything.", opts: ["Do I really need it?","How long will I use it?","Can I borrow it from someone I know?","All of the given"], a: 3 },
+      { q: "A bulb thrown out after usage forms ___.", opts: ["Wet waste","Valuable waste","Responsible waste","E-waste"], a: 3 },
+      { q: "SDG ___ seeks to promote international trade and help developing countries increase their exports to ensure a universal rules-based and equitable trading system.", opts: ["17","2","6","11"], a: 0 },
+      { q: "According to Gandhiji, wealth should be used for ___.", opts: ["The betterment of humanity","Personal indulgence","Conflicts","Politics"], a: 0 },
+      { q: "The ___ initiated and spearheaded by Gandhiji is the preeminent prototype of small and cottage industries.", opts: ["Khadi Movement","Salt March","Cotton Movement","Non-violent Protest"], a: 0 },
+      { q: "___ is the ability of a system to absorb disturbances and retain its basic function and structure.", opts: ["Resilience","Gratitude","Mindfulness","Sustainable consumption"], a: 0 }
+    ]
+  }
+
+};
+
+// Group map: which assignment numbers belong to which topic group
+const groupMap = {
+  sdg:        [1, 2, 3],
+  esd:        [4, 5, 6],
+  health:     [7, 8, 9],
+  leadership: [10, 11, 12]
+};
+
+const groupTitles = {
+  sdg:        "SDG & Global Goals",
+  esd:        "ESD & Greening TVET",
+  health:     "Health, Energy & Climate",
+  leadership: "Sustainable Leadership & Resources"
+};
+
+// ========== STATE ==========
+let currentQuiz = [];
+let currentQuizMeta = {};
+let currentQIndex = 0;
+let userAnswers = [];
+let timer;
+let timeLeft;
+let lastGroup = '';
+let lastWeek = '';
+
+// ========== MODAL CONTROL ==========
+function openModal(id) {
+    document.getElementById(id).classList.add('show');
+}
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+document.querySelectorAll('.cosmic-modal').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); });
+});
+
+// ========== START QUIZ ==========
+function startQuiz(group, week) {
+    document.getElementById('cosmic-spinner').style.display = 'block';
+    lastGroup = group;
+    lastWeek = week;
+
+    setTimeout(() => {
+        // Close all modals
+        document.querySelectorAll('.cosmic-modal').forEach(m => m.classList.remove('show'));
+
+        if (week === 'full') {
+            currentQuiz = [];
+            groupMap[group].forEach(num => {
+                currentQuiz = currentQuiz.concat(quizData[num].questions);
+            });
+            currentQuizMeta = { title: groupTitles[group] + " — Full Challenge" };
+            timeLeft = 25 * 60;
+        } else {
+            currentQuiz = quizData[week].questions;
+            currentQuizMeta = { title: quizData[week].title };
+            timeLeft = 15 * 60;
+        }
+
+        currentQIndex   = 0;
+        userAnswers     = Array(currentQuiz.length).fill(null);
+
+        document.getElementById('quiz-screen-title').textContent = currentQuizMeta.title;
+        document.getElementById('quiz-screen').classList.add('show');
+
+        startTimer();
+        loadQuestion();
+
+        document.getElementById('cosmic-spinner').style.display = 'none';
+    }, 400);
+}
+
+// ========== TIMER ==========
+function startTimer() {
+    clearInterval(timer);
+    updateTimer();
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) { clearInterval(timer); finishQuiz(); }
+    }, 1000);
+}
+function updateTimer() {
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('quiz-timer').textContent =
+        `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// ========== LOAD QUESTION ==========
+function loadQuestion() {
+    const q = currentQuiz[currentQIndex];
+    const total = currentQuiz.length;
+
+    document.getElementById('question-progress').textContent =
+        `Question ${currentQIndex + 1} of ${total}`;
+    document.getElementById('current-question').textContent =
+        `${currentQIndex + 1}. ${q.q}`;
+
+    const optsCont = document.getElementById('current-options');
+    optsCont.innerHTML = '';
+
+    q.opts.forEach((opt, i) => {
+        const el = document.createElement('div');
+        el.className = 'cosmic-option-item';
+        el.textContent = `${String.fromCharCode(65 + i)}. ${opt}`;
+        if (userAnswers[currentQIndex] === i) el.classList.add('selected');
+        el.onclick = () => selectOpt(el, i);
+        optsCont.appendChild(el);
+    });
+
+    document.getElementById('prev-btn').disabled = currentQIndex === 0;
+    document.getElementById('next-btn').textContent =
+        currentQIndex === total - 1 ? 'Finish ✓' : 'Next →';
+}
+
+// ========== SELECT OPTION ==========
+function selectOpt(el, idx) {
+    document.querySelectorAll('.cosmic-option-item').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    userAnswers[currentQIndex] = idx;
+}
+
+// ========== NAVIGATION ==========
+function prevQuestion() {
+    if (currentQIndex > 0) { currentQIndex--; loadQuestion(); }
+}
+function nextQuestion() {
+    if (userAnswers[currentQIndex] === null) {
+        alert('Please select an answer before proceeding.');
+        return;
+    }
+    if (currentQIndex < currentQuiz.length - 1) {
+        currentQIndex++;
+        loadQuestion();
+    } else {
+        finishQuiz();
+    }
+}
+
+// ========== ABORT ==========
+function abortQuiz() {
+    if (confirm('Abort this quiz? Your progress will be lost.')) {
+        clearInterval(timer);
+        document.getElementById('quiz-screen').classList.remove('show');
+    }
+}
+
+// ========== FINISH & RESULTS ==========
+function finishQuiz() {
+    clearInterval(timer);
+
+    let correct = 0;
+    currentQuiz.forEach((q, i) => { if (userAnswers[i] === q.a) correct++; });
+    const pct = Math.round((correct / currentQuiz.length) * 100);
+
+    document.getElementById('quiz-screen').classList.remove('show');
+
+    // Emoji & message
+    let emoji = '😢';
+    let msg   = 'Keep studying — you\'ll get there!';
+    if (pct >= 90) { emoji = '🏆'; msg = 'Outstanding! You\'re an SDG Champion!'; }
+    else if (pct >= 75) { emoji = '🎉'; msg = 'Great work! You have a strong grasp!'; }
+    else if (pct >= 50) { emoji = '👍'; msg = 'Good effort! Review the missed ones.'; }
+
+    document.getElementById('result-emoji').textContent = emoji;
+    document.getElementById('result-score').textContent = `${correct} / ${currentQuiz.length} (${pct}%)`;
+    document.getElementById('score-message').textContent = msg;
+
+    // Review
+    const reviewSection = document.getElementById('review-section');
+    reviewSection.innerHTML = '<h3 class="cosmic-review-title">Review Your Answers</h3>';
+
+    currentQuiz.forEach((q, i) => {
+        const isCorrect = userAnswers[i] === q.a;
+        const div = document.createElement('div');
+        div.className = `cosmic-answer-item ${isCorrect ? 'cosmic-correct' : 'cosmic-incorrect'}`;
+
+        const ua = userAnswers[i] !== null
+            ? `${String.fromCharCode(65 + userAnswers[i])}. ${q.opts[userAnswers[i]]}`
+            : 'No answer';
+        const ca = `${String.fromCharCode(65 + q.a)}. ${q.opts[q.a]}`;
+
+        div.innerHTML = `
+            <p><strong>Q${i+1}:</strong> ${q.q}</p>
+            <p class="${isCorrect ? 'cosmic-correct-text' : 'cosmic-incorrect-text'}">
+                Your answer: ${ua} ${isCorrect ? '✓' : '✗'}
+            </p>
+            ${!isCorrect ? `<p>Correct answer: <strong>${ca}</strong></p>` : ''}
+        `;
+        reviewSection.appendChild(div);
+    });
+
+    if (pct >= 75) addConfetti();
+    document.getElementById('results-screen').classList.add('show');
+}
+
+function addConfetti() {
+    const colors = ['#00d8ff','#008cff','#4cffb0','#ff4c6a','#ffffff','#ffdd00'];
+    const container = document.getElementById('results-container');
+    for (let i = 0; i < 80; i++) {
+        const c = document.createElement('div');
+        c.className = 'cosmic-confetti';
+        c.style.left = `${Math.random() * 100}%`;
+        c.style.top  = `-10px`;
+        c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        c.style.width  = `${Math.random() * 8 + 4}px`;
+        c.style.height = `${Math.random() * 8 + 4}px`;
+        c.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        c.style.animationDelay   = `${Math.random() * 0.8}s`;
+        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        container.appendChild(c);
+        setTimeout(() => c.remove(), 5500);
+    }
+}
+
+function retryQuiz() {
+    document.getElementById('results-screen').classList.remove('show');
+    startQuiz(lastGroup, lastWeek);
+}
+
+function closeResults() {
+    document.getElementById('results-screen').classList.remove('show');
+}
+
+// ========== RENDER STUDY GUIDE ==========
+function initStudyDropdown() {
+    const sel = document.getElementById('study-assignment-select');
+    sel.innerHTML = '';
+    for (let key in quizData) {
+        let opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = quizData[key].title;
+        sel.appendChild(opt);
+    }
+}
+
+function renderStudyGuide(assignmentKey = '1') {
+    const container = document.getElementById('study-guide-container');
+    if (!container) return;
+    
+    let assignment = quizData[assignmentKey];
+    if (!assignment) return;
+    
+    let html = `<div class="study-assignment" style="animation: cosmicFadeIn 0.4s ease both;">
+        <h3 class="study-assignment-title">${assignment.title}</h3>`;
+        
+    assignment.questions.forEach((q, idx) => {
+        const correctOptClean = q.opts[q.a].replace(/^[a-d]\.\s*/i, '');
+        const desc = q.desc || `The correct answer firmly aligns with established sustainable frameworks. Mastering that <strong>${correctOptClean}</strong> is the accurate response is a fundamental step toward comprehending this topic.`;
+        
+        html += `
+        <div class="study-question-card">
+            <div class="study-q">Q${idx + 1}: ${q.q}</div>
+            <div class="study-opts-list">`;
+            
+        q.opts.forEach((opt, oIdx) => {
+            const isCorrect = (oIdx === q.a);
+            const optCln = opt.replace(/^[a-d]\.\s*/i, '');
+            html += `<div class="study-opt-item ${isCorrect ? 'correct-opt' : ''}">
+                ${String.fromCharCode(65 + oIdx)}. ${optCln}
+                ${isCorrect ? ' <span style="float:right;">✓ Correct</span>' : ''}
+            </div>`;
+        });
+            
+        html += `</div>
+            <div class="study-desc">💡 <strong>Description:</strong> ${desc}</div>
+        </div>`;
+    });
+    
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+</script>
+</body>
+</html>
