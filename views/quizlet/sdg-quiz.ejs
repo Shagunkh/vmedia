@@ -888,39 +888,86 @@
     </div>
 </header>
 
-<!-- Subject Cards -->
-<main class="cosmic-subjects" id="main-grid">
+<!-- Subject Cards (12 Individual Assignments) -->
+<main class="cosmic-subjects" id="main-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
 
-    <div class="cosmic-card" onclick="openModal('sdg-modal')">
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('sdg', 1)">
         <span class="card-icon">🎯</span>
-        <div class="card-week">Assignment 1–3</div>
-        <h2 class="cosmic-card-title">SDG & Global Goals</h2>
-        <p class="cosmic-card-desc">Explore the 17 Sustainable Development Goals, their history, poverty metrics, hunger indicators, and education frameworks.</p>
-        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 1</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Goals & SDGs</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
     </div>
-
-    <div class="cosmic-card" onclick="openModal('esd-modal')">
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('sdg', 2)">
         <span class="card-icon">📚</span>
-        <div class="card-week">Assignment 4–6</div>
-        <h2 class="cosmic-card-title">ESD & Greening TVET</h2>
-        <p class="cosmic-card-desc">Education for Sustainable Development, Green TVET frameworks, sustainable entrepreneurship, and food security challenges.</p>
-        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 2</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">ESD & Human Rights</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('sdg', 3)">
+        <span class="card-icon">🌍</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 3</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Citizenship</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
     </div>
 
-    <div class="cosmic-card" onclick="openModal('health-modal')">
-        <span class="card-icon">🏥</span>
-        <div class="card-week">Assignment 7–9</div>
-        <h2 class="cosmic-card-title">Health, Energy & Climate</h2>
-        <p class="cosmic-card-desc">Sustainable health systems, energy types and democracy, climate action commitments, and transformative learning methods.</p>
-        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    <!-- ESD -->
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('esd', 4)">
+        <span class="card-icon">🛠️</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 4</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Greening TVET</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('esd', 5)">
+        <span class="card-icon">⚖️</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 5</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Sustainable Health</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('esd', 6)">
+        <span class="card-icon">🍲</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 6</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Hunger & Food Sec.</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
     </div>
 
-    <div class="cosmic-card" onclick="openModal('leadership-modal')">
-        <span class="card-icon">🌱</span>
-        <div class="card-week">Assignment 10–12</div>
-        <h2 class="cosmic-card-title">Leadership & Resources</h2>
-        <p class="cosmic-card-desc">Sustainable leadership styles, natural resource management, Gandhian economics, resilience, and the triple bottom line.</p>
-        <div class="card-questions">📝 30 Questions across 3 Assignments</div>
+    <!-- Health -->
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('health', 7)">
+        <span class="card-icon">⚡</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 7</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Energy & Climate</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('health', 8)">
+        <span class="card-icon">🧠</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 8</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">ESD Competencies</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('health', 9)">
+        <span class="card-icon">📖</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 9</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Learning Methods</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+
+    <!-- Leadership -->
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('leadership', 10)">
+        <span class="card-icon">👑</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 10</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Sust. Leadership</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('leadership', 11)">
+        <span class="card-icon">🤝</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 11</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Global Leaders</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
+    </div>
+    <div class="cosmic-card" style="padding: 1.5rem;" onclick="startQuiz('leadership', 12)">
+        <span class="card-icon">🌲</span>
+        <div class="card-week" style="margin-bottom: 0.5rem;">Assignment 12</div>
+        <h2 class="cosmic-card-title" style="font-size: 1.3rem;">Natural Resources</h2>
+        <div class="card-questions" style="margin-top: 1rem;">📝 10 Questions</div>
     </div>
 
 </main>
@@ -969,67 +1016,7 @@
     }
 </script>
 
-<!-- ========== MODALS ========== -->
-
-<!-- SDG Modal -->
-<div id="sdg-modal" class="cosmic-modal">
-    <div class="cosmic-modal-content">
-        <span class="cosmic-close-btn" onclick="closeModal('sdg-modal')">&#x2715;</span>
-        <h2 class="cosmic-modal-title">SDG & Global Goals</h2>
-        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
-        <div class="cosmic-options-grid">
-            <div class="cosmic-option" onclick="startQuiz('sdg', 1)">Assignment 1 — Global Goals & SDGs</div>
-            <div class="cosmic-option" onclick="startQuiz('sdg', 2)">Assignment 2 — ESD & Human Rights</div>
-            <div class="cosmic-option" onclick="startQuiz('sdg', 3)">Assignment 3 — Global Citizenship</div>
-            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('sdg', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
-        </div>
-    </div>
-</div>
-
-<!-- ESD Modal -->
-<div id="esd-modal" class="cosmic-modal">
-    <div class="cosmic-modal-content">
-        <span class="cosmic-close-btn" onclick="closeModal('esd-modal')">&#x2715;</span>
-        <h2 class="cosmic-modal-title">ESD & Greening TVET</h2>
-        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
-        <div class="cosmic-options-grid">
-            <div class="cosmic-option" onclick="startQuiz('esd', 4)">Assignment 4 — Greening TVET</div>
-            <div class="cosmic-option" onclick="startQuiz('esd', 5)">Assignment 5 — Sustainable Health</div>
-            <div class="cosmic-option" onclick="startQuiz('esd', 6)">Assignment 6 — Hunger & Food Security</div>
-            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('esd', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
-        </div>
-    </div>
-</div>
-
-<!-- Health Modal -->
-<div id="health-modal" class="cosmic-modal">
-    <div class="cosmic-modal-content">
-        <span class="cosmic-close-btn" onclick="closeModal('health-modal')">&#x2715;</span>
-        <h2 class="cosmic-modal-title">Health, Energy & Climate</h2>
-        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
-        <div class="cosmic-options-grid">
-            <div class="cosmic-option" onclick="startQuiz('health', 7)">Assignment 7 — Energy & Climate</div>
-            <div class="cosmic-option" onclick="startQuiz('health', 8)">Assignment 8 — ESD Competencies</div>
-            <div class="cosmic-option" onclick="startQuiz('health', 9)">Assignment 9 — Learning Methods</div>
-            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('health', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
-        </div>
-    </div>
-</div>
-
-<!-- Leadership Modal -->
-<div id="leadership-modal" class="cosmic-modal">
-    <div class="cosmic-modal-content">
-        <span class="cosmic-close-btn" onclick="closeModal('leadership-modal')">&#x2715;</span>
-        <h2 class="cosmic-modal-title">Sustainable Leadership & Resources</h2>
-        <p class="cosmic-modal-subtitle">Pick an assignment or take the full challenge:</p>
-        <div class="cosmic-options-grid">
-            <div class="cosmic-option" onclick="startQuiz('leadership', 10)">Assignment 10 — Sustainable Leadership</div>
-            <div class="cosmic-option" onclick="startQuiz('leadership', 11)">Assignment 11 — Global Leaders</div>
-            <div class="cosmic-option" onclick="startQuiz('leadership', 12)">Assignment 12 — Natural Resources</div>
-            <div class="cosmic-option cosmic-full-option" onclick="startQuiz('leadership', 'full')">&#9889; Full Challenge — All 3 Assignments (30 Qs)</div>
-        </div>
-    </div>
-</div>
+<!-- ========== MODALS DELETED ========== -->
 
 <!-- ========== QUIZ SCREEN ========== -->
 <div id="quiz-screen" class="cosmic-quiz-screen">
