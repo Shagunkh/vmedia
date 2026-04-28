@@ -898,18 +898,20 @@
         <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-light);">120 Questions • All Assignments</div>
     </div>
 
-    <!-- Custom Quiz Builder -->
-    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(76,255,176,0.05), rgba(0,216,255,0.1)); border: 1px dashed var(--cosmic-success); text-align: center;" onclick="openCustomQuizModal()">
-        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--cosmic-success);">Personalized Assessment</div>
-        <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #4cffb0, #00d8ff); -webkit-background-clip: text; color: transparent;">Custom Quiz Builder</h2>
-        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-success);">Mix & Match Assignments</div>
-    </div>
+    <div style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <!-- Custom Quiz Builder -->
+        <div class="cosmic-card" style="padding: 2rem; background: linear-gradient(135deg, rgba(76,255,176,0.05), rgba(0,216,255,0.1)); border: 1px dashed var(--cosmic-success); text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;" onclick="openCustomQuizModal()">
+            <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: var(--cosmic-success);">Personalized Assessment</div>
+            <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #4cffb0, #00d8ff); -webkit-background-clip: text; color: transparent;">Custom Quiz Builder</h2>
+            <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: var(--cosmic-success);">Mix & Match Assignments</div>
+        </div>
 
-    <!-- Extra Practice Pool -->
-    <div class="cosmic-card" style="grid-column: 1 / -1; padding: 2rem; background: linear-gradient(135deg, rgba(255,76,106,0.05), rgba(255,221,0,0.1)); border: 1px dashed #ff4c6a; text-align: center;" onclick="openExtraPracticeModal()">
-        <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #ff4c6a;">Massive Question Bank</div>
-        <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #ff4c6a, #ffdd00); -webkit-background-clip: text; color: transparent;">Extra Practice Pool</h2>
-        <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: #ff4c6a;">175 New Questions</div>
+        <!-- Extra Practice Pool -->
+        <div class="cosmic-card" style="padding: 2rem; background: linear-gradient(135deg, rgba(255,76,106,0.05), rgba(255,221,0,0.1)); border: 1px dashed #ff4c6a; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;" onclick="openExtraPracticeModal()">
+            <div class="card-week" style="margin-bottom: 0.8rem; font-size: 0.9rem; color: #ff4c6a;">Massive Question Bank</div>
+            <h2 class="cosmic-card-title" style="font-size: 1.8rem; background: linear-gradient(90deg, #ff4c6a, #ffdd00); -webkit-background-clip: text; color: transparent;">Extra Practice Pool</h2>
+            <div class="card-questions" style="margin-top: 1rem; font-size: 1rem; color: #ff4c6a;">175 New Questions</div>
+        </div>
     </div>
 
     <div class="cosmic-card" style="padding: 1.5rem;" onclick="promptQuiz('sdg', 1)">
