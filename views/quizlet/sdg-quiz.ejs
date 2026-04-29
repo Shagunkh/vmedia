@@ -1064,9 +1064,14 @@
             <button class="cosmic-btn cosmic-btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="toggleAllCustomCheckboxes(false)">Deselect All</button>
         </div>
         
-        <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; margin-bottom: 1.5rem; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
-            <input type="checkbox" id="custom-quiz-shuffle" checked> Shuffle Questions
-        </label>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;">
+            <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+                <input type="checkbox" id="custom-quiz-shuffle" checked> Shuffle Questions
+            </label>
+            <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+                <input type="checkbox" id="custom-quiz-shuffle-options"> Shuffle Answer Options
+            </label>
+        </div>
 
         <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startCustomQuiz()">Launch Custom Quiz</button>
     </div>
@@ -1105,9 +1110,14 @@
             </select>
         </div>
         
-        <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; margin-bottom: 1.5rem; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
-            <input type="checkbox" id="extra-practice-shuffle" checked> Shuffle Questions
-        </label>
+        <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;">
+            <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+                <input type="checkbox" id="extra-practice-shuffle" checked> Shuffle Questions
+            </label>
+            <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+                <input type="checkbox" id="extra-practice-shuffle-options"> Shuffle Answer Options
+            </label>
+        </div>
 
         <button class="cosmic-btn cosmic-btn-primary" style="width: 100%;" onclick="startExtraPractice()">Start Practice</button>
     </div>
@@ -1119,7 +1129,12 @@
         <button class="cosmic-close-btn" onclick="closeModal('shuffle-modal')">&times;</button>
         <h2 class="cosmic-modal-title" style="font-size: 1.8rem;">Ready to Begin?</h2>
         <p class="cosmic-modal-subtitle">Would you like to shuffle the questions or keep them in the original order?</p>
-        <div class="cosmic-options-grid" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        
+        <label style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--cosmic-text); cursor: pointer; margin: 1.5rem 0; background: rgba(0,216,255,0.05); padding: 0.8rem; border-radius: 8px;">
+            <input type="checkbox" id="shuffle-options-cb"> Shuffle Answer Options
+        </label>
+
+        <div class="cosmic-options-grid" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
             <button class="cosmic-btn cosmic-btn-secondary" id="btn-no-shuffle" style="flex: 1;">Original Order</button>
             <button class="cosmic-btn cosmic-btn-primary" id="btn-shuffle" style="flex: 1;">Shuffle Questions</button>
         </div>
@@ -1437,6 +1452,24 @@ const groupTitles = {
   all:        "Full Mock Test"
 };
 
+// ========== HELPER: SHUFFLE OPTIONS ==========
+function shuffleQuestionOptions(questions) {
+    questions.forEach(q => {
+        // Create an array of option objects with their original indices
+        let indexedOpts = q.opts.map((opt, i) => ({ opt, originalIndex: i }));
+        
+        // Fisher-Yates shuffle
+        for (let i = indexedOpts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [indexedOpts[i], indexedOpts[j]] = [indexedOpts[j], indexedOpts[i]];
+        }
+        
+        // Update the question's options and correct answer index
+        q.opts = indexedOpts.map(io => io.opt);
+        q.a = indexedOpts.findIndex(io => io.originalIndex === q.a);
+    });
+}
+
 // ========== STATE ==========
 let isCustomQuiz = false;
 let isExtraPractice = false;
@@ -1484,21 +1517,28 @@ function startExtraPractice() {
     const count = parseInt(document.getElementById('extra-practice-count').value);
     const doShuffle = document.getElementById('extra-practice-shuffle').checked;
     
-    isExtraPractice = true;
-    isCustomQuiz = false;
-    
-    document.getElementById('cosmic-spinner').style.display = 'block';
-    setTimeout(() => {
-        closeModal('extra-practice-modal');
+        const doShuffleOptions = document.getElementById('extra-practice-shuffle-options').checked;
         
-        currentQuiz = [...extraQuestions];
+        isExtraPractice = true;
+        isCustomQuiz = false;
         
-        if (doShuffle) {
-            for (let i = currentQuiz.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+        document.getElementById('cosmic-spinner').style.display = 'block';
+        setTimeout(() => {
+            closeModal('extra-practice-modal');
+            
+            // Deep copy to avoid mutating source
+            currentQuiz = extraQuestions.map(q => ({...q, opts: [...q.opts]}));
+            
+            if (doShuffle) {
+                for (let i = currentQuiz.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+                }
             }
-        }
+
+            if (doShuffleOptions) {
+                shuffleQuestionOptions(currentQuiz);
+            }
         
         // Slice the requested number of questions
         currentQuiz = currentQuiz.slice(0, count);
@@ -1536,6 +1576,7 @@ function startCustomQuiz() {
     
     customSelections = Array.from(checkboxes).map(cb => parseInt(cb.value));
     const doShuffle = document.getElementById('custom-quiz-shuffle').checked;
+    const doShuffleOptions = document.getElementById('custom-quiz-shuffle-options').checked;
     
     isCustomQuiz = true;
     
@@ -1545,7 +1586,9 @@ function startCustomQuiz() {
         
         currentQuiz = [];
         customSelections.forEach(num => {
-            currentQuiz = currentQuiz.concat(quizData[num].questions);
+            // Deep copy each question
+            const qs = quizData[num].questions.map(q => ({...q, opts: [...q.opts]}));
+            currentQuiz = currentQuiz.concat(qs);
         });
         
         currentQuizMeta = { title: "Custom Mix (" + customSelections.length + " Assignments)" };
@@ -1556,6 +1599,10 @@ function startCustomQuiz() {
                 const j = Math.floor(Math.random() * (i + 1));
                 [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
             }
+        }
+
+        if (doShuffleOptions) {
+            shuffleQuestionOptions(currentQuiz);
         }
         
         currentQIndex   = 0;
@@ -1578,17 +1625,19 @@ function promptQuiz(group, week) {
 }
 
 document.getElementById('btn-no-shuffle').onclick = () => {
+    const shuffleOpts = document.getElementById('shuffle-options-cb').checked;
     closeModal('shuffle-modal');
-    startQuiz(pendingQuizGroup, pendingQuizWeek, false);
+    startQuiz(pendingQuizGroup, pendingQuizWeek, false, shuffleOpts);
 };
 
 document.getElementById('btn-shuffle').onclick = () => {
+    const shuffleOpts = document.getElementById('shuffle-options-cb').checked;
     closeModal('shuffle-modal');
-    startQuiz(pendingQuizGroup, pendingQuizWeek, true);
+    startQuiz(pendingQuizGroup, pendingQuizWeek, true, shuffleOpts);
 };
 
 // ========== START QUIZ ==========
-function startQuiz(group, week, shuffle = false) {
+function startQuiz(group, week, shuffle = false, shuffleOptions = false) {
     isCustomQuiz = false;
     isExtraPractice = false;
     isLastYearQuiz = false;
@@ -1605,25 +1654,27 @@ function startQuiz(group, week, shuffle = false) {
             if (week === 'full') {
                 currentQuiz = [];
                 for(let i=1; i<=12; i++) {
-                    currentQuiz = currentQuiz.concat(lastYearQuizData[i].questions);
+                    const qs = lastYearQuizData[i].questions.map(q => ({...q, opts: [...q.opts]}));
+                    currentQuiz = currentQuiz.concat(qs);
                 }
                 currentQuizMeta = { title: "Last Year NPTEL SDG Assignments — Full Challenge" };
                 timeLeft = 120 * 60;
             } else {
-                currentQuiz = [...lastYearQuizData[week].questions];
+                currentQuiz = lastYearQuizData[week].questions.map(q => ({...q, opts: [...q.opts]}));
                 currentQuizMeta = { title: "Last Year " + lastYearQuizData[week].title };
                 timeLeft = 15 * 60;
             }
         } else if (week === 'full') {
             currentQuiz = [];
             groupMap[group].forEach(num => {
-                currentQuiz = currentQuiz.concat(quizData[num].questions);
+                const qs = quizData[num].questions.map(q => ({...q, opts: [...q.opts]}));
+                currentQuiz = currentQuiz.concat(qs);
             });
             currentQuizMeta = { title: groupTitles[group] + (group === 'all' ? "" : " — Full Challenge") };
             timeLeft = group === 'all' ? 120 * 60 : 25 * 60;
         } else {
             // Copy array to avoid mutating original data
-            currentQuiz = [...quizData[week].questions];
+            currentQuiz = quizData[week].questions.map(q => ({...q, opts: [...q.opts]}));
             currentQuizMeta = { title: quizData[week].title };
             timeLeft = 15 * 60;
         }
@@ -1633,6 +1684,10 @@ function startQuiz(group, week, shuffle = false) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
             }
+        }
+
+        if (shuffleOptions) {
+            shuffleQuestionOptions(currentQuiz);
         }
 
         currentQIndex   = 0;
