@@ -1180,7 +1180,12 @@
             <h3 class="cosmic-review-title">Review Your Answers</h3>
         </div>
         <div class="results-actions">
-            <button class="cosmic-btn cosmic-btn-secondary" onclick="retryQuiz()">&#x21BA; Retry</button>
+            <button class="cosmic-btn" id="retry-wrong-btn"
+                style="display:none; background: linear-gradient(90deg,#ff4c6a,#ffdd00); color:#0a0a12; font-weight:800; border:none;"
+                onclick="retryWrongQuestions()">
+                🎯 Retry Wrong Answers (<span id="wrong-count">0</span>)
+            </button>
+            <button class="cosmic-btn cosmic-btn-secondary" onclick="retryQuiz()">&#x21BA; Retry Full Quiz</button>
             <button class="cosmic-btn cosmic-btn-primary"   onclick="closeResults()">&#8592; Back to Home</button>
         </div>
     </div>
@@ -1490,6 +1495,8 @@ let timer;
 let timeLeft;
 let lastGroup = '';
 let lastWeek = '';
+let wrongQuestionsPool = [];
+let isRetryWrong = false;
 
 // ========== MODAL CONTROL ==========
 function openModal(id) {
@@ -1805,7 +1812,17 @@ function finishQuiz() {
     clearInterval(timer);
 
     let correct = 0;
-    currentQuiz.forEach((q, i) => { if (userAnswers[i] === q.a) correct++; });
+    wrongQuestionsPool = [];
+
+    currentQuiz.forEach((q, i) => {
+        if (userAnswers[i] === q.a) {
+            correct++;
+        } else {
+            // Deep-copy the original question (un-shuffled opts are already tracked via q.a)
+            wrongQuestionsPool.push({ ...q, opts: [...q.opts] });
+        }
+    });
+
     const pct = Math.round((correct / currentQuiz.length) * 100);
 
     document.getElementById('quiz-screen').classList.remove('show');
@@ -1820,6 +1837,23 @@ function finishQuiz() {
     document.getElementById('result-emoji').textContent = emoji;
     document.getElementById('result-score').textContent = `${correct} / ${currentQuiz.length} (${pct}%)`;
     document.getElementById('score-message').textContent = msg;
+
+    // Show / hide Retry Wrong button
+    const retryWrongBtn = document.getElementById('retry-wrong-btn');
+    const wrongCountEl  = document.getElementById('wrong-count');
+    if (wrongQuestionsPool.length > 0) {
+        wrongCountEl.textContent = wrongQuestionsPool.length;
+        retryWrongBtn.style.display = 'inline-flex';
+    } else {
+        retryWrongBtn.style.display = 'none';
+        if (isRetryWrong) {
+            // All correct in retry — celebrate!
+            emoji = '🏆';
+            msg = '🎊 Perfect! You\'ve mastered all the questions!';
+            document.getElementById('result-emoji').textContent = emoji;
+            document.getElementById('score-message').textContent = msg;
+        }
+    }
 
     // Review
     const reviewSection = document.getElementById('review-section');
@@ -1868,7 +1902,37 @@ function addConfetti() {
     }
 }
 
+function retryWrongQuestions() {
+    if (wrongQuestionsPool.length === 0) return;
+
+    isRetryWrong = true;
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('cosmic-spinner').style.display = 'block';
+
+    setTimeout(() => {
+        // Shuffle the wrong questions for variety
+        currentQuiz = wrongQuestionsPool.map(q => ({ ...q, opts: [...q.opts] }));
+        for (let i = currentQuiz.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentQuiz[i], currentQuiz[j]] = [currentQuiz[j], currentQuiz[i]];
+        }
+
+        currentQuizMeta = { title: `Retry Missed Questions (${currentQuiz.length} to go)` };
+        timeLeft = Math.max(currentQuiz.length * 90, 300); // 1.5 min per question, min 5 min
+        currentQIndex = 0;
+        userAnswers = Array(currentQuiz.length).fill(null);
+
+        document.getElementById('quiz-screen-title').textContent = currentQuizMeta.title;
+        document.getElementById('quiz-screen').classList.add('show');
+        document.getElementById('cosmic-spinner').style.display = 'none';
+
+        startTimer();
+        loadQuestion();
+    }, 400);
+}
+
 function retryQuiz() {
+    isRetryWrong = false;
     document.getElementById('results-screen').classList.remove('show');
     if (isExtraPractice) {
         openExtraPracticeModal();
